@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Canal {
 	
@@ -8,9 +9,9 @@ public class Canal {
 	
 	private String descripcion;
 	
-	private ArrayList<Lista> listasReproduccion;
+	private HashMap<String,Lista> listasReproduccion;
 	
-	private ArrayList<Video> listaVideos;
+	private HashMap<String,Video> listaVideos;
 	
 	private Categoria categoria;
 	
@@ -45,19 +46,19 @@ public class Canal {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ArrayList<Lista> getListasReproduccion() {
+	public HashMap<String,Lista> getListasReproduccion() {
 		return listasReproduccion;
 	}
 
-	public void setListasReproduccion(ArrayList<Lista> listasReproduccion) {
+	public void setListasReproduccion(HashMap<String,Lista> listasReproduccion) {
 		this.listasReproduccion = listasReproduccion;
 	}
 
-	public ArrayList<Video> getListaVideos() {
+	public HashMap<String,Video> getListaVideos() {
 		return listaVideos;
 	}
 
-	public void setListaVideos(ArrayList<Video> listaVideos) {
+	public void setListaVideos(HashMap<String,Video> listaVideos) {
 		this.listaVideos = listaVideos;
 	}
 
