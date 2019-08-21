@@ -11,6 +11,8 @@ public class Video {
 	private Date fechaPub;
 	
 	private String url;
+	
+	private Categoria categoria;
 
 	public Video() {
 		// TODO Auto-generated constructor stub
@@ -46,6 +48,14 @@ public class Video {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 }

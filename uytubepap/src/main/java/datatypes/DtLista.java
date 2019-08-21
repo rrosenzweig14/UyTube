@@ -21,5 +21,13 @@ public class DtLista {
 		super();
 		this.nombre = nombre;
 		this.privado = privado;
+	}
+
+	public DtCategoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(DtCategoria categoria) {
+		this.categoria = categoria;
 	}	
 }

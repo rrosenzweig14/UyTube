@@ -4,7 +4,10 @@ public abstract class Lista {
 
 	//Variables
 	private String nombre;
+	
 	private boolean privado;
+	
+	private Categoria categoria;
 	
 	//Getters & Setters
 	public String getNombre() {
@@ -28,5 +31,13 @@ public abstract class Lista {
 		super();
 		this.nombre = nombre;
 		this.privado = privado;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 }
