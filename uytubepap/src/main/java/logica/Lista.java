@@ -1,11 +1,12 @@
 package logica;
 
-public class Lista {
+public abstract class Lista {
 
+	//Variables
 	private String nombre;
-	
 	private boolean privado;
 	
+	//Getters & Setters
 	public String getNombre() {
 		return nombre;
 	}
@@ -22,10 +23,10 @@ public class Lista {
 		this.privado = privado;
 	}
 
+	//Constructor
 	public Lista(String nombre, boolean privado) {
 		super();
 		this.nombre = nombre;
 		this.privado = privado;
 	}
-
 }
