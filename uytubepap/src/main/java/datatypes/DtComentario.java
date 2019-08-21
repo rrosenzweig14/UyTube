@@ -1,15 +1,21 @@
-package logica;
+package datatypes;
 
 import java.util.Date;
 
-public class Comentario {
+public class DtComentario {
+	
+	private String nick;
 	
 	private String texto;
 	
 	private Date fecha;
 
-	public Comentario() {
-		// TODO Auto-generated constructor stub
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 
 	public String getTexto() {
@@ -25,7 +31,7 @@ public class Comentario {
 	}
 
 	public void setFecha(Date fecha) {
-		this.fecha = fecha;		
+		this.fecha = fecha;
 	}
 
 }

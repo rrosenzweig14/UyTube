@@ -2,6 +2,9 @@ package logica;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+
+import datatypes.DtVideo;
 
 public class Usuario {
 	
@@ -20,6 +23,12 @@ public class Usuario {
 	private ArrayList<Usuario> seguidores;
 	
 	private ArrayList<Usuario> seguidos;
+	
+	private Canal canal;	
+	//Raro
+	private HashMap<DtVideo, Date> comentarios;
+	
+	private ArrayList<Usuario_Video> valoraciones;
 	
 	//Metodos
 	
@@ -91,6 +100,30 @@ public class Usuario {
 
 	public void setSeguidos(ArrayList<Usuario> seguidos) {
 		this.seguidos = seguidos;
+	}
+
+	public Canal getCanal() {
+		return canal;
+	}
+
+	public void setCanal(Canal canal) {
+		this.canal = canal;
+	}
+
+	public HashMap<DtVideo, Date> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(HashMap<DtVideo, Date> comentarios) {
+		this.comentarios = comentarios;
+	}
+
+	public ArrayList<Usuario_Video> getValoraciones() {
+		return valoraciones;
+	}
+
+	public void setValoraciones(ArrayList<Usuario_Video> valoraciones) {
+		this.valoraciones = valoraciones;
 	}
 
 }
