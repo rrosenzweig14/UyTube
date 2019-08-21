@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import datatypes.DtUsuario;
 import datatypes.DtVideo;
 
 public class Usuario {
@@ -20,9 +21,9 @@ public class Usuario {
 	
 	private String img;
 	
-	private ArrayList<Usuario> seguidores;
+	private HashMap<String,Usuario> seguidores;	
 	
-	private ArrayList<Usuario> seguidos;
+	private HashMap<String,Usuario> seguidos;
 	
 	private Canal canal;	
 	//Raro
@@ -86,19 +87,19 @@ public class Usuario {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ArrayList<Usuario> getSeguidores() {
+	public HashMap<String,Usuario> getSeguidores() {
 		return seguidores;
 	}
 
-	public void setSeguidores(ArrayList<Usuario> seguidores) {
+	public void setSeguidores(HashMap<String,Usuario> seguidores) {
 		this.seguidores = seguidores;
 	}
 
-	public ArrayList<Usuario> getSeguidos() {
+	public HashMap<String,Usuario> getSeguidos() {
 		return seguidos;
 	}
 
-	public void setSeguidos(ArrayList<Usuario> seguidos) {
+	public void setSeguidos(HashMap<String,Usuario> seguidos) {
 		this.seguidos = seguidos;
 	}
 
