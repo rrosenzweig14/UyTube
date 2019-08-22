@@ -3,6 +3,13 @@
 	<persistence-unit name="uytubepap" transaction-type="RESOURCE_LOCAL">
 		<class>logica.Usuario</class>
 		<class>logica.Canal</class>
+		<class>logica.Categoria</class>
+		<class>logica.Video</class>
+		<class>logica.Lista</class>
+		<class>logica.Defecto</class>
+		<class>logica.Particular</class>
+		<class>logica.Comentario</class>
+		<class>logica.Usuario_Video</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/UYTUBE"/>
 			<property name="javax.persistence.jdbc.user" value="usuario"/>

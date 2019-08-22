@@ -3,14 +3,22 @@ package logica;
 import java.util.Date;
 import java.util.TreeSet;
 
-public class Comentario {
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+@Entity
+public class Comentario {//TODO agregar la clave compuesta usuario fecha o quizá usuario-video
 	
+	@Id
 	private String texto;
-	
+
 	private Date fecha;
-	
+	@ManyToOne
 	private Usuario autor;
-	
+	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
 	private TreeSet<Comentario> respuestas;
 
 	public Comentario() {
@@ -30,7 +38,7 @@ public class Comentario {
 	}
 
 	public void setFecha(Date fecha) {
-		this.fecha = fecha;		
+		this.fecha = fecha;
 	}
 
 	public TreeSet<Comentario> getRespuestas() {

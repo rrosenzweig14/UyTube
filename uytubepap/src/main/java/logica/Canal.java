@@ -1,9 +1,12 @@
 package logica;
 
-import java.util.HashMap;
+import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Canal {
@@ -11,11 +14,11 @@ public class Canal {
 	private String nombre;
 	
 	private String descripcion;
-	
-	private HashMap<String,Lista> listasReproduccion;
-	
-	private HashMap<String,Video> listaVideos;
-	
+	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
+	private Map<String,Lista> listasReproduccion;
+	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
+	private Map<String,Video> listaVideos;		
+	@ManyToOne
 	private Categoria categoria;
 	
 	
@@ -49,19 +52,19 @@ public class Canal {
 		// TODO Auto-generated constructor stub
 	}
 
-	public HashMap<String,Lista> getListasReproduccion() {
+	public Map<String,Lista> getListasReproduccion() {
 		return listasReproduccion;
 	}
 
-	public void setListasReproduccion(HashMap<String,Lista> listasReproduccion) {
+	public void setListasReproduccion(Map<String,Lista> listasReproduccion) {
 		this.listasReproduccion = listasReproduccion;
 	}
 
-	public HashMap<String,Video> getListaVideos() {
+	public Map<String,Video> getListaVideos() {
 		return listaVideos;
 	}
 
-	public void setListaVideos(HashMap<String,Video> listaVideos) {
+	public void setListaVideos(Map<String,Video> listaVideos) {
 		this.listaVideos = listaVideos;
 	}
 
