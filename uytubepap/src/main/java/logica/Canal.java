@@ -2,8 +2,12 @@ package logica;
 
 import java.util.HashMap;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Canal {
-	
+	@Id
 	private String nombre;
 	
 	private String descripcion;
