@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
+import datatypes.DtCanal;
 import datatypes.DtCategoria;
 import datatypes.DtComentario;
 import datatypes.DtLista;
+import datatypes.DtUsuario;
 import datatypes.DtVideo;
 
 public interface IControlador {

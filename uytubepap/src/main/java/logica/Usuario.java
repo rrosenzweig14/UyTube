@@ -3,12 +3,25 @@ package logica;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import datatypes.DtUsuario;
 import datatypes.DtVideo;
 
+
+@Entity
 public class Usuario {
-	
+	 
+	@Id
 	private String nickname;
 	
 	private String email;
@@ -21,17 +34,34 @@ public class Usuario {
 	
 	private String img;
 	
-	private HashMap<String,Usuario> seguidores;	
-	
-	private HashMap<String,Usuario> seguidos;
-	
-	private Canal canal;	
-	//Raro
-	private HashMap<DtVideo, Date> comentarios;
-	
+	@ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="Usuarios_Relacion", joinColumns={@JoinColumn(name="seguido_id")}, inverseJoinColumns={@JoinColumn(name="seguidor_id")})
+	private Map<String,Usuario> seguidores;	
+	@ManyToMany(mappedBy="seguidores", cascade={CascadeType.ALL})
+	private Map<String,Usuario> seguidos;
+	@OneToOne
+	private Canal canal;
+	@OneToMany(mappedBy="nombreUsuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private ArrayList<Usuario_Video> valoraciones;
-	
+		
 	//Metodos
+	
+	public Usuario(String nickname, String email) {
+		super();
+		this.nickname = nickname;
+		this.email = email;
+		
+		this.seguidores = new HashMap<String,Usuario>();
+		this.seguidos = new HashMap<String,Usuario>();
+	}
+	
+	public void añadirSeguidor(Usuario user) {
+		this.seguidores.put(user.getNickname(), user);
+	}
+	
+	public void añadirSeguido(Usuario user) {
+		this.seguidos.put(user.getNickname(), user);
+	}
 	
 	//getters - setters	
 	public String getNickname() {
@@ -87,15 +117,15 @@ public class Usuario {
 		// TODO Auto-generated constructor stub
 	}
 
-	public HashMap<String,Usuario> getSeguidores() {
+	public Map<String,Usuario> getSeguidores() {
 		return seguidores;
 	}
 
-	public void setSeguidores(HashMap<String,Usuario> seguidores) {
+	public void setSeguidores(Map<String,Usuario> seguidores) {
 		this.seguidores = seguidores;
 	}
 
-	public HashMap<String,Usuario> getSeguidos() {
+	public Map<String,Usuario> getSeguidos() {
 		return seguidos;
 	}
 
@@ -111,20 +141,6 @@ public class Usuario {
 		this.canal = canal;
 	}
 
-	public HashMap<DtVideo, Date> getComentarios() {
-		return comentarios;
-	}
-
-	public void setComentarios(HashMap<DtVideo, Date> comentarios) {
-		this.comentarios = comentarios;
-	}
-
-	public ArrayList<Usuario_Video> getValoraciones() {
-		return valoraciones;
-	}
-
-	public void setValoraciones(ArrayList<Usuario_Video> valoraciones) {
-		this.valoraciones = valoraciones;
-	}
+	
 
 }
