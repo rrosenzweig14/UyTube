@@ -51,4 +51,6 @@ public interface IControlador {
 	
 	public Map<DtUsuario, DtCanal> listarDatosUsuario(String nick);
 	
+	public Boolean altaCategoria(String nombre);
+	
 }

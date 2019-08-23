@@ -1,7 +1,7 @@
 package logica;
 
 import java.util.Date;
-import java.util.TreeSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,7 +19,7 @@ public class Comentario {//TODO agregar la clave compuesta usuario fecha o quiz√
 	@ManyToOne
 	private Usuario autor;
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	private TreeSet<Comentario> respuestas;
+	private Set<Comentario> respuestas;
 
 	public Comentario() {
 		// TODO Auto-generated constructor stub
@@ -41,11 +41,11 @@ public class Comentario {//TODO agregar la clave compuesta usuario fecha o quiz√
 		this.fecha = fecha;
 	}
 
-	public TreeSet<Comentario> getRespuestas() {
+	public Set<Comentario> getRespuestas() {
 		return respuestas;
 	}
 
-	public void setRespuestas(TreeSet<Comentario> respuestas) {
+	public void setRespuestas(Set<Comentario> respuestas) {
 		this.respuestas = respuestas;
 	}
 

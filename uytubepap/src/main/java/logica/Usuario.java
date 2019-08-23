@@ -1,8 +1,9 @@
 package logica;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -42,7 +43,7 @@ public class Usuario {
 	@OneToOne
 	private Canal canal;
 	@OneToMany(mappedBy="nombreUsuario",cascade=CascadeType.ALL,orphanRemoval=true)
-	private ArrayList<Usuario_Video> valoraciones;
+	private List<Usuario_Video> valoraciones;
 		
 	//Metodos
 	

@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -14,13 +15,21 @@ public class Categoria {
 	private String nombre;
 	
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)	
-	private ArrayList<Video> videos;
+	private List<Video> videos;
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	private ArrayList<Lista> listas;
+	private List<Lista> listas;
 	
 
 	public Categoria() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public Categoria(String nombre) {
+		this.nombre = nombre;
+		
+//		this.videos = new ArrayList<Video>();
+//		
+//		this.listas = new ArrayList<Lista>()
 	}
 
 	public String getNombre() {
@@ -31,19 +40,19 @@ public class Categoria {
 		this.nombre = nombre;
 	}
 
-	public ArrayList<Lista> getListas() {
+	public List<Lista> getListas() {
 		return listas;
 	}
 
-	public void setListas(ArrayList<Lista> listas) {
+	public void setListas(List<Lista> listas) {
 		this.listas = listas;
 	}
 
-	public ArrayList<Video> getVideos() {
+	public List<Video> getVideos() {
 		return videos;
 	}
 
-	public void setVideos(ArrayList<Video> videos) {
+	public void setVideos(List<Video> videos) {
 		this.videos = videos;
 	}
 

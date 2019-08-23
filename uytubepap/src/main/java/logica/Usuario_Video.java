@@ -1,5 +1,6 @@
 package logica;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -18,27 +19,48 @@ public class Usuario_Video {
 	)
 	private Usuario nombreUsuario;
 	
-	
 	@Id
 	@ManyToOne
 	@JoinColumn(
 			insertable=false,
 			updatable=false
 	)
-	private Video nombreVideo;
+	private Video nombreVideo;	
+	@Column(nullable = true)
+	private boolean leGusta;
 	
 	
-	
-	
-	private Boolean like;
-
-	public Boolean getLike() {
-		return like;
+	public boolean isLeGusta() {
+		return leGusta;
 	}
 
-	public void setLike(Boolean like) {
-		this.like = like;
+	public void setLeGusta(boolean leGusta) {
+		this.leGusta = leGusta;
+	}
+
+	public Usuario_Video() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
+	public Usuario getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+	public void setNombreUsuario(Usuario nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+
+	public Video getNombreVideo() {
+		return nombreVideo;
+	}
+
+	public void setNombreVideo(Video nombreVideo) {
+		this.nombreVideo = nombreVideo;
+	}
+
+	
+	
+
 
 }

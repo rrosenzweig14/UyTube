@@ -8,10 +8,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import interfaces.IControlador;
+
 public class Sistema {
 	
 	
 	public static void main(String[] args) {
+		
+		
+//		IControlador ctrl = new Controlador();
+		
+		/* Se utilizará para el CASO DE USO Alta categoria */
+//		boolean cancel = false;
+//		boolean success = false;
+//		while (!cancel && !success)  
+//			success = ctrl.altaCategoria("Accion");
 		
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("uytubepap");
 		EntityManager em = emf.createEntityManager();

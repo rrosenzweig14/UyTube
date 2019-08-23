@@ -2,15 +2,17 @@ package logica;
 
 import java.io.Serializable;
 
-public class Usuario_VideoID implements Serializable{
-	
+
+
+
+public class Usuario_VideoID implements Serializable{	
 	private static final long serialVersionUID = 1L;	
+	
 	private String nombreUsuario;	
 	private String nombreVideo;
 
 	public Usuario_VideoID() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getNombreUsuario() {

@@ -1,8 +1,9 @@
 package logica;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.TreeSet;
+import java.util.List;
+import java.util.Set;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -25,9 +26,10 @@ public class Video {
 	@ManyToOne
 	private Categoria categoria;
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	private TreeSet<Comentario> comentarios;
+	private Set<Comentario> comentarios;
+	
 	@OneToMany(mappedBy="nombreVideo",cascade=CascadeType.ALL,orphanRemoval=true)
-	private ArrayList<Usuario_Video> valoraciones;
+	private List<Usuario_Video> valoraciones;
 
 	public Video() {
 		// TODO Auto-generated constructor stub
@@ -73,11 +75,11 @@ public class Video {
 		this.categoria = categoria;
 	}
 
-	public TreeSet<Comentario> getComentarios() {
+	public Set<Comentario> getComentarios() {
 		return comentarios;
 	}
 
-	public void setComentarios(TreeSet<Comentario> comentarios) {
+	public void setComentarios(Set<Comentario> comentarios) {
 		this.comentarios = comentarios;
 	}
 	
@@ -89,12 +91,6 @@ public class Video {
 		this.nombre = nombre;
 	}
 
-	public ArrayList<Usuario_Video> getValoraciones() {
-		return valoraciones;
-	}
-
-	public void setValoraciones(ArrayList<Usuario_Video> valoraciones) {
-		this.valoraciones = valoraciones;
-	}
+	
 
 }

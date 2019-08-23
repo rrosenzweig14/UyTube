@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+
 import datatypes.DtCanal;
 import datatypes.DtCategoria;
 import datatypes.DtComentario;
@@ -127,6 +129,23 @@ public class Controlador implements IControlador{
 	public Map<DtUsuario, DtCanal> listarDatosUsuario(String nick) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Boolean altaCategoria(String nombre) {		
+		Boolean res = true;
+		EntityManager em = Conexion.getEm();
+		Handler hldr = new Handler();
+		Categoria cat = hldr.findCategoria(nombre);
+		if (cat != null) res = false;
+		else {
+			cat = new Categoria(nombre);
+			em.getTransaction().begin();
+			em.persist(cat);
+			hldr.addCategoria(cat);
+			em.getTransaction().commit();
+		}
+		return res;
 	}
 
 	
