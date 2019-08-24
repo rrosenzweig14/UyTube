@@ -22,6 +22,10 @@ public class Canal {
 	private Categoria categoria;
 	
 	
+	public void ingresarVideo(Video v) {
+		this.listaVideos.put(v.getNombre(), v);
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

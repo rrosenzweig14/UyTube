@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+
 @Entity
 public class Video {
 	@Id
@@ -31,9 +32,18 @@ public class Video {
 	@OneToMany(mappedBy="nombreVideo",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Usuario_Video> valoraciones;
 
-	public Video() {
-		// TODO Auto-generated constructor stub
+	public Video(String nombre, String url, Date fechaPub, String descripcion, Integer duracion, Categoria categoria) {
+		super();
+		this.nombre = nombre;
+		this.url = url;
+		this.fechaPub = fechaPub;
+		this.descripcion = descripcion;
+		this.duracion = duracion;
+		this.categoria = categoria;
+		this.comentarios = null; 
+		this.valoraciones = null; 
 	}
+	public Video() {}
 
 	public Date getFechaPub() {
 		return fechaPub;
@@ -90,7 +100,5 @@ public class Video {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	
 
 }
