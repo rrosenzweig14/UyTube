@@ -1,6 +1,9 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 public class Handler {
@@ -8,7 +11,7 @@ public class Handler {
 	private static HashMap<String,Defecto> listasDefecto = new HashMap<String,Defecto>();
 	private static HashMap<String,Categoria> categorias = new HashMap<String,Categoria>();
 	
-	public Usuario findUsuario(String nick) {
+	public static Usuario findUsuario(String nick) {
 		Usuario user = usuarios.get(nick);			//se fija en el map
 		if(user == null) {
 			EntityManager em = Conexion.getEm();
@@ -19,7 +22,7 @@ public class Handler {
 	}
 	
   	
-	public Usuario findUsuarioEM(String email) {
+	public static Usuario findUsuarioEM(String email) {
 		Usuario usuario = null;		
 		for(String nickname : usuarios.keySet()) {
 			usuario = usuarios.get(nickname);
@@ -30,13 +33,16 @@ public class Handler {
 		return usuario;
 	}
 	
-	public boolean addUsuario(Usuario user) {
+	public static boolean addUsuario(Usuario user) {
 		Usuario aux = findUsuario(user.getNickname());
 		if(aux == null) {
-			EntityManager em = Conexion.getEm();
+			Conexion.beginTransaction();
+			Conexion.persist(user);
+			Conexion.commit();
+			/*EntityManager em = Conexion.getEm();
 			em.getTransaction().begin();
 			em.persist(user);
-			em.getTransaction().commit();
+			em.getTransaction().commit();*/
 			usuarios.put(user.getNickname(),user);
 			return true;
 		}else{
@@ -44,7 +50,7 @@ public class Handler {
 		}
 	}
 	
-	public Defecto findListaDefecto(String nombre) {
+	public static Defecto findListaDefecto(String nombre) {
 		Defecto lst = listasDefecto.get(nombre);
 		if(lst == null) {
 			EntityManager em = Conexion.getEm();
@@ -55,13 +61,16 @@ public class Handler {
 		
 	}
 	
-	public boolean addListaDefecto(Defecto lst) {
+	public static boolean addListaDefecto(Defecto lst) {
 		Defecto aux = findListaDefecto(lst.getNombre());
 		if(aux == null) {
-			EntityManager em = Conexion.getEm();
+			Conexion.beginTransaction();
+			Conexion.persist(lst);
+			Conexion.commit();
+			/*EntityManager em = Conexion.getEm();
 			em.getTransaction().begin();
 			em.persist(lst);
-			em.getTransaction().commit();
+			em.getTransaction().commit();*/
 			listasDefecto.put(lst.getNombre(),lst);
 			return true;
 		}else{
@@ -69,10 +78,10 @@ public class Handler {
 		}
 	}
 	
-	public Categoria findCategoria(String nombre) {
+	public static Categoria findCategoria(String nombre) {
 		Categoria lst = categorias.get(nombre);
 		if(lst == null) {
-			EntityManager em = Conexion.getEm();
+			EntityManager em = Conexion.open();
 			return em.find(Categoria.class, nombre);
 		}else {
 			return lst;
@@ -80,18 +89,32 @@ public class Handler {
 		
 	}
 	
-	public boolean addCategoria(Categoria c) {
+	public static boolean addCategoria(Categoria c) {
 		Categoria aux = findCategoria(c.getNombre());
 		if(aux == null) {
-			EntityManager em = Conexion.getEm();
+			Conexion.beginTransaction();
+			Conexion.persist(c);
+			Conexion.commit();
+			/*EntityManager em = Conexion.getEm();
 			em.getTransaction().begin();
 			em.persist(c);
-			em.getTransaction().commit();
+			em.getTransaction().commit();*/
 			categorias.put(c.getNombre(),c);
 			return true;
 		}else{
 			return false;
 		}
+	}
+	
+	public static ArrayList<String> listarUsuarios(){
+		EntityManager em = Conexion.open();
+		List users = new ArrayList();		
+		users = em.createQuery("SELECT u.nickname FROM Usuario u").getResultList();
+		ArrayList<String> names = new ArrayList<String>();
+		for(Object name: users) {
+			names.add((String)name);
+		}
+		return names;
 	}
 	
 
