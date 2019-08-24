@@ -12,6 +12,7 @@ public class Conexion {
 		return em;
 	}
 	
+	
 	public static EntityManager open() {
 		try {
 			emf = Persistence.createEntityManagerFactory("uytubepap");

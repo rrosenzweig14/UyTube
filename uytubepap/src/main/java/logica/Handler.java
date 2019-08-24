@@ -106,6 +106,7 @@ public class Handler {
 		}
 	}
 	
+	
 	public static ArrayList<String> listarUsuarios(){
 		EntityManager em = Conexion.open();
 		List users = new ArrayList();		
