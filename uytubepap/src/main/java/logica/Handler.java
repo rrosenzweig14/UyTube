@@ -13,12 +13,17 @@ public class Handler {
 		Usuario user = usuarios.get(nick);			//se fija en el map
 		if(user == null) {
 			EntityManager em = Conexion.getEm();
-			return em.find(Usuario.class, nick);	//se fija en DB
-		}else {
-			return user;
+			user = em.find(Usuario.class, nick);	//se fija en DB
 		}
+		return user;
 		
 	}
+	
+//  	
+//	public Usuario findUsuarioEM(String email) {
+//		Usuario usuario = null;
+//		String email = usuarios.forEach(getEmail());;
+//	}
 	
 	public boolean addUsuario(Usuario user) {
 		Usuario aux = findUsuario(user.getNickname());

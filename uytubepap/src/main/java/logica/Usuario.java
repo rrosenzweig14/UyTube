@@ -47,10 +47,14 @@ public class Usuario {
 		
 	//Metodos
 	
-	public Usuario(String nickname, String email) {
+	public Usuario(String nickname, String nombre, String apellido, String email, Date fechaNac, String img) {
 		super();
 		this.nickname = nickname;
+		this.nombre = nombre;
+		this.apellido = apellido;
 		this.email = email;
+		this.fechaNac = fechaNac;
+		this.img = img;
 		
 		this.seguidores = new HashMap<String,Usuario>();
 		this.seguidos = new HashMap<String,Usuario>();

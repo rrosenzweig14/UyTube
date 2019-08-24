@@ -15,9 +15,9 @@ public class Categoria {
 	private String nombre;
 	
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)	
-	private List<Video> videos;
+	private List<Video> videos = new ArrayList<Video>();
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	private List<Lista> listas;
+	private List<Lista> listas = new ArrayList<Lista>();
 	
 
 	public Categoria() {

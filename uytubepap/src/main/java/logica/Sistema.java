@@ -1,6 +1,7 @@
 package logica;
 
 import java.io.Console;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,9 +28,11 @@ public class Sistema {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("uytubepap");
 		EntityManager em = emf.createEntityManager();
 		
-		Usuario prueba = new Usuario("juan","perez");
+		Date fechaNac1 = new Date();
+		Usuario prueba = new Usuario("jp","juan","perez", "jperez@uymail.com.uy", fechaNac1, "es_url");
 		
-		Usuario prueba2 = new Usuario("rodrigo","rosenzweig");	
+		Date fechaNac2 = new Date();
+		Usuario prueba2 = new Usuario("RR","rodrigo","rosenzweig","rrozenweig@uymail.com",fechaNac2, "es_url");	
 		
 		em.getTransaction().begin();
 		em.persist(prueba);

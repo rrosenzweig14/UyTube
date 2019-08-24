@@ -149,4 +149,28 @@ public class Controlador implements IControlador{
 	}
 
 	
-}
+
+	@Override
+	public Boolean ingresarUsuario(String nickname, String nombre, String apellido, String email, Date fechaNac, String img) {
+		Boolean res = true;
+		EntityManager em = Conexion.getEm();
+		Handler hldr = new Handler();
+		Usuario usuario = hldr.findUsuario(nickname);
+		if(usuario != null) res = false;
+		else {
+			usuario = new Usuario(nickname, nombre, apellido, email, fechaNac, img);
+			em.getTransaction().begin();
+			em.persist(usuario);
+			hldr.addUsuario(usuario);
+			em.getTransaction().commit();
+		}
+		
+		return res;
+	}
+	
+	
+}	
+	
+	
+	
+	
