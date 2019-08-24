@@ -67,4 +67,8 @@ public abstract class Lista {
 	public void setVideos(Map<String,Video> videos) {
 		this.videos = videos;
 	}
+	
+	public void añadirVideo(Video video) {
+		this.videos.put(video.getNombre(), video);
+	}
 }

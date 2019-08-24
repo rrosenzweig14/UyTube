@@ -16,7 +16,8 @@ import interfaces.IControlador;
 
 public class Controlador implements IControlador{
 
-	private Usuario selectedUser;
+	private Usuario User1;
+	private Usuario User2;
 
 	@Override
 	public void ValorarVideo(String nick, boolean valor) {
@@ -99,7 +100,7 @@ public class Controlador implements IControlador{
 	@Override
 	public Boolean ingresarVideo(String nombre, Integer duracion, String url, String descripcion, Date fechaPub, DtCategoria categoria) {
 		try {
-			Canal canal = this.selectedUser.getCanal();
+			Canal canal = this.User1.getCanal();
 			EntityManager em = Conexion.getEm();
 			Handler hldr = new Handler();
 			Categoria cat = hldr.findCategoria(categoria.getNombre());
@@ -120,13 +121,16 @@ public class Controlador implements IControlador{
 	@Override
 	public void editarVideo(DtVideo video) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void agregarVideo(String video, DtLista lista) {
-		// TODO Auto-generated method stub
-		
+		//TODO Falta agregar persistencia
+			//EntityManager em = Conexion.getEm();
+		Video vid = User1.getCanal().getListaVideos().get(video);
+		Map<String, Lista> listasCanal = this.User2.getCanal().getListasReproduccion();
+		Lista lst = listasCanal.get(lista.getNombre());
+		lst.añadirVideo(vid);
 	}
 
 	@Override
