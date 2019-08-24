@@ -1,7 +1,6 @@
 package logica;
 
 import java.util.HashMap;
-
 import javax.persistence.EntityManager;
 
 public class Handler {
@@ -19,11 +18,17 @@ public class Handler {
 		
 	}
 	
-//  	
-//	public Usuario findUsuarioEM(String email) {
-//		Usuario usuario = null;
-//		String email = usuarios.forEach(getEmail());;
-//	}
+  	
+	public Usuario findUsuarioEM(String email) {
+		Usuario usuario = null;		
+		for(String nickname : usuarios.keySet()) {
+			usuario = usuarios.get(nickname);
+			if(email == usuario.getEmail()) {
+				return usuario;
+			}
+		}
+		return usuario;
+	}
 	
 	public boolean addUsuario(Usuario user) {
 		Usuario aux = findUsuario(user.getNickname());

@@ -146,6 +146,9 @@ public class Usuario {
 		this.canal = canal;
 	}
 
-	
+	public DtUsuario getDtUsuario() {
+		DtUsuario usuario = new DtUsuario(this.nickname,this.nombre,this.apellido,this.email, this.fechaNac, this.getImg());
+		return usuario;
+	}
 
 }

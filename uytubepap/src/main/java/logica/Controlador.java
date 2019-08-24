@@ -156,6 +156,9 @@ public class Controlador implements IControlador{
 		EntityManager em = Conexion.getEm();
 		Handler hldr = new Handler();
 		Usuario usuario = hldr.findUsuario(nickname);
+		if(usuario == null) {
+			usuario = hldr.findUsuarioEM(email);
+		}
 		if(usuario != null) res = false;
 		else {
 			usuario = new Usuario(nickname, nombre, apellido, email, fechaNac, img);
