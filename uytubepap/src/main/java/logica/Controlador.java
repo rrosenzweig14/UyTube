@@ -21,19 +21,19 @@ public class Controlador implements IControlador{
 	private boolean defecto;
 
 	@Override
-	public void ValorarVideo(String nick, boolean valor) {
+	public void valorarVideo(String nick, boolean valor) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public ArrayList<DtVideo> VideoEnLista(DtLista lst) {
+	public ArrayList<DtVideo> videoEnLista(DtLista lst) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void SeleccionarCategoria(String cat) {
+	public void seleccionarCategoria(String cat) {
 		// TODO Auto-generated method stub
 	}
 
@@ -56,7 +56,7 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public ArrayList<DtComentario> MostrarComentario() {
+	public ArrayList<DtComentario> mostrarComentario() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -68,7 +68,7 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public void IngresarComentario(DtComentario comment) {
+	public void ingresarComentario(DtComentario comment) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -86,7 +86,7 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public ArrayList<DtVideo> listarVideos() {
+	public ArrayList<DtVideo> listarVideos(DtUsuario user) {
 		// TODO Auto-generated method stub
 		return null;
 	}
