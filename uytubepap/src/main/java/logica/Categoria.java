@@ -59,5 +59,9 @@ public class Categoria {
 	public void añadirVideo(Video v) {
 		this.videos.add(v);
 	}
+	
+	public void añadirLista (Lista lst) {
+		this.listas.add(lst);
+	}
 
 }

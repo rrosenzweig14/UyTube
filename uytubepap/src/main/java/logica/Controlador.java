@@ -2,12 +2,12 @@ package logica;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
 
 import datatypes.DtCanal;
-import datatypes.DtCategoria;
 import datatypes.DtComentario;
 import datatypes.DtLista;
 import datatypes.DtUsuario;
@@ -18,6 +18,7 @@ public class Controlador implements IControlador{
 
 	private Usuario User1;
 	private Usuario User2;
+	private boolean defecto;
 
 	@Override
 	public void ValorarVideo(String nick, boolean valor) {
@@ -32,9 +33,8 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public DtCategoria SeleccionarCategoria(String cat) {
+	public void SeleccionarCategoria(String cat) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -92,18 +92,18 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public ArrayList<DtUsuario> listarUsuarios() {
+	public ArrayList<String> listarUsuarios() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Boolean ingresarVideo(String nombre, Integer duracion, String url, String descripcion, Date fechaPub, DtCategoria categoria) {
+	public Boolean ingresarVideo(String nombre, Integer duracion, String url, String descripcion, Date fechaPub, String categoria) {
 		try {
 			Canal canal = this.User1.getCanal();
 			EntityManager em = Conexion.getEm();
 			Handler hldr = new Handler();
-			Categoria cat = hldr.findCategoria(categoria.getNombre());
+			Categoria cat = hldr.findCategoria(categoria);
 			Video video = new Video(nombre, url, fechaPub, descripcion, duracion, cat);
 			em.getTransaction().begin();
 			em.persist(video);
@@ -135,8 +135,45 @@ public class Controlador implements IControlador{
 
 	@Override
 	public boolean crearLista(DtUsuario usuario, String nombre, boolean privada, String categoria) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean res = true;
+		Handler hldr = new Handler();
+		if (this.defecto) 
+		{
+			HashMap<String,Usuario> usuarios = hldr.getUsuarios();
+			boolean flag = false;
+			for (Usuario user : usuarios.values()) {
+				
+				if (!(user.agregarListaDefecto(nombre)))
+					res = false;
+			}			
+		}
+		else 
+		{
+			EntityManager em = Conexion.getEm();
+			em.getTransaction().begin();			
+			Categoria cat = null;
+			Usuario user = hldr.findUsuario(usuario.getNickname());
+			if (categoria != null) 
+			{
+				cat = hldr.findCategoria(categoria);	
+				
+			}
+			em.persist(user);			
+			Lista lst = user.agregarListaPart(nombre, privada, cat);
+			if (lst != null) 
+			{
+				if (cat != null) 
+				{					
+					cat.añadirLista(lst);
+					em.persist(cat);
+					em.getTransaction().commit();
+				}				
+			}
+			else res = false;
+		}
+		return res;
+		
+		
 	}
 
 	@Override
@@ -154,16 +191,12 @@ public class Controlador implements IControlador{
 	@Override
 	public Boolean altaCategoria(String nombre) {		
 		Boolean res = true;
-		EntityManager em = Conexion.getEm();
 		Handler hldr = new Handler();
 		Categoria cat = hldr.findCategoria(nombre);
 		if (cat != null) res = false;
 		else {
-			cat = new Categoria(nombre);
-			em.getTransaction().begin();
-			em.persist(cat);
+			cat = new Categoria(nombre);			
 			hldr.addCategoria(cat);
-			em.getTransaction().commit();
 		}
 		return res;
 	}
@@ -182,15 +215,25 @@ public class Controlador implements IControlador{
 		if(usuario != null) res = false;
 		else {
 			usuario = new Usuario(nickname, nombre, apellido, email, fechaNac, img);
+			try {
 			em.getTransaction().begin();
 			em.persist(usuario);
 			hldr.addUsuario(usuario);
 			em.getTransaction().commit();
+			}
+			catch (Exception ex) {
+				System.out.print(ex.toString());
+			}
 		}
 		
 		return res;
 	}
-	
+	// Descripcion: Si defecto = true, arma lista por defecto
+	@Override
+	public void ingresarTipoLista(boolean defecto) {
+		// Leo el tipo de lista a ingresar, si es defecto = true, sino false
+		this.defecto = defecto;		
+	}	
 	
 }	
 	

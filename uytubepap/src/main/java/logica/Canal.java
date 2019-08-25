@@ -101,19 +101,39 @@ public class Canal {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+	public boolean listaExists(String nombreLista) {
+		if (this.listasReproduccion.containsKey(nombreLista)) return true;
+		else return false;
+	}
 	
 	public DtCanal getDt() {
 		DtCanal dtc =  new DtCanal(this.nombre,this.descripcion,null,this.privado,this.categoria.getNombre());
 		HashMap<Integer, DtVideo> mapv = new HashMap<Integer, DtVideo>();
 		for(Video v: listaVideos.values()) {
 			mapv.put(v.getId(),v.getDt());
+	public Lista agregarListaPart(String nombreLista, boolean privada, Categoria categoria) {
+		Lista res = null;
+		if (!listaExists(nombreLista)) {
+			if (categoria != null) 
+				res = new Particular(nombreLista, privada, categoria);
+			else 
+				res = new Particular(nombreLista,privada);
+			this.listasReproduccion.put(nombreLista, res);
 		}
 		HashMap<Integer,DtLista> mapl = new HashMap<Integer,DtLista>();
 		for(Lista l: listasReproduccion.values()) {
 			mapl.put(l.getId(),l.getDt());
+	public boolean agregarListaDefecto(String nombreLista) {
+		boolean res = false;
+		if (!this.listasReproduccion.containsKey(nombreLista)) {
+			Lista lista = new Defecto(nombreLista,true);
+			this.listasReproduccion.put(nombreLista, lista);
 		}
-		dtc.setListaVideos(mapv);
-		return dtc;
+		return res;
+	}
+	
+	public Canal(String nombre) {
+		this.nombre = nombre;
 	}
 
 }

@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Map;
 
 import datatypes.DtCanal;
-import datatypes.DtCategoria;
 import datatypes.DtComentario;
 import datatypes.DtLista;
 import datatypes.DtUsuario;
@@ -17,7 +16,7 @@ public interface IControlador {
 	
 	public ArrayList<DtVideo> VideoEnLista(DtLista lst);
 	
-	public DtCategoria SeleccionarCategoria(String cat);
+	public void SeleccionarCategoria(String cat);
 	
 	public DtComentario seleccionarComentario(DtComentario comment);
 	
@@ -37,9 +36,9 @@ public interface IControlador {
 		
 	public ArrayList<DtVideo> listarVideos();
 	
-	public ArrayList<DtUsuario> listarUsuarios();
+	public ArrayList<String> listarUsuarios();
 	
-	public Boolean ingresarVideo(String nombre, Integer duracion, String url, String descripcion, Date fecha, DtCategoria categoria);
+	public Boolean ingresarVideo(String nombre, Integer duracion, String url, String descripcion, Date fecha, String categoria);
 
 	public void editarVideo(DtVideo video);
 	
@@ -54,6 +53,8 @@ public interface IControlador {
 	public Boolean altaCategoria(String nombre);
 	
 	public Boolean ingresarUsuario(String nickname, String nombre, String apellido, String email, Date fechaNac, String img);
+	
+	public void ingresarTipoLista(boolean defecto);
 
 	
 }

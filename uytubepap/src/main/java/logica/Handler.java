@@ -82,7 +82,9 @@ public class Handler {
 		Categoria lst = categorias.get(nombre);
 		if(lst == null) {
 			EntityManager em = Conexion.open();
-			return em.find(Categoria.class, nombre);
+			lst = em.find(Categoria.class, nombre);
+			em.close();
+			return lst;
 		}else {
 			return lst;
 		}
@@ -107,15 +109,38 @@ public class Handler {
 	}
 	
 	
-	public static ArrayList<String> listarUsuarios(){
-		EntityManager em = Conexion.open();
+	public static ArrayList<String> listarUsuarios(){		
 		List users = new ArrayList();		
-		users = em.createQuery("SELECT u.nickname FROM Usuario u").getResultList();
+		users = Conexion.createQuery("SELECT u.nickname FROM Usuario u");
 		ArrayList<String> names = new ArrayList<String>();
 		for(Object name: users) {
 			names.add((String)name);
 		}
 		return names;
+	}
+	
+	public static ArrayList<String> listarCategorias(){		
+		List categorias = new ArrayList();
+		categorias = Conexion.createQuery("SELECT c.nombre FROM Categoria c");
+		ArrayList<String> nombresCategoria = new ArrayList<String>();
+		for (Object nombre : categorias) {
+			nombresCategoria.add(nombre.toString());
+		}
+		return nombresCategoria;
+	}
+	
+	public static HashMap<String,Usuario> getUsuarios(){
+		return usuarios;
+	}
+	
+	public static ArrayList<String> listasDefecto(){
+		List listas = new ArrayList();
+		listas = Conexion.createQuery("SELECT l.nombre FROM Lista l WHERE dtype = 'Defecto'");
+		ArrayList<String> nombreListas = new ArrayList<String>();
+		for (Object lst : listas) {
+			nombreListas.add(lst.toString());
+		}
+		return nombreListas;
 	}
 	
 

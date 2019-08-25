@@ -16,4 +16,11 @@ public class Particular extends	Lista {
 		super(nombre, privado);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Particular (String nombre, boolean privado, Categoria categoria) {
+		super();
+		this.setNombre(nombre);
+		this.setPrivado(privado);
+		this.setCategoria(categoria);
+	}
 }

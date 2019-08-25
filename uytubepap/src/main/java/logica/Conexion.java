@@ -1,5 +1,7 @@
 package logica;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -58,5 +60,17 @@ public class Conexion {
 		}catch(Exception e){
 			return false;
 		}		
+	}
+	
+	public static List createQuery(String query) {
+		try 
+		{
+			List res = em.createQuery(query).getResultList();
+			return res;
+		}
+		catch (Exception e)
+		{
+			return null;
+		}
 	}
 }

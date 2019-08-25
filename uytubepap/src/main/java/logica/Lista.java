@@ -64,7 +64,18 @@ public abstract class Lista {
 	public void setPrivado(boolean privado) {
 		this.privado = privado;
 	}
+
+	//Constructor
+	public Lista(String nombre, boolean privado) {
+		super();
+		this.nombre = nombre;
+		this.privado = privado;
+	}
 	
+	public Lista() {
+		
+	}
+
 	public Categoria getCategoria() {
 		return categoria;
 	}
