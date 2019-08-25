@@ -20,27 +20,20 @@ import datatypes.DtVideo;
 
 
 @Entity
-public class Usuario {
-	 
+public class Usuario {	 
 	@Id
-	private String nickname;
-	
-	private String email;
-	
-	private String nombre;
-	
-	private String apellido;
-	
-	private Date fechaNac;
-	
-	private String img;
-	
+	private String nickname;	
+	private String email;	
+	private String nombre;	
+	private String apellido;	
+	private Date fechaNac;	
+	private String img;	
 	@ManyToMany(cascade={CascadeType.ALL})
     @JoinTable(name="Usuarios_Relacion", joinColumns={@JoinColumn(name="seguido_id")}, inverseJoinColumns={@JoinColumn(name="seguidor_id")})
 	private Map<String,Usuario> seguidores;	
 	@ManyToMany(mappedBy="seguidores", cascade={CascadeType.ALL})
 	private Map<String,Usuario> seguidos;
-	@OneToOne //(mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToOne (mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private Canal canal;
 	@OneToMany(mappedBy="nombreUsuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Usuario_Video> valoraciones;
@@ -54,8 +47,7 @@ public class Usuario {
 		this.apellido = apellido;
 		this.email = email;
 		this.fechaNac = fechaNac;
-		this.img = img;
-		
+		this.img = img;		
 		this.seguidores = new HashMap<String,Usuario>();
 		this.seguidos = new HashMap<String,Usuario>();
 	}
@@ -147,8 +139,7 @@ public class Usuario {
 	}
 
 	public DtUsuario getDtUsuario() {
-		DtUsuario usuario = new DtUsuario(this.nickname,this.nombre,this.apellido,this.email, this.fechaNac, this.getImg());
-		return usuario;
+		return new DtUsuario(this.nickname,this.email,this.nombre,this.apellido, this.fechaNac, this.getImg());
 	}
 	
 	public Lista agregarListaPart(String nombreLista, boolean privada, Categoria categoria) {
@@ -160,7 +151,7 @@ public class Usuario {
 		return this.canal.agregarListaDefecto(nombreLista);
 	}
 	
-	public Usuario(String nickname, String nombre, String apellido, String email, Date fechaNac, String img,String nombreCanal) {
+	public Usuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img,String nombreCanal) {
 		this.nickname = nickname;
 		this.nombre = nombre;
 		this.apellido = apellido;

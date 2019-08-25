@@ -7,8 +7,6 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 
-import org.hibernate.Session;
-
 import datatypes.DtCanal;
 import datatypes.DtComentario;
 import datatypes.DtLista;
@@ -18,24 +16,24 @@ import interfaces.IControlador;
 
 public class Controlador implements IControlador{
 
-	private Usuario User1;
-	private Usuario User2;
+	private Usuario user1;
+	private Usuario user2;
 	private boolean defecto;
 
 	@Override
-	public void ValorarVideo(String nick, boolean valor) {
+	public void valorarVideo(String nick, boolean valor) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public ArrayList<DtVideo> VideoEnLista(DtLista lst) {
+	public ArrayList<DtVideo> videoEnLista(DtLista lst) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void SeleccionarCategoria(String cat) {
+	public void seleccionarCategoria(String cat) {
 		// TODO Auto-generated method stub
 	}
 
@@ -58,7 +56,7 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public ArrayList<DtComentario> MostrarComentario() {
+	public ArrayList<DtComentario> mostrarComentario() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -70,7 +68,7 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public void IngresarComentario(DtComentario comment) {
+	public void ingresarComentario(DtComentario comment) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -88,28 +86,36 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public ArrayList<DtVideo> listarVideos() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<String> listarVideos() {			
+		ArrayList<String> aux = null;
+		if(user1 != null) {
+			Canal c = user1.getCanal();
+			if(c != null) {
+				HashMap<Integer, DtVideo> mapv =  user1.getCanal().getDt().getListaVideos();
+				for(DtVideo v: mapv.values()) {
+					aux.add(v.getNombre());
+				}
+			}
+		}
+		return aux;
 	}
 
 	@Override
 	public ArrayList<String> listarUsuarios() {
-		// TODO Auto-generated method stub
-		return null;
+		return Handler.listarUsuarios();
 	}
 
 	@Override
 	public Boolean ingresarVideo(String nombre, Integer duracion, String url, String descripcion, Date fechaPub, String categoria) {
 		try {
-			Canal canal = this.User1.getCanal();
+			Canal canal = this.user1.getCanal();
 			EntityManager em = Conexion.getEm();
 			Handler hldr = new Handler();
 			Categoria cat = hldr.findCategoria(categoria);
-			Video video = new Video(nombre, false, url, fechaPub, descripcion, duracion, cat);//Se agrego para probar
+			Video video = new Video(nombre, url, fechaPub, descripcion, duracion, cat);
 			em.getTransaction().begin();
 			em.persist(video);
-			//canal.ingresarVideo(video);
+			canal.ingresarVideo(video);
 			if (categoria != null) {
 				cat.añadirVideo(video);
 			}
@@ -129,18 +135,19 @@ public class Controlador implements IControlador{
 	public void agregarVideo(String video, DtLista lista) {
 		//TODO Falta agregar persistencia
 			//EntityManager em = Conexion.getEm();
-		//Video vid = User1.getCanal().getListaVideos().get(video);
-		//Map<String, Lista> listasCanal = this.User2.getCanal().getListasReproduccion();
-		//Lista lst = listasCanal.get(lista.getNombre());
-		//lst.añadirVideo(vid);
+		Video vid = user1.getCanal().getListaVideos().get(video);
+		Map<String, Lista> listasCanal = this.user2.getCanal().getListasReproduccion();
+		Lista lst = listasCanal.get(lista.getNombre());
+		lst.añadirVideo(vid);
 	}
 
 	@Override
 	public boolean crearLista(DtUsuario usuario, String nombre, boolean privada, String categoria) {
-		boolean res = true;		
+		boolean res = true;
+		Handler hldr = new Handler();
 		if (this.defecto) 
 		{
-			HashMap<String,Usuario> usuarios = Handler.getUsuarios();
+			HashMap<String,Usuario> usuarios = hldr.getUsuarios();
 			boolean flag = false;
 			for (Usuario user : usuarios.values()) {
 				
@@ -151,31 +158,26 @@ public class Controlador implements IControlador{
 		else 
 		{
 			EntityManager em = Conexion.getEm();
-			Conexion.open();
 			em.getTransaction().begin();			
 			Categoria cat = null;
-			Usuario user = Handler.findUsuario(usuario.getNickname());
+			Usuario user = hldr.findUsuario(usuario.getNickname());
 			if (categoria != null) 
 			{
-				cat = Handler.findCategoria(categoria);				
-			}						
-			Lista lst = user.agregarListaPart(nombre, privada, cat);
+				cat = hldr.findCategoria(categoria);	
 				
+			}
+			em.persist(user);			
+			Lista lst = user.agregarListaPart(nombre, privada, cat);
 			if (lst != null) 
 			{
 				if (cat != null) 
 				{					
 					cat.añadirLista(lst);
-					//em.unwrap(Session.class).update(cat);
-//					em.merge(cat);
-				}		
-				em.unwrap(Session.class).saveOrUpdate(user); 
-				
-				em.merge(user);				
-				em.getTransaction().commit();
+					em.persist(cat);
+					em.getTransaction().commit();
+				}				
 			}
 			else res = false;
-			Conexion.close();
 		}
 		return res;
 		
@@ -189,24 +191,34 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public Map<DtUsuario, DtCanal> listarDatosUsuario(String nick) {
-		// TODO Auto-generated method stub
-		return null;
+	public  Map<DtUsuario, DtCanal> listarDatosUsuario(String nick) {
+		Map<DtUsuario, DtCanal> datos= new HashMap<DtUsuario, DtCanal>();
+		user1 = Handler.findUsuario(nick);
+		if(user1 != null) {
+			DtUsuario dtu = user1.getDtUsuario();
+			Canal aux = user1.getCanal();
+			if(aux != null) {
+				DtCanal dtc = aux.getDt();
+				datos.put(dtu,dtc);
+			}else {
+				datos.put(dtu,null);
+			}
+		}
+		return datos;
 	}
 
 	@Override
 	public Boolean altaCategoria(String nombre) {		
 		Boolean res = true;
-		Categoria cat = Handler.findCategoria(nombre);
+		Handler hldr = new Handler();
+		Categoria cat = hldr.findCategoria(nombre);
 		if (cat != null) res = false;
 		else {
 			cat = new Categoria(nombre);			
-			Handler.addCategoria(cat);
+			hldr.addCategoria(cat);
 		}
 		return res;
-	}
-
-	
+	}	
 
 	@Override
 	public Boolean ingresarUsuario(String nickname, String nombre, String apellido, String email, Date fechaNac, String img) {

@@ -8,7 +8,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -22,8 +24,11 @@ import datatypes.DtVideo;
 @Entity
 public class Canal {
 	@Id
+	private String nickname;
 	private String nombre;	
 	@OneToOne
+    @JoinColumn(name = "nickname")
+    @MapsId
 	private Usuario usuario;
 	private String descripcion;
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
@@ -42,6 +47,9 @@ public class Canal {
 	
 	public Canal(Usuario u,String nombre, String descripcion, Categoria categoria, boolean privado) {
 		super();
+		if(u != null) {
+			this.nickname = u.getNickname();
+		}
 		this.usuario = u;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -49,12 +57,19 @@ public class Canal {
 		this.privado = privado;
 	}	
 
+	public String getNickname() {
+		return nickname;
+	}
+
 	public Usuario getUsuario() {
 		return usuario;
-	}
+	}	
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+		if(usuario != null) {
+			this.nickname = usuario.getNickname();
+		}
 	}
 
 	public void ingresarVideo(Video v) {

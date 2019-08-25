@@ -12,11 +12,11 @@ import datatypes.DtVideo;
 
 public interface IControlador {
 	
-	public void ValorarVideo(String nick, boolean valor);
+	public void valorarVideo(String nick, boolean valor);
 	
-	public ArrayList<DtVideo> VideoEnLista(DtLista lst);
+	public ArrayList<DtVideo> videoEnLista(DtLista lst);
 	
-	public void SeleccionarCategoria(String cat);
+	public void seleccionarCategoria(String cat);
 	
 	public DtComentario seleccionarComentario(DtComentario comment);
 	
@@ -24,17 +24,17 @@ public interface IControlador {
 	
 	public void quitarVideo(DtVideo video);
 	
-	public ArrayList<DtComentario> MostrarComentario();
+	public ArrayList<DtComentario> mostrarComentario();
 	
 	public void modificarUsuarioCanal(DtUsuario usr, DtCanal canal);
 	
-	public void IngresarComentario(DtComentario comment);
+	public void ingresarComentario(DtComentario comment);
 	
 	public DtVideo seleccionarVideo(String video);
 	
 	public DtUsuario seleccionarUsuario(String usuario);
 		
-	public ArrayList<DtVideo> listarVideos();
+	public ArrayList<String> listarVideos();
 	
 	public ArrayList<String> listarUsuarios();
 	
