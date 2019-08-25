@@ -86,9 +86,18 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public ArrayList<DtVideo> listarVideos() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<String> listarVideos() {			
+		ArrayList<String> aux = null;
+		if(user1 != null) {
+			Canal c = user1.getCanal();
+			if(c != null) {
+				HashMap<Integer, DtVideo> mapv =  user1.getCanal().getDt().getListaVideos();
+				for(DtVideo v: mapv.values()) {
+					aux.add(v.getNombre());
+				}
+			}
+		}
+		return aux;
 	}
 
 	@Override
