@@ -1,14 +1,19 @@
 package logica;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import datatypes.DtCanal;
 import datatypes.DtLista;
@@ -22,8 +27,10 @@ public class Canal {
 	private Usuario usuario;
 	private String descripcion;
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<Integer,Lista> listasReproduccion;
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Map<Integer,Video> listaVideos;		
 	@ManyToOne
 	private Categoria categoria;
@@ -135,10 +142,10 @@ public class Canal {
 	
 	public boolean agregarListaDefecto(String nombreLista) {
 		boolean res = false;
-		if (!this.listasReproduccion.containsKey(nombreLista)) {
-			Lista lista = new Defecto(nombreLista,true);
-			this.listasReproduccion.put(lista.getId(), lista);
-		}
+//		if (!this.listasReproduccion.containsKey(nombreLista)) {
+//			Lista lista = new Defecto(nombreLista,true);
+//			this.listasReproduccion.put(lista.getId(), lista);
+//		}
 		return res;
 	}
 	

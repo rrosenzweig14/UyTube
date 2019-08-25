@@ -2,11 +2,17 @@ package logica;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 @Entity
@@ -15,9 +21,11 @@ public class Categoria {
 	private String nombre;
 	
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)	
-	private List<Video> videos = new ArrayList<Video>();
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Set<Video> videos = new TreeSet<Video>();
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	private List<Lista> listas = new ArrayList<Lista>();
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Set<Lista> listas = new TreeSet<Lista>();
 	
 
 	public Categoria() {
@@ -40,19 +48,19 @@ public class Categoria {
 		this.nombre = nombre;
 	}
 
-	public List<Lista> getListas() {
+	public Set<Lista> getListas() {
 		return listas;
 	}
 
-	public void setListas(List<Lista> listas) {
+	public void setListas(Set<Lista> listas) {
 		this.listas = listas;
 	}
 
-	public List<Video> getVideos() {
+	public Set<Video> getVideos() {
 		return videos;
 	}
 
-	public void setVideos(List<Video> videos) {
+	public void setVideos(Set<Video> videos) {
 		this.videos = videos;
 	}
 	

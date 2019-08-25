@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 
+import org.hibernate.Session;
+
 import datatypes.DtCanal;
 import datatypes.DtComentario;
 import datatypes.DtLista;
@@ -104,10 +106,10 @@ public class Controlador implements IControlador{
 			EntityManager em = Conexion.getEm();
 			Handler hldr = new Handler();
 			Categoria cat = hldr.findCategoria(categoria);
-			Video video = new Video(nombre, url, fechaPub, descripcion, duracion, cat);
+			Video video = new Video(nombre, false, url, fechaPub, descripcion, duracion, cat);//Se agrego para probar
 			em.getTransaction().begin();
 			em.persist(video);
-			canal.ingresarVideo(video);
+			//canal.ingresarVideo(video);
 			if (categoria != null) {
 				cat.añadirVideo(video);
 			}
@@ -127,19 +129,18 @@ public class Controlador implements IControlador{
 	public void agregarVideo(String video, DtLista lista) {
 		//TODO Falta agregar persistencia
 			//EntityManager em = Conexion.getEm();
-		Video vid = User1.getCanal().getListaVideos().get(video);
-		Map<String, Lista> listasCanal = this.User2.getCanal().getListasReproduccion();
-		Lista lst = listasCanal.get(lista.getNombre());
-		lst.añadirVideo(vid);
+		//Video vid = User1.getCanal().getListaVideos().get(video);
+		//Map<String, Lista> listasCanal = this.User2.getCanal().getListasReproduccion();
+		//Lista lst = listasCanal.get(lista.getNombre());
+		//lst.añadirVideo(vid);
 	}
 
 	@Override
 	public boolean crearLista(DtUsuario usuario, String nombre, boolean privada, String categoria) {
-		boolean res = true;
-		Handler hldr = new Handler();
+		boolean res = true;		
 		if (this.defecto) 
 		{
-			HashMap<String,Usuario> usuarios = hldr.getUsuarios();
+			HashMap<String,Usuario> usuarios = Handler.getUsuarios();
 			boolean flag = false;
 			for (Usuario user : usuarios.values()) {
 				
@@ -150,26 +151,31 @@ public class Controlador implements IControlador{
 		else 
 		{
 			EntityManager em = Conexion.getEm();
+			Conexion.open();
 			em.getTransaction().begin();			
 			Categoria cat = null;
-			Usuario user = hldr.findUsuario(usuario.getNickname());
+			Usuario user = Handler.findUsuario(usuario.getNickname());
 			if (categoria != null) 
 			{
-				cat = hldr.findCategoria(categoria);	
-				
-			}
-			em.persist(user);			
+				cat = Handler.findCategoria(categoria);				
+			}						
 			Lista lst = user.agregarListaPart(nombre, privada, cat);
+				
 			if (lst != null) 
 			{
 				if (cat != null) 
 				{					
 					cat.añadirLista(lst);
-					em.persist(cat);
-					em.getTransaction().commit();
-				}				
+					//em.unwrap(Session.class).update(cat);
+//					em.merge(cat);
+				}		
+				em.unwrap(Session.class).saveOrUpdate(user); 
+				
+				em.merge(user);				
+				em.getTransaction().commit();
 			}
 			else res = false;
+			Conexion.close();
 		}
 		return res;
 		
@@ -191,12 +197,11 @@ public class Controlador implements IControlador{
 	@Override
 	public Boolean altaCategoria(String nombre) {		
 		Boolean res = true;
-		Handler hldr = new Handler();
-		Categoria cat = hldr.findCategoria(nombre);
+		Categoria cat = Handler.findCategoria(nombre);
 		if (cat != null) res = false;
 		else {
 			cat = new Categoria(nombre);			
-			hldr.addCategoria(cat);
+			Handler.addCategoria(cat);
 		}
 		return res;
 	}
