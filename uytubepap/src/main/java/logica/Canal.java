@@ -17,9 +17,9 @@ import datatypes.DtVideo;
 @Entity
 public class Canal {
 	@Id
+	private String nombre;	
 	@OneToOne
 	private Usuario usuario;
-	private String nombre;	
 	private String descripcion;
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
 	private Map<Integer,Lista> listasReproduccion;
@@ -107,10 +107,20 @@ public class Canal {
 	}
 	
 	public DtCanal getDt() {
-		DtCanal dtc =  new DtCanal(this.nombre,this.descripcion,null,this.privado,this.categoria.getNombre());
+		DtCanal dtc = null;	
+		dtc =  new DtCanal(this.nombre,this.descripcion,this.usuario.getNickname(),this.privado,null); // null = this.categoria.getNombre()
 		HashMap<Integer, DtVideo> mapv = new HashMap<Integer, DtVideo>();
 		for(Video v: listaVideos.values()) {
 			mapv.put(v.getId(),v.getDt());
+		}
+		HashMap<Integer,DtLista> mapl = new HashMap<Integer,DtLista>();
+		for(Lista l: listasReproduccion.values()) {
+			mapl.put(l.getId(),l.getDt());
+		}
+		dtc.setListaVideos(mapv);
+		return dtc;
+	}
+	
 	public Lista agregarListaPart(String nombreLista, boolean privada, Categoria categoria) {
 		Lista res = null;
 		if (!listaExists(nombreLista)) {
@@ -118,22 +128,26 @@ public class Canal {
 				res = new Particular(nombreLista, privada, categoria);
 			else 
 				res = new Particular(nombreLista,privada);
-			this.listasReproduccion.put(nombreLista, res);
+			this.listasReproduccion.put(res.getId(), res);
 		}
-		HashMap<Integer,DtLista> mapl = new HashMap<Integer,DtLista>();
-		for(Lista l: listasReproduccion.values()) {
-			mapl.put(l.getId(),l.getDt());
+		return res;
+	}
+	
 	public boolean agregarListaDefecto(String nombreLista) {
 		boolean res = false;
 		if (!this.listasReproduccion.containsKey(nombreLista)) {
 			Lista lista = new Defecto(nombreLista,true);
-			this.listasReproduccion.put(nombreLista, lista);
+			this.listasReproduccion.put(lista.getId(), lista);
 		}
 		return res;
 	}
 	
 	public Canal(String nombre) {
+		this.usuario = null;
 		this.nombre = nombre;
+		this.descripcion = null;
+		this.categoria = null;
+		this.privado = false;
 	}
 
 }

@@ -1,6 +1,5 @@
 package logica;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,7 +40,7 @@ public class Usuario {
 	private Map<String,Usuario> seguidores;	
 	@ManyToMany(mappedBy="seguidores", cascade={CascadeType.ALL})
 	private Map<String,Usuario> seguidos;
-	@OneToOne (mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToOne //(mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private Canal canal;
 	@OneToMany(mappedBy="nombreUsuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Usuario_Video> valoraciones;
