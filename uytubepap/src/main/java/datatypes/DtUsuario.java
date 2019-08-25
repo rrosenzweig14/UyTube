@@ -6,23 +6,15 @@ import java.util.HashMap;
 
 public class DtUsuario {	
 	
-	private String nickname;
-	
-	private String email;
-	
-	private String nombre;	
-	
+	private String nickname;	
+	private String email;	
+	private String nombre;		
 	private String apellido;	
-	
-	private Date fechaNac;	
-	
+	private Date fechaNac;		
 	private String img;	
 	
-	private HashMap<String,DtUsuario> seguidores = new HashMap<String,DtUsuario>();	
-	
-	private HashMap<String,DtUsuario> seguidos = new HashMap<String,DtUsuario>();
-	
-	
+	private HashMap<String,DtUsuario> seguidores = new HashMap<String,DtUsuario>();		
+	private HashMap<String,DtUsuario> seguidos = new HashMap<String,DtUsuario>();	
 	
 	public DtUsuario() {}
 	

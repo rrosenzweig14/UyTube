@@ -47,8 +47,7 @@ public class Usuario {
 		this.apellido = apellido;
 		this.email = email;
 		this.fechaNac = fechaNac;
-		this.img = img;
-		
+		this.img = img;		
 		this.seguidores = new HashMap<String,Usuario>();
 		this.seguidos = new HashMap<String,Usuario>();
 	}
@@ -140,8 +139,7 @@ public class Usuario {
 	}
 
 	public DtUsuario getDtUsuario() {
-		DtUsuario usuario = new DtUsuario(this.nickname,this.nombre,this.apellido,this.email, this.fechaNac, this.getImg());
-		return usuario;
+		return new DtUsuario(this.nickname,this.email,this.nombre,this.apellido, this.fechaNac, this.getImg());
 	}
 	
 	public Lista agregarListaPart(String nombreLista, boolean privada, Categoria categoria) {
@@ -153,7 +151,7 @@ public class Usuario {
 		return this.canal.agregarListaDefecto(nombreLista);
 	}
 	
-	public Usuario(String nickname, String nombre, String apellido, String email, Date fechaNac, String img,String nombreCanal) {
+	public Usuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img,String nombreCanal) {
 		this.nickname = nickname;
 		this.nombre = nombre;
 		this.apellido = apellido;

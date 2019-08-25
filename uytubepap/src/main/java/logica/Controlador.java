@@ -16,8 +16,8 @@ import interfaces.IControlador;
 
 public class Controlador implements IControlador{
 
-	private Usuario User1;
-	private Usuario User2;
+	private Usuario user1;
+	private Usuario user2;
 	private boolean defecto;
 
 	@Override
@@ -93,14 +93,13 @@ public class Controlador implements IControlador{
 
 	@Override
 	public ArrayList<String> listarUsuarios() {
-		// TODO Auto-generated method stub
-		return null;
+		return Handler.listarUsuarios();
 	}
 
 	@Override
 	public Boolean ingresarVideo(String nombre, Integer duracion, String url, String descripcion, Date fechaPub, String categoria) {
 		try {
-			Canal canal = this.User1.getCanal();
+			Canal canal = this.user1.getCanal();
 			EntityManager em = Conexion.getEm();
 			Handler hldr = new Handler();
 			Categoria cat = hldr.findCategoria(categoria);
@@ -127,8 +126,8 @@ public class Controlador implements IControlador{
 	public void agregarVideo(String video, DtLista lista) {
 		//TODO Falta agregar persistencia
 			//EntityManager em = Conexion.getEm();
-		Video vid = User1.getCanal().getListaVideos().get(video);
-		Map<String, Lista> listasCanal = this.User2.getCanal().getListasReproduccion();
+		Video vid = user1.getCanal().getListaVideos().get(video);
+		Map<String, Lista> listasCanal = this.user2.getCanal().getListasReproduccion();
 		Lista lst = listasCanal.get(lista.getNombre());
 		lst.añadirVideo(vid);
 	}
@@ -183,9 +182,20 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public Map<DtUsuario, DtCanal> listarDatosUsuario(String nick) {
-		// TODO Auto-generated method stub
-		return null;
+	public  Map<DtUsuario, DtCanal> listarDatosUsuario(String nick) {
+		Map<DtUsuario, DtCanal> datos= new HashMap<DtUsuario, DtCanal>();
+		user1 = Handler.findUsuario(nick);
+		if(user1 != null) {
+			DtUsuario dtu = user1.getDtUsuario();
+			Canal aux = user1.getCanal();
+			if(aux != null) {
+				DtCanal dtc = aux.getDt();
+				datos.put(dtu,dtc);
+			}else {
+				datos.put(dtu,null);
+			}
+		}
+		return datos;
 	}
 
 	@Override
