@@ -34,7 +34,7 @@ public interface IControlador {
 	
 	public DtUsuario seleccionarUsuario(String usuario);
 		
-	public ArrayList<DtVideo> listarVideos(DtUsuario user);
+	public ArrayList<DtVideo> listarVideos();
 	
 	public ArrayList<String> listarUsuarios();
 	

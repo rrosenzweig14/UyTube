@@ -86,7 +86,7 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public ArrayList<DtVideo> listarVideos(DtUsuario user) {
+	public ArrayList<DtVideo> listarVideos() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -209,9 +209,7 @@ public class Controlador implements IControlador{
 			hldr.addCategoria(cat);
 		}
 		return res;
-	}
-
-	
+	}	
 
 	@Override
 	public Boolean ingresarUsuario(String nickname, String nombre, String apellido, String email, Date fechaNac, String img) {
