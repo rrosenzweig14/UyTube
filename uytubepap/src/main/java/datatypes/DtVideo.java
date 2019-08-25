@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeSet;
 
+import javax.swing.JTree;
+
 import logica.Usuario;
 
-public class DtVideo {	
+public class DtVideo {
+	private int id;
 	private String nombre;	
 	private Boolean privado;	
 	private String canal;	
@@ -15,14 +18,15 @@ public class DtVideo {
 	private String categoria;	
 	private Date fechaPub;	
 	private String url;
-	private TreeSet<DtComentario> comentarios;	
+	private JTree comentarios;	
 	
 	public DtVideo() {
 		super();
 	}
-	public DtVideo(String nombre, Boolean privado, String canal, String descripcion, Integer duracion, String categoria,
+	public DtVideo(int id,String nombre, Boolean privado, String canal, String descripcion, Integer duracion, String categoria,
 			Date fechaPub, String url) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.privado = privado;
 		this.canal = canal;
@@ -33,6 +37,12 @@ public class DtVideo {
 		this.url = url;
 	}
 
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -113,11 +123,11 @@ public class DtVideo {
 		this.valoracionesNegativas = valoracionesNegativas;
 	}
 
-	public TreeSet<DtComentario> getComentarios() {
+	public JTree getComentarios() {
 		return comentarios;
 	}
 
-	public void setComentarios(TreeSet<DtComentario> comentarios) {
+	public void setComentarios(JTree comentarios) {
 		this.comentarios = comentarios;
 	}
 

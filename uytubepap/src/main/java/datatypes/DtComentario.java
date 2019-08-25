@@ -3,12 +3,31 @@ package datatypes;
 import java.util.Date;
 
 public class DtComentario {
-	
-	private String nick;
-	
-	private String texto;
-	
+	private int id;
+	private String nick;	
+	private String texto;	
 	private Date fecha;
+
+	public DtComentario() {
+		super();
+	}
+
+	public DtComentario(int id, String nick, String texto, Date fecha) {
+		super();
+		this.id = id;
+		this.nick = nick;
+		this.texto = texto;
+		this.fecha = fecha;
+	}
+
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getNick() {
 		return nick;
