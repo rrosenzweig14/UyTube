@@ -20,27 +20,20 @@ import datatypes.DtVideo;
 
 
 @Entity
-public class Usuario {
-	 
+public class Usuario {	 
 	@Id
-	private String nickname;
-	
-	private String email;
-	
-	private String nombre;
-	
-	private String apellido;
-	
-	private Date fechaNac;
-	
-	private String img;
-	
+	private String nickname;	
+	private String email;	
+	private String nombre;	
+	private String apellido;	
+	private Date fechaNac;	
+	private String img;	
 	@ManyToMany(cascade={CascadeType.ALL})
     @JoinTable(name="Usuarios_Relacion", joinColumns={@JoinColumn(name="seguido_id")}, inverseJoinColumns={@JoinColumn(name="seguidor_id")})
 	private Map<String,Usuario> seguidores;	
 	@ManyToMany(mappedBy="seguidores", cascade={CascadeType.ALL})
 	private Map<String,Usuario> seguidos;
-	@OneToOne //(mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToOne (mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private Canal canal;
 	@OneToMany(mappedBy="nombreUsuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Usuario_Video> valoraciones;
