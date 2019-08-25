@@ -7,12 +7,12 @@ public class DtCanal {
 	private String descripcion;
 	private String nick;
 	private boolean privado;
-	private DtCategoria categoria;	
+	private String categoria;	
 	private HashMap<String,DtLista> listasReproduccion;	
 	private HashMap<String,DtVideo> listaVideos;
 	
 	public DtCanal() {}
-	public DtCanal(String nombre, String descripcion, String nick, boolean privado, DtCategoria categoria) {
+	public DtCanal(String nombre, String descripcion, String nick, boolean privado, String categoria) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -45,10 +45,10 @@ public class DtCanal {
 	public void setPrivado(boolean privado) {
 		this.privado = privado;
 	}
-	public DtCategoria getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(DtCategoria categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 	public HashMap<String, DtLista> getListasReproduccion() {

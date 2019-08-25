@@ -5,7 +5,7 @@ public class DtLista {
 	//Variables
 	private String nombre;
 	private boolean privado;
-	private DtCategoria categoria;
+	private String categoria;
 
 	//Getters
 	public String getNombre() {
@@ -17,17 +17,18 @@ public class DtLista {
 	}
 
 	//Constructor
-	public DtLista(String nombre, boolean privado) {
+	public DtLista(String nombre, boolean privado, String categoria) {
 		super();
 		this.nombre = nombre;
 		this.privado = privado;
+		this.categoria = categoria;
 	}
 
-	public DtCategoria getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(DtCategoria categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}	
 }

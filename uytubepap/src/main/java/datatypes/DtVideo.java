@@ -6,26 +6,33 @@ import java.util.TreeSet;
 
 import logica.Usuario;
 
-public class DtVideo {
-	
-	private String nombre;
-	
-	private Boolean privado;
-	
-	private String canal;
-	
-	private String descripcion;
-	
-	private Integer duracion;
-	
-	private DtCategoria categoria;
-	
-	private Date fechaPub;
-	
+public class DtVideo {	
+	private String nombre;	
+	private Boolean privado;	
+	private String canal;	
+	private String descripcion;	
+	private Integer duracion;	
+	private String categoria;	
+	private Date fechaPub;	
 	private String url;
+	private TreeSet<DtComentario> comentarios;	
 	
-	private TreeSet<DtComentario> comentarios;
-	
+	public DtVideo() {
+		super();
+	}
+	public DtVideo(String nombre, Boolean privado, String canal, String descripcion, Integer duracion, String categoria,
+			Date fechaPub, String url) {
+		super();
+		this.nombre = nombre;
+		this.privado = privado;
+		this.canal = canal;
+		this.descripcion = descripcion;
+		this.duracion = duracion;
+		this.categoria = categoria;
+		this.fechaPub = fechaPub;
+		this.url = url;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -66,11 +73,11 @@ public class DtVideo {
 		this.duracion = duracion;
 	}
 
-	public DtCategoria getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(DtCategoria categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 
