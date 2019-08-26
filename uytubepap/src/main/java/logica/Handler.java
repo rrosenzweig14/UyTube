@@ -54,6 +54,9 @@ public class Handler {
 		if(aux == null) {
 			Conexion.beginTransaction();
 			Usuario usuario = new Usuario(nickname, email, nombre, apellido, fechaNac, img, canal);
+			Canal x = usuario.getCanal();
+			x.setUsuario(usuario);
+			x.setNickname(nickname);
 			Conexion.persist(usuario);
 			Conexion.commit();
 			/*EntityManager em = Conexion.getEm();
