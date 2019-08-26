@@ -36,14 +36,13 @@ public class Canal {
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
 	private Map<String,Video> listaVideos = new HashMap<String,Video>();		
 	@ManyToOne
-	private Categoria categoria;
 	private boolean privado;
 
 	public Canal() {
 		// TODO Auto-generated constructor stub
 	}	
 	
-	public Canal(Usuario u,String nombre, String descripcion, Categoria categoria, boolean privado) {
+	public Canal(Usuario u,String nombre, String descripcion, boolean privado) {
 		super();
 		if(u != null) {
 			this.nickname = u.getNickname();
@@ -51,7 +50,6 @@ public class Canal {
 		this.usuario = u;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.categoria = categoria;
 		this.privado = privado;
 		this.listasReproduccion = new HashMap<String,Lista>();
 		this.listaVideos =  new HashMap<String,Video>();
@@ -116,13 +114,6 @@ public class Canal {
 		this.listaVideos = listaVideos;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
 	public boolean listaExists(String nombreLista) {
 		if (this.listasReproduccion.containsKey(nombreLista)) return true;
 		else return false;
@@ -130,7 +121,7 @@ public class Canal {
 	
 	public DtCanal getDt() {
 		DtCanal dtc = null;	
-		dtc =  new DtCanal(this.nombre,this.descripcion,this.usuario.getNickname(),this.privado,null); // null = this.categoria.getNombre()
+		dtc =  new DtCanal(this.nombre,this.descripcion,this.usuario.getNickname(),this.privado); 
 		HashMap<Integer, DtVideo> mapv = new HashMap<Integer, DtVideo>();
 		for(Video v: listaVideos.values()) {
 			mapv.put(v.getId(),v.getDt());
@@ -174,7 +165,6 @@ public class Canal {
 		this.usuario = null;
 		this.nombre = nombre;
 		this.descripcion = null;
-		this.categoria = null;
 		this.privado = false;
 	}
 
