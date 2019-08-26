@@ -19,10 +19,21 @@ public class Controlador implements IControlador{
 	private Usuario user1;
 	//private Usuario user2;
 	private boolean defecto;
-
+	private Video video;
+	
 	@Override
 	public void valorarVideo(String nick, boolean valor) {
-		// TODO Auto-generated method stub
+		EntityManager em = Conexion.getEm();	
+		Handler hldr = new Handler();
+		Usuario_Video usrvid = new Usuario_Video();
+		usrvid.setLeGusta(valor);
+		usrvid.setNombreVideo(video);
+		usrvid.setNombreUsuario(user1);
+		em.getTransaction().begin();
+		em.persist(usrvid);
+		em.getTransaction().commit();
+		
+		video.addValoraciones(usrvid);
 		
 	}
 

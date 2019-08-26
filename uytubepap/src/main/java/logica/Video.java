@@ -106,6 +106,14 @@ public class Video {
 		this.comentarios = comentarios;
 	}
 	
+	public List<Usuario_Video> getValoraciones() {
+		return valoraciones;
+	}
+	
+	public void addValoraciones(Usuario_Video usrVideo) {
+		this.valoraciones.add(usrVideo);
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
