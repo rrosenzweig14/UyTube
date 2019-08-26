@@ -35,8 +35,8 @@ public class Canal {
 	private Map<String,Lista> listasReproduccion = new HashMap<String,Lista>();
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
 	private Map<String,Video> listaVideos = new HashMap<String,Video>();		
-	@ManyToOne
-	private boolean privado;
+	//@ManyToOne
+	private Boolean privado;
 
 	public Canal() {
 		// TODO Auto-generated constructor stub

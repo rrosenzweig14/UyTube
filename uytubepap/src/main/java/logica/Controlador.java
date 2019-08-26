@@ -17,7 +17,7 @@ import interfaces.IControlador;
 public class Controlador implements IControlador{
 
 	private Usuario user1;
-	private Usuario user2;
+	//private Usuario user2;
 	private boolean defecto;
 
 	@Override
@@ -93,6 +93,7 @@ public class Controlador implements IControlador{
 			if(c != null) {
 				HashMap<Integer, DtVideo> mapv =  user1.getCanal().getDt().getListaVideos();
 				for(DtVideo v: mapv.values()) {
+					if(aux != null)
 					aux.add(v.getNombre());
 				}
 			}
@@ -110,8 +111,7 @@ public class Controlador implements IControlador{
 		try {
 			Canal canal = this.user1.getCanal();
 			EntityManager em = Conexion.getEm();
-			Handler hldr = new Handler();
-			Categoria cat = hldr.findCategoria(categoria);
+			Categoria cat = Handler.findCategoria(categoria);
 			Video video = new Video(nombre,true, url, fechaPub, descripcion, duracion, cat);// FALTA CONTEMPLAR SI ES PRIVADO O NO EL VIDEO
 			em.getTransaction().begin();
 			em.persist(video);
@@ -135,7 +135,7 @@ public class Controlador implements IControlador{
 	public void agregarVideo(String video, DtLista lista) {
 		//TODO Falta agregar persistencia
 			//EntityManager em = Conexion.getEm();
-		Video vid = user1.getCanal().getListaVideos().get(video);
+		//Video vid = user1.getCanal().getListaVideos().get(video);
 		//Map<Integer, Lista> listasCanal = this.user2.getCanal().getListasReproduccion();
 		//Lista lst = listasCanal.get(lista.getNombre());
 		//lst.addVideo(vid);
@@ -147,7 +147,7 @@ public class Controlador implements IControlador{
 		if (this.defecto) 
 		{
 			HashMap<String,Usuario> usuarios = Handler.getUsuarios();
-			boolean flag = false;
+			//boolean flag = false;
 			for (Usuario user : usuarios.values()) {
 				
 				if (!(user.agregarListaDefecto(nombre)))
@@ -210,41 +210,24 @@ public class Controlador implements IControlador{
 	@Override
 	public Boolean altaCategoria(String nombre) {		
 		Boolean res = true;
-		Handler hldr = new Handler();
-		Categoria cat = hldr.findCategoria(nombre);
+		Categoria cat = Handler.findCategoria(nombre);
 		if (cat != null) res = false;
 		else {
 			cat = new Categoria(nombre);			
-			hldr.addCategoria(cat);
+			Handler.addCategoria(cat);
 		}
 		return res;
 	}	
 
 	@Override
-	public Boolean ingresarUsuario(String nickname, String nombre, String apellido, String email, Date fechaNac, String img) {
+	public Boolean ingresarUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, String canal) {
 		Boolean res = true;
-		EntityManager em = Conexion.getEm();
-		Handler hldr = new Handler();
-		Usuario usuario = hldr.findUsuario(nickname);
-		if(usuario == null) {
-			usuario = hldr.findUsuarioEM(email);
-		}
-		if(usuario != null) res = false;
-		else {
-			usuario = new Usuario(nickname, nombre, apellido, email, fechaNac, img);
-			try {
-			em.getTransaction().begin();
-			em.persist(usuario);
-			hldr.addUsuario(usuario);
-			em.getTransaction().commit();
-			}
-			catch (Exception ex) {
-				System.out.print(ex.toString());
-			}
-		}
+		Usuario usuario = new Usuario(nickname, email, nombre, apellido, fechaNac, img, canal);
+		res = Handler.addUsuario(usuario);
 		
 		return res;
 	}
+	
 	// Descripcion: Si defecto = true, arma lista por defecto
 	@Override
 	public void ingresarTipoLista(boolean defecto) {
