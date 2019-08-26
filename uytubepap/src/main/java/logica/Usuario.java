@@ -35,7 +35,7 @@ public class Usuario {
 	private Map<String,Usuario> seguidos;
 	@OneToOne (mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private Canal canal;
-	@OneToMany(mappedBy="nombreUsuario",cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(mappedBy="idVideo",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Usuario_Video> valoraciones;
 		
 	//Metodos
@@ -151,17 +151,5 @@ public class Usuario {
 		return this.canal.agregarListaDefecto(nombreLista);
 	}
 	
-	public Usuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img,String nombreCanal) {
-		this.nickname = nickname;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.email = email;
-		this.fechaNac = fechaNac;
-		this.img = img;		
-		this.seguidores = new HashMap<String,Usuario>();
-		this.seguidos = new HashMap<String,Usuario>();
-		Canal canal = new Canal(nombreCanal);
-		this.canal = canal;
-	}
-
+	
 }

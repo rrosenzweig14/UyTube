@@ -32,9 +32,9 @@ public class Canal {
 	private Usuario usuario;
 	private String descripcion;
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	private Map<Integer,Lista> listasReproduccion = new HashMap<Integer,Lista>();
+	private Map<String,Lista> listasReproduccion = new HashMap<String,Lista>();
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	private Map<Integer,Video> listaVideos = new HashMap<Integer,Video>();		
+	private Map<String,Video> listaVideos = new HashMap<String,Video>();		
 	@ManyToOne
 	private Categoria categoria;
 	private boolean privado;
@@ -53,8 +53,8 @@ public class Canal {
 		this.descripcion = descripcion;
 		this.categoria = categoria;
 		this.privado = privado;
-		this.listasReproduccion = new HashMap<Integer,Lista>();
-		this.listaVideos =  new HashMap<Integer,Video>();
+		this.listasReproduccion = new HashMap<String,Lista>();
+		this.listaVideos =  new HashMap<String,Video>();
 	}	
 
 	public String getNickname() {
@@ -73,7 +73,7 @@ public class Canal {
 	}
 
 	public void ingresarVideo(Video v) {
-		this.listaVideos.put(v.getId(), v);
+		this.listaVideos.put(v.getNombre(), v);
 	}
 	
 	public String getNombre() {
@@ -100,19 +100,19 @@ public class Canal {
 		this.privado = privado;
 	}
 
-	public Map<Integer,Lista> getListasReproduccion() {
+	public Map<String,Lista> getListasReproduccion() {
 		return listasReproduccion;
 	}
 
-	public void setListasReproduccion(Map<Integer,Lista> listasReproduccion) {
+	public void setListasReproduccion(Map<String,Lista> listasReproduccion) {
 		this.listasReproduccion = listasReproduccion;
 	}
 
-	public Map<Integer,Video> getListaVideos() {
+	public Map<String,Video> getListaVideos() {
 		return listaVideos;
 	}
 
-	public void setListaVideos(Map<Integer,Video> listaVideos) {
+	public void setListaVideos(Map<String,Video> listaVideos) {
 		this.listaVideos = listaVideos;
 	}
 
@@ -144,14 +144,19 @@ public class Canal {
 	}
 	
 	public Lista agregarListaPart(String nombreLista, boolean privada, Categoria categoria) {
-		Lista res = null;
+		Lista res = null;		
 		if (!listaExists(nombreLista)) {
-			if (categoria != null) 
+			if (categoria != null) {
 				res = new Particular(nombreLista, privada, categoria);
+				categoria.addLista(res);
+			}
 			else 
 				res = new Particular(nombreLista,privada);
 			Conexion.persist(res);
-			this.listasReproduccion.put(res.getId(), res);
+			this.listasReproduccion.put(res.getNombre(), res);
+			
+			
+			
 		}
 		return res;
 	}

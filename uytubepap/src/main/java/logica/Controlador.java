@@ -136,9 +136,9 @@ public class Controlador implements IControlador{
 		//TODO Falta agregar persistencia
 			//EntityManager em = Conexion.getEm();
 		Video vid = user1.getCanal().getListaVideos().get(video);
-		Map<Integer, Lista> listasCanal = this.user2.getCanal().getListasReproduccion();
-		Lista lst = listasCanal.get(lista.getNombre());
-		lst.addVideo(vid);
+		//Map<Integer, Lista> listasCanal = this.user2.getCanal().getListasReproduccion();
+		//Lista lst = listasCanal.get(lista.getNombre());
+		//lst.addVideo(vid);
 	}
 
 	@Override
@@ -162,23 +162,22 @@ public class Controlador implements IControlador{
 			Usuario user = Handler.findUsuario(usuario.getNickname());
 			if (categoria != null) 
 			{
-				cat = Handler.findCategoria(categoria);	
-				
+				cat = Handler.findCategoria(categoria);				
 			}
 			em.persist(user);			
-			Lista lst = user.agregarListaPart(nombre, privada, cat);
+			Lista lst = user.agregarListaPart(nombre, privada, cat);			
 			if (lst != null) 
 			{
+				
 				if (cat != null) 
-				{					
-					cat.añadirLista(lst);
-					em.persist(cat);
-					
+				{	
+					em.flush();					
+					em.merge(cat);					
 				}			
-//				em.flush();
-				em.getTransaction().commit();
+				
 			}
 			else res = false;
+			em.getTransaction().commit();
 		}
 		return res;
 		

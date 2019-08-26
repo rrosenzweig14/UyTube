@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -20,12 +21,11 @@ public class Categoria {
 	@Id
 	private String nombre;
 	
-	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)	
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private Set<Video> videos = new TreeSet<Video>();
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private Set<Lista> listas = new TreeSet<Lista>();
+	private Set<Video> videos = new LinkedHashSet<Video>();
+	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true, fetch = FetchType.EAGER)	
+	private Set<Lista> listas = new LinkedHashSet<Lista>();
 	
 
 	public Categoria() {
@@ -35,9 +35,9 @@ public class Categoria {
 	public Categoria(String nombre) {
 		this.nombre = nombre;
 		
-//		this.videos = new ArrayList<Video>();
-//		
-//		this.listas = new ArrayList<Lista>()
+		this.videos = new LinkedHashSet<Video>();
+		
+		this.listas = new LinkedHashSet<Lista>();
 	}
 
 	public String getNombre() {
@@ -68,7 +68,7 @@ public class Categoria {
 		this.videos.add(v);
 	}
 	
-	public void añadirLista (Lista lst) {
+	public void addLista (Lista lst) {
 		this.listas.add(lst);
 	}
 
