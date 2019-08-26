@@ -85,10 +85,6 @@ public class Canal {
 	public String getDescripcion() {
 		return descripcion;
 	}
-	
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
