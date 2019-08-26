@@ -112,7 +112,7 @@ public class Controlador implements IControlador{
 			EntityManager em = Conexion.getEm();
 			Handler hldr = new Handler();
 			Categoria cat = hldr.findCategoria(categoria);
-			Video video = new Video(nombre, url, fechaPub, descripcion, duracion, cat);
+			Video video = new Video(nombre,true, url, fechaPub, descripcion, duracion, cat);// FALTA CONTEMPLAR SI ES PRIVADO O NO EL VIDEO
 			em.getTransaction().begin();
 			em.persist(video);
 			canal.ingresarVideo(video);
@@ -136,18 +136,17 @@ public class Controlador implements IControlador{
 		//TODO Falta agregar persistencia
 			//EntityManager em = Conexion.getEm();
 		Video vid = user1.getCanal().getListaVideos().get(video);
-		Map<String, Lista> listasCanal = this.user2.getCanal().getListasReproduccion();
+		Map<Integer, Lista> listasCanal = this.user2.getCanal().getListasReproduccion();
 		Lista lst = listasCanal.get(lista.getNombre());
-		lst.añadirVideo(vid);
+		lst.addVideo(vid);
 	}
 
 	@Override
 	public boolean crearLista(DtUsuario usuario, String nombre, boolean privada, String categoria) {
 		boolean res = true;
-		Handler hldr = new Handler();
 		if (this.defecto) 
 		{
-			HashMap<String,Usuario> usuarios = hldr.getUsuarios();
+			HashMap<String,Usuario> usuarios = Handler.getUsuarios();
 			boolean flag = false;
 			for (Usuario user : usuarios.values()) {
 				
@@ -160,10 +159,10 @@ public class Controlador implements IControlador{
 			EntityManager em = Conexion.getEm();
 			em.getTransaction().begin();			
 			Categoria cat = null;
-			Usuario user = hldr.findUsuario(usuario.getNickname());
+			Usuario user = Handler.findUsuario(usuario.getNickname());
 			if (categoria != null) 
 			{
-				cat = hldr.findCategoria(categoria);	
+				cat = Handler.findCategoria(categoria);	
 				
 			}
 			em.persist(user);			
@@ -174,8 +173,10 @@ public class Controlador implements IControlador{
 				{					
 					cat.añadirLista(lst);
 					em.persist(cat);
-					em.getTransaction().commit();
-				}				
+					
+				}			
+//				em.flush();
+				em.getTransaction().commit();
 			}
 			else res = false;
 		}

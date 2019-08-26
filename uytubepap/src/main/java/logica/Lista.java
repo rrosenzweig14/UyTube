@@ -20,7 +20,7 @@ public abstract class Lista {
 
 	//Variables
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String nombre;	
 	private boolean privado;
@@ -81,7 +81,7 @@ public abstract class Lista {
 		this.videos = videos;
 	}
 	
-	public void añadirVideo(Video video) {
+	public void addVideo(Video video) {
 		this.videos.put(video.getNombre(), video);
 	}
 	public DtLista getDt() {

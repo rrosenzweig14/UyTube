@@ -25,7 +25,7 @@ public class Usuario_Video {
 			insertable=false,
 			updatable=false
 	)
-	private Video nombreVideo;	
+	private Video idVideo;	
 	@Column(nullable = true)
 	private boolean leGusta;
 	
@@ -52,11 +52,11 @@ public class Usuario_Video {
 	}
 
 	public Video getNombreVideo() {
-		return nombreVideo;
+		return idVideo;
 	}
 
 	public void setNombreVideo(Video nombreVideo) {
-		this.nombreVideo = nombreVideo;
+		this.idVideo = nombreVideo;
 	}
 
 	

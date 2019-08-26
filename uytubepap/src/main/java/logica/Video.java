@@ -34,7 +34,7 @@ public class Video {
 	private Categoria categoria;
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
 	private Set<Comentario> comentarios;	
-	@OneToMany(mappedBy="nombreVideo",cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(mappedBy="idVideo",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Usuario_Video> valoraciones;
 
 	public Video(String nombre,boolean privado, String url, Date fechaPub, String descripcion, Integer duracion, Categoria categoria) {

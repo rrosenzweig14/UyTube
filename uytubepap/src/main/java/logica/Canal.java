@@ -32,11 +32,9 @@ public class Canal {
 	private Usuario usuario;
 	private String descripcion;
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private Map<Integer,Lista> listasReproduccion;
+	private Map<Integer,Lista> listasReproduccion = new HashMap<Integer,Lista>();
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private Map<Integer,Video> listaVideos;		
+	private Map<Integer,Video> listaVideos = new HashMap<Integer,Video>();		
 	@ManyToOne
 	private Categoria categoria;
 	private boolean privado;
@@ -55,6 +53,8 @@ public class Canal {
 		this.descripcion = descripcion;
 		this.categoria = categoria;
 		this.privado = privado;
+		this.listasReproduccion = new HashMap<Integer,Lista>();
+		this.listaVideos =  new HashMap<Integer,Video>();
 	}	
 
 	public String getNickname() {
@@ -150,6 +150,7 @@ public class Canal {
 				res = new Particular(nombreLista, privada, categoria);
 			else 
 				res = new Particular(nombreLista,privada);
+			Conexion.persist(res);
 			this.listasReproduccion.put(res.getId(), res);
 		}
 		return res;
