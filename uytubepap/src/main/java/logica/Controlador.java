@@ -57,8 +57,29 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public void seguirUsuario(DtUsuario usr1, DtUsuario usr2) {
-		// TODO Auto-generated method stub
+	public void seguirUsuario() {
+		if((user1 != null) && (user2 != null)) {
+			Conexion.beginTransaction();
+			if(user1.getSeguidos() == null) {
+				System.out.println("************************seguidos");
+				user1.setSeguidos(new HashMap<String,Usuario>());
+			}
+			user1.añadirSeguido(user2);
+			for(Usuario u: user1.getSeguidores().values()) {
+				System.out.println("************************"+u.getNickname());
+			}
+			if(user2.getSeguidores() == null) {
+				System.out.println("************************seguidores");
+				user2.setSeguidores(new HashMap<String,Usuario>());
+			}
+			user2.añadirSeguidor(user1);
+			for(Usuario u: user2.getSeguidos().values()) {
+				System.out.println("************************"+u.getNickname());
+			}		
+			Conexion.persist(user1);
+			Conexion.persist(user2);
+			Conexion.commit();
+		}
 		
 	}
 

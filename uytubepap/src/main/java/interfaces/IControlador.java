@@ -20,7 +20,7 @@ public interface IControlador {
 	
 	public DtComentario seleccionarComentario(DtComentario comment);
 	
-	public void seguirUsuario(DtUsuario usr1, DtUsuario usr2);
+	public void seguirUsuario();
 	
 	public void quitarVideo(DtVideo video);
 	
@@ -55,6 +55,8 @@ public interface IControlador {
 	public Boolean ingresarUsuario(String nickname, String nombre, String apellido, String email, Date fechaNac, String img, String canal);
 	
 	public void ingresarTipoLista(boolean defecto);
+	
+	public void finCasoUso();
 
 	
 }
