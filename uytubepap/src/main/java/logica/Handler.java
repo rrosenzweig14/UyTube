@@ -116,9 +116,8 @@ public class Handler {
 	public static Categoria findCategoria(String nombre) {
 		Categoria lst = categorias.get(nombre);
 		if(lst == null) {
-			EntityManager em = Conexion.open();
+			EntityManager em = Conexion.getEm();
 			lst = em.find(Categoria.class, nombre);
-			em.close();
 			return lst;
 		}else {
 			return lst;

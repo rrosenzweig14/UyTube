@@ -21,7 +21,7 @@ public interface IControlador {
 	
 	public DtComentario seleccionarComentario(DtComentario comment);
 	
-	public void seguirUsuario(DtUsuario usr1, DtUsuario usr2);
+	public void seguirUsuario();
 	
 	public void quitarVideo(DtVideo video);
 	
@@ -57,7 +57,11 @@ public interface IControlador {
 	
 	public void ingresarTipoLista(boolean defecto);
 	
+<<<<<<< HEAD
 	public Set<DtComentario> mostrarComentarios();
+=======
+	public void finCasoUso();
+>>>>>>> c062da9448596d9bfcfd2808c69e673b54934f2e
 
 	
 }

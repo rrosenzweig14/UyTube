@@ -59,8 +59,29 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public void seguirUsuario(DtUsuario usr1, DtUsuario usr2) {
-		// TODO Auto-generated method stub
+	public void seguirUsuario() {
+		if((user1 != null) && (user2 != null)) {
+			Conexion.beginTransaction();
+			if(user1.getSeguidos() == null) {
+				System.out.println("************************seguidos");
+				user1.setSeguidos(new HashMap<String,Usuario>());
+			}
+			user1.añadirSeguido(user2);
+			for(Usuario u: user1.getSeguidores().values()) {
+				System.out.println("************************"+u.getNickname());
+			}
+			if(user2.getSeguidores() == null) {
+				System.out.println("************************seguidores");
+				user2.setSeguidores(new HashMap<String,Usuario>());
+			}
+			user2.añadirSeguidor(user1);
+			for(Usuario u: user2.getSeguidos().values()) {
+				System.out.println("************************"+u.getNickname());
+			}		
+			Conexion.persist(user1);
+			Conexion.persist(user2);
+			Conexion.commit();
+		}
 		
 	}
 
@@ -140,22 +161,23 @@ public class Controlador implements IControlador{
 
 	@Override
 	public Boolean ingresarVideo(String nombre, Integer duracion, String url, String descripcion, Date fechaPub, String categoria) {
-		try {
-			Canal canal = this.user1.getCanal();
-			EntityManager em = Conexion.getEm();
-			Categoria cat = Handler.findCategoria(categoria);
-			Video video = new Video(nombre,true, url, fechaPub, descripcion, duracion, cat);// FALTA CONTEMPLAR SI ES PRIVADO O NO EL VIDEO
-			em.getTransaction().begin();
-			em.persist(video);
-			canal.ingresarVideo(video);
-			if (categoria != null) {
-				cat.añadirVideo(video);
-			}
-			em.getTransaction().commit();
-			return true;
-		}catch (Exception e){
-			return false;
+			//Se agarra el canal del usuario
+		Canal canal = this.user1.getCanal();
+			//Se busca o crea la categoria
+		Categoria cat = Handler.findCategoria(categoria);
+			//Se comienza la persistencia
+		EntityManager em = Conexion.getEm();
+		em.getTransaction().begin();
+		if (cat != null) {}
+		else {
+			cat = new Categoria(categoria);
+			em.merge(cat);
 		}
+			//Se crea el video
+		Video video = new Video(nombre,true, url, fechaPub, descripcion, duracion, cat);// FALTA CONTEMPLAR SI ES PRIVADO O NO EL VIDEO
+		em.merge(video);
+		em.getTransaction().commit();
+		return true;
 	}
 
 	@Override
