@@ -19,7 +19,7 @@ import interfaces.IControlador;
 public class Controlador implements IControlador{
 
 	private Usuario user1;
-	//private Usuario user2;
+	private Usuario user2;
 	private boolean defecto;
 	private Video video;
 	
@@ -94,8 +94,13 @@ public class Controlador implements IControlador{
 
 	@Override
 	public DtUsuario seleccionarUsuario(String usuario) {
-		// TODO Auto-generated method stub
-		return null;
+		Usuario aux = Handler.findUsuario(usuario);
+		if(user1 == null) {
+			user1 = aux;
+		}else {
+			user2 = aux;
+		}
+		return aux.getDtUsuario();
 	}
 
 	@Override
@@ -254,6 +259,10 @@ public class Controlador implements IControlador{
 		this.defecto = defecto;		
 	}	
 	
+	public void finCasoUso() {
+		user1 = null;
+		user2 = null;
+	}
 }	
 	
 	
