@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import datatypes.DtUsuario;
+
 public class Handler {
 	private static HashMap<String,Usuario> usuarios = new HashMap<String,Usuario>();
 	private static HashMap<String,Defecto> listasDefecto = new HashMap<String,Defecto>();
@@ -79,6 +81,19 @@ public class Handler {
 			return lst;
 		}
 		
+	}
+	
+	public static ArrayList<String> listarVideos(DtUsuario usr){
+		@SuppressWarnings("rawtypes")
+		Usuario usrl = Handler.findUsuario(usr.getNickname());
+		Canal cnl = usrl.getCanal();
+		List videos = new ArrayList();
+		videos = Conexion.createQuery("SELECT v.nombre FROM Canal_video c AND Video v WHERE c.canal_nickname="+ cnl.getNickname()+ " AND c.Listavideos_id = v.id");
+		ArrayList<String> names = new ArrayList<String>();
+		for(Object name: videos) {
+			names.add((String)name);
+		}
+		return names;
 	}
 	
 	public static boolean addListaDefecto(Defecto lst) {
