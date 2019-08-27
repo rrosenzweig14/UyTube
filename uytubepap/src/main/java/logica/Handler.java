@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,19 +47,23 @@ public class Handler {
 		return usuario;
 	}
 	
-	public static boolean addUsuario(Usuario user) {
-		Usuario aux = findUsuario(user.getNickname());
+	public static boolean addUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, String canal) {
+		Usuario aux = findUsuario(nickname);
 		if(aux == null)
-			aux = findUsuarioEM(user.getEmail());
+			aux = findUsuarioEM(email);
 		if(aux == null) {
 			Conexion.beginTransaction();
-			Conexion.persist(user);
+			Usuario usuario = new Usuario(nickname, email, nombre, apellido, fechaNac, img, canal);
+			Canal x = usuario.getCanal();
+			x.setUsuario(usuario);
+			x.setNickname(nickname);
+			Conexion.persist(usuario);
 			Conexion.commit();
 			/*EntityManager em = Conexion.getEm();
 			em.getTransaction().begin();
 			em.persist(user);
 			em.getTransaction().commit();*/
-			usuarios.put(user.getNickname(),user);
+			usuarios.put(nickname, usuario);
 			return true;
 		}else{
 			return false;

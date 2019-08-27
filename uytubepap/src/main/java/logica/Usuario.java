@@ -165,5 +165,17 @@ public class Usuario {
 		this.canal = new Canal(nombreCanal);
 	}
 
+	public Usuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img,Canal nombreCanal) {
+		super();
+		this.nickname = nickname;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = email;
+		this.fechaNac = fechaNac;
+		this.img = img;		
+		this.seguidores = new HashMap<String,Usuario>();
+		this.seguidos = new HashMap<String,Usuario>();
+		this.canal = canal;
+	}
 	
 }
