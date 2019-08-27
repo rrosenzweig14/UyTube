@@ -148,7 +148,8 @@ public class Usuario {
 	};
 	
 	public boolean agregarListaDefecto(String nombreLista) {
-		return this.canal.agregarListaDefecto(nombreLista);
+		boolean res = this.canal.agregarListaDefecto(nombreLista);		
+		return res;
 	}
 	
 	public Usuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img,String nombreCanal) {

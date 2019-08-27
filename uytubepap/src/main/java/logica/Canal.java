@@ -154,10 +154,10 @@ public class Canal {
 	
 	public boolean agregarListaDefecto(String nombreLista) {
 		boolean res = false;
-//		if (!this.listasReproduccion.containsKey(nombreLista)) {
-//			Lista lista = new Defecto(nombreLista,true);
-//			this.listasReproduccion.put(lista.getId(), lista);
-//		}
+		if (!this.listaExists(nombreLista)) {
+			Lista lista = new Defecto(nombreLista,true);			
+			this.listasReproduccion.put(lista.getNombre(), lista);
+		}
 		return res;
 	}
 	

@@ -3,6 +3,8 @@ package logica;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -157,13 +159,20 @@ public class Controlador implements IControlador{
 		boolean res = true;
 		if (this.defecto) 
 		{
-			HashMap<String,Usuario> usuarios = Handler.getUsuarios();
-			//boolean flag = false;
-			for (Usuario user : usuarios.values()) {
+			EntityManager em = Conexion.getEm();
+			em.getTransaction().begin();	
+			List<Usuario> usuarios = Handler.getUsuarioList();			
+			//boolean flag = false;			
+			Iterator<Usuario> it = usuarios.iterator();
+			while (it.hasNext()) {
+				Usuario usr = it.next();
 				
-				if (!(user.agregarListaDefecto(nombre)))
+				if (!(usr.agregarListaDefecto(nombre)))
 					res = false;
-			}			
+				else em.merge(usr.getCanal());
+				
+			}
+			em.getTransaction().commit();					
 		}
 		else 
 		{

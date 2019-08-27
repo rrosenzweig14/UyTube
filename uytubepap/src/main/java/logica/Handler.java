@@ -151,6 +151,15 @@ public class Handler {
 		return usuarios;
 	}
 	
+	public static List<Usuario> getUsuarioList(){
+		@SuppressWarnings("rawtypes")
+		List lista = new ArrayList();
+		lista = Conexion.createQuery("SELECT u FROM Usuario u");	
+		return lista;
+		
+	}
+	
+	
 	public static ArrayList<String> listasDefecto(){
 		@SuppressWarnings("rawtypes")
 		List listas = new ArrayList();
