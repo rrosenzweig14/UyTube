@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
@@ -22,6 +23,7 @@ public class Controlador implements IControlador{
 	private Usuario user2;
 	private boolean defecto;
 	private Video video;
+	private Comentario comentario;
 	
 	@Override
 	public void valorarVideo(String nick, boolean valor) {
@@ -81,15 +83,27 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public void ingresarComentario(DtComentario comment) {
-		// TODO Auto-generated method stub
+	public void ingresarComentario(DtComentario comentario) {		
+		Conexion.beginTransaction();
 		
+		if (comentario != null) {			
+			Comentario comment = video.ingresarComentario(comentario,user1);			
+			Conexion.persist(video);			
+		}
+		else {
+			//TODO
+		}			
+		Conexion.commit();
 	}
-
+	
+	//Precondicion usuario != null
 	@Override
-	public DtVideo seleccionarVideo(String video) {
-		// TODO Auto-generated method stub
-		return null;
+	public DtVideo seleccionarVideo(String nombreVideo) {
+		Video aux = user1.getCanal().findVideo(nombreVideo);
+		if(video == null) {
+			video = aux;
+		}
+		return aux.getDt();		
 	}
 
 	@Override
@@ -262,6 +276,19 @@ public class Controlador implements IControlador{
 	public void finCasoUso() {
 		user1 = null;
 		user2 = null;
+	}
+	//Precondicion video != null
+	public Set<DtComentario> mostrarComentarios()
+	{
+		return null;
+//		Set<Comentario> comentarios = video.getComentarios();
+//		Set<DtComentario> listadoRes = new TreeSet<DtComentario>();
+//		for (Comentario comment : comentarios) {
+//			DtComentario c = comment.getDt();
+//			listadoRes.add(c);			
+//		}
+//		return listadoRes;
+		
 	}
 }	
 	

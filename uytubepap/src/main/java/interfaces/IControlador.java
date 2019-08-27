@@ -3,6 +3,7 @@ package interfaces;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 import datatypes.DtCanal;
 import datatypes.DtComentario;
@@ -55,6 +56,8 @@ public interface IControlador {
 	public Boolean ingresarUsuario(String nickname, String nombre, String apellido, String email, Date fechaNac, String img, String canal);
 	
 	public void ingresarTipoLista(boolean defecto);
+	
+	public Set<DtComentario> mostrarComentarios();
 
 	
 }

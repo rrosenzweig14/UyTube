@@ -113,6 +113,12 @@ public class Canal {
 	public void setListaVideos(Map<String,Video> listaVideos) {
 		this.listaVideos = listaVideos;
 	}
+	
+	public Video findVideo(String nombreVideo) {
+		Video res = null;
+		res = this.listaVideos.get(nombreVideo);		
+		return res;
+	}
 
 	public boolean listaExists(String nombreLista) {
 		if (this.listasReproduccion.containsKey(nombreLista)) return true;
@@ -144,10 +150,7 @@ public class Canal {
 			else 
 				res = new Particular(nombreLista,privada);
 			Conexion.persist(res);
-			this.listasReproduccion.put(res.getNombre(), res);
-			
-			
-			
+			this.listasReproduccion.put(res.getNombre(), res);			
 		}
 		return res;
 	}

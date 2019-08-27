@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class Video {
 	@ManyToOne
 	private Categoria categoria;
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	private Set<Comentario> comentarios;	
+	private List<Comentario> comentarios = new ArrayList<Comentario>();	
 	@OneToMany(mappedBy="idVideo",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Usuario_Video> valoraciones;
 
@@ -98,11 +99,11 @@ public class Video {
 		this.categoria = categoria;
 	}
 
-	public Set<Comentario> getComentarios() {
+	public List<Comentario> getComentarios() {
 		return comentarios;
-	}
-
-	public void setComentarios(Set<Comentario> comentarios) {
+	}	
+	
+	public void setComentarios(List<Comentario> comentarios) {
 		this.comentarios = comentarios;
 	}
 	
@@ -164,5 +165,12 @@ public class Video {
 		dtv.setComentarios(getElPutoTree());
 		return dtv;
 	}
+	
+	public Comentario ingresarComentario(DtComentario comentario,Usuario usr) {
+		Comentario comment = new Comentario(comentario.getTexto(),comentario.getFecha(),usr);		
+		this.comentarios.add(comment);
+		return comment;
+		
+	}	
 
 }
