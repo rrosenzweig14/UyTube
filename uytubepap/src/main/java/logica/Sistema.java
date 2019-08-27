@@ -1,6 +1,7 @@
 package logica;
 
 import java.io.Console;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,33 +28,44 @@ public class Sistema {
 		
 //		EntityManagerFactory emf = Persistence.createEntityManagerFactory("uytubepap");
 //		EntityManager em = emf.createEntityManager();
-		
-		
-		
+
+		//Se crea usuario para agregarle video
 		Date fechaNac1 = new Date();
 		if(ctrl.ingresarUsuario("jp","jperezARROBAuymail.com.uy", "juan","perez", fechaNac1, "es_url", "jpChanel"))
 			System. out. println("Usuario ingresado con exito\n");
 		else 
 			System. out. println("El usuario ya existe en el sistema\n");
-
-		Date fechaNac2 = new Date();		
-		if(ctrl.ingresarUsuario("RR","rrozenweigARROBAuymail.com","rodrigo","rosenzweig",fechaNac2, "es_url", "RRTV"))
-			System. out. println("Usuario ingresado con exito\n");
-		else 
-			System. out. println("El usuario ya existe en el sistema\n");
-		
-		if(ctrl.ingresarUsuario("RO","rrozenweigARROBAuymail.com","rodrigo","rosenzwreig",fechaNac2, "es_ur3l", "ROTV"))
-			
-			System. out. println("Usuario ingresado con exito\n");
-		else 
-			System. out. println("El usuario ya existe en el sistema\n");
-		
-		if(ctrl.ingresarUsuario("RG","rrozenweigARROBAuymail.com","rodrigo","rosenzwreig",fechaNac2, "es_ur3l", "RGTV"))
-			System. out. println("Usuario ingresado con exito\n");
-		else 
-			System. out. println("El usuario ya existe en el sistema\n");
-		
-		ctrl.ingresarVideo("video1", 5, "wwwvideo1", "este es un video de prueba", new Date(), "prueba");
+		//Se agrega el video a su canal
+		ctrl.seleccionarUsuario("jp");
+		if(ctrl.ingresarVideo("videodeprueba", 230, "video.com", "videodepruebadesc", fechaNac1, "horror"))
+			System.out.println("Se agrego el video correctamente");
+		else
+			System.out.println("No se agrego el video");
+				
+//		Date fechaNac1 = new Date();
+//		if(ctrl.ingresarUsuario("jp","jperezARROBAuymail.com.uy", "juan","perez", fechaNac1, "es_url", "jpChanel"))
+//			System. out. println("Usuario ingresado con exito\n");
+//		else 
+//			System. out. println("El usuario ya existe en el sistema\n");
+//
+//		Date fechaNac2 = new Date();		
+//		if(ctrl.ingresarUsuario("RR","rrozenweigARROBAuymail.com","rodrigo","rosenzweig",fechaNac2, "es_url", "RRTV"))
+//			System. out. println("Usuario ingresado con exito\n");
+//		else 
+//			System. out. println("El usuario ya existe en el sistema\n");
+//		
+//		if(ctrl.ingresarUsuario("RO","rrozenweigARROBAuymail.com","rodrigo","rosenzwreig",fechaNac2, "es_ur3l", "ROTV"))
+//			
+//			System. out. println("Usuario ingresado con exito\n");
+//		else 
+//			System. out. println("El usuario ya existe en el sistema\n");
+//		
+//		if(ctrl.ingresarUsuario("RG","rrozenweigARROBAuymail.com","rodrigo","rosenzwreig",fechaNac2, "es_ur3l", "RGTV"))
+//			System. out. println("Usuario ingresado con exito\n");
+//		else 
+//			System. out. println("El usuario ya existe en el sistema\n");
+//		
+//		ctrl.ingresarVideo("video1", 5, "wwwvideo1", "este es un video de prueba", new Date(), "prueba");
 		//ctrl.crearCanal("RG","salame", "todo lo que quiere saber sobre chacinados", false);
 				
 //		em.getTransaction().begin();

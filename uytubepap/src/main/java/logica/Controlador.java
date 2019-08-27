@@ -147,22 +147,23 @@ public class Controlador implements IControlador{
 
 	@Override
 	public Boolean ingresarVideo(String nombre, Integer duracion, String url, String descripcion, Date fechaPub, String categoria) {
-		try {
-			Canal canal = this.user1.getCanal();
-			EntityManager em = Conexion.getEm();
-			Categoria cat = Handler.findCategoria(categoria);
-			Video video = new Video(nombre,true, url, fechaPub, descripcion, duracion, cat);// FALTA CONTEMPLAR SI ES PRIVADO O NO EL VIDEO
-			em.getTransaction().begin();
-			em.persist(video);
-			canal.ingresarVideo(video);
-			if (categoria != null) {
-				cat.añadirVideo(video);
-			}
-			em.getTransaction().commit();
-			return true;
-		}catch (Exception e){
-			return false;
+			//Se agarra el canal del usuario
+		Canal canal = this.user1.getCanal();
+			//Se busca o crea la categoria
+		Categoria cat = Handler.findCategoria(categoria);
+			//Se comienza la persistencia
+		EntityManager em = Conexion.getEm();
+		em.getTransaction().begin();
+		if (cat != null) {}
+		else {
+			cat = new Categoria(categoria);
+			em.merge(cat);
 		}
+			//Se crea el video
+		Video video = new Video(nombre,true, url, fechaPub, descripcion, duracion, cat);// FALTA CONTEMPLAR SI ES PRIVADO O NO EL VIDEO
+		em.merge(video);
+		em.getTransaction().commit();
+		return true;
 	}
 
 	@Override
