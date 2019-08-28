@@ -43,7 +43,7 @@ public interface IControlador {
 
 	public void editarVideo(DtVideo video);
 	
-	public void agregarVideo(String video, DtLista lista);
+	public boolean agregarVideo(String video, DtLista lista);
 	
 	public boolean crearLista(DtUsuario usuario, String nombre, boolean privada, String categoria);
 	
@@ -56,10 +56,10 @@ public interface IControlador {
 	public Boolean ingresarUsuario(String nickname, String nombre, String apellido, String email, Date fechaNac, String img, String canal);
 	
 	public void ingresarTipoLista(boolean defecto);	
-
+	
 	public Set<DtComentario> mostrarComentarios();
 
 	public void finCasoUso();
 
-	
+	public DtLista seleccionarLista(String lista);
 }
