@@ -29,10 +29,10 @@ public class Usuario {
 	private Date fechaNac;	
 	private String img;	
 	@ManyToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="Usuarios_Relacion", joinColumns={@JoinColumn(name="seguido_id")}, inverseJoinColumns={@JoinColumn(name="seguidor_id")})
-	private Map<String,Usuario> seguidores;	
+    @JoinTable(name="Usuarios_Relacion", joinColumns={@JoinColumn(name="nickname")}, inverseJoinColumns={@JoinColumn(name="seguidor_id")})
+	private List<Usuario> seguidores = new ArrayList<Usuario>();	
 	@ManyToMany(mappedBy="seguidores", cascade={CascadeType.ALL})
-	private Map<String,Usuario> seguidos;
+	private List<Usuario> seguidos = new ArrayList<Usuario>();
 	@OneToOne (mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private Canal canal;
 	@OneToMany(mappedBy="idVideo",cascade=CascadeType.ALL,orphanRemoval=true)
@@ -48,16 +48,17 @@ public class Usuario {
 		this.email = email;
 		this.fechaNac = fechaNac;
 		this.img = img;		
-		this.seguidores = new HashMap<String,Usuario>();
-		this.seguidos = new HashMap<String,Usuario>();
+		this.seguidores = new ArrayList<Usuario>();
+		this.seguidos = new ArrayList<Usuario>();
 	}
 	
 	public void añadirSeguidor(Usuario user) {
-		this.seguidores.put(user.getNickname(), user);
+		this.seguidores.add(user);
+		user.añadirSeguido(this);
 	}
 	
 	public void añadirSeguido(Usuario user) {
-		this.seguidos.put(user.getNickname(), user);
+		this.seguidos.add(user);
 	}
 	
 	//getters - setters	
@@ -114,19 +115,19 @@ public class Usuario {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Map<String,Usuario> getSeguidores() {
+	public List<Usuario> getSeguidores() {
 		return seguidores;
 	}
 
-	public void setSeguidores(Map<String,Usuario> seguidores) {
+	public void setSeguidores(List<Usuario> seguidores) {
 		this.seguidores = seguidores;
 	}
 
-	public Map<String,Usuario> getSeguidos() {
+	public List<Usuario> getSeguidos() {
 		return seguidos;
 	}
 
-	public void setSeguidos(HashMap<String,Usuario> seguidos) {
+	public void setSeguidos(List<Usuario> seguidos) {
 		this.seguidos = seguidos;
 	}
 
@@ -159,8 +160,9 @@ public class Usuario {
 		this.email = email;
 		this.fechaNac = fechaNac;
 		this.img = img;		
-		this.seguidores = new HashMap<String,Usuario>();
-		this.seguidos = new HashMap<String,Usuario>();
+		//No deberia ser necesario ya que se inicializa cuando se crea la entidad
+//		this.seguidores = new HashMap<String,Usuario>();
+//		this.seguidos = new HashMap<String,Usuario>();
 		this.canal = new Canal(nombreCanal);
 	}
 
@@ -172,8 +174,9 @@ public class Usuario {
 		this.email = email;
 		this.fechaNac = fechaNac;
 		this.img = img;		
-		this.seguidores = new HashMap<String,Usuario>();
-		this.seguidos = new HashMap<String,Usuario>();
+		//No deberia ser necesario ya que se inicializa cuando se crea la entidad
+//		this.seguidores = new HashMap<String,Usuario>();
+//		this.seguidos = new HashMap<String,Usuario>();
 		this.canal = canal;
 	}
 	

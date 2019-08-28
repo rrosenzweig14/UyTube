@@ -61,27 +61,16 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
+	// USER 1 SIGUE A USER 2
 	public void seguirUsuario() {
 		if((user1 != null) && (user2 != null)) {
+			System.out.println("USER 1 = " + user1.getNickname() + " USER 2 = " + user2.getNickname());
 			Conexion.beginTransaction();
-			if(user1.getSeguidos() == null) {
-				System.out.println("************************seguidos");
-				user1.setSeguidos(new HashMap<String,Usuario>());
-			}
-			user1.añadirSeguido(user2);
-			for(Usuario u: user1.getSeguidores().values()) {
-				System.out.println("************************"+u.getNickname());
-			}
-			if(user2.getSeguidores() == null) {
-				System.out.println("************************seguidores");
-				user2.setSeguidores(new HashMap<String,Usuario>());
-			}
-			user2.añadirSeguidor(user1);
-			for(Usuario u: user2.getSeguidos().values()) {
-				System.out.println("************************"+u.getNickname());
-			}		
-			Conexion.persist(user1);
+			//Con solo una operacion asignamos el seguidor y el seguido.
+			user2.añadirSeguidor(user1);		
+			
 			Conexion.persist(user2);
+			Conexion.persist(user1);
 			Conexion.commit();
 		}
 		
