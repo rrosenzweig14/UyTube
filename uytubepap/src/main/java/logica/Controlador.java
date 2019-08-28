@@ -208,15 +208,16 @@ public class Controlador implements IControlador{
 			List<Usuario> usuarios = Handler.getUsuarioList();			
 			//boolean flag = false;			
 			Iterator<Usuario> it = usuarios.iterator();
+			Handler.addListaDefecto(nombre);
+			if(!usuarios.isEmpty())
 			while (it.hasNext()) {
 				Usuario usr = it.next();
 				
 				if (!(usr.agregarListaDefecto(nombre)))
 					res = false;
 				else em.merge(usr.getCanal());
-				
+				em.getTransaction().commit();					
 			}
-			em.getTransaction().commit();					
 		}
 		else 
 		{
@@ -247,6 +248,8 @@ public class Controlador implements IControlador{
 		
 		
 	}
+
+
 	
 	@Override
 	public DtLista seleccionarLista(String lst) {
