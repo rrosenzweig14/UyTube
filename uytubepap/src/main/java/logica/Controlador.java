@@ -24,7 +24,8 @@ public class Controlador implements IControlador{
 	private boolean defecto;
 	private Video video;
 	private Comentario comentario;
-	
+	private Lista lista;
+
 	@Override
 	public void valorarVideo(String nick, boolean valor) {
 		EntityManager em = Conexion.getEm();	
@@ -170,13 +171,19 @@ public class Controlador implements IControlador{
 		em.getTransaction().begin();
 		if (cat != null) {}
 		else {
+			//Tiene que ser una categoria existente
+//			System. out. println("Esa categoria no existe en el sistema\n");
+//			return false
 			cat = new Categoria(categoria);
-			em.merge(cat);
+			em.persist(cat);
 		}
 			//Se crea el video
 		Video video = new Video(nombre,true, url, fechaPub, descripcion, duracion, cat);// FALTA CONTEMPLAR SI ES PRIVADO O NO EL VIDEO
-		em.merge(video);
+		canal.ingresarVideo(video);
+		em.persist(canal);
+		em.persist(video);
 		em.getTransaction().commit();
+		this.finCasoUso();
 		return true;
 	}
 
@@ -186,13 +193,17 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public void agregarVideo(String video, DtLista lista) {
-		//TODO Falta agregar persistencia
-			//EntityManager em = Conexion.getEm();
-		//Video vid = user1.getCanal().getListaVideos().get(video);
-		//Map<Integer, Lista> listasCanal = this.user2.getCanal().getListasReproduccion();
-		//Lista lst = listasCanal.get(lista.getNombre());
-		//lst.addVideo(vid);
+	public boolean agregarVideo(String video, DtLista lista) {
+		EntityManager em = Conexion.getEm();
+		em.getTransaction().begin();
+		Video vid = user1.getCanal().getListaVideos().get(video);
+		Map<String, Lista> listasCanal = this.user2.getCanal().getListasReproduccion();
+		Lista lst = listasCanal.get(lista.getNombre());
+		lst.addVideo(vid);
+		em.persist(lst);
+		em.getTransaction().commit();
+		this.finCasoUso();
+		return true;
 	}
 
 	@Override
@@ -243,6 +254,16 @@ public class Controlador implements IControlador{
 		return res;
 		
 		
+	}
+	
+	@Override
+	public DtLista seleccionarLista(String lst) {
+		Map<String, Lista> aux = user1.getCanal().getListasReproduccion();
+		Lista lstaux = aux.get(lst);
+		if(lista == null) {
+			lista = lstaux;
+		}
+		return lstaux.getDt();
 	}
 
 	@Override

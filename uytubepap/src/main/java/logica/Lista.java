@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -27,7 +28,7 @@ public abstract class Lista {
 	@ManyToOne
 	private Categoria categoria;
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	private Map<String,Video> videos;
+	private Map<String,Video> videos = new HashMap<String,Video>();	
 
 	//Constructores	
 	public Lista() {
