@@ -219,8 +219,9 @@ public class Controlador implements IControlador{
 				
 				if (!(usr.agregarListaDefecto(nombre)))
 					res = false;
-				else em.merge(usr.getCanal());
+				else {em.merge(usr.getCanal());
 				em.getTransaction().commit();					
+				}
 			}
 		}
 		else 
