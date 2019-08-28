@@ -28,6 +28,7 @@ public class Controlador implements IControlador{
 	private Comentario comentarioSeleccionado;
 	private Lista lista;
 	private Canal canal;
+	private Categoria categoria1;
 
 	@Override
 	public void valorarVideo(String nick, boolean valor) {
@@ -54,7 +55,10 @@ public class Controlador implements IControlador{
 
 	@Override
 	public void seleccionarCategoria(String cat) {
-		// TODO Auto-generated method stub
+		categoria1 =  Handler.findCategoria(cat);
+		if(categoria1 == null) {
+			System.out.println("La categoria no existe.");			
+		}
 	}
 	
 	// precondicion: video != null y el comentario existe
