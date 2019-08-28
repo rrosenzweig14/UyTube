@@ -3,6 +3,7 @@ package logica;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -83,12 +84,6 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public ArrayList<DtComentario> mostrarComentario() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void modificarUsuarioCanal(DtUsuario usr, DtCanal canal) {
 		// TODO Auto-generated method stub
 		
@@ -97,7 +92,6 @@ public class Controlador implements IControlador{
 	@Override
 	public void ingresarComentario(DtComentario comentario) {		
 		Conexion.beginTransaction();
-		EntityManager em =Conexion.getEm();
 		
 		if (comentarioSeleccionado == null) {			
 			Comentario comment = video.ingresarComentario(comentario,user1);			
@@ -105,7 +99,7 @@ public class Controlador implements IControlador{
 		}
 		else {			
 			video.ingresarRespuesta(comentario,user1,comentarioSeleccionado);			
-			em.persist(video);			
+			Conexion.persist(video);			
 		}			
 		Conexion.commit();
 	}
@@ -161,7 +155,11 @@ public class Controlador implements IControlador{
 			//Se comienza la persistencia
 		EntityManager em = Conexion.getEm();
 		em.getTransaction().begin();
-		if (cat != null) {}
+		if (cat != null) 
+		{
+			
+		}
+		
 		else {
 			//Tiene que ser una categoria existente
 //			System. out. println("Esa categoria no existe en el sistema\n");
@@ -315,8 +313,8 @@ public class Controlador implements IControlador{
 	//Precondicion video != null
 	public Set<DtComentario> mostrarComentarios()
 	{
-		List <Comentario> comentarios = video.getComentarios();
-		Set<DtComentario> listadoRes = new TreeSet<DtComentario>();
+		List<Comentario> comentarios = video.getComentarios();
+		Set<DtComentario> listadoRes = new HashSet<DtComentario>();
 		for (Comentario comment : comentarios) {
 			DtComentario c = comment.getDt();
 			listadoRes.add(c);			

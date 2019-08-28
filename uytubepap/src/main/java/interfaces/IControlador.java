@@ -25,8 +25,6 @@ public interface IControlador {
 	
 	public void quitarVideo(DtVideo video);
 	
-	public ArrayList<DtComentario> mostrarComentario();
-	
 	public void modificarUsuarioCanal(DtUsuario usr, DtCanal canal);
 	
 	public void ingresarComentario(DtComentario comment);
