@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.EntityManager;
 
@@ -23,7 +24,7 @@ public class Controlador implements IControlador{
 	private Usuario user2;
 	private boolean defecto;
 	private Video video;
-	private Comentario comentario;
+	private Comentario comentarioSeleccionado;
 	
 	@Override
 	public void valorarVideo(String nick, boolean valor) {
@@ -51,11 +52,11 @@ public class Controlador implements IControlador{
 	public void seleccionarCategoria(String cat) {
 		// TODO Auto-generated method stub
 	}
-
+	
+	// precondicion: video != null y el comentario existe
 	@Override
-	public DtComentario seleccionarComentario(DtComentario comment) {
-		// TODO Auto-generated method stub
-		return null;
+	public void seleccionarComentario(DtComentario comment) {	
+		comentarioSeleccionado = video.findComentario(comment);	
 	}
 
 	@Override
@@ -106,13 +107,15 @@ public class Controlador implements IControlador{
 	@Override
 	public void ingresarComentario(DtComentario comentario) {		
 		Conexion.beginTransaction();
+		EntityManager em =Conexion.getEm();
 		
-		if (comentario != null) {			
+		if (comentarioSeleccionado == null) {			
 			Comentario comment = video.ingresarComentario(comentario,user1);			
 			Conexion.persist(video);			
 		}
-		else {
-			//TODO
+		else {			
+			video.ingresarRespuesta(comentario,user1,comentarioSeleccionado);			
+			em.persist(video);			
 		}			
 		Conexion.commit();
 	}
@@ -302,14 +305,13 @@ public class Controlador implements IControlador{
 	//Precondicion video != null
 	public Set<DtComentario> mostrarComentarios()
 	{
-		return null;
-//		Set<Comentario> comentarios = video.getComentarios();
-//		Set<DtComentario> listadoRes = new TreeSet<DtComentario>();
-//		for (Comentario comment : comentarios) {
-//			DtComentario c = comment.getDt();
-//			listadoRes.add(c);			
-//		}
-//		return listadoRes;
+		List <Comentario> comentarios = video.getComentarios();
+		Set<DtComentario> listadoRes = new TreeSet<DtComentario>();
+		for (Comentario comment : comentarios) {
+			DtComentario c = comment.getDt();
+			listadoRes.add(c);			
+		}
+		return listadoRes;
 		
 	}
 }	

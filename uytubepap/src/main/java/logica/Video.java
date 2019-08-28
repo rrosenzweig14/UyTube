@@ -2,6 +2,7 @@ package logica;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -161,8 +162,8 @@ public class Video {
 	}
 	
 	public DtVideo getDt() {
-		DtVideo dtv = new DtVideo(this.id,this.nombre,this.privado,null,this.descripcion,this.duracion,this.categoria.getNombre(),this.fechaPub,this.url);
-		dtv.setComentarios(getElPutoTree());
+		DtVideo dtv = new DtVideo(this.id,this.nombre,this.privado,null,this.descripcion,this.duracion,null,this.fechaPub,this.url);
+		//dtv.setComentarios(getElPutoTree()); TIRA ERROR
 		return dtv;
 	}
 	
@@ -172,5 +173,25 @@ public class Video {
 		return comment;
 		
 	}	
+	
+	public void ingresarRespuesta(DtComentario respuesta, Usuario autor, Comentario comentarioSeleccionado) {
+		boolean encontrado = false;
+		int i = 0;
+		while (!encontrado && i < this.comentarios.size()) {
+			if (this.comentarios.get(i).getId() == comentarioSeleccionado.getId()) encontrado = true;
+			else i++;
+		}
+		Comentario comment = this.comentarios.get(i).ingresarRespuesta(respuesta, autor);
+		this.comentarios.add(comment);
+	}
+	
+	public Comentario findComentario(DtComentario comment) {
+		Comentario res = null;
+		List<Comentario> comentarios = this.comentarios;
+		for (Comentario c : comentarios) {
+			if(c.getId() == comment.getId()) res = c;
+		}
+		return res;
+	}
 
 }

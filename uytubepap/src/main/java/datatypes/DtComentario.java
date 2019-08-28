@@ -19,10 +19,16 @@ public class DtComentario {
 		this.texto = texto;
 		this.fecha = fecha;
 	}
+	
+	public DtComentario(String nick, String texto, Date fecha) {
+		this.nick = nick;
+		this.texto = texto;
+		this.fecha = fecha;
+	}
 
 	
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(int id) {

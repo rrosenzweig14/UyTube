@@ -19,7 +19,7 @@ public interface IControlador {
 	
 	public void seleccionarCategoria(String cat);
 	
-	public DtComentario seleccionarComentario(DtComentario comment);
+	public void seleccionarComentario(DtComentario comment);
 	
 	public void seguirUsuario();
 	
@@ -55,13 +55,11 @@ public interface IControlador {
 	
 	public Boolean ingresarUsuario(String nickname, String nombre, String apellido, String email, Date fechaNac, String img, String canal);
 	
-	public void ingresarTipoLista(boolean defecto);
-	
-<<<<<<< HEAD
+	public void ingresarTipoLista(boolean defecto);	
+
 	public Set<DtComentario> mostrarComentarios();
-=======
+
 	public void finCasoUso();
->>>>>>> c062da9448596d9bfcfd2808c69e673b54934f2e
 
 	
 }

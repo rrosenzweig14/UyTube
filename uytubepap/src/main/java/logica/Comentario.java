@@ -84,5 +84,11 @@ public class Comentario {//TODO agregar la clave compuesta usuario fecha o quiz√
 	public DtComentario getDt() {
 		return new DtComentario(id,autor.getNickname(),texto,fecha);
 	}
+	
+	public Comentario ingresarRespuesta(DtComentario respuesta, Usuario autor) {
+		Comentario comment = new Comentario(respuesta.getTexto(),respuesta.getFecha(),autor);
+		this.respuestas.add(comment);
+		return comment;
+	}
 
 }
