@@ -176,7 +176,6 @@ public class Handler {
 		List lista = new ArrayList();
 		lista = Conexion.createQuery("SELECT u FROM Usuario u");	
 		return lista;
-		
 	}
 	
 	
