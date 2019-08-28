@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Iterator;
 import javax.persistence.EntityManager;
 
 import datatypes.DtUsuario;
 
 public class Handler {
 	private static HashMap<String,Usuario> usuarios = new HashMap<String,Usuario>();
-	private static HashMap<String,Defecto> listasDefecto = new HashMap<String,Defecto>();
+	private static ArrayList<String> listasDefecto = new ArrayList<String>();
 	private static HashMap<String,Categoria> categorias = new HashMap<String,Categoria>();
 	
 	public static Usuario findUsuario(String nick) {
@@ -23,7 +23,7 @@ public class Handler {
 			System.out.println("cuando user null findUsuario");
 		}
 		return user;
-	}
+}
 	
   	
 	public static Usuario findUsuarioEM(String email) {
@@ -34,17 +34,14 @@ public class Handler {
 			}
 		}
 		if(usuario == null) {
-			@SuppressWarnings("rawtypes")
-			List usuarios = new ArrayList();
-			String query = "SELECT u FROM usuario u WHERE u.email = '" + email + "'";
-			usuarios = Conexion.createQuery(query);
-			if(usuarios != null)
-				if(!usuarios.isEmpty())
-				usuario = (Usuario) usuarios.get(0);
-
-		}
-		if(usuario == null) {
-			System.out.println("Usuario null en FindEM");
+			String query = "SELECT u FROM Usuario u WHERE u.email = '" + email + "'";
+			//Conexion.open();
+			try {
+				usuario = (Usuario) Conexion.getEm().createQuery(query).getResultList().get(0);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			//Conexion.close();
 		}
 		return usuario;
 	}
@@ -58,12 +55,12 @@ public class Handler {
 			Usuario usuario = new Usuario(nickname, email, nombre, apellido, fechaNac, img, canal);
 			Canal x = usuario.getCanal();
 			x.setUsuario(usuario);
+			Iterator<String> i = listasDefecto.iterator();
+			while(i.hasNext())
+				x.agregarListaDefecto(i.next());
+					
 			Conexion.persist(usuario);
 			Conexion.commit();
-			/*EntityManager em = Conexion.getEm();
-			em.getTransaction().begin();
-			em.persist(user);
-			em.getTransaction().commit();*/
 			usuarios.put(nickname, usuario);
 			return true;
 		}else{
@@ -71,15 +68,15 @@ public class Handler {
 		}
 	}
 
-	
 	public static Defecto findListaDefecto(String nombre) {
-		Defecto lst = listasDefecto.get(nombre);
-		if(lst == null) {
+		Defecto lst = null;
+		if(listasDefecto.contains(nombre)) {
+			lst = new Defecto(nombre,false);
+		}else{
 			EntityManager em = Conexion.getEm();
-			return em.find(Defecto.class, nombre);
-		}else {
-			return lst;
+			lst = em.find(Defecto.class, nombre);
 		}
+		return lst;
 		
 	}
 	
@@ -96,17 +93,22 @@ public class Handler {
 		return names;
 	}
 	
-	public static boolean addListaDefecto(Defecto lst) {
-		Defecto aux = findListaDefecto(lst.getNombre());
+	public static boolean addListaDefecto(String nombre) {
+		Defecto aux = null;
+		Iterator<String> i = listasDefecto.iterator();
+		while(i.hasNext())
+			if(i.next() == nombre)
+					aux = new Defecto(nombre, false);
 		if(aux == null) {
+			Defecto nueva = new Defecto(nombre,false);
 			Conexion.beginTransaction();
-			Conexion.persist(lst);
+			Conexion.persist(nueva);
 			Conexion.commit();
 			/*EntityManager em = Conexion.getEm();
 			em.getTransaction().begin();
 			em.persist(lst);
 			em.getTransaction().commit();*/
-			listasDefecto.put(lst.getNombre(),lst);
+			listasDefecto.add(nombre);
 			return true;
 		}else{
 			return false;
