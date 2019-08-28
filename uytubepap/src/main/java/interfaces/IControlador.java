@@ -2,6 +2,7 @@ package interfaces;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,7 +16,7 @@ public interface IControlador {
 	
 	public void valorarVideo(String nick, boolean valor);
 	
-	public ArrayList<DtVideo> videoEnLista(DtLista lst);
+	public ArrayList<DtVideo> videosEnLista(DtLista lst);
 	
 	public void seleccionarCategoria(String cat);
 	
@@ -24,8 +25,6 @@ public interface IControlador {
 	public void seguirUsuario();
 	
 	public void quitarVideo(DtVideo video);
-	
-	public ArrayList<DtComentario> mostrarComentario();
 	
 	public void modificarUsuarioCanal(DtUsuario usr, DtCanal canal);
 	
@@ -62,4 +61,8 @@ public interface IControlador {
 	public void finCasoUso();
 
 	public DtLista seleccionarLista(String lista);
+	
+	public ArrayList<DtLista> listarListasReproduccion(DtUsuario usuario);
+	
+	public DtVideo consultarVideo(String nombreVideo); 
 }
