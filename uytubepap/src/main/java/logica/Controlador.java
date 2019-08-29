@@ -340,8 +340,16 @@ public class Controlador implements IControlador{
 	}
 	
 	public DtVideo consultarVideo(String nombreVideo) {
-		Video videoSelec = lista.getVideos().get(nombreVideo);
-		return videoSelec.getDt();		
+		DtVideo res = null;
+		if (lista == null) {
+			Video videoSelec = canal.getListaVideos().get(nombreVideo);
+			if (videoSelec != null) res = videoSelec.getDt();
+		}
+		else {
+			Video videoSelec = lista.getVideos().get(nombreVideo);
+			if (videoSelec != null) res = videoSelec.getDt();
+		}		
+		return res;
 	}
 	
 	
