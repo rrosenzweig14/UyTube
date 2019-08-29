@@ -27,6 +27,7 @@ public class Controlador implements IControlador{
 	private Video video;
 	private Comentario comentarioSeleccionado;
 	private Lista lista;
+	private Canal canal;
 
 	@Override
 	public void valorarVideo(String nick, boolean valor) {
@@ -45,9 +46,14 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public ArrayList<DtVideo> videoEnLista(DtLista lst) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<DtVideo> videosEnLista(DtLista lst) {
+		ArrayList<DtVideo> res = null;
+		lista = canal.getListasReproduccion().get(lst.getNombre());
+		Map<String,Video> videos = lista.getVideos();		
+		for (Video video : videos.values()) {
+			res.add(video.getDt());
+		}		
+		return res;
 	}
 
 	@Override
@@ -242,9 +248,7 @@ public class Controlador implements IControlador{
 			else res = false;
 			em.getTransaction().commit();
 		}
-		return res;
-		
-		
+		return res;		
 	}
 
 
@@ -264,6 +268,8 @@ public class Controlador implements IControlador{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 
 	@Override
 	public  Map<DtUsuario, DtCanal> listarDatosUsuario(String nick) {
@@ -325,6 +331,24 @@ public class Controlador implements IControlador{
 		return listadoRes;
 		
 	}
+	
+	public ArrayList<DtLista> listarListasReproduccion(DtUsuario usuario){
+		ArrayList<DtLista> res = null;
+		Usuario userSelec = Handler.findUsuario(usuario.getNickname());
+		Canal canal = userSelec.getCanal();
+		Map<String,Lista> listas = canal.getListasReproduccion();
+		for(Lista lst : listas.values()) {
+			res.add(lst.getDt());			
+		}	
+		return res;
+	}
+	
+	public DtVideo consultarVideo(String nombreVideo) {
+		Video videoSelec = lista.getVideos().get(nombreVideo);
+		return videoSelec.getDt();		
+	}
+	
+	
 }	
 	
 	
