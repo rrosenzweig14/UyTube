@@ -68,6 +68,10 @@ public class Categoria {
 		this.videos.add(v);
 	}
 	
+	public void quitarVideo(Video v) {
+		this.videos.remove(v);
+	}
+	
 	public void addLista (Lista lst) {
 		this.listas.add(lst);
 	}

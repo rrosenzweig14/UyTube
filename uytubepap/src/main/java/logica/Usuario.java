@@ -35,7 +35,7 @@ public class Usuario {
 	private List<Usuario> seguidos = new ArrayList<Usuario>();
 	@OneToOne (mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private Canal canal;
-	@OneToMany(mappedBy="idVideo",cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(mappedBy="nombreUsuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private List<Usuario_Video> valoraciones;
 		
 	//Metodos
@@ -129,6 +129,16 @@ public class Usuario {
 
 	public void setSeguidos(List<Usuario> seguidos) {
 		this.seguidos = seguidos;
+	}
+	
+	
+
+	public List<Usuario_Video> getValoraciones() {
+		return valoraciones;
+	}
+
+	public void setValoraciones(List<Usuario_Video> valoraciones) {
+		this.valoraciones = valoraciones;
 	}
 
 	public Canal getCanal() {
