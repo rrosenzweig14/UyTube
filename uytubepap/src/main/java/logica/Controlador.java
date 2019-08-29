@@ -183,8 +183,30 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public void editarVideo(DtVideo video) {
-		// TODO Auto-generated method stub
+	public void editarVideo(DtVideo dtv) {
+		Conexion.beginTransaction();
+		Video aux = user1.getCanal().findVideo(dtv.getNombre());
+		Categoria cat1= null;
+		if(dtv.getCategoria() != null) {
+			cat1 =  Handler.findCategoria(dtv.getCategoria());
+		}if(aux == null) {
+			video.setNombre(dtv.getNombre());
+		}
+		video.setPrivado(dtv.getPrivado());
+		video.setUrl(dtv.getUrl());
+		video.setFechaPub(dtv.getFechaPub());
+		video.setDescripcion(dtv.getDescripcion());
+		video.setDuracion(dtv.getDuracion());
+		if(cat1 != null) {
+			cat1.añadirVideo(video);
+		}
+		Categoria cat2 = video.getCategoria();
+		cat2.quitarVideo(video);
+		video.setCategoria(cat1);
+		Conexion.persist(cat2);	
+		Conexion.persist(cat1);
+		Conexion.persist(video);		
+		Conexion.commit();
 	}
 
 	@Override
