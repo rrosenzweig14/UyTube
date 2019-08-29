@@ -230,18 +230,18 @@ public class Controlador implements IControlador{
 		{
 			EntityManager em = Conexion.getEm();
 			em.getTransaction().begin();	
-			List<Usuario> usuarios = Handler.getUsuarioList();		
+			List<Usuario> usuarios = Handler.getUsuarioList();			
 			Iterator<Usuario> it = usuarios.iterator();
 			Handler.addListaDefecto(nombre);
-			if(!usuarios.isEmpty())
-			while (it.hasNext()) {
-				Usuario usr = it.next();
-				
-				if (!(usr.agregarListaDefecto(nombre)))
-					res = false;
-				else {em.merge(usr.getCanal());
-				em.getTransaction().commit();					
-				}
+			if(!usuarios.isEmpty()) {				
+				while (it.hasNext()) {
+					Usuario usr = it.next();				
+					if (!(usr.agregarListaDefecto(nombre))) {					
+						res = false;
+					}
+					else em.merge(usr.getCanal());
+				}				
+				em.getTransaction().commit();	
 			}
 		}
 		else 
