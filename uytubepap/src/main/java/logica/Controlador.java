@@ -90,9 +90,19 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public void modificarUsuarioCanal(DtUsuario usr, DtCanal canal) {
-		// TODO Auto-generated method stub
-		
+	public void modificarUsuarioCanal(DtUsuario usr, DtCanal canal) {		
+		Conexion.beginTransaction();
+		Canal c = user1.getCanal();
+		user1.setApellido(usr.getApellido());
+		user1.setNombre(usr.getNombre());
+		user1.setFechaNac(usr.getFechaNac());
+		user1.setImg(usr.getImg());
+		c.setNombre(canal.getNombre());
+		c.setDescripcion(canal.getDescripcion());
+		c.setPrivado(canal.isPrivado());
+		Conexion.persist(c);		
+		Conexion.persist(user1);	
+		Conexion.commit();		
 	}
 
 	@Override
