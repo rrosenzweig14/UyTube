@@ -29,18 +29,14 @@ public class Controlador implements IControlador{
 
 	@Override
 	public void valorarVideo(String nick, boolean valor) {
-		EntityManager em = Conexion.getEm();	
-		Handler hldr = new Handler();
-		Usuario_Video usrvid = new Usuario_Video();
-		usrvid.setLeGusta(valor);
-		usrvid.setNombreVideo(video);
-		usrvid.setNombreUsuario(user1);
-		em.getTransaction().begin();
-		em.persist(usrvid);
-		em.getTransaction().commit();
-		
-		video.addValoraciones(usrvid);
-		
+        user2 = Handler.findUsuario(nick);
+        Usuario_Video usrvid = new Usuario_Video();
+        usrvid.setLeGusta(valor);
+        usrvid.setNombreVideo(video);
+        usrvid.setNombreUsuario(user2);
+        Conexion.beginTransaction();
+        Conexion.persist(usrvid);
+        Conexion.commit();  		
 	}
 
 	@Override
