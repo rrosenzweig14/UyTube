@@ -321,6 +321,11 @@ public class Controlador implements IControlador{
 	public void finCasoUso() {
 		user1 = null;
 		user2 = null;
+		video = null;
+		comentarioSeleccionado = null;
+		lista = null;
+		canal = null;
+		categoria1 = null;
 	}
 	//Precondicion video != null
 	public Set<DtComentario> mostrarComentarios()
