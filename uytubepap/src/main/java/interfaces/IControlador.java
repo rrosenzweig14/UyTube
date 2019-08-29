@@ -65,4 +65,6 @@ public interface IControlador {
 	public ArrayList<DtLista> listarListasReproduccion(DtUsuario usuario);
 	
 	public DtVideo consultarVideo(String nombreVideo); 
+	
+	public ArrayList<String> listarCategorias();
 }

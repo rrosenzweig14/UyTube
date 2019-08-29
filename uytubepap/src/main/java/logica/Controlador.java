@@ -208,8 +208,7 @@ public class Controlador implements IControlador{
 		{
 			EntityManager em = Conexion.getEm();
 			em.getTransaction().begin();	
-			List<Usuario> usuarios = Handler.getUsuarioList();			
-			//boolean flag = false;			
+			List<Usuario> usuarios = Handler.getUsuarioList();		
 			Iterator<Usuario> it = usuarios.iterator();
 			Handler.addListaDefecto(nombre);
 			if(!usuarios.isEmpty())
@@ -360,6 +359,10 @@ public class Controlador implements IControlador{
 			if (videoSelec != null) res = videoSelec.getDt();
 		}		
 		return res;
+	}
+	
+	public ArrayList<String> listarCategorias(){
+		return Handler.listarCategorias();
 	}
 	
 	
