@@ -21,6 +21,7 @@ public class Handler {
 			EntityManager em = Conexion.getEm();
 			user = em.find(Usuario.class, nick);	//se fija en DB
 			System.out.println("cuando user null findUsuario");
+			if (user != null) usuarios.put(nick, user);
 		}
 		return user;
 }
@@ -40,8 +41,7 @@ public class Handler {
 				usuario = (Usuario) Conexion.getEm().createQuery(query).getResultList().get(0);
 			} catch (Exception e) {
 				// TODO: handle exception
-			}
-			//Conexion.close();
+			}			
 		}
 		return usuario;
 	}
@@ -57,8 +57,7 @@ public class Handler {
 			x.setUsuario(usuario);
 			Iterator<String> i = listasDefecto.iterator();
 			while(i.hasNext())
-				x.agregarListaDefecto(i.next());
-					
+				x.agregarListaDefecto(i.next());					
 			Conexion.persist(usuario);
 			Conexion.commit();
 			usuarios.put(nickname, usuario);
@@ -75,6 +74,7 @@ public class Handler {
 		}else{
 			EntityManager em = Conexion.getEm();
 			lst = em.find(Defecto.class, nombre);
+			listasDefecto.add(nombre);
 		}
 		return lst;
 		
@@ -94,25 +94,14 @@ public class Handler {
 	}
 	
 	public static boolean addListaDefecto(String nombre) {
-		Defecto aux = null;
+		boolean res = false;
 		Iterator<String> i = listasDefecto.iterator();
-		while(i.hasNext())
+		while(i.hasNext() && !res)
 			if(i.next() == nombre)
-					aux = new Defecto(nombre, false);
-		if(aux == null) {
-			Defecto nueva = new Defecto(nombre,false);
-			Conexion.beginTransaction();
-			Conexion.persist(nueva);
-			Conexion.commit();
-			/*EntityManager em = Conexion.getEm();
-			em.getTransaction().begin();
-			em.persist(lst);
-			em.getTransaction().commit();*/
-			listasDefecto.add(nombre);
-			return true;
-		}else{
-			return false;
-		}
+					res = true;
+		if (!res) listasDefecto.add(nombre);
+		return res;
+		
 	}
 	
 	public static Categoria findCategoria(String nombre) {
@@ -120,6 +109,7 @@ public class Handler {
 		if(lst == null) {
 			EntityManager em = Conexion.getEm();
 			lst = em.find(Categoria.class, nombre);
+			categorias.put(nombre, lst);
 			return lst;
 		}else {
 			return lst;
@@ -133,10 +123,6 @@ public class Handler {
 			Conexion.beginTransaction();
 			Conexion.persist(c);
 			Conexion.commit();
-			/*EntityManager em = Conexion.getEm();
-			em.getTransaction().begin();
-			em.persist(c);
-			em.getTransaction().commit();*/
 			categorias.put(c.getNombre(),c);
 			return true;
 		}else{
@@ -187,6 +173,7 @@ public class Handler {
 		for (Object lst : listas) {
 			nombreListas.add(lst.toString());
 		}
+		listasDefecto = nombreListas;
 		return nombreListas;
 		
 	}
