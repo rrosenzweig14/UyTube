@@ -38,7 +38,7 @@ public interface IControlador {
 	
 	public ArrayList<String> listarUsuarios();
 	
-	public Boolean ingresarVideo(String nombre, Integer duracion, String url, String descripcion, Date fecha, String categoria);
+	public Boolean ingresarVideo(String nombre, Integer duracion, String url, String descripcion, Date fecha);
 
 	public void editarVideo(DtVideo video);
 	

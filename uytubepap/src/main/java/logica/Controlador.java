@@ -163,20 +163,17 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public Boolean ingresarVideo(String nombre, Integer duracion, String url, String descripcion, Date fechaPub, String categoria) {
-			//Se agarra el canal del usuario
+	public Boolean ingresarVideo(String nombre, Integer duracion, String url, String descripcion, Date fechaPub) {
 		Canal canal = this.user1.getCanal();
-			//Se busca o crea la categoria
-		Categoria cat = Handler.findCategoria(categoria);
-			//Se comienza la persistencia
+		Categoria cat = categoria1; 
 		EntityManager em = Conexion.getEm();
 		em.getTransaction().begin();
-		Video video = new Video(nombre,true, url, fechaPub, descripcion, duracion, cat);// FALTA CONTEMPLAR SI ES PRIVADO O NO EL VIDEO
+		Video video = new Video(nombre,true, url, fechaPub, descripcion, duracion, cat);
 		if (cat != null) {
-			//Agrego el video a la coleccion de videos de la categoria
+			System.out.print("ACA SE AÑADE A " + cat);
 			cat.añadirVideo(video);
+			em.persist(cat);
 		}
-			//Se crea el video
 		canal.ingresarVideo(video);
 		em.persist(canal);
 		em.persist(video);
@@ -263,6 +260,7 @@ public class Controlador implements IControlador{
 		if(lista == null) {
 			lista = lstaux;
 		}
+		//System.out.print("Se tiene " + lstaux);
 		return lstaux.getDt();
 	}
 

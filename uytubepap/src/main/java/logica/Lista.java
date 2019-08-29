@@ -88,9 +88,12 @@ public abstract class Lista {
 	public DtLista getDt() {
 		DtLista dtl;
 		if (this instanceof Defecto) {
-			dtl =  new DtLista(this.id,this.nombre,this.privado,true,this.categoria.getNombre());
+			dtl =  new DtLista(this.id,this.nombre,this.privado,true,null);
 		}else {
-			dtl =  new DtLista(this.id,this.nombre,this.privado,false,this.categoria.getNombre());
+			dtl =  new DtLista(this.id,this.nombre,this.privado,false,null);
+		}
+		if (this.categoria != null) {
+			dtl.setCategoria(categoria.getNombre());
 		}
 		return dtl;
 	}
