@@ -161,20 +161,12 @@ public class Controlador implements IControlador{
 			//Se comienza la persistencia
 		EntityManager em = Conexion.getEm();
 		em.getTransaction().begin();
-		if (cat != null) 
-		{
-			
-		}
-		
-		else {
-			//Tiene que ser una categoria existente
-//			System. out. println("Esa categoria no existe en el sistema\n");
-//			return false
-			cat = new Categoria(categoria);
-			em.persist(cat);
+		Video video = new Video(nombre,true, url, fechaPub, descripcion, duracion, cat);// FALTA CONTEMPLAR SI ES PRIVADO O NO EL VIDEO
+		if (cat != null) {
+			//Agrego el video a la coleccion de videos de la categoria
+			cat.añadirVideo(video);
 		}
 			//Se crea el video
-		Video video = new Video(nombre,true, url, fechaPub, descripcion, duracion, cat);// FALTA CONTEMPLAR SI ES PRIVADO O NO EL VIDEO
 		canal.ingresarVideo(video);
 		em.persist(canal);
 		em.persist(video);
