@@ -48,8 +48,6 @@ public class Video {
 		this.descripcion = descripcion;
 		this.duracion = duracion;
 		this.categoria = categoria;
-//		this.comentarios = null; 
-//		this.valoraciones = null; 
 	}
 	public Video() {}
 	

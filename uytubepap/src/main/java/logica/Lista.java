@@ -97,4 +97,10 @@ public abstract class Lista {
 		}
 		return dtl;
 	}
+	
+	public void cambiarDatos(String nombre, boolean privado, Categoria cat) {
+		this.nombre = nombre;
+		this.privado = privado;
+		this.categoria = cat;
+	}
 }

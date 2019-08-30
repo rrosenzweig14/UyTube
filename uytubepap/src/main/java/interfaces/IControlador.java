@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.JTree;
+
 import datatypes.DtCanal;
 import datatypes.DtComentario;
 import datatypes.DtLista;
@@ -56,7 +58,7 @@ public interface IControlador {
 	
 	public void ingresarTipoLista(boolean defecto);	
 	
-	public Set<DtComentario> mostrarComentarios();
+	public JTree mostrarComentarios();
 
 	public void finCasoUso();
 
@@ -67,4 +69,8 @@ public interface IControlador {
 	public DtVideo consultarVideo(String nombreVideo); 
 	
 	public ArrayList<String> listarCategorias();
+	
+	public List<DtLista> listarListasParticulares(DtUsuario user);
+	
+	public void modificarListaParticular(DtLista listaSeleccionada,DtLista datosNuevos);
 }

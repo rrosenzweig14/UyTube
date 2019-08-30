@@ -24,7 +24,7 @@ public class Categoria {
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Set<Video> videos = new LinkedHashSet<Video>();
-	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true, fetch = FetchType.EAGER)	
+	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=false, fetch = FetchType.EAGER)	
 	private Set<Lista> listas = new LinkedHashSet<Lista>();
 	
 
@@ -74,6 +74,9 @@ public class Categoria {
 	
 	public void addLista (Lista lst) {
 		this.listas.add(lst);
+	}
+	public void removeLista(Lista lst) {
+		this.listas.remove(lst);
 	}
 
 }

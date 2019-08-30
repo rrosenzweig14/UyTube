@@ -12,6 +12,9 @@ import java.util.TreeSet;
 
 import javax.persistence.EntityManager;
 
+import javax.persistence.Query;
+import javax.swing.JTree;
+
 import datatypes.DtCanal;
 import datatypes.DtComentario;
 import datatypes.DtLista;
@@ -44,7 +47,7 @@ public class Controlador implements IControlador{
 
 	@Override
 	public ArrayList<DtVideo> videosEnLista(DtLista lst) {
-		ArrayList<DtVideo> res = null;
+		ArrayList<DtVideo> res = new ArrayList<DtVideo>();
 		lista = canal.getListasReproduccion().get(lst.getNombre());
 		Map<String,Video> videos = lista.getVideos();		
 		for (Video video : videos.values()) {
@@ -347,22 +350,23 @@ public class Controlador implements IControlador{
 		categoria1 = null;
 	}
 	//Precondicion video != null
-	public Set<DtComentario> mostrarComentarios()
+	public JTree mostrarComentarios()
 	{
+		JTree res = null;
 		List<Comentario> comentarios = video.getComentarios();
 		Set<DtComentario> listadoRes = new HashSet<DtComentario>();
 		for (Comentario comment : comentarios) {
 			DtComentario c = comment.getDt();
 			listadoRes.add(c);			
 		}
-		return listadoRes;
+		return res;
 		
 	}
-	
+	// Lista todas las listas del usuario
 	public ArrayList<DtLista> listarListasReproduccion(DtUsuario usuario){
-		ArrayList<DtLista> res = null;
+		ArrayList<DtLista> res = new ArrayList<DtLista>();
 		Usuario userSelec = Handler.findUsuario(usuario.getNickname());
-		Canal canal = userSelec.getCanal();
+		canal = userSelec.getCanal();
 		Map<String,Lista> listas = canal.getListasReproduccion();
 		for(Lista lst : listas.values()) {
 			res.add(lst.getDt());			
@@ -386,8 +390,43 @@ public class Controlador implements IControlador{
 	public ArrayList<String> listarCategorias(){
 		return Handler.listarCategorias();
 	}
-	
-	
+	//Lista solo las particulares del usuario
+	public List<DtLista> listarListasParticulares(DtUsuario user){
+		List<DtLista> res = new ArrayList<DtLista>();
+		Usuario userSelec = Handler.findUsuario(user.getNickname());
+		Canal canalSelec = userSelec.getCanal();
+		user1 = userSelec;
+		canal = canalSelec;
+		Map<String,Lista> lista = canal.getListasReproduccion();
+		for(Lista lst : lista.values()) {
+			if (lst instanceof Defecto) res.add(lst.getDt());
+		}		
+		return res;		
+	}
+	//No hay que modificar el nombre de la lista
+	public void modificarListaParticular(DtLista listaSeleccionada,DtLista datosNuevos) {
+		Categoria catVieja = null;
+		Categoria catNueva = null;
+		Conexion.beginTransaction();
+		lista = canal.getListasReproduccion().get(listaSeleccionada.getNombre());
+		canal.getListasReproduccion().remove(lista.getNombre());
+		
+		if (datosNuevos.getCategoria() != listaSeleccionada.getCategoria()) {
+			if (listaSeleccionada.getCategoria() != null) {
+				catVieja = Handler.findCategoria(listaSeleccionada.getCategoria());
+				catVieja.removeLista(lista);
+			}
+			if (datosNuevos.getCategoria() != null) {
+				catNueva = Handler.findCategoria(datosNuevos.getCategoria());
+				catNueva.addLista(lista);
+			}						
+		}		
+		lista.cambiarDatos(datosNuevos.getNombre(), !datosNuevos.isPrivado(), catNueva);
+		canal.getListasReproduccion().put(lista.getNombre(), lista);		
+		Conexion.persist(lista);		
+		Conexion.persist(canal);		
+		Conexion.commit();		
+	}	
 }	
 	
 	
