@@ -26,6 +26,8 @@ public interface IControlador {
 	
 	public void seguirUsuario();
 	
+	public void dejarSeguir();
+	
 	public void quitarVideo(DtVideo video);
 	
 	public void modificarUsuarioCanal(DtUsuario usr, DtCanal canal);

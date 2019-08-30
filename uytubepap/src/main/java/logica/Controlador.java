@@ -83,8 +83,21 @@ public class Controlador implements IControlador{
 			Conexion.persist(user2);
 			Conexion.persist(user1);
 			Conexion.commit();
-		}
-		
+		}		
+	}
+	@Override
+	// USER 1 SIGUE A USER 2
+	public void dejarSeguir() {
+		if((user1 != null) && (user2 != null)) {
+			System.out.println("USER 1 = " + user1.getNickname() + " USER 2 = " + user2.getNickname());
+			Conexion.beginTransaction();
+			//Con solo una operacion asignamos el seguidor y el seguido.
+			user2.quitarSeguidor(user1);		
+			
+			Conexion.persist(user2);
+			Conexion.persist(user1);
+			Conexion.commit();
+		}		
 	}
 
 	@Override
