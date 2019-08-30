@@ -191,5 +191,15 @@ public class Video {
 		}
 		return res;
 	}
+	
+	public void cambiarDatos(DtVideo dtv, Categoria c) {
+		this.nombre = dtv.getNombre();
+		this.privado = dtv.getPrivado();
+		this.url = dtv.getUrl();
+		this.fechaPub = dtv.getFechaPub();
+		this.descripcion = dtv.getDescripcion();
+		this.duracion = dtv.getDuracion();
+		this.categoria = c;		
+	}
 
 }

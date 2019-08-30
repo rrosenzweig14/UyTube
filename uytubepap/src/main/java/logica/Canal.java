@@ -164,6 +164,16 @@ public class Canal {
 		return res;
 	}
 	
+	public boolean existVideoName(String name) {
+		for(String s: this.getListaVideos().keySet()) {
+			if(s.equals(name)) {
+				return true;
+			}
+		}
+		return false;
+		
+	}
+	
 	public Canal(String nombre) {
 		this.usuario = null;
 		this.nombre = nombre;

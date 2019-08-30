@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import javax.persistence.Query;
 import javax.swing.JTree;
@@ -188,28 +189,30 @@ public class Controlador implements IControlador{
 	@Override
 	public void editarVideo(DtVideo dtv) {
 		Conexion.beginTransaction();
-		Video aux = user1.getCanal().findVideo(dtv.getNombre());
-		Categoria cat1= null;
+		Canal c = user1.getCanal();
+		c.getListaVideos().remove(video.getNombre());
+		Categoria oldcat = video.getCategoria();
+		Categoria newcat = null;
 		if(dtv.getCategoria() != null) {
-			cat1 =  Handler.findCategoria(dtv.getCategoria());
-		}if(aux == null) {
-			video.setNombre(dtv.getNombre());
+			newcat =  Handler.findCategoria(dtv.getCategoria());
 		}
-		video.setPrivado(dtv.getPrivado());
-		video.setUrl(dtv.getUrl());
-		video.setFechaPub(dtv.getFechaPub());
-		video.setDescripcion(dtv.getDescripcion());
-		video.setDuracion(dtv.getDuracion());
-		if(cat1 != null) {
-			cat1.añadirVideo(video);
+		boolean aux = c.existVideoName(dtv.getNombre());
+		if(aux) {
+			dtv.setNombre(video.getNombre());
+		}			
+		video.cambiarDatos(dtv, newcat);		
+		if(oldcat != null) {
+			oldcat.quitarVideo(video);
+			Conexion.persist(oldcat);
+		}	
+		if(newcat != null) {
+			newcat.añadirVideo(video);
+			Conexion.persist(newcat);
 		}
-		Categoria cat2 = video.getCategoria();
-		cat2.quitarVideo(video);
-		video.setCategoria(cat1);
-		Conexion.persist(cat2);	
-		Conexion.persist(cat1);
-		Conexion.persist(video);		
-		Conexion.commit();
+		c.ingresarVideo(video);
+		Conexion.persist(video);
+		Conexion.persist(c);
+		Conexion.commit();	
 	}
 
 	@Override
