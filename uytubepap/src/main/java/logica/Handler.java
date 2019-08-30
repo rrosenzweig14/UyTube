@@ -46,26 +46,18 @@ public class Handler {
 		return usuario;
 	}
 	
-	public static boolean addUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, String canal) {
-		Usuario aux = findUsuario(nickname);
-		if(aux == null)
-			aux = findUsuarioEM(email);
-		if(aux == null) {
-			Conexion.beginTransaction();
-			Usuario usuario = new Usuario(nickname, email, nombre, apellido, fechaNac, img, canal);
-			Canal x = usuario.getCanal();
-			x.setUsuario(usuario);
-			Iterator<String> i = listasDefecto.iterator();
-			while(i.hasNext())
-				x.agregarListaDefecto(i.next());					
-			Conexion.persist(usuario);
-			Conexion.commit();
-			usuarios.put(nickname, usuario);
-			return true;
-		}else{
-			return false;
-		}
-	}
+	public static void addUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, String canal) {
+		Conexion.beginTransaction();
+		Usuario usuario = new Usuario(nickname, email, nombre, apellido, fechaNac, img, canal);
+		Canal x = usuario.getCanal();
+		x.setUsuario(usuario);
+		Iterator<String> i = listasDefecto.iterator();
+		while(i.hasNext())
+			x.agregarListaDefecto(i.next());					
+		Conexion.persist(usuario);
+		Conexion.commit();
+		usuarios.put(nickname, usuario);
+}
 
 	public static Defecto findListaDefecto(String nombre) {
 		Defecto lst = null;
@@ -81,9 +73,9 @@ public class Handler {
 	}
 	
 	public static ArrayList<String> listarVideos(DtUsuario usr){
-		@SuppressWarnings("rawtypes")
 		Usuario usrl = Handler.findUsuario(usr.getNickname());
 		Canal cnl = usrl.getCanal();
+		@SuppressWarnings("rawtypes")
 		List videos = new ArrayList();
 		videos = Conexion.createQuery("SELECT v.nombre FROM Canal_video c AND Video v WHERE c.canal_nickname="+ cnl.getNickname()+ " AND c.Listavideos_id = v.id");
 		ArrayList<String> names = new ArrayList<String>();
@@ -177,5 +169,6 @@ public class Handler {
 		return nombreListas;
 		
 	}
+
 	
 }

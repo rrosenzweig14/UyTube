@@ -75,4 +75,11 @@ public interface IControlador {
 	public List<DtLista> listarListasParticulares(DtUsuario user);
 	
 	public void modificarListaParticular(DtLista listaSeleccionada,DtLista datosNuevos);
+	
+	public Boolean existeEmail();
+	
+	public Map<String, String> videosXCat(String categoria);
+	
+	public Map<String, String> listasXCat(String categoria);
+
 }
