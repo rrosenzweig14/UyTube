@@ -21,7 +21,7 @@ public class Categoria {
 	@Id
 	private String nombre;
 	
-	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=false)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Set<Video> videos = new LinkedHashSet<Video>();
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true, fetch = FetchType.EAGER)	
