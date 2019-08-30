@@ -89,8 +89,9 @@ public class Controlador implements IControlador{
 
 	@Override
 	public void quitarVideo(DtVideo video) {
-		// TODO Auto-generated method stub
-		
+		Conexion.beginTransaction();
+		lista.quitarVideo(video.getNombre());
+		Conexion.commit();		
 	}
 
 	@Override

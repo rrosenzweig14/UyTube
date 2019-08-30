@@ -27,7 +27,7 @@ public abstract class Lista {
 	private boolean privado;
 	@ManyToOne
 	private Categoria categoria;
-	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=false)
 	private Map<String,Video> videos = new HashMap<String,Video>();	
 
 	//Constructores	
@@ -103,4 +103,9 @@ public abstract class Lista {
 		this.privado = privado;
 		this.categoria = cat;
 	}
+	
+	public void quitarVideo(String nombreVideo) {
+		this.videos.remove(nombreVideo);
+	}
+	
 }
