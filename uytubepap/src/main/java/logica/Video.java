@@ -132,9 +132,10 @@ public class Video {
 	}
 	
 	private DefaultMutableTreeNode getNodes(Comentario c) {
-		DefaultMutableTreeNode nodes = new DefaultMutableTreeNode(c.getDt());
+		DefaultMutableTreeNode nodes = null;
+		if (c != null)	nodes = new DefaultMutableTreeNode(c.getDt());
 		if(c.getRespuestas().isEmpty()) {
-			return null;
+			return nodes;
 		}else {
 			for(Comentario aux: c.getRespuestas()) {
 				DefaultMutableTreeNode node = getNodes(aux);
@@ -153,17 +154,16 @@ public class Video {
 			DefaultMutableTreeNode root = new DefaultMutableTreeNode(this.nombre); //TreeRoot
 			for(Comentario c: this.comentarios) {
 				DefaultMutableTreeNode node = getNodes(c);
-				root.add(node);
-				
+				if (node != null) root.add(node);				
 			}
-			JTree  tree = new JTree();
+			JTree  tree = new JTree(root);
 			return tree;
 		}
 	}
-	
+//	
 	public DtVideo getDt() {
-		DtVideo dtv = new DtVideo(this.id,this.nombre,this.privado,null,this.descripcion,this.duracion,null,this.fechaPub,this.url);
-		//dtv.setComentarios(getElPutoTree()); TIRA ERROR
+		DtVideo dtv = new DtVideo(this.id,this.nombre,this.privado,null,this.descripcion,this.duracion,null,this.fechaPub,this.url);	
+		dtv.setComentarios(getElPutoTree()); 
 		return dtv;
 	}
 	
