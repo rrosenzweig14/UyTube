@@ -56,8 +56,15 @@ public class Usuario {
 		this.seguidores.add(user);
 		user.añadirSeguido(this);
 	}
+	public void quitarSeguidor(Usuario user) {
+		this.seguidores.remove(user);
+		user.quitarSeguido(this);
+	}
 	
 	public void añadirSeguido(Usuario user) {
+		this.seguidos.add(user);
+	}
+	public void quitarSeguido(Usuario user) {
 		this.seguidos.add(user);
 	}
 	
