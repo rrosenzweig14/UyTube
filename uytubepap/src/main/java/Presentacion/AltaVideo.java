@@ -28,9 +28,10 @@ public class AltaVideo extends JInternalFrame {
 	private JLabel lblDuracion;
 	private Button btnCancel;
 	private Button btnAceptar;
+	private JLabel lblUsuario;
 	private JComboBox<String> comboBoxUsuarios;
+	private JLabel lblCategoria;
 	private JComboBox<String> comboBoxCategorias;
-	private JCheckBox chckbxPrivado;
 	
 	private IControlador controller;
 		
@@ -64,34 +65,36 @@ public class AltaVideo extends JInternalFrame {
 		textFieldUrl.setColumns(10);
 		
 		lblDuracion= new JLabel("Duracion");
-		lblDuracion.setBounds(50, 88, 46, 14);
+		lblDuracion.setBounds(50, 88, 75, 14);
 		getContentPane().add(lblDuracion);
 		
 		textFieldDuracion= new JFormattedTextField();
 		textFieldDuracion.setBounds(163, 85, 200, 20);
 		getContentPane().add(textFieldDuracion);
 		textFieldDuracion.setColumns(10);
-
+		
+		lblUsuario= new JLabel("Usuario");
+		lblUsuario.setBounds(50, 119, 75, 14);
+		getContentPane().add(lblUsuario);
+		
 		comboBoxUsuarios = new JComboBox<String>();
-		comboBoxUsuarios.setBounds(50, 119, 46, 14);
-		fillUsers();
+		comboBoxUsuarios.setBounds(163, 119, 200, 20);
 		getContentPane().add(comboBoxUsuarios);
 		
+		lblCategoria = new JLabel("Categoria");
+		lblCategoria.setBounds(50, 152, 75, 14);
+		getContentPane().add(lblCategoria);
+		
 		comboBoxCategorias = new JComboBox<String>();
-		comboBoxCategorias.setBounds(163, 152, 43, 20);
-		fillCategories();
+		comboBoxCategorias.setBounds(163, 152, 200, 20);
 		getContentPane().add(comboBoxCategorias);
 		
-		chckbxPrivado = new JCheckBox("Privado?");
-		chckbxPrivado.setBounds(163, 236, 97, 23);
-		getContentPane().add(chckbxPrivado);
-
 		lblDescripcion = new JLabel("Descripcion");
-		lblDescripcion.setBounds(50, 294, 103, 14);
+		lblDescripcion.setBounds(50, 192, 103, 14);
 		getContentPane().add(lblDescripcion);
 		
 		textAreaDescripcion = new JTextArea();
-		textAreaDescripcion.setBounds(163, 297, 200, 38);
+		textAreaDescripcion.setBounds(163, 192, 200, 38);
 		getContentPane().add(textAreaDescripcion);
 		
 		btnCancel = new Button("Cancelar");
@@ -102,7 +105,7 @@ public class AltaVideo extends JInternalFrame {
 				controller.finCasoUso();
 			}
 		});
-		btnCancel.setBounds(163, 357, 70, 22);
+		btnCancel.setBounds(163, 250, 70, 22);
 		getContentPane().add(btnCancel);
 		
 		btnAceptar = new Button("Aceptar");
@@ -111,7 +114,7 @@ public class AltaVideo extends JInternalFrame {
 				registroVideo();
 			}
 		});
-		btnAceptar.setBounds(293, 357, 70, 22);
+		btnAceptar.setBounds(293, 250, 70, 22);
 		getContentPane().add(btnAceptar);		
 	}
 	
@@ -119,8 +122,9 @@ public class AltaVideo extends JInternalFrame {
 		String nombre = this.textFieldNombre.getText();
 		String url = this.textFieldUrl.getText();
 		String duracion = this.textFieldDuracion.getText();
+		String usuario = (String) this.comboBoxUsuarios.getSelectedItem();
 		
-		if (nombre == "" || url == "" || duracion == "") {
+		if (nombre == "" || url == "" || duracion == "" || usuario == "") {
 			JOptionPane.showMessageDialog(null, "Quedan campos sin rellenar.");		
 			return false;
 		}
@@ -148,13 +152,13 @@ public class AltaVideo extends JInternalFrame {
 		String url = this.textFieldUrl.getText();
 		Integer duracion = (Integer) this.textFieldDuracion.getValue();
 		String descripcion = this.textAreaDescripcion.getText();
-		boolean privado = this.chckbxPrivado.isSelected();
 		
 		if (checkFormulario()) {
 			try {
 				@SuppressWarnings("deprecation")
 				java.util.Date fechaPub= new java.util.Date();
-				System.out.print("Se creo la fecha");
+				controller.seleccionarUsuario((String) this.comboBoxUsuarios.getSelectedItem());
+				controller.seleccionarCategoria((String) this.comboBoxCategorias.getSelectedItem());
 				if (controller.ingresarVideo(nombre, duracion, url, descripcion, fechaPub)) {
 					JOptionPane.showMessageDialog(this, "Se creó el video exitosamente.", "Alta Video", JOptionPane.INFORMATION_MESSAGE);
 					controller.finCasoUso();

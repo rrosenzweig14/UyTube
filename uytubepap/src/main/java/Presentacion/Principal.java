@@ -115,6 +115,7 @@ public class Principal extends JFrame {
 		altaListaInternalFrame.setBounds(100, 100, 700, 600);
 		frame.getContentPane().add(altaListaInternalFrame);
 		
+
 		consultaUsuarioInternalFrame = new ConsultaUsuario(ctrl);
 		consultaUsuarioInternalFrame.setVisible(false);
 		consultaUsuarioInternalFrame.setBounds(100, 100, 700, 600);
@@ -123,7 +124,7 @@ public class Principal extends JFrame {
 
 		altaVideoInternalFrame = new AltaVideo(ctrl);
 		altaVideoInternalFrame.setVisible(false);
-		altaVideoInternalFrame.setBounds(100, 100, 530, 430);
+		altaVideoInternalFrame.setBounds(100, 100, 400, 315);
 		frame.getContentPane().add(altaVideoInternalFrame);
 		
 	}
@@ -175,6 +176,8 @@ public class Principal extends JFrame {
 			mntmAltaVideo.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent a) {
+					altaVideoInternalFrame.fillCategories();
+					altaVideoInternalFrame.fillUsers();
 					altaVideoInternalFrame.setVisible(true);
 				}
 			});
