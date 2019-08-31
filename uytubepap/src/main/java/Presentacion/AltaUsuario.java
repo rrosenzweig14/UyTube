@@ -4,10 +4,13 @@ import java.awt.EventQueue;
 import java.awt.Image;
 import java.io.File;
 import java.sql.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JInternalFrame;
 
 import interfaces.IControlador;
+import logica.Conexion;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -25,6 +28,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class AltaUsuario extends JInternalFrame {
 	private JTextField textFieldNickname;
@@ -53,7 +58,7 @@ public class AltaUsuario extends JInternalFrame {
 	private String imagen;
 	public Image foto1=null;
 	private JLabel lblImagen;
-	private IControlador ctrl;
+	private IControlador controller;
 	
 		
 
@@ -61,6 +66,7 @@ public class AltaUsuario extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public AltaUsuario(IControlador ctrl) {
+		controller = ctrl;
 		setClosable(true);
 		setBounds(100, 100, 530, 430);
 		setTitle("Alta Usuario");
@@ -121,10 +127,22 @@ public class AltaUsuario extends JInternalFrame {
 		getContentPane().add(lblFecha);
 		
 		btnCancel = new Button("Cancelar");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				dispose();
+				finCasoUso();
+			}
+		});
 		btnCancel.setBounds(163, 357, 70, 22);
 		getContentPane().add(btnCancel);
 		
 		btnAceptar = new Button("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				registroUsuario();
+			}
+		});
 		btnAceptar.setBounds(293, 357, 70, 22);
 		getContentPane().add(btnAceptar);		
 		
@@ -142,30 +160,63 @@ public class AltaUsuario extends JInternalFrame {
 		getContentPane().add(btnSubirImagen);
 		
 		chckbxIngresarDatosCanal = new JCheckBox("Ingresar Datos Canal");
-		chckbxIngresarDatosCanal.setBounds(319, 197, 141, 23);
+		chckbxIngresarDatosCanal.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				mostrarInputsCanal(arg0);
+			}
+		});
+		chckbxIngresarDatosCanal.setBounds(319, 197, 141, 23);		
 		getContentPane().add(chckbxIngresarDatosCanal);
 		
 		chckbxPrivado = new JCheckBox("Privado?");
 		chckbxPrivado.setBounds(163, 236, 97, 23);
+		chckbxPrivado.setVisible(false);
 		getContentPane().add(chckbxPrivado);
 		
 		textFieldNombreCanal = new JTextField();
 		textFieldNombreCanal.setBounds(163, 266, 200, 20);
+		textFieldNombreCanal.setVisible(false);
 		getContentPane().add(textFieldNombreCanal);
 		textFieldNombreCanal.setColumns(10);
 		
 		lblNombreCanal = new JLabel("Nombre Canal");
 		lblNombreCanal.setBounds(50, 269, 103, 14);
+		lblNombreCanal.setVisible(false);
 		getContentPane().add(lblNombreCanal);
 		
 		lblDescripcion = new JLabel("Descripcion");
 		lblDescripcion.setBounds(50, 294, 103, 14);
+		lblDescripcion.setVisible(false);
 		getContentPane().add(lblDescripcion);
 		
 		textAreaDescripcion = new JTextArea();
 		textAreaDescripcion.setBounds(163, 297, 200, 38);
+		textAreaDescripcion.setVisible(false);
 		getContentPane().add(textAreaDescripcion);
 
+	}
+	
+	public void finCasoUso() {
+		controller.finCasoUso();
+	}
+	
+	
+	public void mostrarInputsCanal(ChangeEvent arg0) {
+		if(chckbxIngresarDatosCanal.isSelected()) {
+			lblNombreCanal.setVisible(true);
+			lblDescripcion.setVisible(true);
+			textFieldNombreCanal.setVisible(true);
+			textAreaDescripcion.setVisible(true);
+			chckbxPrivado.setVisible(true);
+		}
+		else {
+			lblNombreCanal.setVisible(false);
+			lblDescripcion.setVisible(false);
+			textFieldNombreCanal.setVisible(false);
+			textAreaDescripcion.setVisible(false);
+			chckbxPrivado.setVisible(false);
+		}
+		
 	}
 	
 	public void SubirImagen() {
@@ -221,9 +272,7 @@ public class AltaUsuario extends JInternalFrame {
 		String nombre = this.textFieldNombre.getText();
 		String apellido = this.textFieldApellido.getText();
 		String correo = this.textFieldCorreo.getText();
-		String fecha = dia.getSelectedItem() + mes.getSelectedItem() + anio.getSelectedItem();
-		
-		
+		String fecha = dia.getSelectedItem() + mes.getSelectedItem() + anio.getSelectedItem();		
 		if (nick == "" || nombre == "" || apellido == "" || correo == "" || fecha == "") {
 			JOptionPane.showMessageDialog(null, "Quedan campos sin rellenar.");		
 			return false;
@@ -235,22 +284,36 @@ public class AltaUsuario extends JInternalFrame {
 	}
 	
 	public void registroUsuario() {
+		
 		String nick = this.textFieldNickname.getText();
 		String nombre = this.textFieldNombre.getText();
 		String apellido = this.textFieldApellido.getText();
 		String correo = this.textFieldCorreo.getText();
-		String fecha = dia.getSelectedItem() + mes.getSelectedItem() + anio.getSelectedItem();
-		String nombreCanal = this.textFieldNombreCanal.getText();
-		String descripcion = this.textAreaDescripcion.getText();
-		boolean privado = this.chckbxPrivado.isSelected();
-		DtCanal datosCanal = new DtCanal(nombreCanal, descripcion, nick, privado);
+		DtCanal datosCanal; 
+		if (this.chckbxIngresarDatosCanal.isSelected()) 
+		{
+			String nombreCanal = this.textFieldNombreCanal.getText();
+			String descripcion = this.textAreaDescripcion.getText();
+			boolean privado = this.chckbxPrivado.isSelected();
+			datosCanal = new DtCanal(nombreCanal, descripcion, nick, privado);
+		}
+		else datosCanal = new DtCanal(nick, "", "", true);		
 		
 		if (checkFormulario()) {
 			try {
-				Date fechaNac = (Date) new java.util.Date(fecha);
-				ctrl.ingresarUsuario(nick, nombre, apellido, correo, fechaNac, imagen, datosCanal);
+				@SuppressWarnings("deprecation")
+				Date fechaNac = new Date(Integer.parseInt(dia.getSelectedItem()),Integer.parseInt(mes.getSelectedItem()),Integer.parseInt(anio.getSelectedItem()));
+				if (controller.ingresarUsuario(nick, nombre, apellido, correo, fechaNac, imagen, datosCanal)) {
+					JOptionPane.showMessageDialog(this, "Se creó el usuario exitosamente.", "Alta Usuario", JOptionPane.INFORMATION_MESSAGE);
+					finCasoUso();
+					dispose();
+				}					
+				else {
+					JOptionPane.showMessageDialog(this, "Hubo un error al crear el usuario, por favor ingrese otro mail y/o nickname");
+				}
 			}
 			catch(Exception e) {
+				JOptionPane.showMessageDialog(this, "Error inesperado.");
 				
 			}
 			

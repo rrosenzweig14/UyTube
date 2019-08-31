@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 
 import interfaces.Fabrica;
 import interfaces.IControlador;
+import logica.Conexion;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -83,12 +84,12 @@ public class Principal extends JFrame {
 	public Principal() {
 		initialize();
 		IControlador ctrl = Fabrica.getIControlador();
+		Conexion.open();
 		
 		
 		frame.getContentPane().setLayout(null);
 		// Aqui se inicializan las InternalJFrame de los Casos
 		
-		//
 		altaUsuarioInternalFrame = new AltaUsuario(ctrl);
 		altaUsuarioInternalFrame.setVisible(false);
 		altaUsuarioInternalFrame.setBounds(100, 100, 530, 430);
