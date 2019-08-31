@@ -163,8 +163,12 @@ public class Usuario {
 	
     public DtUsuario getDt() {
         DtUsuario aux =  new DtUsuario(this.nickname,this.email,this.nombre,this.apellido, this.fechaNac, this.getImg());
-        for(Usuario u: seguidos) {
+        for(Usuario u: this.seguidos) {
              aux.addSeguido(u.getDtUsuario());
+        }
+        for(Usuario u: this.seguidores) {
+             aux.addSeguido(u.getDtUsuario());
+        	
         }
         return aux;
     }

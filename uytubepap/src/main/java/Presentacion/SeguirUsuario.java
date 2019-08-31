@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.border.LineBorder;
 
+import datatypes.DtUsuario;
 import interfaces.Fabrica;
 import interfaces.IControlador;
 import logica.Controlador;
@@ -18,6 +19,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
@@ -44,8 +46,8 @@ public class SeguirUsuario extends JInternalFrame {
 	private Button btnAceptar;
 	private Button btnCAncelar;
 	private IControlador ctrl = Fabrica.getIControlador();
-	private String vacio = new String("");
 	private String elElegido = null;
+	private String seguido = null;
 	private ArrayList<String> users = ctrl.listarUsuarios();
 	
 	public SeguirUsuario(IControlador ctrl2) {
@@ -73,50 +75,103 @@ public class SeguirUsuario extends JInternalFrame {
 		
 		cmbSeguido = new Choice();
 		cmbSeguido.setEnabled(false);
+		cmbSeguido.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				selectSeguido();
+			}
+		});
 		cmbSeguido.setBounds(174, 121, 193, 24);
 		getContentPane().add(cmbSeguido);
 		
 		btnAceptar = new Button("Aceptar");
-		btnAceptar.setBounds(271, 205, 96, 25);
 		btnAceptar.setEnabled(false);
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				seguirUsuario();
+			}
+		});
+		btnAceptar.setBounds(271, 205, 96, 25);
 		getContentPane().add(btnAceptar);
 		
 		btnCAncelar = new Button("Cancelar");
 		btnCAncelar.setBounds(93, 205, 96, 25);
 		btnCAncelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
-				dispose();
-				ctrl.finCasoUso();
+				fin();
 			}
 		});
 		getContentPane().add(btnCAncelar);	
 	}
 	
+	
+	public void fin() {
+		setVisible(false);
+		dispose();
+		ctrl.finCasoUso();		
+	}
+	
 	public void fillUsers() {
 		users = ctrl.listarUsuarios();
 		cmbSeguidor.removeAll();
-		cmbSeguidor.add(vacio);
+		cmbSeguidor.add("");
 		for(String s: users) {
 			cmbSeguidor.add(s);
 		}		
 	}
 	
 	public void selectSeguidor() {
+		ctrl.finCasoUso();   //por si cambia la eleccion.
 		elElegido = cmbSeguidor.getSelectedItem();
 		users = ctrl.listarUsuarios();
-		if(elElegido == vacio) {
-			cmbSeguido.setEnabled(false);
+		seguido = null;
+		if(elElegido.contentEquals("")) {
 			cmbSeguido.removeAll();
+			cmbSeguido.setEnabled(false);
 			elElegido = null;			
 		}else {
-			cmbSeguido.removeAll();			
+			DtUsuario dtu = ctrl.seleccionarUsuario(elElegido);
+			cmbSeguido.removeAll();
+			cmbSeguido.add("");
 			for(String s: users) {
-				if(!s.equals(elElegido)) {
-					cmbSeguido.add(s);
+				if(!s.equals(elElegido)) {	//no se pueda seguir a si mismo
+					boolean b = true;
+					for(String seg: dtu.getSeguidos().keySet()) {	//no pueda seguir a alguien que ya siga
+						if(seg.equals(s)) {
+							b = false;
+						}
+					}
+					for(String seg: dtu.getSeguidos().keySet()) {
+						System.out.print(seg);
+					}
+					System.out.print("88888888888888888888888888888888888888888888888888888888888888888888888888");
+					if(b) {
+						cmbSeguido.add(s);
+					}					
 				}
 			}
-			cmbSeguido.setEnabled(true);			
+			if(cmbSeguido.getItemCount() > 0) {
+				cmbSeguido.setEnabled(true);
+			}
 		}
 	}
+
+	public void selectSeguido() {
+		seguido = cmbSeguido.getSelectedItem();
+		if(seguido.equals("")) {
+			btnAceptar.setEnabled(false);
+		}else {
+			btnAceptar.setEnabled(true);			
+		}
+	}
+	
+	public void seguirUsuario() {
+		DtUsuario dtu = ctrl.seleccionarUsuario(seguido);		
+		ctrl.seguirUsuario();
+		JOptionPane.showMessageDialog(this, elElegido+" sigue a "+seguido+" exitosamente!!!", "Seguir Usuario", JOptionPane.INFORMATION_MESSAGE);
+		fin();
+	}
+
+
 }
+
+
