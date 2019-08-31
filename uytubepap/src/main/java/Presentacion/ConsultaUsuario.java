@@ -31,6 +31,7 @@ import java.awt.event.ItemEvent;
 import javax.swing.JTree;
 import javax.swing.JTextArea;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 public class ConsultaUsuario extends JInternalFrame {
 	private IControlador controller;
@@ -72,6 +73,7 @@ public class ConsultaUsuario extends JInternalFrame {
 	private JCheckBox chckbxVideoPrivado;
 	private JLabel lblUrl;
 	private boolean userLoaded = false;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create the frame.
@@ -89,8 +91,9 @@ public class ConsultaUsuario extends JInternalFrame {
 			public void itemStateChanged(ItemEvent arg0) {
 				cleanOutputData();
 				if (comboBoxUsuarios.getSelectedItem().toString().equals(" ")) {
-					
+					comboBoxListasCanal.setEnabled(true);
 				} else {
+					comboBoxListasCanal.setEnabled(false);
 					Map<DtUsuario, DtCanal> datos = controller
 							.listarDatosUsuario(comboBoxUsuarios.getSelectedItem().toString());
 					Iterator<Entry<DtUsuario, DtCanal>> it = datos.entrySet().iterator();
@@ -230,61 +233,78 @@ public class ConsultaUsuario extends JInternalFrame {
 		
 		lblComentarios = new JLabel("Comentarios");
 		lblComentarios.setBounds(374, 312, 137, 14);
+		lblComentarios.setVisible(false);
 		getContentPane().add(lblComentarios);
 		
 		lblNombreVideo = new JLabel("Nombre Video");
 		lblNombreVideo.setBounds(10, 315, 113, 14);
+		lblNombreVideo.setVisible(false);
 		getContentPane().add(lblNombreVideo);
 		
 		textFieldNombreVideo = new JTextField();
 		textFieldNombreVideo.setEditable(false);
 		textFieldNombreVideo.setBounds(133, 312, 221, 20);
+		textFieldNombreVideo.setVisible(false);
 		getContentPane().add(textFieldNombreVideo);
 		textFieldNombreVideo.setColumns(10);
 		
 		lblDuracion = new JLabel("Duracion");
 		lblDuracion.setBounds(10, 402, 107, 14);
+		lblDuracion.setVisible(false);
 		getContentPane().add(lblDuracion);
 		
 		lblDescripcionVideo = new JLabel("Descripcion");
 		lblDescripcionVideo.setBounds(10, 351, 121, 14);
+		lblDescripcionVideo.setVisible(false);
 		getContentPane().add(lblDescripcionVideo);
 		
 		textAreaDescripcionVideo = new JTextArea();
 		textAreaDescripcionVideo.setEditable(false);
+		textAreaDescripcionVideo.setVisible(false);
 		textAreaDescripcionVideo.setBounds(133, 346, 221, 35);
 		getContentPane().add(textAreaDescripcionVideo);
 		
 		textFieldDuracionVideo = new JTextField();
 		textFieldDuracionVideo.setEditable(false);
+		textFieldDuracionVideo.setVisible(false);
 		textFieldDuracionVideo.setBounds(133, 399, 80, 20);
 		getContentPane().add(textFieldDuracionVideo);
 		textFieldDuracionVideo.setColumns(10);
 		
 		lblFechaPublicado = new JLabel("Fecha publicado");
 		lblFechaPublicado.setBounds(10, 427, 113, 14);
+		lblFechaPublicado.setVisible(false);
 		getContentPane().add(lblFechaPublicado);
 		
 		textFieldFechaPub = new JTextField();
 		textFieldFechaPub.setEditable(false);
+		textFieldFechaPub.setVisible(false);
 		textFieldFechaPub.setBounds(133, 430, 80, 20);
 		getContentPane().add(textFieldFechaPub);
 		textFieldFechaPub.setColumns(10);
 		
 		chckbxVideoPrivado = new JCheckBox("Privado");
 		chckbxVideoPrivado.setEnabled(false);
+		chckbxVideoPrivado.setVisible(false);
 		chckbxVideoPrivado.setBounds(271, 398, 97, 23);
 		getContentPane().add(chckbxVideoPrivado);
 		
 		lblUrl = new JLabel("URL");
 		lblUrl.setBounds(10, 464, 46, 14);
+		lblUrl.setVisible(false);
 		getContentPane().add(lblUrl);
 		
 		textFieldURL = new JTextField();
 		textFieldURL.setEditable(false);
+		textFieldURL.setVisible(false);
 		textFieldURL.setBounds(133, 461, 221, 20);
 		getContentPane().add(textFieldURL);
 		textFieldURL.setColumns(10);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(384, 337, 242, 190);
+		scrollPane.setVisible(false);
+		getContentPane().add(scrollPane);
 
 	}
 
@@ -297,16 +317,30 @@ public class ConsultaUsuario extends JInternalFrame {
 	}
 	
 	public void fillVideoData(DtVideo video) {
+		textFieldNombreVideo.setVisible(true);
+		textAreaDescripcionVideo.setVisible(true);
+		textFieldFecha.setVisible(true);
+		textFieldURL.setVisible(true);
+		textFieldDuracionVideo.setVisible(true);
+		textFieldFechaPub.setVisible(true);
+		chckbxVideoPrivado.setVisible(true);
+		lblComentarios.setVisible(true);
+		lblDescripcionVideo.setVisible(true);
+		lblNombreVideo.setVisible(true);
+		lblFechaPublicado.setVisible(true);
+		lblUrl.setVisible(true);
+		lblDuracion.setVisible(true);		
+		
 		textFieldNombreVideo.setText(video.getNombre());
-		textFieldDescripcion.setText(video.getDescripcion());
+		textAreaDescripcionVideo.setText(video.getDescripcion());
+		textFieldDuracionVideo.setText(video.getDuracion().toString());
 		textFieldFecha.setText(video.getFechaPub().toString());
 		textFieldURL.setText(video.getUrl());
 		if (video.getComentarios() != null) {
 			treeComentarios = video.getComentarios();
 			treeComentarios.setBounds(374, 332, 300, 185);
-			getContentPane().add(treeComentarios);
+			getContentPane().add(treeComentarios);				
 		}
-		//treeComentarios.add(video.getComentarios());
 		chckbxVideoPrivado.setSelected(video.getPrivado());
 	}
 	
@@ -315,8 +349,25 @@ public class ConsultaUsuario extends JInternalFrame {
 		textFieldDescripcion.removeAll();
 		textFieldFecha.removeAll();
 		textFieldURL.removeAll();
-		//treeComentarios.removeAll();
-		chckbxVideoPrivado.removeAll();
+		if (treeComentarios != null) {
+			treeComentarios.removeAll();
+			scrollPane.setVisible(false);
+		}
+		chckbxVideoPrivado.removeAll();		
+		textFieldNombreVideo.setVisible(false);
+		textAreaDescripcionVideo.setVisible(false);
+		textFieldFecha.setVisible(false);
+		textFieldURL.setVisible(false);
+		textFieldDuracionVideo.setVisible(false);
+		textFieldFechaPub.setVisible(false);
+		chckbxVideoPrivado.setVisible(false);
+		lblComentarios.setVisible(false);
+		lblFechaPublicado.setVisible(false);
+		lblDescripcionVideo.setVisible(false);
+		lblNombreVideo.setVisible(false);
+		lblUrl.setVisible(false);
+		lblDuracion.setVisible(false);
+		
 	}
 	
 	public void cleanOutputData() {		
