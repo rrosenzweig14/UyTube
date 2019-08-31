@@ -298,11 +298,6 @@ public class Principal extends JFrame {
 			mntmDejarDeSeguir.setFont(new Font("Dialog", Font.BOLD, 15));
 			mnAccionesUsuario.add(mntmDejarDeSeguir);
 
-//		contentPane = new JPanel();
-//		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-//		contentPane.setLayout(new BorderLayout(0, 0));
-//		setContentPane(contentPane);
-
 		}
 	}
 

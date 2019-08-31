@@ -163,7 +163,7 @@ public class Controlador implements IControlador{
 
 	@Override
 	public ArrayList<String> listarVideos() {			
-		ArrayList<String> aux = null;
+		ArrayList<String> aux = new ArrayList<String>();
 		if(user1 != null) {
 			Canal c = user1.getCanal();
 			if(c != null) {
