@@ -161,6 +161,14 @@ public class Usuario {
 		return new DtUsuario(this.nickname,this.email,this.nombre,this.apellido, this.fechaNac, this.getImg());
 	}
 	
+    public DtUsuario getDt() {
+        DtUsuario aux =  new DtUsuario(this.nickname,this.email,this.nombre,this.apellido, this.fechaNac, this.getImg());
+        for(Usuario u: seguidos) {
+             aux.addSeguido(u.getDtUsuario());
+        }
+        return aux;
+    }
+	
 	public Lista agregarListaPart(String nombreLista, boolean privada, Categoria categoria) {
 		Lista res = this.canal.agregarListaPart(nombreLista, privada, categoria);
 		return res;

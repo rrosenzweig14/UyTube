@@ -94,5 +94,8 @@ public class DtUsuario {
 	public void setSeguidos(HashMap<String, DtUsuario> seguidos) {
 		this.seguidos = seguidos;
 	}	
-
+    
+    public void addSeguido(DtUsuario u) {
+        seguidos.put(u.getNickname(), u);
+    }
 }
