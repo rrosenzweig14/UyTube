@@ -26,6 +26,7 @@ import javassist.expr.Instanceof;
 
 public class Controlador implements IControlador{
 
+	private Boolean existeEmail;
 	private Usuario user1;
 	private Usuario user2;
 	private boolean defecto;
@@ -341,16 +342,8 @@ public class Controlador implements IControlador{
 			Handler.addCategoria(cat);
 		}
 		return res;
-	}	
+	}		
 
-	@Override
-	public Boolean ingresarUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, DtCanal canal) {
-		Boolean res = true;
-		res = Handler.addUsuario(nickname, email, nombre, apellido, fechaNac, img, canal);
-		
-		return res;
-	}
-	
 	// Descripcion: Si defecto = true, arma lista por defecto
 	@Override
 	public void ingresarTipoLista(boolean defecto) {
@@ -358,15 +351,6 @@ public class Controlador implements IControlador{
 		this.defecto = defecto;		
 	}	
 	
-	public void finCasoUso() {
-		user1 = null;
-		user2 = null;
-		video = null;
-		comentarioSeleccionado = null;
-		lista = null;
-		canal = null;
-		categoria1 = null;
-	}
 	//Precondicion video != null
 	public JTree mostrarComentarios()
 	{
@@ -445,6 +429,85 @@ public class Controlador implements IControlador{
 		Conexion.persist(canal);		
 		Conexion.commit();		
 	}	
+	
+	@Override
+	public Boolean ingresarUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, DtCanal canal) {
+		Boolean res = false;
+		Usuario aux = Handler.findUsuario(nickname);
+		if(aux == null)
+			aux = Handler.findUsuarioEM(email);
+		else
+			this.existeEmail = false;
+		if(aux == null) {
+			Handler.addUsuario(nickname, email, nombre, apellido, fechaNac, img, canal);
+			res = true;
+		}else
+			this.existeEmail = true;
+		return res;
+	}
+
+	public void finCasoUso() {
+		user1 = null;
+		user2 = null;
+		video = null;
+		comentarioSeleccionado = null;
+		lista = null;
+		canal = null;
+		categoria1 = null;
+		existeEmail = false;
+	}
+
+
+
+
+	public Boolean existeEmail() {
+		return this.existeEmail;
+	}
+	
+	public Map<String, String> videosXCat(String categoria){
+		Map<String, String> res = new HashMap<String,String>();
+		ArrayList<String> us = Handler.listarUsuarios();
+		Canal c = new Canal();
+		Usuario usr = new Usuario();
+		Map<String, Video> vid;
+		for(String u : us) {
+			usr = Handler.findUsuario(u);
+			c = usr.getCanal();
+			vid = c.getListaVideos();
+			for(Video v : vid.values()) {
+				if(v != null)
+					if(v.getCategoria().getNombre() == categoria)
+						res.put(v.getNombre(), usr.getNickname());
+			}
+		}
+		
+		return res;
+	}
+
+	public Map<String, String> listasXCat(String categoria){
+		Map<String, String> res = new HashMap<String,String>();
+		ArrayList<String> us = Handler.listarUsuarios();
+		Canal c = new Canal();
+		Usuario usr = new Usuario();
+		Map<String, Lista> lst;
+		for(String u : us) {
+			usr = Handler.findUsuario(u);
+			c = usr.getCanal();
+			lst = c.getListasReproduccion();
+			if(lst != null)
+			for(Lista l : lst.values()) {
+				 if (l instanceof Particular)
+					if(l.getCategoria()!= null && l.getCategoria().getNombre().equals(categoria))
+						res.put(l.getNombre(), usr.getNickname());
+						
+			}
+		}
+		
+		return null;
+	}
+	
+	
+	
 }	
 	
 	
