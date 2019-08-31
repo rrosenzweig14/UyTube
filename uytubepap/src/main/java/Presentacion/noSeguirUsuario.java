@@ -38,7 +38,7 @@ import java.beans.PropertyChangeEvent;
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
 
-public class SeguirUsuario extends JInternalFrame {
+public class noSeguirUsuario extends JInternalFrame {
 	private JLabel lblSeguidor;
 	private Choice cmbSeguidor;
 	private JLabel lblSeguido;
@@ -50,10 +50,10 @@ public class SeguirUsuario extends JInternalFrame {
 	private String seguido = null;
 	private ArrayList<String> users = ctrl.listarUsuarios();
 	
-	public SeguirUsuario(IControlador ctrl2) {
+	public noSeguirUsuario(IControlador ctrl2) {
 		setClosable(true);
 		setBounds(100, 100, 530, 430);
-		setTitle("Seguir Usuario");
+		setTitle("Dejar de Seguir Usuario");
 		getContentPane().setLayout(null);
 		
 		lblSeguidor = new JLabel("Seguidor:");
@@ -87,7 +87,7 @@ public class SeguirUsuario extends JInternalFrame {
 		btnAceptar.setEnabled(false);
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				seguirUsuario();
+				noSeguirUsuario();
 			}
 		});
 		btnAceptar.setBounds(271, 205, 96, 25);
@@ -132,19 +132,8 @@ public class SeguirUsuario extends JInternalFrame {
 			DtUsuario dtu = ctrl.seleccionarUsuario(elElegido);
 			cmbSeguido.removeAll();
 			cmbSeguido.add("");
-			for(String s: users) {
-				if(!s.equals(elElegido)) {	//no se pueda seguir a si mismo
-					boolean b = true;
-					for(String seg: dtu.getSeguidos().keySet()) {	//no pueda seguir a alguien que ya siga
-						if(seg.equals(s)) {
-							b = false;
-						}
-					}
-					System.out.println("88888888888888888888888888888888888888888888888888888888888888888888888888");
-					if(b) {
-						cmbSeguido.add(s);
-					}					
-				}
+			for(String s: dtu.getSeguidos().keySet()) {	//no pueda seguir a alguien que ya siga
+				cmbSeguido.add(s);
 			}
 			if(cmbSeguido.getItemCount() > 0) {
 				cmbSeguido.setEnabled(true);
@@ -161,10 +150,10 @@ public class SeguirUsuario extends JInternalFrame {
 		}
 	}
 	
-	public void seguirUsuario() {
+	public void noSeguirUsuario() {
 		DtUsuario dtu = ctrl.seleccionarUsuario(seguido);		
-		ctrl.seguirUsuario();
-		JOptionPane.showMessageDialog(this, elElegido+" sigue a "+seguido+" exitosamente!!!", "Seguir Usuario", JOptionPane.INFORMATION_MESSAGE);
+		ctrl.dejarSeguir();
+		JOptionPane.showMessageDialog(this, elElegido+" dejo de siguir a "+seguido+" exitosamente!!!", "Dejar de Seguir Usuario", JOptionPane.INFORMATION_MESSAGE);
 		fin();
 	}
 
