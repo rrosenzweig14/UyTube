@@ -66,6 +66,7 @@ public class Principal extends JFrame {
 	private AltaVideo altaVideoInternalFrame;
 	private AltaLista altaListaInternalFrame;
 	private ConsultaUsuario consultaUsuarioInternalFrame;
+	private ConsultaListas consultaListasInternalFrame;
 
 	/**
 	 * Launch the application.
@@ -126,6 +127,12 @@ public class Principal extends JFrame {
 		altaVideoInternalFrame.setVisible(false);
 		altaVideoInternalFrame.setBounds(100, 100, 400, 315);
 		frame.getContentPane().add(altaVideoInternalFrame);
+		
+		consultaListasInternalFrame = new ConsultaListas(ctrl);
+		consultaListasInternalFrame.setVisible(false);
+		consultaListasInternalFrame.setBounds(100, 100, 386, 303);
+		frame.getContentPane().add(consultaListasInternalFrame);
+		
 		
 	}
 	/*
@@ -219,6 +226,14 @@ public class Principal extends JFrame {
 			mntmConsultaDeLista = new JMenuItem("Consulta de Lista");
 			mntmConsultaDeLista.setIcon(new ImageIcon("././img/Icons/clipboard-search-symbol.png"));
 			mntmConsultaDeLista.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmConsultaDeLista.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					consultaListasInternalFrame.setVisible(true);
+					
+				}
+			});
 			mnConsultas.add(mntmConsultaDeLista);
 
 			mntmConsultaDeCategoria = new JMenuItem("Consulta de Categoria");

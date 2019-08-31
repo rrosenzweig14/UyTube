@@ -1,15 +1,6 @@
 package Presentacion;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import org.jboss.jandex.Main;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -20,7 +11,6 @@ import interfaces.IControlador;
 public class AltaCategoria extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
 	private JTextField txtNombre;
 	private IControlador ctrl;
 	private JLabel lblInfo;

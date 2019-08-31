@@ -25,6 +25,11 @@ public class DtComentario {
 		this.texto = texto;
 		this.fecha = fecha;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format(this.nick + ": " + this.texto + " " + this.fecha);
+	}
 
 	
 	public int getId() {
