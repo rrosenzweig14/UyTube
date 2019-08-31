@@ -22,6 +22,7 @@ import datatypes.DtLista;
 import datatypes.DtUsuario;
 import datatypes.DtVideo;
 import interfaces.IControlador;
+import javassist.expr.Instanceof;
 
 public class Controlador implements IControlador{
 
@@ -416,7 +417,7 @@ public class Controlador implements IControlador{
 		canal = canalSelec;
 		Map<String,Lista> lista = canal.getListasReproduccion();
 		for(Lista lst : lista.values()) {
-			if (lst instanceof Defecto) res.add(lst.getDt());
+			if (lst instanceof Particular) res.add(lst.getDt());
 		}		
 		return res;		
 	}
