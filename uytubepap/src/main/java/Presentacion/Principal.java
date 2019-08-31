@@ -62,6 +62,7 @@ public class Principal extends JFrame {
 	// Internal frames por Caso de Uso
 	private AltaUsuario altaUsuarioInternalFrame;
 	private AltaCategoria altaCategoriaInternalFrame;
+	private SeguirUsuario seguirUsuarioInternalFrame;
 
 	/**
 	 * Launch the application.
@@ -100,6 +101,11 @@ public class Principal extends JFrame {
 		altaCategoriaInternalFrame.setVisible(false);
 		altaCategoriaInternalFrame.setBounds(100, 100, 450, 300);
 		frame.getContentPane().add(altaCategoriaInternalFrame);
+		
+		seguirUsuarioInternalFrame = new SeguirUsuario(ctrl);
+		seguirUsuarioInternalFrame.setVisible(false);
+		seguirUsuarioInternalFrame.setBounds(100, 100, 530, 430);
+		frame.getContentPane().add(seguirUsuarioInternalFrame);	
 		
 
 		
@@ -240,7 +246,7 @@ public class Principal extends JFrame {
 			mntmSeguirUsuario.setFont(new Font("Dialog", Font.BOLD, 15));	
 			mntmSeguirUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					mntmSeguirUsuario.setVisible(true);
+					seguirUsuarioInternalFrame.setVisible(true);
 				}
 			});
 			mnAccionesUsuario.add(mntmSeguirUsuario);

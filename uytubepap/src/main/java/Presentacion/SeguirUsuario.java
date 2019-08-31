@@ -50,7 +50,7 @@ public class SeguirUsuario extends JInternalFrame {
 
 		cmbSeguidor = new Choice();
 		cmbSeguidor.setBounds(174, 68, 193, 24);
-		ArrayList<String> users = Handler.listarUsuarios();
+		ArrayList<String> users = ctrl.listarUsuarios();
 		for(String s: users) {
 			cmbSeguidor.add(s);
 		}
