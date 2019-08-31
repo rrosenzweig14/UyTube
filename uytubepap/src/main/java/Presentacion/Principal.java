@@ -164,6 +164,7 @@ public class Principal extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					altaCategoriaInternalFrame.setVisible(true);
+					
 				}
 			});
 			mnAltaMenu.add(mntmAltaCategoria);
@@ -185,6 +186,8 @@ public class Principal extends JFrame {
 			mntmAltaLista.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					altaListaInternalFrame.fillCategories();
+					altaListaInternalFrame.fillUsers();
 					altaListaInternalFrame.setVisible(true);
 				}
 			});
@@ -199,6 +202,7 @@ public class Principal extends JFrame {
 			mntmConsultaUsuario.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					consultaUsuarioInternalFrame.fillUsers();
 					consultaUsuarioInternalFrame.setVisible(true);
 				}
 			});			

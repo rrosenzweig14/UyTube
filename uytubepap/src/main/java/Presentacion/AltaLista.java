@@ -49,92 +49,107 @@ public class AltaLista extends JInternalFrame {
 		setClosable(true);
 		setTitle("Alta Lista");
 		getContentPane().setLayout(null);
+		{
 
-		rdbtnParticular = new JRadioButton("Particular");
-		rdbtnParticular.setBounds(200, 29, 109, 23);
-		rdbtnParticular.addActionListener(new ActionListener() {
+			rdbtnParticular = new JRadioButton("Particular");
+			rdbtnParticular.setBounds(200, 29, 109, 23);
+			rdbtnParticular.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				showParticularInput();
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					showParticularInput();
 
-			}
-		});
-		getContentPane().add(rdbtnParticular);
+				}
+			});
+			getContentPane().add(rdbtnParticular);
 
-		rdbtnDefecto = new JRadioButton("Defecto", true);
-		rdbtnDefecto.setBounds(389, 29, 109, 23);
-		rdbtnDefecto.addActionListener(new ActionListener() {
+			rdbtnDefecto = new JRadioButton("Defecto", true);
+			rdbtnDefecto.setBounds(389, 29, 109, 23);
+			rdbtnDefecto.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				showDefectoInput();
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					showDefectoInput();
 
-			}
-		});
-		getContentPane().add(rdbtnDefecto);
+				}
+			});
+			getContentPane().add(rdbtnDefecto);
 
-		ButtonGroup bgroup = new ButtonGroup();
-		bgroup.add(rdbtnParticular);
-		bgroup.add(rdbtnDefecto);
+			ButtonGroup bgroup = new ButtonGroup();
+			bgroup.add(rdbtnParticular);
+			bgroup.add(rdbtnDefecto);
 
-		lblNombreLista = new JLabel("Nombre Lista");
-		lblNombreLista.setBounds(66, 183, 102, 14);
-		lblNombreLista.setVisible(true);
-		getContentPane().add(lblNombreLista);
+			lblNombreLista = new JLabel("Nombre Lista");
+			lblNombreLista.setBounds(66, 183, 102, 14);
+			lblNombreLista.setVisible(true);
+			getContentPane().add(lblNombreLista);
 
-		textFieldNombreLista = new JTextField();
-		textFieldNombreLista.setBounds(200, 180, 255, 20);
-		getContentPane().add(textFieldNombreLista);
-		textFieldNombreLista.setVisible(true);
-		textFieldNombreLista.setColumns(10);
+			textFieldNombreLista = new JTextField();
+			textFieldNombreLista.setBounds(200, 180, 255, 20);
+			getContentPane().add(textFieldNombreLista);
+			textFieldNombreLista.setVisible(true);
+			textFieldNombreLista.setColumns(10);
 
-		btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBounds(409, 448, 89, 23);
-		btnAceptar.addActionListener(new ActionListener() {
+			btnAceptar = new JButton("Aceptar");
+			btnAceptar.setBounds(409, 448, 89, 23);
+			btnAceptar.addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				AltaLista();
-			}
-		});
-		getContentPane().add(btnAceptar);
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					AltaLista();
+				}
+			});
+			getContentPane().add(btnAceptar);
 
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(200, 448, 89, 23);
-		getContentPane().add(btnCancelar);
+			btnCancelar = new JButton("Cancelar");
+			btnCancelar.setBounds(200, 448, 89, 23);
+			btnCancelar.addActionListener(new ActionListener() {
 
-		comboBoxUsuarios = new JComboBox();
-		comboBoxUsuarios.setBounds(200, 134, 255, 20);
-		comboBoxUsuarios.setVisible(false);
-		fillUsers();
-		getContentPane().add(comboBoxUsuarios);
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					finCasoUso();
+					dispose();
+				}
+			});
+			getContentPane().add(btnCancelar);
 
-		lblNombreUsuario = new JLabel("Nombre Usuario");
-		lblNombreUsuario.setBounds(66, 137, 102, 14);
-		lblNombreUsuario.setVisible(false);
-		getContentPane().add(lblNombreUsuario);
+			comboBoxUsuarios = new JComboBox();
+			comboBoxUsuarios.setBounds(200, 134, 255, 20);
+			comboBoxUsuarios.setVisible(false);
+			getContentPane().add(comboBoxUsuarios);
 
-		chckbxPrivada = new JCheckBox("Privada");
-		chckbxPrivada.setBounds(499, 133, 97, 23);
-		chckbxPrivada.setVisible(false);
-		getContentPane().add(chckbxPrivada);
+			lblNombreUsuario = new JLabel("Nombre Usuario");
+			lblNombreUsuario.setBounds(66, 137, 102, 14);
+			lblNombreUsuario.setVisible(false);
+			getContentPane().add(lblNombreUsuario);
 
-		comboBoxCategorias = new JComboBox();
-		comboBoxCategorias.setBounds(200, 225, 255, 20);
-		fillCategories();
-		comboBoxCategorias.setVisible(false);
-		getContentPane().add(comboBoxCategorias);
+			chckbxPrivada = new JCheckBox("Privada");
+			chckbxPrivada.setBounds(499, 133, 97, 23);
+			chckbxPrivada.setVisible(false);
+			getContentPane().add(chckbxPrivada);
 
-		lblCategoria = new JLabel("Categoria");
-		lblCategoria.setBounds(66, 228, 102, 14);
-		lblCategoria.setVisible(false);
-		getContentPane().add(lblCategoria);
+			comboBoxCategorias = new JComboBox();
+			comboBoxCategorias.setBounds(200, 225, 255, 20);
+			comboBoxCategorias.setVisible(false);
+			getContentPane().add(comboBoxCategorias);
+
+			lblCategoria = new JLabel("Categoria");
+			lblCategoria.setBounds(66, 228, 102, 14);
+			lblCategoria.setVisible(false);
+			getContentPane().add(lblCategoria);
+		}
 	}
 
 	public void finCasoUso() {
 		controller.finCasoUso();
 	}
+	
+	
+	//TODO clean fields
+	public void cleanFields() {
+		
+	}
+	
 
 	public void fillUsers() {
 		comboBoxUsuarios.addItem(" ");
@@ -176,44 +191,39 @@ public class AltaLista extends JInternalFrame {
 			}
 
 		} else {
-			
+
 			String nombreUsuario = comboBoxUsuarios.getSelectedItem().toString();
 			String nombreCategoria = comboBoxCategorias.getSelectedItem().toString();
 			String nombreLista = textFieldNombreLista.getText();
 			boolean privado = chckbxPrivada.isSelected();
 			if (nombreUsuario.equals("") || nombreLista.equals("")) {
 				JOptionPane.showMessageDialog(null, "Quedan campos sin completar.");
-			}
-			else {
+			} else {
 				controller.ingresarTipoLista(false);
 				DtUsuario user = new DtUsuario(nombreUsuario);
-				
+
 				if (nombreCategoria.equals("")) {
 					if (controller.crearLista(user, nombreLista, privado, null)) {
 						JOptionPane.showMessageDialog(this, "Se creó la lista exitosamente.", "Alta Lista",
 								JOptionPane.INFORMATION_MESSAGE);
 						finCasoUso();
 						dispose();
-					}
-					else {
+					} else {
 						JOptionPane.showMessageDialog(this, "Error ya existe una lista con éste nombre.", "Alta Lista",
 								JOptionPane.ERROR_MESSAGE);
 					}
-				}
-				else {
+				} else {
 					if (controller.crearLista(user, nombreLista, privado, nombreCategoria)) {
 						JOptionPane.showMessageDialog(this, "Se creó la lista exitosamente.", "Alta Lista",
-								JOptionPane.INFORMATION_MESSAGE);	
+								JOptionPane.INFORMATION_MESSAGE);
 						finCasoUso();
 						dispose();
-					}
-					else {
+					} else {
 						JOptionPane.showMessageDialog(this, "Error ya existe una lista con éste nombre.", "Alta Lista",
 								JOptionPane.ERROR_MESSAGE);
 					}
 				}
-				
-				
+
 			}
 		}
 	}
