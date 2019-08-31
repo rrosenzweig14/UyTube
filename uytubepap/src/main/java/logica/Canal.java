@@ -174,6 +174,13 @@ public class Canal {
 		
 	}
 	
+	public Canal(DtCanal datosCanal) {
+		this.usuario = null;
+		this.nombre = datosCanal.getNombre();
+		this.descripcion = datosCanal.getDescripcion();
+		this.privado = datosCanal.isPrivado();
+	}
+	
 	public Canal(String nombre) {
 		this.usuario = null;
 		this.nombre = nombre;

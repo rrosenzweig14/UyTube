@@ -3,11 +3,17 @@ package Presentacion;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import interfaces.Fabrica;
+import interfaces.IControlador;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -53,7 +59,7 @@ public class Principal extends JFrame {
 	private JMenuItem mntmDejarDeSeguir;
 
 	// Internal frames por Caso de Uso
-	private AltaUsuario altaUsuario;
+	private AltaUsuario altaUsuarioInternalFrame;
 
 	/**
 	 * Launch the application.
@@ -76,10 +82,20 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		initialize();
-
+		IControlador ctrl = Fabrica.getIControlador();
+		
+		
 		frame.getContentPane().setLayout(null);
-
 		// Aqui se inicializan las InternalJFrame de los Casos
+		
+		//
+		altaUsuarioInternalFrame = new AltaUsuario(ctrl);
+		altaUsuarioInternalFrame.setVisible(false);
+		altaUsuarioInternalFrame.setBounds(100, 100, 530, 430);
+		frame.getContentPane().add(altaUsuarioInternalFrame);		
+		
+
+		
 	}
 	/*
 	 * 
@@ -103,6 +119,11 @@ public class Principal extends JFrame {
 			mntmAltaUsuario = new JMenuItem("Alta Usuario");
 			mntmAltaUsuario.setIcon(new ImageIcon("././img/Icons/add-user-button.png"));
 			mntmAltaUsuario.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmAltaUsuario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					altaUsuarioInternalFrame.setVisible(true);
+				}
+			});
 			mnAltaMenu.add(mntmAltaUsuario);
 
 			mntmAltaCategoria = new JMenuItem("Alta Categoria");

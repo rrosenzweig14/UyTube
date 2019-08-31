@@ -344,7 +344,7 @@ public class Controlador implements IControlador{
 	}	
 
 	@Override
-	public Boolean ingresarUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, String canal) {
+	public Boolean ingresarUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, DtCanal canal) {
 		Boolean res = true;
 		res = Handler.addUsuario(nickname, email, nombre, apellido, fechaNac, img, canal);
 		

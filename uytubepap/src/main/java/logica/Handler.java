@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Iterator;
 import javax.persistence.EntityManager;
 
+import datatypes.DtCanal;
 import datatypes.DtUsuario;
 
 public class Handler {
@@ -46,7 +47,7 @@ public class Handler {
 		return usuario;
 	}
 	
-	public static boolean addUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, String canal) {
+	public static boolean addUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, DtCanal canal) {
 		Usuario aux = findUsuario(nickname);
 		if(aux == null)
 			aux = findUsuarioEM(email);

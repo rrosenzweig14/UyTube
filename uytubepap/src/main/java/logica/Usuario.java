@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import datatypes.DtCanal;
 import datatypes.DtUsuario;
 import datatypes.DtVideo;
 
@@ -169,7 +170,7 @@ public class Usuario {
 		return this.canal.agregarListaDefecto(nombreLista);
 	}
 	
-	public Usuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img,String nombreCanal) {
+	public Usuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, DtCanal datosCanal) {
 		super();
 		this.nickname = nickname;
 		this.nombre = nombre;
@@ -177,10 +178,8 @@ public class Usuario {
 		this.email = email;
 		this.fechaNac = fechaNac;
 		this.img = img;		
-		//No deberia ser necesario ya que se inicializa cuando se crea la entidad
-//		this.seguidores = new HashMap<String,Usuario>();
-//		this.seguidos = new HashMap<String,Usuario>();
-		this.canal = new Canal(nombreCanal);
+		
+		this.canal = new Canal(datosCanal);
 	}
 
 	public Usuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img,Canal nombreCanal) {
@@ -191,9 +190,6 @@ public class Usuario {
 		this.email = email;
 		this.fechaNac = fechaNac;
 		this.img = img;		
-		//No deberia ser necesario ya que se inicializa cuando se crea la entidad
-//		this.seguidores = new HashMap<String,Usuario>();
-//		this.seguidos = new HashMap<String,Usuario>();
 		this.canal = canal;
 	}
 	
