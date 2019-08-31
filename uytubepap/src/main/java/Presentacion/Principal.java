@@ -60,6 +60,7 @@ public class Principal extends JFrame {
 
 	// Internal frames por Caso de Uso
 	private AltaUsuario altaUsuarioInternalFrame;
+	private AltaCategoria altaCategoriaInternalFrame;
 
 	/**
 	 * Launch the application.
@@ -92,7 +93,12 @@ public class Principal extends JFrame {
 		altaUsuarioInternalFrame = new AltaUsuario(ctrl);
 		altaUsuarioInternalFrame.setVisible(false);
 		altaUsuarioInternalFrame.setBounds(100, 100, 530, 430);
-		frame.getContentPane().add(altaUsuarioInternalFrame);		
+		frame.getContentPane().add(altaUsuarioInternalFrame);	
+		
+		altaCategoriaInternalFrame = new AltaCategoria(ctrl);
+		altaCategoriaInternalFrame.setVisible(false);
+		altaCategoriaInternalFrame.setBounds(100, 100, 450, 300);
+		frame.getContentPane().add(altaCategoriaInternalFrame);
 		
 
 		
@@ -129,6 +135,13 @@ public class Principal extends JFrame {
 			mntmAltaCategoria = new JMenuItem("Alta Categoria");
 			mntmAltaCategoria.setIcon(new ImageIcon("././img/Icons/category-add-button.png"));
 			mntmAltaCategoria.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmAltaCategoria.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					altaCategoriaInternalFrame.setVisible(true);
+				}
+			});
 			mnAltaMenu.add(mntmAltaCategoria);
 
 			mntmAltaVideo = new JMenuItem("Alta Video");
