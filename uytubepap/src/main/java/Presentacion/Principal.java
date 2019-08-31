@@ -63,10 +63,12 @@ public class Principal extends JFrame {
 	private AltaUsuario altaUsuarioInternalFrame;
 	private AltaCategoria altaCategoriaInternalFrame;
 	private SeguirUsuario seguirUsuarioInternalFrame;
+	private noSeguirUsuario DejarDeSeguirInternalFrame;
 	private AltaVideo altaVideoInternalFrame;
 	private AltaLista altaListaInternalFrame;
 	private ConsultaUsuario consultaUsuarioInternalFrame;
-	private ConsultaListas consultaListasInternalFrame;
+	//private ConsultaListas consultaListasInternalFrame;
+
 
 	/**
 	 * Launch the application.
@@ -128,11 +130,15 @@ public class Principal extends JFrame {
 		altaVideoInternalFrame.setBounds(100, 100, 400, 315);
 		frame.getContentPane().add(altaVideoInternalFrame);
 		
-		consultaListasInternalFrame = new ConsultaListas(ctrl);
-		consultaListasInternalFrame.setVisible(false);
-		consultaListasInternalFrame.setBounds(100, 100, 386, 303);
-		frame.getContentPane().add(consultaListasInternalFrame);
-		
+		//consultaListasInternalFrame = new ConsultaListas(ctrl);
+		//consultaListasInternalFrame.setVisible(false);
+		//consultaListasInternalFrame.setBounds(100, 100, 386, 303);
+		//frame.getContentPane().add(consultaListasInternalFrame);
+
+		DejarDeSeguirInternalFrame = new noSeguirUsuario(ctrl);
+		DejarDeSeguirInternalFrame.setVisible(false);
+		DejarDeSeguirInternalFrame.setBounds(100, 100, 530, 430);
+		frame.getContentPane().add(DejarDeSeguirInternalFrame);	
 		
 	}
 	/*
@@ -230,7 +236,7 @@ public class Principal extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					consultaListasInternalFrame.setVisible(true);
+					//consultaListasInternalFrame.setVisible(true);
 					
 				}
 			});
@@ -312,6 +318,12 @@ public class Principal extends JFrame {
 			mntmDejarDeSeguir = new JMenuItem("Dejar de Seguir Usuario");
 			mntmDejarDeSeguir.setIcon(new ImageIcon("././img/Icons/unfollow.png"));
 			mntmDejarDeSeguir.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmDejarDeSeguir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					DejarDeSeguirInternalFrame.fillUsers();
+					DejarDeSeguirInternalFrame.setVisible(true);
+				}
+			});
 			mnAccionesUsuario.add(mntmDejarDeSeguir);
 
 		}
