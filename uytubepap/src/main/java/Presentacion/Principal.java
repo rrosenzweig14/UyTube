@@ -67,7 +67,7 @@ public class Principal extends JFrame {
 	private AltaVideo altaVideoInternalFrame;
 	private AltaLista altaListaInternalFrame;
 	private ConsultaUsuario consultaUsuarioInternalFrame;
-	//private ConsultaListas consultaListasInternalFrame;
+	private ConsultaListas consultaListasInternalFrame;
 
 
 	/**
@@ -130,10 +130,10 @@ public class Principal extends JFrame {
 		altaVideoInternalFrame.setBounds(100, 100, 400, 315);
 		frame.getContentPane().add(altaVideoInternalFrame);
 		
-		//consultaListasInternalFrame = new ConsultaListas(ctrl);
-		//consultaListasInternalFrame.setVisible(false);
-		//consultaListasInternalFrame.setBounds(100, 100, 386, 303);
-		//frame.getContentPane().add(consultaListasInternalFrame);
+		consultaListasInternalFrame = new ConsultaListas(ctrl);
+		consultaListasInternalFrame.setVisible(false);
+		consultaListasInternalFrame.setBounds(100, 100, 386, 303);
+		frame.getContentPane().add(consultaListasInternalFrame);
 
 		DejarDeSeguirInternalFrame = new noSeguirUsuario(ctrl);
 		DejarDeSeguirInternalFrame.setVisible(false);
@@ -236,7 +236,8 @@ public class Principal extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//consultaListasInternalFrame.setVisible(true);
+					consultaListasInternalFrame.fillUsers();
+					consultaListasInternalFrame.setVisible(true);
 					
 				}
 			});
