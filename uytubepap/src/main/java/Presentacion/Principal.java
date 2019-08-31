@@ -272,6 +272,7 @@ public class Principal extends JFrame {
 			mntmSeguirUsuario.setFont(new Font("Dialog", Font.BOLD, 15));	
 			mntmSeguirUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					seguirUsuarioInternalFrame.fillUsers();
 					seguirUsuarioInternalFrame.setVisible(true);
 				}
 			});
