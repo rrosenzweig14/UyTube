@@ -158,7 +158,7 @@ public class Controlador implements IControlador{
 		}else {
 			user2 = aux;
 		}
-		return aux.getDtUsuario();
+		return aux.getDt();
 	}
 
 	@Override

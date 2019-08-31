@@ -63,6 +63,7 @@ public class Principal extends JFrame {
 	private AltaUsuario altaUsuarioInternalFrame;
 	private AltaCategoria altaCategoriaInternalFrame;
 	private SeguirUsuario seguirUsuarioInternalFrame;
+	private AltaVideo altaVideoInternalFrame;
 	private AltaLista altaListaInternalFrame;
 	private ConsultaUsuario consultaUsuarioInternalFrame;
 
@@ -120,6 +121,10 @@ public class Principal extends JFrame {
 		frame.getContentPane().add(consultaUsuarioInternalFrame);
 		
 
+		altaVideoInternalFrame = new AltaVideo(ctrl);
+		altaVideoInternalFrame.setVisible(false);
+		altaVideoInternalFrame.setBounds(100, 100, 530, 430);
+		frame.getContentPane().add(altaVideoInternalFrame);
 		
 	}
 	/*
@@ -166,6 +171,12 @@ public class Principal extends JFrame {
 			mntmAltaVideo = new JMenuItem("Alta Video");
 			mntmAltaVideo.setIcon(new ImageIcon("././img/Icons/video-file.png"));
 			mntmAltaVideo.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmAltaVideo.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent a) {
+					altaVideoInternalFrame.setVisible(true);
+				}
+			});
 			mnAltaMenu.add(mntmAltaVideo);
 
 			mntmAltaLista = new JMenuItem("Alta Lista");
