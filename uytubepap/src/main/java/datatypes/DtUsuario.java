@@ -96,6 +96,9 @@ public class DtUsuario {
 	}	
     
     public void addSeguido(DtUsuario u) {
-        seguidos.put(u.getNickname(), u);
+    	this.seguidos.put(u.getNickname(), u);
+    }
+    public void addSeguidor(DtUsuario u) {
+    	this.seguidores.put(u.getNickname(), u);
     }
 }
