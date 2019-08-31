@@ -64,6 +64,7 @@ public class Principal extends JFrame {
 	private AltaCategoria altaCategoriaInternalFrame;
 	private SeguirUsuario seguirUsuarioInternalFrame;
 	private AltaLista altaListaInternalFrame;
+	private ConsultaUsuario consultaUsuarioInternalFrame;
 
 	/**
 	 * Launch the application.
@@ -112,6 +113,11 @@ public class Principal extends JFrame {
 		altaListaInternalFrame.setVisible(false);
 		altaListaInternalFrame.setBounds(100, 100, 700, 600);
 		frame.getContentPane().add(altaListaInternalFrame);
+		
+		consultaUsuarioInternalFrame = new ConsultaUsuario(ctrl);
+		consultaUsuarioInternalFrame.setVisible(false);
+		consultaUsuarioInternalFrame.setBounds(100, 100, 700, 600);
+		frame.getContentPane().add(consultaUsuarioInternalFrame);
 		
 
 		
@@ -179,6 +185,12 @@ public class Principal extends JFrame {
 			mntmConsultaUsuario = new JMenuItem("Consulta Usuario");
 			mntmConsultaUsuario.setIcon(new ImageIcon("././img/Icons/search.png"));
 			mntmConsultaUsuario.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmConsultaUsuario.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					consultaUsuarioInternalFrame.setVisible(true);
+				}
+			});			
 			mnConsultas.add(mntmConsultaUsuario);
 
 			mntmConsultaVideo = new JMenuItem("Consulta Video");
