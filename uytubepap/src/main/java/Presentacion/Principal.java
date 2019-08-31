@@ -237,7 +237,12 @@ public class Principal extends JFrame {
 
 			mntmSeguirUsuario = new JMenuItem("Seguir Usuario");
 			mntmSeguirUsuario.setIcon(new ImageIcon("././img/Icons/follow.png"));
-			mntmSeguirUsuario.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmSeguirUsuario.setFont(new Font("Dialog", Font.BOLD, 15));	
+			mntmSeguirUsuario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					mntmSeguirUsuario.setVisible(true);
+				}
+			});
 			mnAccionesUsuario.add(mntmSeguirUsuario);
 
 			mntmDejarDeSeguir = new JMenuItem("Dejar de Seguir Usuario");
