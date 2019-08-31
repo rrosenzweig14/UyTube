@@ -273,7 +273,7 @@ public class AltaUsuario extends JInternalFrame {
 		String apellido = this.textFieldApellido.getText();
 		String correo = this.textFieldCorreo.getText();
 		String fecha = dia.getSelectedItem() + mes.getSelectedItem() + anio.getSelectedItem();		
-		if (nick == "" || nombre == "" || apellido == "" || correo == "" || fecha == "") {
+		if (nick.equals("") || nombre.equals("")  || apellido.equals("") || correo.equals("") || fecha.equals("")) {
 			JOptionPane.showMessageDialog(null, "Quedan campos sin rellenar.");		
 			return false;
 		}

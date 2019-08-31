@@ -160,6 +160,7 @@ public class Canal {
 		if (!this.listaExists(nombreLista)) {
 			Lista lista = new Defecto(nombreLista,true);			
 			this.listasReproduccion.put(lista.getNombre(), lista);
+			res = true;
 		}
 		return res;
 	}

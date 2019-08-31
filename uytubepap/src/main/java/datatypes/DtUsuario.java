@@ -26,6 +26,10 @@ public class DtUsuario {
 		this.fechaNac = fechaNac;
 		this.img = img;
 	}
+	
+	public DtUsuario(String nickname) {
+		this.nickname = nickname;
+	}
 
 	public String getNickname() {
 		return nickname;
