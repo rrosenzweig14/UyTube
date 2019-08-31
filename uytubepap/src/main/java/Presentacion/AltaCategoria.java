@@ -46,21 +46,23 @@ public class AltaCategoria extends JInternalFrame {
 	 */
 	public AltaCategoria(IControlador cr) {
 		ctrl = cr;
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 362, 190);
+		setClosable(true);
+		setTitle("Alta Categoria");
 		getContentPane().setLayout(null);
 		{
-			JLabel lblNombre = new JLabel("Nombre");
-			lblNombre.setBounds(116, 125, 70, 15);
+			lblNombre = new JLabel("Nombre");
+			lblNombre.setBounds(67, 29, 70, 15);
 			getContentPane().add(lblNombre);
 		}
 		{
-			JLabel lblInfo = new JLabel("Nombre");
-			lblInfo.setBounds(116, 200, 140, 15);
+			lblInfo = new JLabel();
+			lblInfo.setBounds(67, 55, 200, 15);
 			getContentPane().add(lblInfo);
 		}
 		{
 			txtNombre = new JTextField();
-			txtNombre.setBounds(241, 123, 114, 19);
+			txtNombre.setBounds(199, 27, 114, 19);
 			getContentPane().add(txtNombre);
 			txtNombre.setColumns(10);
 		}
@@ -68,15 +70,19 @@ public class AltaCategoria extends JInternalFrame {
 			JButton btnAceptar = new JButton("Aceptar");
 			btnAceptar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ctrl.altaCategoria(txtNombre.getText());
+					//ctrl.altaCategoria(txtNombre.getText());
 					
-//					if(ctrl.altaCategoria(txtNombre.getText()))
-//						lblInfo.setText("Categoria agregada!");
-//					else
-//						lblInfo.setText("Categoria existente!");
+					if(ctrl.altaCategoria(txtNombre.getText())) {
+						lblInfo.setText("Categoria agregada!");
+						lblInfo.setVisible(true);
+					}
+					else {
+						lblInfo.setText("Categoria existente!");
+						lblInfo.setVisible(true);
+					}
 				}
 			});
-			btnAceptar.setBounds(59, 233, 117, 25);
+			btnAceptar.setBounds(32, 82, 117, 25);
 			getContentPane().add(btnAceptar);
 		}
 		{
@@ -84,10 +90,11 @@ public class AltaCategoria extends JInternalFrame {
 			btnCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					setVisible(false);
-					txtNombre.setText("");
+					dispose();
+					ctrl.finCasoUso();
 				}
 			});
-			btnCancelar.setBounds(241, 233, 117, 25);
+			btnCancelar.setBounds(199, 82, 117, 25);
 			getContentPane().add(btnCancelar);
 		}
 		

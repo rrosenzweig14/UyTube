@@ -100,7 +100,7 @@ public class Principal extends JFrame {
 		
 		altaCategoriaInternalFrame = new AltaCategoria(ctrl);
 		altaCategoriaInternalFrame.setVisible(false);
-		altaCategoriaInternalFrame.setBounds(100, 100, 450, 300);
+		altaCategoriaInternalFrame.setBounds(100, 100, 362, 150);
 		frame.getContentPane().add(altaCategoriaInternalFrame);
 		
 		seguirUsuarioInternalFrame = new SeguirUsuario(ctrl);
