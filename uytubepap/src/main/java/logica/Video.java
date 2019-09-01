@@ -158,10 +158,18 @@ public class Video {
 			return tree;
 		}
 	}
-//	
+	
 	public DtVideo getDt() {
 		DtVideo dtv = new DtVideo(this.id,this.nombre,this.privado,null,this.descripcion,this.duracion,null,this.fechaPub,this.url);	
 		dtv.setComentarios(getElPutoTree()); 
+		
+		List<Usuario_Video> valoraciones = this.valoraciones;
+		
+		for (Usuario_Video usuario_Video : valoraciones) {
+			if (usuario_Video.isLeGusta()) dtv.addValoracionPositiva(usuario_Video.getNombreUsuario().getNombre());
+			else dtv.addValoracionNegativa(usuario_Video.getNombreUsuario().getNombre());
+		}
+		
 		return dtv;
 	}
 	

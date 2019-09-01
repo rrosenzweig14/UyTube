@@ -17,6 +17,8 @@ public class DtVideo {
 	private Date fechaPub;	
 	private String url;
 	private JTree comentarios;	
+	private ArrayList<String> valoracionesPositivas;	
+	private ArrayList<String> valoracionesNegativas;
 	
 	public DtVideo() {
 		super();
@@ -33,6 +35,8 @@ public class DtVideo {
 		this.categoria = categoria;
 		this.fechaPub = fechaPub;
 		this.url = url;
+		this.valoracionesPositivas = new ArrayList<String>();
+		this.valoracionesNegativas = new ArrayList<String>();
 	}
 
 	public int getId() {
@@ -105,19 +109,19 @@ public class DtVideo {
 		this.url = url;
 	}
 	
-	public ArrayList<Usuario> getValoracionesPositivas() {
+	public ArrayList<String> getValoracionesPositivas() {
 		return valoracionesPositivas;
 	}
 
-	public void setValoracionesPositivas(ArrayList<Usuario> valoracionesPositivas) {
+	public void setValoracionesPositivas(ArrayList<String> valoracionesPositivas) {
 		this.valoracionesPositivas = valoracionesPositivas;
 	}
 
-	public ArrayList<Usuario> getValoracionesNegativas() {
+	public ArrayList<String> getValoracionesNegativas() {
 		return valoracionesNegativas;
 	}
 
-	public void setValoracionesNegativas(ArrayList<Usuario> valoracionesNegativas) {
+	public void setValoracionesNegativas(ArrayList<String> valoracionesNegativas) {
 		this.valoracionesNegativas = valoracionesNegativas;
 	}
 
@@ -129,10 +133,12 @@ public class DtVideo {
 		this.comentarios = comentarios;
 	}
 
-	private ArrayList<Usuario> valoracionesPositivas;
-	
-	private ArrayList<Usuario> valoracionesNegativas;
+	public void addValoracionPositiva(String nombre) {
+		this.valoracionesPositivas.add(nombre);
+	}
 
-
+	public void addValoracionNegativa(String nombre) {
+		this.valoracionesNegativas.add(nombre);
+	}
 
 }
