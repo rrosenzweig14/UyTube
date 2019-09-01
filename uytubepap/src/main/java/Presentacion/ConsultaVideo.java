@@ -1,6 +1,5 @@
 package Presentacion;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -10,36 +9,24 @@ import javax.swing.JInternalFrame;
 
 import interfaces.IControlador;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
-
 import datatypes.DtCanal;
-import datatypes.DtLista;
 import datatypes.DtUsuario;
 import datatypes.DtVideo;
 
-import java.awt.Color;
 import javax.swing.JTextField;
-import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JTree;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class ConsultaVideo extends JInternalFrame {
 	private IControlador controller;
 	private JLabel lblUsuarios;
 	private JComboBox<String> comboBoxUsuarios;
-	private JPanel panelUsuario;
-	private JCheckBox chckbxPrivado;
 	private JComboBox<String> comboBoxVideosCanal;
 	private JLabel lblVideos;
 	private JTextField textFieldNombreVideo;
@@ -57,19 +44,10 @@ public class ConsultaVideo extends JInternalFrame {
 	private JLabel lblUrl;
 	private boolean userLoaded = false;
 	private JScrollPane scrollPane;
-	private JComboBox comboBoxSeguidos;
-	private JComboBox comboBoxSeguidores;
-	private JLabel lblSeguidores;
-	private JLabel lblSeguidos;
 	private JLabel lblLikes;
-	private JComboBox comboBoxLikes;
+	private JComboBox<String> comboBoxLikes;
 	private JLabel lblDislikes;
-	private JComboBox comboBoxDislikes;
-	private JLabel lblVideosEnLista;
-	private JComboBox comboBoxVideosEnLista;
-	private JButton btnSalir;
-	private JTextField textFieldFecha;
-
+	private JComboBox<String> comboBoxDislikes;
 	/**
 	 * Create the frame.
 	 */
@@ -83,22 +61,24 @@ public class ConsultaVideo extends JInternalFrame {
 		comboBoxUsuarios = new JComboBox<String>();
 		comboBoxUsuarios.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-//				cleanOutputData();
-				if (comboBoxUsuarios.getSelectedItem().toString().equals(" ")) {
+				cleanOutputData();
+				if(comboBoxUsuarios.getSelectedIndex() > -1) {
+					if (comboBoxUsuarios.getSelectedItem().toString().equals(" ")) {
 
-				} else {
-					Map<DtUsuario, DtCanal> datos = controller
-							.listarDatosUsuario(comboBoxUsuarios.getSelectedItem().toString());
-					Iterator<Entry<DtUsuario, DtCanal>> it = datos.entrySet().iterator();
-					DtUsuario user = null;
-					DtCanal canal = null;
-					while (it.hasNext()) {
-						Entry<DtUsuario, DtCanal> entry = it.next();
-						user = entry.getKey();
-						canal = entry.getValue();
+					} else {
+						Map<DtUsuario, DtCanal> datos = controller
+								.listarDatosUsuario(comboBoxUsuarios.getSelectedItem().toString());
+						Iterator<Entry<DtUsuario, DtCanal>> it = datos.entrySet().iterator();
+						DtUsuario user = null;
+						DtCanal canal = null;
+						while (it.hasNext()) {
+							Entry<DtUsuario, DtCanal> entry = it.next();
+							user = entry.getKey();
+							canal = entry.getValue();
+						}
+						if (user != null && canal != null)
+							fillDataUser(user, canal);
 					}
-					if (user != null && canal != null)
-						fillDataUser(user, canal);
 				}
 			}
 		});
@@ -113,7 +93,7 @@ public class ConsultaVideo extends JInternalFrame {
 
 		comboBoxVideosCanal.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-//				cleanVideoData();
+				cleanVideoData();
 				if (userLoaded && comboBoxVideosCanal.getSelectedItem() != null
 						&& !comboBoxVideosCanal.getSelectedItem().toString().equals(" ")) {
 					DtVideo video = controller.seleccionarVideo(comboBoxVideosCanal.getSelectedItem().toString());
@@ -210,7 +190,7 @@ public class ConsultaVideo extends JInternalFrame {
 		lblLikes.setVisible(false);
 		getContentPane().add(lblLikes);
 
-		comboBoxLikes = new JComboBox();
+		comboBoxLikes = new JComboBox<String>();
 		comboBoxLikes.setBounds(176, 245, 220, 20);
 		comboBoxLikes.setVisible(false);
 		getContentPane().add(comboBoxLikes);
@@ -220,36 +200,15 @@ public class ConsultaVideo extends JInternalFrame {
 		lblDislikes.setVisible(false);
 		getContentPane().add(lblDislikes);
 
-		comboBoxDislikes = new JComboBox();
+		comboBoxDislikes = new JComboBox<String>();
 		comboBoxDislikes.setBounds(176, 278, 220, 20);
 		comboBoxDislikes.setVisible(false);
 		getContentPane().add(comboBoxDislikes);
 
-//		lblVideosEnLista = new JLabel("Videos en lista");
-//		lblVideosEnLista.setBounds(10, 325, 121, 14);
-//		lblVideosEnLista.setVisible(false);
-//		getContentPane().add(lblVideosEnLista);
-//
-//		comboBoxVideosEnLista = new JComboBox();
-//		comboBoxVideosEnLista.addItemListener(new ItemListener() {
-//			public void itemStateChanged(ItemEvent arg0) {
-//				if (comboBoxVideosEnLista.getSelectedItem() != null) {
-////					cleanVideoData();
-//					if (!comboBoxVideosEnLista.getSelectedItem().toString().equals("")) {
-//						DtVideo video = controller.consultarVideo(comboBoxVideosEnLista.getSelectedItem().toString());
-//						fillVideoData(video);
-//					}
-//				}
-//
-//			}
-//		});
-//		comboBoxVideosEnLista.setBounds(155, 322, 166, 20);
-//		comboBoxVideosEnLista.setVisible(false);
-//		getContentPane().add(comboBoxVideosEnLista);
-
 	}
 
 	public void fillUsers() {
+		comboBoxUsuarios.addItem(" ");
 		comboBoxUsuarios.removeAllItems();
 		comboBoxUsuarios.addItem(" ");
 		ArrayList<String> users = controller.listarUsuarios();
@@ -261,7 +220,6 @@ public class ConsultaVideo extends JInternalFrame {
 	public void fillVideoData(DtVideo video) {
 		textFieldNombreVideo.setVisible(true);
 		textAreaDescripcionVideo.setVisible(true);
-//		textFieldFecha.setVisible(true);
 		textFieldURL.setVisible(true);
 		textFieldDuracionVideo.setVisible(true);
 		textFieldFechaPub.setVisible(true);
@@ -284,7 +242,7 @@ public class ConsultaVideo extends JInternalFrame {
 		textFieldURL.setText(video.getUrl());
 		if (video.getComentarios() != null) {
 			treeComentarios = video.getComentarios();
-			treeComentarios.setBounds(374, 332, 415, 291);
+			treeComentarios.setBounds(450, 47, 350, 315);
 			getContentPane().add(treeComentarios);
 		}
 		chckbxVideoPrivado.setSelected(video.getPrivado());
@@ -302,56 +260,40 @@ public class ConsultaVideo extends JInternalFrame {
 
 	}
 
-//	public void cleanVideoData() {
-//		textFieldNombreVideo.removeAll();
-////		textFieldDescripcion.removeAll();
-//		textFieldFecha.removeAll();
-//		textFieldURL.removeAll();
-//		if (treeComentarios != null) {
-//			treeComentarios.removeAll();
-//			scrollPane.setVisible(false);
-//		}
-//		chckbxVideoPrivado.removeAll();
-//		textFieldNombreVideo.setVisible(false);
-//		textAreaDescripcionVideo.setVisible(false);
-//		textFieldFecha.setVisible(false);
-//		textFieldURL.setVisible(false);
-//		textFieldDuracionVideo.setVisible(false);
-//		textFieldFechaPub.setVisible(false);
-//		chckbxVideoPrivado.setVisible(false);
-//		lblComentarios.setVisible(false);
-//		lblFechaPublicado.setVisible(false);
-//		lblDescripcionVideo.setVisible(false);
-//		lblNombreVideo.setVisible(false);
-//		lblUrl.setVisible(false);
-//		lblDuracion.setVisible(false);
-//		lblLikes.setVisible(false);
-//		comboBoxLikes.setVisible(false);
-//		lblDislikes.setVisible(false);
-//		comboBoxDislikes.setVisible(false);
-//
-//	}
+	public void cleanVideoData() {
+		textFieldNombreVideo.removeAll();
+		textFieldURL.removeAll();
+		if (treeComentarios != null) {
+			treeComentarios.removeAll();
+			scrollPane.setVisible(false);
+		}
+		chckbxVideoPrivado.removeAll();
+		textFieldNombreVideo.setVisible(false);
+		textAreaDescripcionVideo.setVisible(false);
+		textFieldURL.setVisible(false);
+		textFieldDuracionVideo.setVisible(false);
+		textFieldFechaPub.setVisible(false);
+		chckbxVideoPrivado.setVisible(false);
+		lblComentarios.setVisible(false);
+		lblFechaPublicado.setVisible(false);
+		lblDescripcionVideo.setVisible(false);
+		lblNombreVideo.setVisible(false);
+		lblUrl.setVisible(false);
+		lblDuracion.setVisible(false);
+		lblLikes.setVisible(false);
+		comboBoxLikes.setVisible(false);
+		lblDislikes.setVisible(false);
+		comboBoxDislikes.setVisible(false);
+	}
 
 	public void finCasoUso() {
 		controller.finCasoUso();
 	}
 
-//	public void cleanOutputData() {
-//		textFieldNickName.removeAll();
-//		textFieldNombre.removeAll();
-//		textFieldApellido.removeAll();
-//		textFieldCorreo.removeAll();
-//		textFieldFecha.removeAll();
-//		textFieldNombreCanal.removeAll();
-//		textFieldDescripcion.removeAll();
-//		chckbxPrivado.removeAll();
-//		lblImage.removeAll();
-//		comboBoxVideosCanal.removeAllItems();
-//		comboBoxListasCanal.removeAllItems();
-//		comboBoxSeguidores.removeAllItems();
-//		comboBoxSeguidos.removeAllItems();
-//		finCasoUso();
-//	}
+	public void cleanOutputData() {
+		comboBoxVideosCanal.removeAllItems();
+		finCasoUso();
+	}
 
 	public void fillDataUser(DtUsuario user, DtCanal canal) {
 		ArrayList<String> videos = controller.listarVideos();

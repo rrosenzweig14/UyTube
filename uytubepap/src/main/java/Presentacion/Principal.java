@@ -147,11 +147,6 @@ public class Principal extends JFrame {
 		DejarDeSeguirInternalFrame.setBounds(100, 100, 530, 430);
 		frame.getContentPane().add(DejarDeSeguirInternalFrame);	
 
-		consultaVideoInternalFrame = new ConsultaVideo(ctrl);
-		consultaVideoInternalFrame.setVisible(false);
-		consultaVideoInternalFrame.setBounds(100, 100, 850, 700);
-		frame.getContentPane().add(consultaVideoInternalFrame);
-
 		comentarVideoInternalFrame = new ComentarVideo(ctrl);
 		comentarVideoInternalFrame.setVisible(false);
 		comentarVideoInternalFrame.setBounds(100, 100, 530, 466);
