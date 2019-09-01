@@ -1,42 +1,29 @@
 package Presentacion;
 
-import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import javax.swing.JInternalFrame;
 
 import interfaces.IControlador;
-import logica.Handler;
-
-import javax.swing.JRadioButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JToggleButton;
-
 import datatypes.DtLista;
 import datatypes.DtUsuario;
 
-import javax.swing.JScrollBar;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.SwingConstants;
 
 
+@SuppressWarnings("serial")
 public class ConsultaListas extends JInternalFrame {
 
 	private IControlador cr;
 	private JTextField nombre;
 	private JTextField privacidad;
 	private JTextField tipo;
-	private JComboBox cbUsuario;
-	private JComboBox cbLista;
+	private JComboBox<String> cbUsuario;
+	private JComboBox<String> cbLista;
 
 
 	/**
@@ -62,13 +49,13 @@ public class ConsultaListas extends JInternalFrame {
 		lblDatosDeLa.setBounds(12, 78, 352, 15);
 		getContentPane().add(lblDatosDeLa);
 		
-		cbUsuario = new JComboBox();
+		cbUsuario = new JComboBox<String>();
 		cbUsuario.setBounds(182, 24, 166, 15);
 		cbUsuario.setVisible(true);
 		fillUsers();
 		getContentPane().add(cbUsuario);
 		
-		cbLista = new JComboBox();
+		cbLista = new JComboBox<String>();
 		cbLista.setBounds(182, 51, 166, 15);
 		//fillListas((String) cbUsuario.getSelectedItem());
 		getContentPane().add(cbLista);
@@ -104,7 +91,7 @@ public class ConsultaListas extends JInternalFrame {
 		getContentPane().add(tipo);
 		tipo.setColumns(10);
 		
-		JComboBox cbVideos = new JComboBox();
+		JComboBox<?> cbVideos = new JComboBox<Object>();
 		cbVideos.setBounds(209, 189, 114, 15);
 		getContentPane().add(cbVideos);
 		

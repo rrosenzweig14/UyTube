@@ -1,16 +1,11 @@
 package Presentacion;
 
-import java.awt.EventQueue;
 import java.awt.Image;
 import java.io.File;
 import java.sql.Date;
-import java.util.GregorianCalendar;
-
 import javax.swing.JInternalFrame;
 
 import interfaces.IControlador;
-import logica.Conexion;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -31,6 +26,7 @@ import javax.swing.JTextArea;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
+@SuppressWarnings("serial")
 public class AltaUsuario extends JInternalFrame {
 	private JTextField textFieldNickname;
 	private JTextField textFieldNombre;
