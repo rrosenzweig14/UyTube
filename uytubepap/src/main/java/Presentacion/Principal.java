@@ -68,6 +68,7 @@ public class Principal extends JFrame {
 	private AltaLista altaListaInternalFrame;
 	private ConsultaUsuario consultaUsuarioInternalFrame;
 	private ConsultaListas consultaListasInternalFrame;
+	private ListarUsuarios listarUsuariosExistentesInternalFrame;
 
 
 	/**
@@ -129,6 +130,11 @@ public class Principal extends JFrame {
 		altaVideoInternalFrame.setVisible(false);
 		altaVideoInternalFrame.setBounds(100, 100, 400, 315);
 		frame.getContentPane().add(altaVideoInternalFrame);
+
+		listarUsuariosExistentesInternalFrame = new ListarUsuarios(ctrl);
+		listarUsuariosExistentesInternalFrame.setVisible(false);
+		listarUsuariosExistentesInternalFrame.setBounds(100, 100, 530, 430);
+		frame.getContentPane().add(listarUsuariosExistentesInternalFrame);
 		
 		consultaListasInternalFrame = new ConsultaListas(ctrl);
 		consultaListasInternalFrame.setVisible(false);
@@ -254,6 +260,13 @@ public class Principal extends JFrame {
 			mntmListarUsuariosExistentes = new JMenuItem("Listar Usuarios Existentes");
 			mntmListarUsuariosExistentes.setIcon(new ImageIcon("././img/Icons/list_users.png"));
 			mntmListarUsuariosExistentes.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmListarUsuariosExistentes.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					listarUsuariosExistentesInternalFrame.addUsuarios();
+					listarUsuariosExistentesInternalFrame.setVisible(true);
+				}
+			});
 			mnListados.add(mntmListarUsuariosExistentes);
 
 			mntmListarCategoriasExistentes = new JMenuItem("Listar Categorias Existentes");
