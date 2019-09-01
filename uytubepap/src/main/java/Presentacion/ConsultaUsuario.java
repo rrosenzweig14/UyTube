@@ -1,6 +1,5 @@
 package Presentacion;
 
-import java.awt.EventQueue;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,8 +12,6 @@ import interfaces.IControlador;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JLayeredPane;
-import javax.swing.JDesktopPane;
 import javax.swing.border.LineBorder;
 
 import datatypes.DtCanal;
@@ -30,13 +27,13 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JTree;
 import javax.swing.JTextArea;
-import javax.swing.JList;
 import javax.swing.JScrollPane;
 
+@SuppressWarnings("serial")
 public class ConsultaUsuario extends JInternalFrame {
 	private IControlador controller;
 	private JLabel lblUsuarios;
-	private JComboBox comboBoxUsuarios;
+	private JComboBox<String> comboBoxUsuarios;
 	private JPanel panelUsuario;
 	private JLabel lblNombre;
 	private JLabel lblNickname;
@@ -54,9 +51,9 @@ public class ConsultaUsuario extends JInternalFrame {
 	private JLabel lblDescripcion;
 	private JTextField textFieldDescripcion;
 	private JCheckBox chckbxPrivado;
-	private JComboBox comboBoxVideosCanal;
+	private JComboBox<String> comboBoxVideosCanal;
 	private JLabel lblVideos;
-	private JComboBox comboBoxListasCanal;
+	private JComboBox<String> comboBoxListasCanal;
 	private JLabel lblListas;
 	public Image imagen = null;
 	private JTextField textFieldNombreVideo;
@@ -89,7 +86,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		setTitle("Consulta Usuario");
 		getContentPane().setLayout(null);
 
-		comboBoxUsuarios = new JComboBox();
+		comboBoxUsuarios = new JComboBox<String>();
 		comboBoxUsuarios.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				cleanOutputData();
@@ -204,6 +201,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		textFieldDescripcion.setEditable(false);
 		textFieldDescripcion.setColumns(10);
 
+
 		comboBoxSeguidos = new JComboBox();
 		comboBoxSeguidos.setBounds(569, 33, 132, 20);
 		panelUsuario.add(comboBoxSeguidos);
@@ -220,7 +218,10 @@ public class ConsultaUsuario extends JInternalFrame {
 		lblSeguidos.setBounds(569, 11, 97, 14);
 		panelUsuario.add(lblSeguidos);
 
-		comboBoxVideosCanal = new JComboBox();
+
+
+		comboBoxVideosCanal = new JComboBox<String>();
+
 		comboBoxVideosCanal.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				cleanVideoData();
@@ -238,7 +239,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		lblVideos.setBounds(56, 281, 81, 14);
 		getContentPane().add(lblVideos);
 
-		comboBoxListasCanal = new JComboBox();
+		comboBoxListasCanal = new JComboBox<String>();
 		comboBoxListasCanal.setBounds(437, 281, 189, 20);
 		getContentPane().add(comboBoxListasCanal);
 
