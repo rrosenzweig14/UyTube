@@ -34,29 +34,28 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.SwingConstants;
 
 
-public class ConsultaListas extends JInternalFrame {
+public class ModificarListaRep extends JInternalFrame {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private IControlador cr;
-	private JTextField nombre;
+	private JTextField categoria;
 	private JTextField privacidad;
-	private JTextField tipo;
 	private JComboBox cbUsuario;
 	private JComboBox cbLista;
-	private JComboBox cbVideos;
-
+	private JComboBox nueva_cat;
+	private JComboBox nueva_priv;
 
 	/**
 	 * Create the frame.
 	 */
-	public ConsultaListas(IControlador ctrl) {
+	public ModificarListaRep(IControlador ctrl) {
 		cr = ctrl;
 		setBounds(100, 100, 386, 303);
 		setClosable(true);
-		setTitle("Consulta de Listas");
+		setTitle("Modificar Lista Reproduccion");
 		getContentPane().setLayout(null);
 		
 		JLabel lblSeleccioneUsuario = new JLabel("Seleccione Usuario");
@@ -67,7 +66,7 @@ public class ConsultaListas extends JInternalFrame {
 		lblSeleccioneLista.setBounds(12, 51, 151, 15);
 		getContentPane().add(lblSeleccioneLista);
 		
-		JLabel lblDatosDeLa = new JLabel("Datos de la Lista Seleccionada");
+		JLabel lblDatosDeLa = new JLabel("Datos Modificables de la Lista Seleccionada");
 		lblDatosDeLa.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDatosDeLa.setBounds(12, 78, 352, 15);
 		getContentPane().add(lblDatosDeLa);
@@ -80,9 +79,7 @@ public class ConsultaListas extends JInternalFrame {
 			public void itemStateChanged(ItemEvent e) {
 				if(" " != (String) cbUsuario.getSelectedItem() && cbUsuario.getSelectedItem() != null) {
 					cbLista.removeAllItems();
-					cbVideos.removeAllItems();
 					limpiarCampos();
-					fillVideos();
 					fillListas((String) cbUsuario.getSelectedItem()); 
 				}
 			}
@@ -98,68 +95,50 @@ public class ConsultaListas extends JInternalFrame {
 			public void itemStateChanged(ItemEvent e) {
 				if(" " != (String) cbLista.getSelectedItem()) {
 					limpiarCampos();
-					cbVideos.removeAllItems();
 					cargarLista();
-					fillVideos();
 				}
 			}
 		});
 		getContentPane().add(cbLista);
 		
-		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(39, 105, 70, 15);
+		JLabel lblNombre = new JLabel("Categoria");
+		lblNombre.setBounds(39, 105, 87, 15);
 		getContentPane().add(lblNombre);
 		
 		JLabel lblPrivacidad = new JLabel("Privacidad");
-		lblPrivacidad.setBounds(39, 135, 87, 15);
+		lblPrivacidad.setBounds(39, 135, 97, 15);
 		getContentPane().add(lblPrivacidad);
 		
-		JLabel lblTipo = new JLabel("Tipo");
-		lblTipo.setBounds(39, 162, 70, 15);
-		getContentPane().add(lblTipo);
-		
-		JLabel lblVideos = new JLabel("Videos");
-		lblVideos.setBounds(39, 189, 70, 15);
-		getContentPane().add(lblVideos);
-		
-		nombre = new JTextField();
-		nombre.setBounds(209, 105, 114, 19);
-//		nombre.addInputMethodListener(new InputMethodListener() {
-//			
-//			@Override
-//			public void inputMethodTextChanged(InputMethodEvent event) {
-//				if(nombre.getSelectedText() != " ");
-//					fillVideos();
-//
-//				
-//			}
-//			
-//			@Override
-//			public void caretPositionChanged(InputMethodEvent event) {
-//				// TODO Auto-generated method stub
-//				
-//			}
-//		});
-		getContentPane().add(nombre);
-		nombre.setColumns(10);
+		categoria = new JTextField();
+		categoria.setBounds(209, 105, 114, 19);
+
+		getContentPane().add(categoria);
+		categoria.setColumns(10);
 		
 		privacidad = new JTextField();
 		privacidad.setBounds(209, 133, 114, 19);
 		getContentPane().add(privacidad);
 		privacidad.setColumns(10);
 		
-		tipo = new JTextField();
-		tipo.setBounds(209, 160, 114, 19);
-		getContentPane().add(tipo);
-		tipo.setColumns(10);
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(128, 223, 117, 25);
+		getContentPane().add(btnModificar);
 		
-		cbVideos = new JComboBox();
-		cbVideos.setBounds(209, 189, 114, 18);
-		getContentPane().add(cbVideos);
+		JLabel lblNewLabel = new JLabel("Nueva Categoria");
+		lblNewLabel.setBounds(39, 162, 135, 15);
+		getContentPane().add(lblNewLabel);
 		
-		JButton btnConsultarVideo = new JButton("Consultar Video");
-		btnConsultarVideo.setBounds(115, 234, 159, 25);
-		getContentPane().add(btnConsultarVideo);
+		JLabel lblNuevaPrivacidad = new JLabel("Nueva Privacidad");
+		lblNuevaPrivacidad.setBounds(39, 189, 135, 15);
+		getContentPane().add(lblNuevaPrivacidad);
+		
+		nueva_cat = new JComboBox();
+		nueva_cat.setBounds(209, 164, 114, 15);
+		getContentPane().add(nueva_cat);
+		
+		nueva_priv = new JComboBox();
+		nueva_priv.setBounds(209, 189, 114, 15);
+		getContentPane().add(nueva_priv);
 	}
 	
 	
@@ -180,42 +159,23 @@ public class ConsultaListas extends JInternalFrame {
 			cbLista.addItem(dtl.getNombre());
 	}
 	
-	public void fillVideos() {
-		if(" " != (String) cbLista.getSelectedItem() && cbLista.getSelectedItem() != null ) {
-			cr.seleccionarUsuario((String) cbUsuario.getSelectedItem());
-			DtLista lst = cr.seleccionarLista((String) cbLista.getSelectedItem());
-			ArrayList<DtVideo> videos = cr.videosEnLista(lst);
-			if(videos != null)
-			for(DtVideo dtv : videos) {
-				if(dtv != null) {
-					System.out.println(dtv.getNombre());
-					cbVideos.addItem(dtv.getNombre());
-				}
-			}
-		}	
-	}
+
 	
 	public void cargarLista() {
 		cr.seleccionarUsuario((String) cbUsuario.getSelectedItem());
 		if(" " != (String) cbLista.getSelectedItem() && cbLista.getSelectedItem() != null ) {
 			System.out.println((String) cbLista.getSelectedItem());
 			DtLista lst = cr.seleccionarLista((String) cbLista.getSelectedItem());
-			nombre.setText(lst.getNombre());
+			categoria.setText(lst.getCategoria());
 			if(lst.isPrivado())
 				privacidad.setText("Privado");
 			else
 				privacidad.setText("Publico");
-			if(lst.isDefecto())
-				tipo.setText("Defecto");
-			else
-				tipo.setText("Particular");
 		}
 	}
 	
 	public void limpiarCampos() {
 		privacidad.setText("");
-		tipo.setText("");
-		nombre.setText("");
+		categoria.setText("");
 	}
-	
 }
