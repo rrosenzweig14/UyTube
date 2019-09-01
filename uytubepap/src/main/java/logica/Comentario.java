@@ -89,6 +89,37 @@ public class Comentario {//TODO agregar la clave compuesta usuario fecha o quiz√
 		Comentario comment = new Comentario(respuesta.getTexto(),respuesta.getFecha(),autor);
 		this.respuestas.add(comment);
 		return comment;
-	}
+	} 
+	
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return false;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Comentario other = (Comentario) obj;
+        if(this.id != other.id){
+            if (fecha == null) {
+                if (other.fecha != null)
+                    return false;
+            } else if (!fecha.equals(other.fecha))
+                return false;
+            if (respuestas == null) {
+                if (other.respuestas != null)
+                    return false;
+            } else if (!respuestas.equals(other.respuestas))
+                return false;
+            if (texto == null) {
+                if (other.texto != null)
+                    return false;
+            } else if (!texto.equals(other.texto))
+                return false;
+            return true;
+        }else {
+            return false;
+        }
+    }
 
 }

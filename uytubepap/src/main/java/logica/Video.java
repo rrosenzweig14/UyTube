@@ -127,17 +127,19 @@ public class Video {
 	
 	private DefaultMutableTreeNode getNodes(Comentario c) {
 		DefaultMutableTreeNode nodes = null;
-		if (c != null)	nodes = new DefaultMutableTreeNode(c.getDt());
-		if(c.getRespuestas().isEmpty()) {
-			return nodes;
-		}else {
-			for(Comentario aux: c.getRespuestas()) {
-				DefaultMutableTreeNode node = getNodes(aux);
-				if(node != null) {
-					nodes.add(node);
+		if (c != null)	{
+			nodes = new DefaultMutableTreeNode(c.getDt());			
+			if(!(c.getRespuestas().isEmpty())) {
+				for(Comentario aux: c.getRespuestas()) {
+					DefaultMutableTreeNode node = getNodes(aux);
+					if(node != null) {
+						nodes.add(node);
+					}
 				}
 			}
 			return nodes;
+		}else {
+			return null;
 		}
 	}
 	
@@ -147,8 +149,10 @@ public class Video {
 		}else {
 			DefaultMutableTreeNode root = new DefaultMutableTreeNode(this.nombre); //TreeRoot
 			for(Comentario c: this.comentarios) {
-				DefaultMutableTreeNode node = getNodes(c);
-				if (node != null) root.add(node);				
+				if(existeComentario(c)) {
+					DefaultMutableTreeNode node = getNodes(c);
+					if (node != null) root.add(node);
+				}
 			}
 			JTree  tree = new JTree(root);
 			return tree;
@@ -184,6 +188,15 @@ public class Video {
 		List<Comentario> comentarios = this.comentarios;
 		for (Comentario c : comentarios) {
 			if(c.getId() == comment.getId()) res = c;
+		}
+		return res;
+	}
+	public boolean existeComentario(Comentario com) {
+		boolean res = false;
+		for (Comentario c : this.comentarios) {
+			if(c.equals(com)) {
+				return true;
+			}
 		}
 		return res;
 	}
