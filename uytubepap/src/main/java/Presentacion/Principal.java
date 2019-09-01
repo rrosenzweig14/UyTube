@@ -65,6 +65,7 @@ public class Principal extends JFrame {
 	private ConsultaListas consultaListasInternalFrame;
 	private ListarUsuarios listarUsuariosExistentesInternalFrame;
 	private ListarCategorias listarCategoriasExistentesInternalFrame;
+	private ComentarVideo comentarVideoInternalFrame;
 
 
 	/**
@@ -144,6 +145,11 @@ public class Principal extends JFrame {
 		DejarDeSeguirInternalFrame.setVisible(false);
 		DejarDeSeguirInternalFrame.setBounds(100, 100, 530, 430);
 		frame.getContentPane().add(DejarDeSeguirInternalFrame);	
+
+		comentarVideoInternalFrame = new ComentarVideo(ctrl);
+		comentarVideoInternalFrame.setVisible(false);
+		comentarVideoInternalFrame.setBounds(100, 100, 530, 466);
+		frame.getContentPane().add(comentarVideoInternalFrame);	
 		
 	}
 	/*
@@ -308,7 +314,13 @@ public class Principal extends JFrame {
 
 			mntmComentarUnVideo = new JMenuItem("Comentar un Video");
 			mntmComentarUnVideo.setIcon(new ImageIcon("././img/Icons/commentVideo.png"));
-			mntmComentarUnVideo.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmComentarUnVideo.setFont(new Font("Dialog", Font.BOLD, 15));	
+			mntmComentarUnVideo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					comentarVideoInternalFrame.fillUsers();
+					comentarVideoInternalFrame.setVisible(true);
+				}
+			});
 			mnAccionesVideo.add(mntmComentarUnVideo);
 
 			mntmValorarUnVideo = new JMenuItem("Valorar un Video");

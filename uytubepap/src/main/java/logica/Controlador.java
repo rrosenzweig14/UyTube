@@ -145,11 +145,8 @@ public class Controlador implements IControlador{
 	//Precondicion usuario != null
 	@Override
 	public DtVideo seleccionarVideo(String nombreVideo) {
-		Video aux = user1.getCanal().findVideo(nombreVideo);
-		if(video == null) {
-			video = aux;
-		}
-		return aux.getDt();		
+		video = user1.getCanal().findVideo(nombreVideo);
+		return video.getDt();		
 	}
 
 	@Override
