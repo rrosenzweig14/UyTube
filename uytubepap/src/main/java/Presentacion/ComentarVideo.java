@@ -238,7 +238,16 @@ public class ComentarVideo extends JInternalFrame {
 			dtv = ctrl.seleccionarVideo(video);
 			if(dtv.getComentarios() != null) {
 				theMagicTree = dtv.getComentarios();
+				theMagicTree.addTreeSelectionListener(new TreeSelectionListener() {
+					public void valueChanged(TreeSelectionEvent arg0) {
+						tree();
+					}
+				});
 				theMagicTree.setVisible(true);
+				theMagicTree.setBorder(new LineBorder(Color.DARK_GRAY, 1, true));
+				theMagicTree.setBounds(12, 114, 218, 272);
+				theMagicTree.setToggleClickCount(1);
+				getContentPane().add(theMagicTree);
 			}
 			lblUser2.setVisible(true);
 			users = ctrl.listarUsuarios();
@@ -277,14 +286,16 @@ public class ComentarVideo extends JInternalFrame {
 	}
 	private void tree() {
 		Object[] path = theMagicTree.getSelectionPath().getPath();
-		DtComentario root = (DtComentario)((DefaultMutableTreeNode) path[0]).getUserObject();
-		DtComentario aux = (DtComentario)((DefaultMutableTreeNode) path[path.length - 1]).getUserObject();
-		if(aux.equals(root)) {
+		String c1 = (String)((DefaultMutableTreeNode)path[0]).getUserObject();
+		Object c2 = ((DefaultMutableTreeNode) path[path.length - 1]).getUserObject();
+		if(c2 instanceof String) {
 			comment = null;
+		}else if(c2 instanceof DtComentario) {
+			comment = (DtComentario) c2;
+			ctrl.seleccionarComentario(comment);
 		}else {
-			comment = aux;
+			System.out.println("que_mierda_es?####################################################################################################################################");
 		}
-		
 	}
 	private void comentar() {
 		ctrl.seleccionarUsuario(comentador);
