@@ -145,6 +145,7 @@ public class AltaLista extends JInternalFrame {
 	
 
 	public void fillUsers() {
+		comboBoxUsuarios.removeAllItems();
 		comboBoxUsuarios.addItem(" ");
 		ArrayList<String> users = controller.listarUsuarios();
 		for (String s : users) {
@@ -153,6 +154,7 @@ public class AltaLista extends JInternalFrame {
 	}
 
 	public void fillCategories() {
+		comboBoxCategorias.removeAllItems();
 		comboBoxCategorias.addItem(" ");
 		ArrayList<String> categorias = controller.listarCategorias();
 		for (String c : categorias) {

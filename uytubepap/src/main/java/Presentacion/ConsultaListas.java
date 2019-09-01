@@ -102,6 +102,7 @@ public class ConsultaListas extends JInternalFrame {
 	
 	
 	public void fillUsers() {
+		cbUsuario.removeAllItems();
 		cbUsuario.addItem(" ");
 		ArrayList<String> users = cr.listarUsuarios();
 		for (String s : users) {

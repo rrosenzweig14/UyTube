@@ -188,8 +188,8 @@ public class Controlador implements IControlador{
 		EntityManager em = Conexion.getEm();
 		em.getTransaction().begin();
 		Video video = new Video(nombre,true, url, fechaPub, descripcion, duracion, cat);
+		System.out.print(video.getDuracion());
 		if (cat != null) {
-			System.out.print("ACA SE AÑADE A " + cat);
 			cat.añadirVideo(video);
 			em.persist(cat);
 		}

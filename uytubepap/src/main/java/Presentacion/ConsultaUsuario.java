@@ -414,6 +414,7 @@ public class ConsultaUsuario extends JInternalFrame {
 	}
 
 	public void fillUsers() {
+		comboBoxUsuarios.removeAllItems();
 		comboBoxUsuarios.addItem(" ");
 		ArrayList<String> users = controller.listarUsuarios();
 		for (String s : users) {

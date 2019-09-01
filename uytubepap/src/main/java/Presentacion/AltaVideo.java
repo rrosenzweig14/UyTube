@@ -131,6 +131,7 @@ public class AltaVideo extends JInternalFrame {
 	}
 	
 	public void fillUsers() {
+		comboBoxUsuarios.removeAllItems();
 		comboBoxUsuarios.addItem(" ");
 		ArrayList<String> users = controller.listarUsuarios();
 		for (String s : users) {
@@ -139,6 +140,7 @@ public class AltaVideo extends JInternalFrame {
 	}
 
 	public void fillCategories() {
+		comboBoxCategorias.removeAllItems();
 		comboBoxCategorias.addItem(" ");
 		ArrayList<String> categorias = controller.listarCategorias();
 		for (String c : categorias) {
@@ -149,7 +151,7 @@ public class AltaVideo extends JInternalFrame {
 	public void registroVideo() {
 		String nombre = this.textFieldNombre.getText();
 		String url = this.textFieldUrl.getText();
-		Integer duracion = (Integer) this.textFieldDuracion.getValue();
+		Integer duracion = Integer.parseInt(this.textFieldDuracion.getText());
 		String descripcion = this.textAreaDescripcion.getText();
 		
 		if (checkFormulario()) {
