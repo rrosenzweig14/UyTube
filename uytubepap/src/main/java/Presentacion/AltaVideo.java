@@ -3,10 +3,8 @@ package Presentacion;
 import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.util.ArrayList;
 
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
@@ -17,6 +15,7 @@ import javax.swing.JTextField;
 
 import interfaces.IControlador;
 
+@SuppressWarnings("serial")
 public class AltaVideo extends JInternalFrame {
 	private JTextField textFieldNombre;
 	private JTextField textFieldUrl;
@@ -155,7 +154,6 @@ public class AltaVideo extends JInternalFrame {
 		
 		if (checkFormulario()) {
 			try {
-				@SuppressWarnings("deprecation")
 				java.util.Date fechaPub= new java.util.Date();
 				controller.seleccionarUsuario((String) this.comboBoxUsuarios.getSelectedItem());
 				controller.seleccionarCategoria((String) this.comboBoxCategorias.getSelectedItem());

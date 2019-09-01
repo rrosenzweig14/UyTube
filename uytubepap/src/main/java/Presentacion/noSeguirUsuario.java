@@ -1,43 +1,20 @@
 package Presentacion;
 
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
-import java.awt.Rectangle;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import javax.swing.border.LineBorder;
-
 import datatypes.DtUsuario;
 import interfaces.Fabrica;
 import interfaces.IControlador;
-import logica.Controlador;
-import logica.Handler;
-
-import java.awt.Color;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SwingConstants;
-import java.awt.Component;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Button;
 import java.awt.Choice;
-import java.awt.ComponentOrientation;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
 
+@SuppressWarnings("serial")
 public class noSeguirUsuario extends JInternalFrame {
 	private JLabel lblSeguidor;
 	private Choice cmbSeguidor;
@@ -151,7 +128,7 @@ public class noSeguirUsuario extends JInternalFrame {
 	}
 	
 	public void noSeguirUsuario() {
-		DtUsuario dtu = ctrl.seleccionarUsuario(seguido);		
+		ctrl.seleccionarUsuario(seguido);		
 		ctrl.dejarSeguir();
 		JOptionPane.showMessageDialog(this, elElegido+" dejo de siguir a "+seguido+" exitosamente!!!", "Dejar de Seguir Usuario", JOptionPane.INFORMATION_MESSAGE);
 		fin();

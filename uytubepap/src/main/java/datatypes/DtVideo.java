@@ -2,8 +2,6 @@ package datatypes;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.TreeSet;
-
 import javax.swing.JTree;
 
 import logica.Usuario;

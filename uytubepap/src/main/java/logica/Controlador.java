@@ -8,12 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
-
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-
-import javax.persistence.Query;
 import javax.swing.JTree;
 
 import datatypes.DtCanal;
@@ -22,7 +17,6 @@ import datatypes.DtLista;
 import datatypes.DtUsuario;
 import datatypes.DtVideo;
 import interfaces.IControlador;
-import javassist.expr.Instanceof;
 
 public class Controlador implements IControlador{
 

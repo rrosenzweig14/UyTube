@@ -2,10 +2,7 @@ package logica;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,7 +14,6 @@ import javax.persistence.OneToOne;
 
 import datatypes.DtCanal;
 import datatypes.DtUsuario;
-import datatypes.DtVideo;
 
 
 @Entity
@@ -202,7 +198,7 @@ public class Usuario {
 		this.email = email;
 		this.fechaNac = fechaNac;
 		this.img = img;		
-		this.canal = canal;
+		this.canal = nombreCanal;
 	}
 	
 }

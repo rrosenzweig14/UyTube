@@ -1,13 +1,10 @@
 package Presentacion;
 
-import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import javax.swing.JInternalFrame;
 
 import interfaces.IControlador;
-import logica.Handler;
-
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,13 +15,9 @@ import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JToggleButton;
-
 import datatypes.DtUsuario;
 
-import javax.swing.JScrollBar;
-import javax.swing.JRadioButtonMenuItem;
-
+@SuppressWarnings("serial")
 public class AltaLista extends JInternalFrame {
 
 	private IControlador controller;
@@ -34,10 +27,10 @@ public class AltaLista extends JInternalFrame {
 	private JLabel lblNombreLista;
 	private JButton btnAceptar;
 	private JButton btnCancelar;
-	private JComboBox comboBoxUsuarios;
+	private JComboBox<String> comboBoxUsuarios;
 	private JLabel lblNombreUsuario;
 	private JCheckBox chckbxPrivada;
-	private JComboBox comboBoxCategorias;
+	private JComboBox<String> comboBoxCategorias;
 	private JLabel lblCategoria;
 
 	/**
@@ -96,7 +89,7 @@ public class AltaLista extends JInternalFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					AltaLista();
+					altaLista();
 				}
 			});
 			getContentPane().add(btnAceptar);
@@ -113,7 +106,7 @@ public class AltaLista extends JInternalFrame {
 			});
 			getContentPane().add(btnCancelar);
 
-			comboBoxUsuarios = new JComboBox();
+			comboBoxUsuarios = new JComboBox<String>();
 			comboBoxUsuarios.setBounds(200, 134, 255, 20);
 			comboBoxUsuarios.setVisible(false);
 			getContentPane().add(comboBoxUsuarios);
@@ -128,7 +121,7 @@ public class AltaLista extends JInternalFrame {
 			chckbxPrivada.setVisible(false);
 			getContentPane().add(chckbxPrivada);
 
-			comboBoxCategorias = new JComboBox();
+			comboBoxCategorias = new JComboBox<String>();
 			comboBoxCategorias.setBounds(200, 225, 255, 20);
 			comboBoxCategorias.setVisible(false);
 			getContentPane().add(comboBoxCategorias);
@@ -167,7 +160,7 @@ public class AltaLista extends JInternalFrame {
 		}
 	}
 
-	public void AltaLista() {
+	public void altaLista() {
 		if (rdbtnDefecto.isSelected()) {
 			String nombreLista = textFieldNombreLista.getText();
 			if (nombreLista.equals("")) {
