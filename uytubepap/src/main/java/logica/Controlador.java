@@ -64,7 +64,7 @@ public class Controlador implements IControlador{
 	// precondicion: video != null y el comentario existe
 	@Override
 	public void seleccionarComentario(DtComentario comment) {	
-		comentarioSeleccionado = video.findComentario(comment);	
+		comentarioSeleccionado = video.findComentario(comment.getId());	
 	}
 
 	@Override
@@ -120,19 +120,27 @@ public class Controlador implements IControlador{
 	}
 
 	@Override
-	public void ingresarComentario(DtComentario comentario) {		
-		Conexion.beginTransaction();
-		
-		if (comentarioSeleccionado == null) {			
-			Comentario comment = video.ingresarComentario(comentario,user1);			
-			Conexion.persist(video);			
-		}
-		else {			
-			video.ingresarRespuesta(comentario,user1,comentarioSeleccionado);			
-			Conexion.persist(video);			
-		}			
-		Conexion.commit();
-	}
+    public boolean ingresarComentario(DtComentario comentario) {
+        DtUsuario u2 = seleccionarUsuario(comentario.getNick());
+        if(u2 != null) {        
+            Conexion.beginTransaction();
+ 
+            if(comentarioSeleccionado == null) {
+                Comentario comment = video.ingresarComentario(comentario,user2);            
+                Conexion.persist(video);            
+            }
+            else {          
+                /*video.ingresarRespuesta(comentario,user1,comentarioSeleccionado);         
+                Conexion.persist(video);*/
+                comentarioSeleccionado.ingresarRespuesta(comentario, user2);
+                Conexion.persist(comentarioSeleccionado);
+            }
+            Conexion.commit();
+            return true;
+        }else {
+            return false;
+        }
+    }
 	
 	//Precondicion usuario != null
 	@Override
@@ -314,7 +322,7 @@ public class Controlador implements IControlador{
 		Map<DtUsuario, DtCanal> datos= new HashMap<DtUsuario, DtCanal>();
 		user1 = Handler.findUsuario(nick);
 		if(user1 != null) {
-			DtUsuario dtu = user1.getDt();
+			DtUsuario dtu = user1.getDtUsuario();
 			Canal aux = user1.getCanal();
 			if(aux != null) {
 				DtCanal dtc = aux.getDt();
@@ -348,15 +356,7 @@ public class Controlador implements IControlador{
 	//Precondicion video != null
 	public JTree mostrarComentarios()
 	{
-		JTree res = null;
-		List<Comentario> comentarios = video.getComentarios();
-		Set<DtComentario> listadoRes = new HashSet<DtComentario>();
-		for (Comentario comment : comentarios) {
-			DtComentario c = comment.getDt();
-			listadoRes.add(c);			
-		}
-		return res;
-		
+		return video.getElPutoTree();		
 	}
 	// Lista todas las listas del usuario
 	public ArrayList<DtLista> listarListasReproduccion(DtUsuario usuario){
@@ -503,7 +503,3 @@ public class Controlador implements IControlador{
 	
 	
 }	
-	
-	
-	
-	

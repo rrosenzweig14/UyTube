@@ -32,7 +32,7 @@ public interface IControlador {
 	
 	public void modificarUsuarioCanal(DtUsuario usr, DtCanal canal);
 	
-	public void ingresarComentario(DtComentario comment);
+	public boolean ingresarComentario(DtComentario comment);
 	
 	public DtVideo seleccionarVideo(String video);
 	

@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import datatypes.DtComentario;
 
@@ -91,35 +92,36 @@ public class Comentario {//TODO agregar la clave compuesta usuario fecha o quiz√
 		return comment;
 	} 
 	
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return false;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Comentario other = (Comentario) obj;
-        if(this.id != other.id){
-            if (fecha == null) {
-                if (other.fecha != null)
-                    return false;
-            } else if (!fecha.equals(other.fecha))
-                return false;
-            if (respuestas == null) {
-                if (other.respuestas != null)
-                    return false;
-            } else if (!respuestas.equals(other.respuestas))
-                return false;
-            if (texto == null) {
-                if (other.texto != null)
-                    return false;
-            } else if (!texto.equals(other.texto))
-                return false;
-            return true;
-        }else {
-            return false;
-        }
-    }
+	public Comentario findComentario(int id) {
+		if(this.respuestas.isEmpty()) {
+			return null;
+		}else {
+			for(Comentario c: this.respuestas) {
+				if(c.id == id) {
+					return c;
+				}else {
+					Comentario aux = c.findComentario(id);
+					if(aux != null) {
+						return aux;
+					}
+				}
+			}		
+			return null;
+		}
+	}
+	
+	public DefaultMutableTreeNode getNodes() {
+		DefaultMutableTreeNode nodes = new DefaultMutableTreeNode(this.getDt());			
+		if(!(this.respuestas.isEmpty())) {
+			for(Comentario aux:this.respuestas) {
+				DefaultMutableTreeNode node = aux.getNodes();
+				if(node != null) {
+					nodes.add(node);
+				}
+			}
+		}
+		return nodes;
+	}
 
 }
+

@@ -125,51 +125,37 @@ public class Video {
 		this.privado = privado;
 	}
 	
-	private DefaultMutableTreeNode getNodes(Comentario c) {
-		DefaultMutableTreeNode nodes = null;
-		if (c != null)	{
-			nodes = new DefaultMutableTreeNode(c.getDt());			
-			if(!(c.getRespuestas().isEmpty())) {
-				for(Comentario aux: c.getRespuestas()) {
-					DefaultMutableTreeNode node = getNodes(aux);
-					if(node != null) {
-						nodes.add(node);
-					}
-				}
-			}
-			return nodes;
-		}else {
-			return null;
-		}
-	}
-	
-	private JTree getElPutoTree(){
-		if(this.comentarios.isEmpty()) {
-			return null;
-		}else {
-			DefaultMutableTreeNode root = new DefaultMutableTreeNode(this.nombre); //TreeRoot
-			for(Comentario c: this.comentarios) {
-				if(existeComentario(c)) {
-					DefaultMutableTreeNode node = getNodes(c);
-					if (node != null) root.add(node);
-				}
-			}
-			JTree  tree = new JTree(root);
-			return tree;
-		}
-	}
-	
+	private DefaultMutableTreeNode getNodes(Comentario c) {		 
+        DefaultMutableTreeNode nodes = new DefaultMutableTreeNode(c.getDt());           
+        if(!(c.getRespuestas().isEmpty())) {
+            for(Comentario aux: c.getRespuestas()) {
+                DefaultMutableTreeNode node = aux.getNodes();
+                if(node != null) {
+                    nodes.add(node);
+                }
+            }
+        }
+        return nodes; 
+    } 
+ 
+    public JTree getElPutoTree(){
+        if(this.comentarios.isEmpty()) {
+            return null;
+        }else {
+            DefaultMutableTreeNode root = new DefaultMutableTreeNode(this.nombre); //TreeRoot
+            for(Comentario c: this.comentarios) { 
+                DefaultMutableTreeNode node = getNodes(c);
+                if (node != null) {
+                    root.add(node);
+                }
+            }
+            return new JTree(root); 
+        }
+    }
+//	
 	public DtVideo getDt() {
 		DtVideo dtv = new DtVideo(this.id,this.nombre,this.privado,null,this.descripcion,this.duracion,null,this.fechaPub,this.url);	
 		dtv.setComentarios(getElPutoTree()); 
-		
-		List<Usuario_Video> valoraciones = this.valoraciones;
-		
-		for (Usuario_Video usuario_Video : valoraciones) {
-			if (usuario_Video.isLeGusta()) dtv.addValoracionPositiva(usuario_Video.getNombreUsuario().getNombre());
-			else dtv.addValoracionNegativa(usuario_Video.getNombreUsuario().getNombre());
-		}
-		
 		return dtv;
 	}
 	
@@ -178,36 +164,26 @@ public class Video {
 		this.comentarios.add(comment);
 		return comment;
 		
-	}	
-	
-	public void ingresarRespuesta(DtComentario respuesta, Usuario autor, Comentario comentarioSeleccionado) {
-		boolean encontrado = false;
-		int i = 0;
-		while (!encontrado && i < this.comentarios.size()) {
-			if (this.comentarios.get(i).getId() == comentarioSeleccionado.getId()) encontrado = true;
-			else i++;
-		}
-		Comentario comment = this.comentarios.get(i).ingresarRespuesta(respuesta, autor);
-		this.comentarios.add(comment);
 	}
 	
-	public Comentario findComentario(DtComentario comment) {
-		Comentario res = null;
-		List<Comentario> comentarios = this.comentarios;
-		for (Comentario c : comentarios) {
-			if(c.getId() == comment.getId()) res = c;
-		}
-		return res;
-	}
-	public boolean existeComentario(Comentario com) {
-		boolean res = false;
-		for (Comentario c : this.comentarios) {
-			if(c.equals(com)) {
-				return true;
-			}
-		}
-		return res;
-	}
+	public Comentario findComentario(int id) {
+        if(this.comentarios.isEmpty()) {
+            return null;
+        }else {
+            Comentario res = null; 
+            for (Comentario c : this.comentarios) {
+                if(c.getId() == id) {
+                    return c;
+                }else {
+                    res = c.findComentario(id);
+                    if(res != null) {
+                        return res;
+                    }
+                }
+            }
+            return null;
+        }
+    }
 	
 	public void cambiarDatos(DtVideo dtv, Categoria c) {
 		this.nombre = dtv.getNombre();
@@ -220,3 +196,4 @@ public class Video {
 	}
 
 }
+
