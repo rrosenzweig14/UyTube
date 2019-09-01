@@ -2,6 +2,7 @@ package Presentacion;
 
 import java.awt.EventQueue;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JInternalFrame;
 
@@ -45,8 +46,8 @@ public class ModificarListaRep extends JInternalFrame {
 	private JTextField privacidad;
 	private JComboBox cbUsuario;
 	private JComboBox cbLista;
-	private JComboBox nueva_cat;
-	private JComboBox nueva_priv;
+	private JComboBox cbNueva_cat;
+	private JComboBox cbNueva_priv;
 
 	/**
 	 * Create the frame.
@@ -122,6 +123,13 @@ public class ModificarListaRep extends JInternalFrame {
 		
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.setBounds(128, 223, 117, 25);
+		btnModificar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				modificarLista();			
+			}
+		});
 		getContentPane().add(btnModificar);
 		
 		JLabel lblNewLabel = new JLabel("Nueva Categoria");
@@ -132,13 +140,13 @@ public class ModificarListaRep extends JInternalFrame {
 		lblNuevaPrivacidad.setBounds(39, 189, 135, 15);
 		getContentPane().add(lblNuevaPrivacidad);
 		
-		nueva_cat = new JComboBox();
-		nueva_cat.setBounds(209, 164, 114, 15);
-		getContentPane().add(nueva_cat);
+		cbNueva_cat = new JComboBox();
+		cbNueva_cat.setBounds(209, 164, 114, 15);
+		getContentPane().add(cbNueva_cat);
 		
-		nueva_priv = new JComboBox();
-		nueva_priv.setBounds(209, 189, 114, 15);
-		getContentPane().add(nueva_priv);
+		cbNueva_priv = new JComboBox();
+		cbNueva_priv.setBounds(209, 189, 114, 15);
+		getContentPane().add(cbNueva_priv);
 	}
 	
 	
@@ -154,15 +162,39 @@ public class ModificarListaRep extends JInternalFrame {
 	public void fillListas(String usuario) {
 		cbLista.addItem(" ");
 		DtUsuario us = cr.seleccionarUsuario(usuario);
-		ArrayList<DtLista> listas = cr.listarListasReproduccion(us);
-		for(DtLista dtl : listas)
+		List<DtLista> listas = cr.listarListasParticulares(us);
+		for(DtLista dtl : listas){
 			cbLista.addItem(dtl.getNombre());
+		}
+	}
+	
+	public void fillCategories() {
+		cbNueva_cat.addItem(" ");
+		ArrayList<String> categorias = cr.listarCategorias();
+		for (String c : categorias) {
+			cbNueva_cat.addItem(c);
+		}
+	}
+	
+	public void fillPrivacidad(){
+		cbNueva_priv.addItem("Privado");
+		cbNueva_priv.addItem("Publico");
+	}
+	
+	public void modificarLista(){
+		Boolean privado = false;
+		String aux = (String) cbNueva_priv.getSelectedItem();
+		if(aux.equals("Privado"))
+			privado = true;
+		DtLista dtl = cr.seleccionarLista((String) cbLista.getSelectedItem());
+		DtLista ndtl = new DtLista(dtl.getId(), dtl.getNombre(), privado, false, (String) cbNueva_cat.getSelectedItem()); 
+		cr.modificarListaParticular(dtl, ndtl);
+		fin();
 	}
 	
 
 	
 	public void cargarLista() {
-		cr.seleccionarUsuario((String) cbUsuario.getSelectedItem());
 		if(" " != (String) cbLista.getSelectedItem() && cbLista.getSelectedItem() != null ) {
 			System.out.println((String) cbLista.getSelectedItem());
 			DtLista lst = cr.seleccionarLista((String) cbLista.getSelectedItem());
@@ -174,8 +206,24 @@ public class ModificarListaRep extends JInternalFrame {
 		}
 	}
 	
+	public void nuevoCaso(){
+		cbLista.removeAllItems();
+		cbUsuario.removeAllItems();
+		cbNueva_cat.removeAllItems();
+		cbNueva_priv.removeAllItems();
+		privacidad.setText("");
+		categoria.setText("");
+	}
+	
 	public void limpiarCampos() {
 		privacidad.setText("");
 		categoria.setText("");
 	}
+	
+		public void fin() {
+		setVisible(false);
+		JOptionPane.showMessageDialog(this, "Lista modificada", "Modificar Lista Reproduccion", JOptionPane.INFORMATION_MESSAGE);
+		cr.finCasoUso();
+		dispose();		
+}
 }

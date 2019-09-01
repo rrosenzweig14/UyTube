@@ -396,7 +396,10 @@ public class Principal extends JFrame {
 			mntmModificarLista.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					modificarListaRepInternalFrame.nuevoCaso();
 					modificarListaRepInternalFrame.fillUsers();
+					modificarListaRepInternalFrame.fillCategories();
+					modificarListaRepInternalFrame.fillPrivacidad();
 					modificarListaRepInternalFrame.setVisible(true);					
 				}
 			});
