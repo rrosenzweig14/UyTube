@@ -121,7 +121,7 @@ public class Principal extends JFrame {
 
 		consultaUsuarioInternalFrame = new ConsultaUsuario(ctrl);
 		consultaUsuarioInternalFrame.setVisible(false);
-		consultaUsuarioInternalFrame.setBounds(100, 100, 700, 600);
+		consultaUsuarioInternalFrame.setBounds(100, 100, 850, 700);
 		frame.getContentPane().add(consultaUsuarioInternalFrame);
 		
 

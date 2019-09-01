@@ -167,7 +167,7 @@ public class Usuario {
              aux.addSeguido(u.getDtUsuario());
         }
         for(Usuario u: this.seguidores) {
-             aux.addSeguido(u.getDtUsuario());
+             aux.addSeguidor(u.getDtUsuario());
         	
         }
         return aux;

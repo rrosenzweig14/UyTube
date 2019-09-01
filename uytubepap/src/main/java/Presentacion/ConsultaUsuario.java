@@ -74,14 +74,17 @@ public class ConsultaUsuario extends JInternalFrame {
 	private JLabel lblUrl;
 	private boolean userLoaded = false;
 	private JScrollPane scrollPane;
+	private JComboBox comboBoxSeguidos;
+	private JComboBox comboBoxSeguidores;
+	private JLabel lblSeguidores;
+	private JLabel lblSeguidos;
 
 	/**
 	 * Create the frame.
 	 */
 	public ConsultaUsuario(IControlador ctrl) {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 850, 700);
 		controller = ctrl;
-		setBounds(100, 100, 700, 600);
 		setClosable(true);
 		setTitle("Consulta Usuario");
 		getContentPane().setLayout(null);
@@ -118,7 +121,7 @@ public class ConsultaUsuario extends JInternalFrame {
 
 		panelUsuario = new JPanel();
 		panelUsuario.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		panelUsuario.setBounds(56, 72, 570, 198);
+		panelUsuario.setBounds(56, 72, 743, 198);
 		panelUsuario.setLayout(null);
 		getContentPane().add(panelUsuario);
 
@@ -185,7 +188,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		panelUsuario.add(textFieldNombreCanal);
 		textFieldNombreCanal.setEditable(false);
 		textFieldNombreCanal.setColumns(10);
-		
+
 		chckbxPrivado = new JCheckBox("Privado");
 		chckbxPrivado.setBounds(388, 132, 97, 23);
 		panelUsuario.add(chckbxPrivado);
@@ -201,14 +204,31 @@ public class ConsultaUsuario extends JInternalFrame {
 		textFieldDescripcion.setEditable(false);
 		textFieldDescripcion.setColumns(10);
 
+		comboBoxSeguidos = new JComboBox();
+		comboBoxSeguidos.setBounds(569, 33, 132, 20);
+		panelUsuario.add(comboBoxSeguidos);
+
+		comboBoxSeguidores = new JComboBox();
+		comboBoxSeguidores.setBounds(569, 108, 132, 20);
+		panelUsuario.add(comboBoxSeguidores);
+
+		lblSeguidores = new JLabel("Seguidores");
+		lblSeguidores.setBounds(569, 86, 97, 14);
+		panelUsuario.add(lblSeguidores);
+
+		lblSeguidos = new JLabel("Seguidos");
+		lblSeguidos.setBounds(569, 11, 97, 14);
+		panelUsuario.add(lblSeguidos);
+
 		comboBoxVideosCanal = new JComboBox();
 		comboBoxVideosCanal.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				cleanVideoData();
-				if(userLoaded && comboBoxVideosCanal.getSelectedItem() != null && !comboBoxVideosCanal.getSelectedItem().toString().equals(" ")) {
+				if (userLoaded && comboBoxVideosCanal.getSelectedItem() != null
+						&& !comboBoxVideosCanal.getSelectedItem().toString().equals(" ")) {
 					DtVideo video = controller.seleccionarVideo(comboBoxVideosCanal.getSelectedItem().toString());
 					fillVideoData(video);
-				}				
+				}
 			}
 		});
 		comboBoxVideosCanal.setBounds(155, 281, 166, 20);
@@ -225,84 +245,84 @@ public class ConsultaUsuario extends JInternalFrame {
 		lblListas = new JLabel("Listas");
 		lblListas.setBounds(350, 281, 46, 14);
 		getContentPane().add(lblListas);
-		
+
 		treeComentarios = null;
 //		treeComentarios.setBounds(374, 332, 252, 185);
 //		treeComentarios.removeAll();
 //		getContentPane().add(treeComentarios);
-		
+
 		lblComentarios = new JLabel("Comentarios");
 		lblComentarios.setBounds(374, 312, 137, 14);
 		lblComentarios.setVisible(false);
 		getContentPane().add(lblComentarios);
-		
+
 		lblNombreVideo = new JLabel("Nombre Video");
 		lblNombreVideo.setBounds(10, 315, 113, 14);
 		lblNombreVideo.setVisible(false);
 		getContentPane().add(lblNombreVideo);
-		
+
 		textFieldNombreVideo = new JTextField();
 		textFieldNombreVideo.setEditable(false);
 		textFieldNombreVideo.setBounds(133, 312, 221, 20);
 		textFieldNombreVideo.setVisible(false);
 		getContentPane().add(textFieldNombreVideo);
 		textFieldNombreVideo.setColumns(10);
-		
+
 		lblDuracion = new JLabel("Duracion");
 		lblDuracion.setBounds(10, 402, 107, 14);
 		lblDuracion.setVisible(false);
 		getContentPane().add(lblDuracion);
-		
+
 		lblDescripcionVideo = new JLabel("Descripcion");
 		lblDescripcionVideo.setBounds(10, 351, 121, 14);
 		lblDescripcionVideo.setVisible(false);
 		getContentPane().add(lblDescripcionVideo);
-		
+
 		textAreaDescripcionVideo = new JTextArea();
 		textAreaDescripcionVideo.setEditable(false);
 		textAreaDescripcionVideo.setVisible(false);
 		textAreaDescripcionVideo.setBounds(133, 346, 221, 35);
 		getContentPane().add(textAreaDescripcionVideo);
-		
+
 		textFieldDuracionVideo = new JTextField();
 		textFieldDuracionVideo.setEditable(false);
 		textFieldDuracionVideo.setVisible(false);
 		textFieldDuracionVideo.setBounds(133, 399, 80, 20);
 		getContentPane().add(textFieldDuracionVideo);
 		textFieldDuracionVideo.setColumns(10);
-		
+
 		lblFechaPublicado = new JLabel("Fecha publicado");
 		lblFechaPublicado.setBounds(10, 427, 113, 14);
 		lblFechaPublicado.setVisible(false);
 		getContentPane().add(lblFechaPublicado);
-		
+
 		textFieldFechaPub = new JTextField();
 		textFieldFechaPub.setEditable(false);
 		textFieldFechaPub.setVisible(false);
 		textFieldFechaPub.setBounds(133, 430, 80, 20);
 		getContentPane().add(textFieldFechaPub);
 		textFieldFechaPub.setColumns(10);
-		
+
 		chckbxVideoPrivado = new JCheckBox("Privado");
 		chckbxVideoPrivado.setEnabled(false);
 		chckbxVideoPrivado.setVisible(false);
 		chckbxVideoPrivado.setBounds(271, 398, 97, 23);
 		getContentPane().add(chckbxVideoPrivado);
-		
+
 		lblUrl = new JLabel("URL");
 		lblUrl.setBounds(10, 464, 46, 14);
 		lblUrl.setVisible(false);
 		getContentPane().add(lblUrl);
-		
+
 		textFieldURL = new JTextField();
 		textFieldURL.setEditable(false);
 		textFieldURL.setVisible(false);
 		textFieldURL.setBounds(133, 461, 221, 20);
 		getContentPane().add(textFieldURL);
 		textFieldURL.setColumns(10);
-		
+
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(384, 337, 242, 190);
+		scrollPane.setBounds(384, 337, 415, 291);
 		scrollPane.setVisible(false);
 		getContentPane().add(scrollPane);
 
@@ -315,7 +335,7 @@ public class ConsultaUsuario extends JInternalFrame {
 			comboBoxUsuarios.addItem(s);
 		}
 	}
-	
+
 	public void fillVideoData(DtVideo video) {
 		textFieldNombreVideo.setVisible(true);
 		textAreaDescripcionVideo.setVisible(true);
@@ -329,8 +349,8 @@ public class ConsultaUsuario extends JInternalFrame {
 		lblNombreVideo.setVisible(true);
 		lblFechaPublicado.setVisible(true);
 		lblUrl.setVisible(true);
-		lblDuracion.setVisible(true);		
-		
+		lblDuracion.setVisible(true);
+
 		textFieldNombreVideo.setText(video.getNombre());
 		textAreaDescripcionVideo.setText(video.getDescripcion());
 		textFieldDuracionVideo.setText(video.getDuracion().toString());
@@ -338,12 +358,12 @@ public class ConsultaUsuario extends JInternalFrame {
 		textFieldURL.setText(video.getUrl());
 		if (video.getComentarios() != null) {
 			treeComentarios = video.getComentarios();
-			treeComentarios.setBounds(374, 332, 300, 185);
-			getContentPane().add(treeComentarios);				
+			treeComentarios.setBounds(374, 332, 415, 291);
+			getContentPane().add(treeComentarios);
 		}
 		chckbxVideoPrivado.setSelected(video.getPrivado());
 	}
-	
+
 	public void cleanVideoData() {
 		textFieldNombreVideo.removeAll();
 		textFieldDescripcion.removeAll();
@@ -353,7 +373,7 @@ public class ConsultaUsuario extends JInternalFrame {
 			treeComentarios.removeAll();
 			scrollPane.setVisible(false);
 		}
-		chckbxVideoPrivado.removeAll();		
+		chckbxVideoPrivado.removeAll();
 		textFieldNombreVideo.setVisible(false);
 		textAreaDescripcionVideo.setVisible(false);
 		textFieldFecha.setVisible(false);
@@ -367,21 +387,29 @@ public class ConsultaUsuario extends JInternalFrame {
 		lblNombreVideo.setVisible(false);
 		lblUrl.setVisible(false);
 		lblDuracion.setVisible(false);
-		
+
 	}
 	
-	public void cleanOutputData() {		
-		textFieldNickName.removeAll();		
+	public void finCasoUso() {
+		controller.finCasoUso();
+	}
+	
+
+	public void cleanOutputData() {
+		textFieldNickName.removeAll();
 		textFieldNombre.removeAll();
 		textFieldApellido.removeAll();
 		textFieldCorreo.removeAll();
 		textFieldFecha.removeAll();
-		textFieldNombreCanal.removeAll();
+		textFieldNombreCanal.removeAll();		
 		textFieldDescripcion.removeAll();
 		chckbxPrivado.removeAll();
 		lblImage.removeAll();
-		comboBoxVideosCanal.removeAllItems();	
-		comboBoxListasCanal.removeAllItems();		
+		comboBoxVideosCanal.removeAllItems();
+		comboBoxListasCanal.removeAllItems();
+		comboBoxSeguidores.removeAllItems();
+		comboBoxSeguidos.removeAllItems();
+		finCasoUso();
 	}
 
 	public void fillDataUser(DtUsuario user, DtCanal canal) {
@@ -398,6 +426,24 @@ public class ConsultaUsuario extends JInternalFrame {
 		textFieldNombreCanal.setText(canal.getNombre());
 		textFieldDescripcion.setText(canal.getDescripcion());
 		chckbxPrivado.setSelected(canal.isPrivado());
+
+		Map<String, DtUsuario> seguidores = user.getSeguidores();
+		if (seguidores != null) {
+			Iterator<Entry<String, DtUsuario>> it = seguidores.entrySet().iterator();
+			while (it.hasNext()) {
+				Entry<String, DtUsuario> entry = it.next();
+				comboBoxSeguidores.addItem(entry.getKey());
+			}
+		}
+
+		Map<String, DtUsuario> seguidos = user.getSeguidos();
+		if (seguidos != null) {
+			Iterator<Entry<String, DtUsuario>> it2 = seguidos.entrySet().iterator();
+			while (it2.hasNext()) {
+				Entry<String, DtUsuario> entry2 = it2.next();
+				comboBoxSeguidos.addItem(entry2.getKey());
+			}
+		}
 
 		ArrayList<String> videos = controller.listarVideos();
 		comboBoxVideosCanal.addItem(" ");
