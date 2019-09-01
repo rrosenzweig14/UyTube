@@ -69,7 +69,6 @@ public class Principal extends JFrame {
 	private ConsultaUsuario consultaUsuarioInternalFrame;
 	private ConsultaListas consultaListasInternalFrame;
 	private ListarUsuarios listarUsuariosExistentesInternalFrame;
-	private ListarUsuarios listarUsuariosExistentesInternalFrame;
 
 
 	/**
