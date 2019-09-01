@@ -68,6 +68,7 @@ public class Principal extends JFrame {
 	private ListarCategorias listarCategoriasExistentesInternalFrame;
 	private ComentarVideo comentarVideoInternalFrame;
 	private ConsultaCategoria consultaCategoriaInternalFrame;
+	private AgregarVideoLista agregagVideoListaInternalFrame;
 
 
 	/**
@@ -162,6 +163,11 @@ public class Principal extends JFrame {
 		consultaCategoriaInternalFrame.setVisible(false);
 		consultaCategoriaInternalFrame.setBounds(100, 100, 465, 488);
 		frame.getContentPane().add(consultaCategoriaInternalFrame);
+		
+		agregagVideoListaInternalFrame = new AgregarVideoLista(ctrl);
+		agregagVideoListaInternalFrame.setVisible(false);
+		agregagVideoListaInternalFrame.setBounds(100, 100, 530, 333);
+		frame.getContentPane().add(agregagVideoListaInternalFrame);
 		
 	}
 	/*
@@ -337,6 +343,12 @@ public class Principal extends JFrame {
 			mntmAgregarVideoLista = new JMenuItem("Agregar Video a Lista");
 			mntmAgregarVideoLista.setIcon(new ImageIcon("././img/Icons/addListItem.png"));
 			mntmAgregarVideoLista.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmAgregarVideoLista.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					agregagVideoListaInternalFrame.fillUsers();
+					agregagVideoListaInternalFrame.setVisible(true);
+				}
+			});
 			mnAccionesVideo.add(mntmAgregarVideoLista);
 
 			mntmComentarUnVideo = new JMenuItem("Comentar un Video");
