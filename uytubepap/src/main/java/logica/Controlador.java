@@ -461,17 +461,21 @@ public class Controlador implements IControlador{
 		Canal c = new Canal();
 		Usuario usr = new Usuario();
 		Map<String, Video> vid;
+		String catnom;
 		for(String u : us) {
 			usr = Handler.findUsuario(u);
 			c = usr.getCanal();
 			vid = c.getListaVideos();
 			for(Video v : vid.values()) {
-				if(v != null)
-					if(v.getCategoria().getNombre() == categoria)
+				if(v != null) {
+					catnom = (String) v.getCategoria().getNombre();
+					if(catnom.equals(categoria)) {
 						res.put(v.getNombre(), usr.getNickname());
+					}
+						
+				}
 			}
 		}
-		
 		return res;
 	}
 
@@ -494,7 +498,7 @@ public class Controlador implements IControlador{
 			}
 		}
 		
-		return null;
+		return res;
 	}
 	
 	

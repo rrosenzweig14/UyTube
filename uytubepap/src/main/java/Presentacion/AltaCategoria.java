@@ -17,23 +17,7 @@ public class AltaCategoria extends JInternalFrame {
 	private JLabel lblNombre;
 	
 	
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Principal window = new Principal();
-//					window.AltaCategoria.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
-
-	/**
-	 * Create the frame.
-	 */
 	public AltaCategoria(IControlador cr) {
 		ctrl = cr;
 		setBounds(100, 100, 362, 190);
@@ -79,9 +63,7 @@ public class AltaCategoria extends JInternalFrame {
 			JButton btnCancelar = new JButton("Cancelar");
 			btnCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					setVisible(false);
-					dispose();
-					ctrl.finCasoUso();
+					fin();
 				}
 			});
 			btnCancelar.setBounds(199, 82, 117, 25);
@@ -91,5 +73,11 @@ public class AltaCategoria extends JInternalFrame {
 
 		
 
+	}
+	
+	public void fin() {
+		setVisible(false);
+		dispose();
+		ctrl.finCasoUso();		
 	}
 }

@@ -1,29 +1,48 @@
 package Presentacion;
 
+import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import javax.swing.JInternalFrame;
 
 import interfaces.IControlador;
+import logica.Handler;
+
+import javax.swing.JRadioButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JToggleButton;
+
 import datatypes.DtLista;
 import datatypes.DtUsuario;
+import datatypes.DtVideo;
 
+import javax.swing.JScrollBar;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.SwingConstants;
 
 
-@SuppressWarnings("serial")
 public class ConsultaListas extends JInternalFrame {
 
 	private IControlador cr;
 	private JTextField nombre;
 	private JTextField privacidad;
 	private JTextField tipo;
-	private JComboBox<String> cbUsuario;
-	private JComboBox<String> cbLista;
+	private JComboBox cbUsuario;
+	private JComboBox cbLista;
+	private JComboBox cbVideos;
 
 
 	/**
@@ -49,15 +68,38 @@ public class ConsultaListas extends JInternalFrame {
 		lblDatosDeLa.setBounds(12, 78, 352, 15);
 		getContentPane().add(lblDatosDeLa);
 		
-		cbUsuario = new JComboBox<String>();
-		cbUsuario.setBounds(182, 24, 166, 15);
+		cbUsuario = new JComboBox();
+		cbUsuario.setBounds(182, 24, 166, 18);
+		cbUsuario.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(" " != (String) cbUsuario.getSelectedItem() && cbUsuario.getSelectedItem() != null) {
+					cbLista.removeAllItems();
+					cbVideos.removeAllItems();
+					limpiarCampos();
+					fillVideos();
+					fillListas((String) cbUsuario.getSelectedItem()); 
+				}
+			}
+		});
 		cbUsuario.setVisible(true);
-		fillUsers();
 		getContentPane().add(cbUsuario);
 		
-		cbLista = new JComboBox<String>();
-		cbLista.setBounds(182, 51, 166, 15);
-		//fillListas((String) cbUsuario.getSelectedItem());
+		cbLista = new JComboBox();
+		cbLista.setBounds(182, 51, 166, 18);
+		cbLista.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(" " != (String) cbLista.getSelectedItem()) {
+					limpiarCampos();
+					cbVideos.removeAllItems();
+					cargarLista();
+					fillVideos();
+				}
+			}
+		});
 		getContentPane().add(cbLista);
 		
 		JLabel lblNombre = new JLabel("Nombre");
@@ -78,6 +120,22 @@ public class ConsultaListas extends JInternalFrame {
 		
 		nombre = new JTextField();
 		nombre.setBounds(209, 105, 114, 19);
+//		nombre.addInputMethodListener(new InputMethodListener() {
+//			
+//			@Override
+//			public void inputMethodTextChanged(InputMethodEvent event) {
+//				if(nombre.getSelectedText() != " ");
+//					fillVideos();
+//
+//				
+//			}
+//			
+//			@Override
+//			public void caretPositionChanged(InputMethodEvent event) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		});
 		getContentPane().add(nombre);
 		nombre.setColumns(10);
 		
@@ -91,8 +149,8 @@ public class ConsultaListas extends JInternalFrame {
 		getContentPane().add(tipo);
 		tipo.setColumns(10);
 		
-		JComboBox<?> cbVideos = new JComboBox<Object>();
-		cbVideos.setBounds(209, 189, 114, 15);
+		cbVideos = new JComboBox();
+		cbVideos.setBounds(209, 189, 114, 18);
 		getContentPane().add(cbVideos);
 		
 		JButton btnConsultarVideo = new JButton("Consultar Video");
@@ -102,7 +160,7 @@ public class ConsultaListas extends JInternalFrame {
 	
 	
 	public void fillUsers() {
-		cbUsuario.removeAllItems();
+		cr.finCasoUso();
 		cbUsuario.addItem(" ");
 		ArrayList<String> users = cr.listarUsuarios();
 		for (String s : users) {
@@ -116,6 +174,44 @@ public class ConsultaListas extends JInternalFrame {
 		ArrayList<DtLista> listas = cr.listarListasReproduccion(us);
 		for(DtLista dtl : listas)
 			cbLista.addItem(dtl.getNombre());
+	}
+	
+	public void fillVideos() {
+		if(" " != (String) cbLista.getSelectedItem() && cbLista.getSelectedItem() != null ) {
+			cr.seleccionarUsuario((String) cbUsuario.getSelectedItem());
+			DtLista lst = cr.seleccionarLista((String) cbLista.getSelectedItem());
+			ArrayList<DtVideo> videos = cr.videosEnLista(lst);
+			if(videos != null)
+			for(DtVideo dtv : videos) {
+				if(dtv != null) {
+					System.out.println(dtv.getNombre());
+					cbVideos.addItem(dtv.getNombre());
+				}
+			}
+		}	
+	}
+	
+	public void cargarLista() {
+		cr.seleccionarUsuario((String) cbUsuario.getSelectedItem());
+		if(" " != (String) cbLista.getSelectedItem() && cbLista.getSelectedItem() != null ) {
+			System.out.println((String) cbLista.getSelectedItem());
+			DtLista lst = cr.seleccionarLista((String) cbLista.getSelectedItem());
+			nombre.setText(lst.getNombre());
+			if(lst.isPrivado())
+				privacidad.setText("Privado");
+			else
+				privacidad.setText("Publico");
+			if(lst.isDefecto())
+				tipo.setText("Defecto");
+			else
+				tipo.setText("Particular");
+		}
+	}
+	
+	public void limpiarCampos() {
+		privacidad.setText("");
+		tipo.setText("");
+		nombre.setText("");
 	}
 	
 }

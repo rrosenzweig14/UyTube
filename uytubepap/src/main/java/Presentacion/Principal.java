@@ -67,6 +67,7 @@ public class Principal extends JFrame {
 	private ListarUsuarios listarUsuariosExistentesInternalFrame;
 	private ListarCategorias listarCategoriasExistentesInternalFrame;
 	private ComentarVideo comentarVideoInternalFrame;
+	private ConsultaCategoria consultaCategoriaInternalFrame;
 
 
 	/**
@@ -156,6 +157,11 @@ public class Principal extends JFrame {
 		consultaVideoInternalFrame.setVisible(false);
 		consultaVideoInternalFrame.setBounds(100, 100, 850, 700);
 		frame.getContentPane().add(consultaVideoInternalFrame);
+		
+		consultaCategoriaInternalFrame = new ConsultaCategoria(ctrl);
+		consultaCategoriaInternalFrame.setVisible(false);
+		consultaCategoriaInternalFrame.setBounds(100, 100, 465, 488);
+		frame.getContentPane().add(consultaCategoriaInternalFrame);
 		
 	}
 	/*
@@ -270,6 +276,14 @@ public class Principal extends JFrame {
 			mntmConsultaDeCategoria = new JMenuItem("Consulta de Categoria");
 			mntmConsultaDeCategoria.setIcon(new ImageIcon("././img/Icons/search_category.png"));
 			mntmConsultaDeCategoria.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmConsultaDeCategoria.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					consultaCategoriaInternalFrame.fillCategories();
+					consultaCategoriaInternalFrame.setVisible(true);
+				}
+			});
 			mnConsultas.add(mntmConsultaDeCategoria);
 
 			mnListados = new JMenu("Listados");
