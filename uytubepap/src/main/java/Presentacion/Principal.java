@@ -1,16 +1,11 @@
 package Presentacion;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import interfaces.Fabrica;
 import interfaces.IControlador;
 import logica.Conexion;
@@ -20,10 +15,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.ImageIcon;
 
+@SuppressWarnings("serial")
 public class Principal extends JFrame {
 
 	public static JFrame frame;
-	private JPanel contentPane;
 
 	// Menu principal
 	private JMenuBar menuBar;
@@ -69,6 +64,7 @@ public class Principal extends JFrame {
 	private ConsultaUsuario consultaUsuarioInternalFrame;
 	private ConsultaListas consultaListasInternalFrame;
 	private ListarUsuarios listarUsuariosExistentesInternalFrame;
+	private ListarCategorias listarCategoriasExistentesInternalFrame;
 
 
 	/**
@@ -119,12 +115,10 @@ public class Principal extends JFrame {
 		altaListaInternalFrame.setBounds(100, 100, 700, 600);
 		frame.getContentPane().add(altaListaInternalFrame);
 		
-
 		consultaUsuarioInternalFrame = new ConsultaUsuario(ctrl);
 		consultaUsuarioInternalFrame.setVisible(false);
 		consultaUsuarioInternalFrame.setBounds(100, 100, 700, 600);
 		frame.getContentPane().add(consultaUsuarioInternalFrame);
-		
 
 		altaVideoInternalFrame = new AltaVideo(ctrl);
 		altaVideoInternalFrame.setVisible(false);
@@ -135,6 +129,11 @@ public class Principal extends JFrame {
 		listarUsuariosExistentesInternalFrame.setVisible(false);
 		listarUsuariosExistentesInternalFrame.setBounds(100, 100, 530, 430);
 		frame.getContentPane().add(listarUsuariosExistentesInternalFrame);
+		
+		listarCategoriasExistentesInternalFrame = new ListarCategorias(ctrl);
+		listarCategoriasExistentesInternalFrame.setVisible(false);
+		listarCategoriasExistentesInternalFrame.setBounds(100, 100, 530, 430);
+		frame.getContentPane().add(listarCategoriasExistentesInternalFrame);
 		
 		consultaListasInternalFrame = new ConsultaListas(ctrl);
 		consultaListasInternalFrame.setVisible(false);
@@ -272,6 +271,13 @@ public class Principal extends JFrame {
 			mntmListarCategoriasExistentes = new JMenuItem("Listar Categorias Existentes");
 			mntmListarCategoriasExistentes.setIcon(new ImageIcon("././img/Icons/list_category.png"));
 			mntmListarCategoriasExistentes.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmListarCategoriasExistentes.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					listarCategoriasExistentesInternalFrame.addCategorias();
+					listarCategoriasExistentesInternalFrame.setVisible(true);
+				}
+			});
 			mnListados.add(mntmListarCategoriasExistentes);
 
 			mnModificaciones = new JMenu("Modificaciones");

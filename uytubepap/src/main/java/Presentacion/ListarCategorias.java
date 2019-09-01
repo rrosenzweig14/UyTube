@@ -11,20 +11,20 @@ import javax.swing.table.DefaultTableModel;
 import interfaces.IControlador;
 
 @SuppressWarnings("serial")
-public class ListarUsuarios extends JInternalFrame {
+public class ListarCategorias extends JInternalFrame {
 	private IControlador controller;
 	private JTable table;
 	private DefaultTableModel dtm;
 	private DefaultTableModel newdt;
 
-	public ListarUsuarios(IControlador ctrl) {
+	public ListarCategorias(IControlador ctrl) {
 		controller = ctrl;
 		setClosable(true);
-		setTitle("Listar Usuarios");
+		setTitle("Listar Categorias");
 		getContentPane().setLayout(null);
 
 		table = new JTable();
-		String[] rows = {"User Nickname"};
+		String[] rows = {"Category Name"};
 		String[][] cols = {};
 		dtm = new DefaultTableModel(cols, rows);
 		table.setModel(dtm);
@@ -36,12 +36,12 @@ public class ListarUsuarios extends JInternalFrame {
 
 	}
 	
-	public void addUsuarios() {
-		ArrayList<String> users = controller.listarUsuarios();
-		String[] rows = {"User Nickname"};
+	public void addCategorias() {
+		ArrayList<String> cats = controller.listarCategorias();
+		String[] rows = {"Category Name"};
 		String[][] cols = {};
 		newdt = new DefaultTableModel(cols, rows);
-		for (String s : users) {
+		for (String s : cats) {
 			Object[] data = {s};
 			newdt.addRow(data);
 		}
