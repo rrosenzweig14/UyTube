@@ -83,6 +83,7 @@ public class Principal extends JFrame {
 	private ModificarDatosUsuario modificarDatosUsuarioFrame;
 	private QuitarVideoLista quitarVideoListaInternalFrame;
 	private ModificarVideo modificarDatosVideoInternalFrame;
+	private ValorarVideo ValorarVideoInternalFrame;
 
 
 	/**
@@ -117,6 +118,12 @@ public class Principal extends JFrame {
 		altaUsuarioInternalFrame.setVisible(false);
 		altaUsuarioInternalFrame.setBounds(100, 100, 530, 430);
 		frame.getContentPane().add(altaUsuarioInternalFrame);	
+		
+		ValorarVideoInternalFrame = new ValorarVideo(ctrl);
+		ValorarVideoInternalFrame.setVisible(false);
+		ValorarVideoInternalFrame.setBounds(100, 100, 530, 430);
+		frame.getContentPane().add(ValorarVideoInternalFrame);
+		
 		
 		altaCategoriaInternalFrame = new AltaCategoria(ctrl);
 		altaCategoriaInternalFrame.setVisible(false);
@@ -432,6 +439,12 @@ public class Principal extends JFrame {
 
 			mntmValorarUnVideo = new JMenuItem("Valorar un Video");
 			mntmValorarUnVideo.setIcon(new ImageIcon("././img/Icons/rateVideo.png"));
+			mntmValorarUnVideo.addActionListener(new ActionListener() {
+				   public void actionPerformed(ActionEvent arg0) {
+				    ValorarVideoInternalFrame.fillUsers();
+				    ValorarVideoInternalFrame.setVisible(true);
+				   }
+				  });
 			mntmValorarUnVideo.setFont(new Font("Dialog", Font.BOLD, 15));
 			mnAccionesVideo.add(mntmValorarUnVideo);
 
