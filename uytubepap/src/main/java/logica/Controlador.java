@@ -468,11 +468,13 @@ public class Controlador implements IControlador{
 			vid = c.getListaVideos();
 			for(Video v : vid.values()) {
 				if(v != null) {
-					catnom = (String) v.getCategoria().getNombre();
-					if(catnom.equals(categoria)) {
-						res.put(v.getNombre(), usr.getNickname());
+					Categoria cat = v.getCategoria();
+					if(cat != null) {
+						catnom = (String) cat.getNombre();
+						if(catnom.equals(categoria)) {
+							res.put(v.getNombre(), usr.getNickname());
+						}
 					}
-						
 				}
 			}
 		}

@@ -27,9 +27,9 @@ public class ConsultaCategoria extends JInternalFrame {
 	private IControlador cr;
 	private JTable listas;
 	private JTable videos;
-	private JComboBox cbCategoria; 
-	DefaultTableModel listasModel;
-	DefaultTableModel videosModel;
+	private JComboBox<String> cbCategoria; 
+	DefaultTableModel listasModel = null;
+	DefaultTableModel videosModel = null;
 
 
 
@@ -45,15 +45,20 @@ public class ConsultaCategoria extends JInternalFrame {
 		lblCategoria.setBounds(101, 32, 70, 15);
 		getContentPane().add(lblCategoria);
 		
-		cbCategoria = new JComboBox();
+		cbCategoria = new JComboBox<String>();
 		cbCategoria.setBounds(203, 29, 160, 20);
 		fillCategories();
-		cbCategoria.addActionListener(new ActionListener() {
-			
+		cbCategoria.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				fillListas((String) cbCategoria.getSelectedItem());
-				fillVideos((String) cbCategoria.getSelectedItem());
+				String cat = (String) cbCategoria.getSelectedItem();
+				if( cbCategoria.getSelectedItem() != null && !(cat.equals(" "))) {
+					fillListas(cat);
+					fillVideos(cat);
+				}else if(listasModel != null && videosModel != null) {
+					listasModel.setRowCount(0);
+					videosModel.setRowCount(0);
+				}
 			}
 		});
 		getContentPane().add(cbCategoria);
@@ -71,6 +76,7 @@ public class ConsultaCategoria extends JInternalFrame {
 	}
 	
 	public void fillCategories() {
+		cbCategoria.removeAllItems();
 		cbCategoria.addItem(" ");
 		ArrayList<String> categorias = cr.listarCategorias();
 		for (String c : categorias) {
