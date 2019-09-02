@@ -160,6 +160,14 @@ public class Video {
 		}
 		DtVideo dtv = new DtVideo(this.id,this.nombre,this.privado,null,this.descripcion,this.duracion,s,this.fechaPub,this.url);	
 		dtv.setComentarios(getElPutoTree()); 
+		
+		List<Usuario_Video> valoraciones = this.valoraciones;
+		
+		for (Usuario_Video uv : valoraciones) {
+			if (uv.isLeGusta()) dtv.addValoracionPositiva(uv.getNombreUsuario().getNickname());
+			else dtv.addValoracionNegativa(uv.getNombreUsuario().getNickname());
+		}
+		
 		return dtv;
 	}
 	

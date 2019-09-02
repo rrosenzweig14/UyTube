@@ -548,6 +548,8 @@ public class ConsultaUsuario extends JInternalFrame {
 		textFieldCategoria.setVisible(false);
 		lblCategoria.setVisible(false);
 		treeComentarios = null;
+		comboBoxLikes.removeAllItems();
+		comboBoxDislikes.removeAllItems();
 
 	}
 
