@@ -140,5 +140,17 @@ public class DtVideo {
 	public void addValoracionNegativa(String nombre) {
 		this.valoracionesNegativas.add(nombre);
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) return false;
+		
+		DtVideo video = (DtVideo) o;
+		
+		return nombre.equals(video.nombre) && descripcion.equals(video.descripcion) && duracion == video.duracion && categoria.equals(video.categoria) && url.equals(video.url) && fechaPub == video.fechaPub;
+	}
 
 }

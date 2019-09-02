@@ -57,5 +57,17 @@ public class DtCanal {
 		this.listaVideos = listaVideos;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) return false;
+		
+		DtCanal canal = (DtCanal) o;
+		
+		return nombre.equals(canal.nombre) && descripcion.equals(canal.descripcion) && privado == canal.privado;
+	}
+	
 
 }

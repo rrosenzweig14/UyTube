@@ -37,6 +37,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.io.File;
 import java.awt.event.ItemEvent;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 
 public class ModificarDatosUsuario extends JInternalFrame {
 
@@ -62,9 +64,6 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	private JLabel lblCanal;
 	private JTextField textFieldNombreCanal;
 	private JLabel lblDescripcion;
-	private JComboBox comboBoxDia;
-	private JComboBox comboBoxMes;
-	private JComboBox comboBoxAnio;
 	private JButton btnModificarUsuario;
 	private JButton btnSalir;
 	private JLabel lblNombreLista;
@@ -78,9 +77,6 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	private JTextArea textAreaDescripcionVideo;
 	private JTextField textFieldDuracion;
 	private JLabel lblFechaPublicacion;
-	private JComboBox comboBoxDiaPub;
-	private JComboBox comboBoxMesPub;
-	private JComboBox comboBoxAnioPub;
 	private JCheckBox chckbxPrivadoVideo;
 	private JLabel lblUrl;
 	private JTextField textFieldURL;
@@ -99,10 +95,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	private JComboBox comboBoxCategoriaListaNueva;
 	private JLabel lblCategoriaNueva_1;
 	private JComboBox comboBoxCategoriaNuevaVideo;
-	private JTextField textFieldFechaPub;
 	private JLabel lblFechaNueva;
 	private JLabel lblFechaNacimientoNueva;
-	private JTextField textFieldFechaNacVieja;
 	private JCheckBox chckbxEditarFecha;
 	private boolean editarFechaNac = false;
 	private boolean editarFechaPub = false;
@@ -110,9 +104,14 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	private String imgPath;
 	private boolean videoSeleccionado = false;
 	private boolean listaSeleccionada = false;
-	
-	
-	
+	private DtLista lstAModificar;
+	private DtVideo vidAModificar;
+	private DtUsuario usuarioAModificar;
+	private DtCanal canalAModificar;
+	private JDateChooser dateChooserVieja;
+	private JDateChooser dateChooserNueva;
+	private JDateChooser dateChooserVideoNueva;
+	private JDateChooser dateChooserVideoVieja;
 	
 
 	/**
@@ -187,16 +186,16 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		
 		textFieldCorreo = new JTextField();
 		textFieldCorreo.setEditable(false);
-		textFieldCorreo.setBounds(438, 26, 194, 20);
+		textFieldCorreo.setBounds(489, 26, 184, 20);
 		panelUsuarios.add(textFieldCorreo);
 		textFieldCorreo.setColumns(10);
 		
 		lblFechaNacimiento = new JLabel("Fecha Nacimiento");
-		lblFechaNacimiento.setBounds(326, 54, 102, 14);
+		lblFechaNacimiento.setBounds(345, 57, 102, 14);
 		panelUsuarios.add(lblFechaNacimiento);
 		
 		lblImagen = new JLabel("Imagen");
-		lblImagen.setBounds(469, 113, 125, 115);
+		lblImagen.setBounds(132, 107, 125, 115);
 		panelUsuarios.add(lblImagen);
 		
 		btnSubirOtraImagen = new JButton("Subir otra imagen");
@@ -205,7 +204,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 				SubirImagen();
 			}
 		});
-		btnSubirOtraImagen.setBounds(609, 116, 150, 23);
+		btnSubirOtraImagen.setBounds(326, 153, 150, 23);
 		panelUsuarios.add(btnSubirOtraImagen);
 		
 		lblCanal = new JLabel("Canal");
@@ -265,33 +264,25 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		comboBoxVideos.setBounds(457, 363, 194, 20);
 		panelUsuarios.add(comboBoxVideos);
 		
-		comboBoxDia = new JComboBox();
-		comboBoxDia.setEditable(true);
-		comboBoxDia.setBounds(474, 76, 50, 20);
-		panelUsuarios.add(comboBoxDia);
-		
-		comboBoxMes = new JComboBox();
-		comboBoxMes.setEditable(true);
-		comboBoxMes.setBounds(548, 76, 46, 20);
-		panelUsuarios.add(comboBoxMes);
-		
-		comboBoxAnio = new JComboBox();
-		comboBoxAnio.setEditable(true);
-		comboBoxAnio.setBounds(610, 76, 59, 20);
-		panelUsuarios.add(comboBoxAnio);
-		
 		lblFechaNacimientoNueva = new JLabel("Fecha Nacimiento Nueva");
-		lblFechaNacimientoNueva.setBounds(326, 79, 143, 14);
+		lblFechaNacimientoNueva.setBounds(347, 94, 143, 14);
 		panelUsuarios.add(lblFechaNacimientoNueva);
 		
-		textFieldFechaNacVieja = new JTextField();
-		textFieldFechaNacVieja.setBounds(438, 51, 194, 20);
-		panelUsuarios.add(textFieldFechaNacVieja);
-		textFieldFechaNacVieja.setColumns(10);
-		
 		chckbxEditarFecha = new JCheckBox("Editar fecha");
-		chckbxEditarFecha.setBounds(662, 50, 97, 23);
+		chckbxEditarFecha.setBounds(677, 50, 97, 23);
 		panelUsuarios.add(chckbxEditarFecha);
+		
+		dateChooserVieja = new JDateChooser();
+		dateChooserVieja.getCalendarButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		dateChooserVieja.setBounds(489, 54, 145, 20);
+		panelUsuarios.add(dateChooserVieja);
+		
+		dateChooserNueva = new JDateChooser();
+		dateChooserNueva.setBounds(489, 88, 145, 20);
+		panelUsuarios.add(dateChooserNueva);
 		
 		panelListas = new JPanel();
 		tabbedPane.addTab("Listas", null, panelListas, null);
@@ -364,20 +355,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		lblFechaPublicacion.setBounds(421, 37, 113, 14);
 		panelVideo.add(lblFechaPublicacion);
 		
-		comboBoxDiaPub = new JComboBox();
-		comboBoxDiaPub.setBounds(536, 62, 50, 20);
-		panelVideo.add(comboBoxDiaPub);
-		
-		comboBoxMesPub = new JComboBox();
-		comboBoxMesPub.setBounds(618, 62, 50, 20);
-		panelVideo.add(comboBoxMesPub);
-		
-		comboBoxAnioPub = new JComboBox();
-		comboBoxAnioPub.setBounds(691, 62, 63, 20);
-		panelVideo.add(comboBoxAnioPub);
-		
 		chckbxPrivadoVideo = new JCheckBox("Privado");
-		chckbxPrivadoVideo.setBounds(536, 102, 97, 23);
+		chckbxPrivadoVideo.setBounds(421, 137, 97, 23);
 		panelVideo.add(chckbxPrivadoVideo);
 		
 		lblUrl = new JLabel("URL");
@@ -385,7 +364,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		panelVideo.add(lblUrl);
 		
 		textFieldURL = new JTextField();
-		textFieldURL.setBounds(212, 185, 192, 20);
+		textFieldURL.setBounds(212, 185, 199, 20);
 		panelVideo.add(textFieldURL);
 		textFieldURL.setColumns(10);
 		
@@ -407,19 +386,21 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		comboBoxCategoriaNuevaVideo.setBounds(212, 279, 199, 20);
 		panelVideo.add(comboBoxCategoriaNuevaVideo);
 		
-		textFieldFechaPub = new JTextField();
-		textFieldFechaPub.setEditable(false);
-		textFieldFechaPub.setBounds(536, 34, 182, 20);
-		panelVideo.add(textFieldFechaPub);
-		textFieldFechaPub.setColumns(10);
-		
 		lblFechaNueva = new JLabel("Fecha nueva");
 		lblFechaNueva.setBounds(423, 62, 86, 14);
 		panelVideo.add(lblFechaNueva);
 		
 		chckbxEditarFechaPub = new JCheckBox("Editar Fecha");
-		chckbxEditarFechaPub.setBounds(635, 102, 97, 23);
+		chckbxEditarFechaPub.setBounds(552, 102, 97, 23);
 		panelVideo.add(chckbxEditarFechaPub);
+		
+		dateChooserVideoVieja = new JDateChooser();
+		dateChooserVideoVieja.setBounds(552, 31, 169, 20);
+		panelVideo.add(dateChooserVideoVieja);
+		
+		dateChooserVideoNueva = new JDateChooser();
+		dateChooserVideoNueva.setBounds(552, 62, 169, 20);
+		panelVideo.add(dateChooserVideoNueva);
 		
 		btnSalir = new JButton("Salir");
 		btnSalir.setBounds(721, 26, 89, 23);
@@ -428,7 +409,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		btnModificarUsuario = new JButton("Modificar Datos");
 		btnModificarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				modificarUsuario();
 			}
 		});
 		btnModificarUsuario.setBounds(305, 601, 152, 23);
@@ -472,27 +453,32 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	
 	public void modificarUsuario() {
 		if (userLoaded) {
-			Date fechaNueva = new Date();
+			Date fechaNueva = usuarioAModificar.getFechaNac();
 			if (chckbxEditarFecha.isSelected()) {
-				fechaNueva = new Date();				
+				fechaNueva = dateChooserNueva.getDate();			
 			}
-			DtUsuario usuario = new DtUsuario(textFieldNick.getText(), textFieldCorreo.getText(), textFieldNombre.getText(), textFieldApellido.getText(), fechaNueva, imgPath);
+			DtUsuario usuarioNuevo = new DtUsuario(textFieldNick.getText(), textFieldCorreo.getText(), textFieldNombre.getText(), textFieldApellido.getText(), fechaNueva, imgPath);
 					
-			DtCanal canal = new DtCanal(textFieldNombreCanal.getText(), textAreaDescripcion.getText(), textFieldNick.getText(), chckbxPrivado.isSelected());
-			controller.modificarUsuarioCanal(usuario, canal);
+			DtCanal canalNuevo = new DtCanal(textFieldNombreCanal.getText(), textAreaDescripcion.getText(), textFieldNick.getText(), chckbxPrivado.isSelected());
+			if (usuarioNuevo != usuarioAModificar || canalNuevo != canalAModificar)
+				controller.modificarUsuarioCanal(usuarioNuevo, canalNuevo);
 			
 			if (videoSeleccionado) {
-				String categoriaVideo = null;
-				Date fechaPub = new Date();
-				if (!comboBoxCategoriaNuevaVideo.getSelectedItem().toString().equals("")) categoriaVideo = comboBoxCategoriaNuevaVideo.getSelectedItem().toString();
-				DtVideo video = new DtVideo(0, textFieldNombreVideo.getText(), chckbxPrivadoVideo.isSelected(), canal.getNombre(), textAreaDescripcionVideo.getText(), Integer.parseInt(textFieldDuracion.getText()), categoriaVideo, fechaPub, textFieldURL.getText());				
-				controller.editarVideo(video);
+				String categoriaVideo = vidAModificar.getCategoria();
+				Date fechaPub = vidAModificar.getFechaPub();
+				controller.seleccionarVideo(vidAModificar.getNombre());
+				if (chckbxEditarFechaPub.isSelected()) fechaPub = dateChooserVideoNueva.getDate();
+				if (!comboBoxCategoriaNuevaVideo.getSelectedItem().toString().equals("") && !categoriaVideo.equals(comboBoxCategoriaNuevaVideo.getSelectedItem().toString())) categoriaVideo = comboBoxCategoriaNuevaVideo.getSelectedItem().toString();
+				DtVideo video = new DtVideo(0, textFieldNombreVideo.getText(), chckbxPrivadoVideo.isSelected(), canalAModificar.getNombre(), textAreaDescripcionVideo.getText(), Integer.parseInt(textFieldDuracion.getText()), categoriaVideo, fechaPub, textFieldURL.getText());				
+				
+				if (vidAModificar != video) controller.editarVideo(video);
 			}
 			
 			if (listaSeleccionada) {
-				
-				controller.modificarListaParticular(listaSeleccionada, datosNuevos);
-				
+				String categoriaLista = lstAModificar.getCategoria();
+				if (!comboBoxCategoriaListaNueva.getSelectedItem().toString().equals("") && !categoriaLista.equals(comboBoxCategoriaListaNueva.getSelectedItem().toString()));
+				DtLista listaNueva = new DtLista(0,textFieldNombreLista.getText(),chckbxPrivadoLista.isSelected(), false, categoriaLista);				
+				if (listaNueva != lstAModificar) controller.modificarListaParticular(lstAModificar, listaNueva);				
 			}
 			
 			
@@ -518,28 +504,11 @@ public class ModificarDatosUsuario extends JInternalFrame {
 			comboBoxCategoriaNuevaVideo.addItem(string);
 			comboBoxCategoriaListaNueva.addItem(string);
 		}
-	}
-	
-	public void fillDiaMesAnio(){
-		for (Integer i = 1; i < 32; i++) {
-			comboBoxDia.addItem(i.toString());
-			comboBoxDiaPub.addItem(i.toString());
-		}
-		
-		for (Integer i = 1; i < 13; i++) {
-			comboBoxMes.addItem(i.toString());
-			comboBoxMesPub.addItem(i.toString());
-		}
-		
-		for (Integer i = 1; i < 2017; i++) {
-			comboBoxAnio.addItem(i.toString());
-			comboBoxAnioPub.addItem(i.toString());
-		}
-	}
+	}	
 	
 	public void fillDataLista(String lista) {
 		DtLista lst = controller.seleccionarLista(lista);
-		
+		lstAModificar = lst;
 		if (lst.getCategoria() != null) textFieldCategoriaLista.setText(lst.getCategoria());
 		textFieldNombreLista.setText(lst.getNombre());
 		chckbxPrivadoLista.setSelected(lst.isPrivado());		
@@ -547,11 +516,12 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	
 	public void fillDataVideo(String video) {
 		DtVideo vid = controller.consultarVideo(video);
+		vidAModificar = vid;
 		textFieldNombreVideo.setText(vid.getNombre());
 		textFieldDuracion.setText(vid.getDuracion().toString());
 		textFieldURL.setText(vid.getUrl());
 		textFieldCategoriaVideo.setText(vid.getCategoria());
-		textFieldFechaPub.setText(vid.getFechaPub().toString());
+		dateChooserVideoVieja.setDate(vid.getFechaPub());
 		
 	}
 	
@@ -559,13 +529,15 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		textFieldCategoriaLista.removeAll();
 		textFieldNombreLista.removeAll();
 		chckbxPrivadoLista.setSelected(false);
+		lstAModificar = null;
 	}
 	
 	public void cleanVideoData() {
 		textFieldNombreVideo.removeAll();
 		textFieldDuracion.removeAll();
 		textFieldURL.removeAll();
-		textFieldCategoriaVideo.removeAll();		
+		textFieldCategoriaVideo.removeAll();	
+		vidAModificar = null;
 	}
 	
 	
@@ -580,6 +552,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		textFieldNombreCanal.removeAll();
 		textAreaDescripcion.removeAll();
 		chckbxPrivado.setSelected(false);
+		usuarioAModificar = null;
+		canalAModificar = null;
 		
 	}
 	
@@ -595,7 +569,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 				usuario = entry.getKey();
 				canal = entry.getValue();
 		}
-		
+		usuarioAModificar = usuario;
+		canalAModificar = canal;
 		textFieldNick.setText(usuario.getNickname());
 		textFieldNombre.setText(usuario.getNombre());
 		textFieldApellido.setText(usuario.getApellido());
@@ -603,7 +578,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		chckbxPrivado.setSelected(canal.isPrivado());
 		imgPath = usuario.getImg();
 		
-		textFieldFechaNacVieja.setText(usuario.getFechaNac().toString());
+		dateChooserVieja.setDate(usuario.getFechaNac());
+		
 		
 		
 		if (usuario.getImg() != null) {
@@ -636,7 +612,4 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		
 		
 	}
-	
-	
-	
 }

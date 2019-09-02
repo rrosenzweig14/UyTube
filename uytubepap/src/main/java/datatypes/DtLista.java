@@ -54,4 +54,16 @@ public class DtLista {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}	
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) return false;
+		
+		DtLista lst = (DtLista) o;
+		return nombre.equals(lst.nombre) && privado == lst.privado && categoria.equals(lst.categoria); 
+	}
+	
 }

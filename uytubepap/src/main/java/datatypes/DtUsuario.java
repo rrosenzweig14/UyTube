@@ -101,4 +101,16 @@ public class DtUsuario {
     public void addSeguidor(DtUsuario u) {
     	this.seguidores.put(u.getNickname(), u);
     }
+    
+    @Override
+    public boolean equals(Object o) {
+    	if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) return false;
+		
+		DtUsuario user = (DtUsuario) o;
+		
+		return nickname.equals(user.nickname) && nombre.equals(user.nombre) && apellido.equals(user.apellido) && email.equals(user.email) && img.equals(user.img) && fechaNac == user.fechaNac;
+    }
 }

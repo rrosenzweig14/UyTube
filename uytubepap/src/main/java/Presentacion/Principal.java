@@ -366,7 +366,6 @@ public class Principal extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					modificarDatosUsuarioFrame.FillUsers();
 					modificarDatosUsuarioFrame.fillCategories();
-					modificarDatosUsuarioFrame.fillDiaMesAnio();
 					modificarDatosUsuarioFrame.setVisible(true);
 					
 				}
