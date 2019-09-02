@@ -131,6 +131,7 @@ public void ValoracionVideo(){
  } catch (Exception EvalroarVideo) {
   JOptionPane.showMessageDialog(null, "No se ha logrado valorar vídeo.");
  }
+ finCasoUso();
 }
 
 public void fillUsers() {

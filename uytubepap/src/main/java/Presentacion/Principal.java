@@ -123,6 +123,7 @@ public class Principal extends JFrame {
 		ValorarVideoInternalFrame.setVisible(false);
 		ValorarVideoInternalFrame.setBounds(100, 100, 530, 430);
 		frame.getContentPane().add(ValorarVideoInternalFrame);
+		//valorarUnVideo
 		
 		
 		altaCategoriaInternalFrame = new AltaCategoria(ctrl);
