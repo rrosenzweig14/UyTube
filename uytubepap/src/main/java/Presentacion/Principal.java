@@ -111,10 +111,8 @@ public class Principal extends JFrame {
 	public Principal() {
 		lblNewImage = new JLabel("");
 		lblNewImage.setEnabled(false);
-		lblNewImage.setBounds(271,340,727,400);		
-		frame.setContentPane(lblNewImage);
-
-//		img = new ImageIcon("././img//UyTube.png").getImage();		
+		lblNewImage.setBounds(350,340,727,400);		
+		img = new ImageIcon("././img//UyTube.png").getImage();		
 		
 		BufferedImage img = null;
 		try {
@@ -126,15 +124,16 @@ public class Principal extends JFrame {
 		ImageIcon imageIcon = new ImageIcon(dimg);
 		lblNewImage.setIcon(imageIcon);
 		
-//		ImageIcon img2=new ImageIcon(img);
-//		lblNewImage.setVisible(true);
-//		lblNewImage.setIcon(img2);
+		ImageIcon img2=new ImageIcon(img);
+		lblNewImage.setVisible(true);
+		lblNewImage.setIcon(img2);
 		initialize();		
 		//frame.getContentPane().add(lblNewImage);	
 		//IControlador ctrl = Fabrica.getIControlador();
 		Conexion.open();		
 		frame.getContentPane().setLayout(null);
-		
+		frame.setContentPane(lblNewImage);
+
 	}
 	/*
 	 * 
