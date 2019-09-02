@@ -407,6 +407,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				finCasoUso();
+				dispose();
 			}
 		});
 		btnSalir.setBounds(721, 26, 89, 23);
@@ -416,6 +417,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		btnModificarUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				modificarUsuario();
+				finCasoUso();
+				dispose();
 			}
 		});
 		btnModificarUsuario.setBounds(305, 601, 152, 23);
@@ -474,7 +477,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 					if (chckbxEditarFechaPub.isSelected())
 						fechaPub = dateChooserVideoNueva.getDate();
 					if (!comboBoxCategoriaNuevaVideo.getSelectedItem().toString().equals("")
-							&& !categoriaVideo.equals(comboBoxCategoriaNuevaVideo.getSelectedItem().toString()))
+							&& categoriaVideo != null && !categoriaVideo.equals(comboBoxCategoriaNuevaVideo.getSelectedItem().toString()))
 						categoriaVideo = comboBoxCategoriaNuevaVideo.getSelectedItem().toString();
 					DtVideo video = new DtVideo(0, textFieldNombreVideo.getText(), chckbxPrivadoVideo.isSelected(),
 							canalAModificar.getNombre(), textAreaDescripcionVideo.getText(),

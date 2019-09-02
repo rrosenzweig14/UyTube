@@ -2,7 +2,8 @@ package Presentacion;
 
 import java.awt.Image;
 import java.io.File;
-import java.sql.Date;
+import java.util.Date;
+
 import javax.swing.JInternalFrame;
 
 import interfaces.IControlador;
@@ -25,6 +26,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JTextArea;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import com.toedter.calendar.JDateChooser;
 
 @SuppressWarnings("serial")
 public class AltaUsuario extends JInternalFrame {
@@ -46,10 +48,7 @@ public class AltaUsuario extends JInternalFrame {
 	private JLabel lblDescripcion;
 	private JTextArea textAreaDescripcion;
 	private JCheckBox chckbxPrivado; 
-	
-	private Choice dia;
-	private Choice mes;
-	private Choice anio;
+	private JDateChooser dateChooserFechaNac;
 	
 	private String imagen;
 	public Image foto1=null;
@@ -69,7 +68,7 @@ public class AltaUsuario extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		lblNickname = new JLabel("NickName");
-		lblNickname.setBounds(50, 26, 70, 14);
+		lblNickname.setBounds(26, 26, 70, 14);
 		getContentPane().add(lblNickname);
 		
 		textFieldNickname = new JTextField();
@@ -78,7 +77,7 @@ public class AltaUsuario extends JInternalFrame {
 		textFieldNickname.setColumns(10);
 		
 		lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(50, 57, 46, 14);
+		lblNombre.setBounds(26, 57, 46, 14);
 		getContentPane().add(lblNombre);
 		
 		textFieldNombre = new JTextField();
@@ -87,7 +86,7 @@ public class AltaUsuario extends JInternalFrame {
 		textFieldNombre.setColumns(10);
 		
 		lblApellido = new JLabel("Apellido");
-		lblApellido.setBounds(50, 88, 46, 14);
+		lblApellido.setBounds(26, 82, 46, 14);
 		getContentPane().add(lblApellido);
 		
 		textFieldApellido = new JTextField();
@@ -96,7 +95,7 @@ public class AltaUsuario extends JInternalFrame {
 		textFieldApellido.setColumns(10);
 		
 		lblCorreo = new JLabel("Correo");
-		lblCorreo.setBounds(50, 119, 46, 14);
+		lblCorreo.setBounds(26, 113, 46, 14);
 		getContentPane().add(lblCorreo);
 		
 		textFieldCorreo = new JTextField();
@@ -104,22 +103,8 @@ public class AltaUsuario extends JInternalFrame {
 		getContentPane().add(textFieldCorreo);
 		textFieldCorreo.setColumns(10);
 		
-		dia = new Choice();
-		dia.setBounds(163, 152, 43, 20);
-		getContentPane().add(dia);
-		
-		mes = new Choice();
-		mes.setBounds(240, 152, 40, 20);
-		getContentPane().add(mes);
-		
-		anio = new Choice();
-		anio.setBounds(310, 152, 53, 20);
-		getContentPane().add(anio);
-		
-		fillDiaMesAnio();
-		
-		lblFecha = new JLabel("Fecha");
-		lblFecha.setBounds(50, 152, 46, 14);
+		lblFecha = new JLabel("Fecha de Nacimiento");
+		lblFecha.setBounds(26, 153, 224, 14);
 		getContentPane().add(lblFecha);
 		
 		btnCancel = new Button("Cancelar");
@@ -189,6 +174,10 @@ public class AltaUsuario extends JInternalFrame {
 		textAreaDescripcion.setBounds(163, 297, 200, 38);
 		textAreaDescripcion.setVisible(false);
 		getContentPane().add(textAreaDescripcion);
+		
+		dateChooserFechaNac = new JDateChooser();
+		dateChooserFechaNac.setBounds(163, 147, 200, 20);
+		getContentPane().add(dateChooserFechaNac);
 
 	}
 	
@@ -249,26 +238,12 @@ public class AltaUsuario extends JInternalFrame {
 	}
 		
 	
-	public void fillDiaMesAnio(){
-		for (Integer i = 1; i < 32; i++) {
-			dia.add(i.toString());
-		}
-		
-		for (Integer i = 1; i < 13; i++) {
-			mes.add(i.toString());
-		}
-		
-		for (Integer i = 1; i < 2017; i++) {
-			anio.add(i.toString());
-		}
-	}
-	
 	public boolean checkFormulario() {
 		String nick = this.textFieldNickname.getText();
 		String nombre = this.textFieldNombre.getText();
 		String apellido = this.textFieldApellido.getText();
 		String correo = this.textFieldCorreo.getText();
-		String fecha = dia.getSelectedItem() + mes.getSelectedItem() + anio.getSelectedItem();		
+		String fecha = dateChooserFechaNac.getDate().toString();
 		if (nick.equals("") || nombre.equals("")  || apellido.equals("") || correo.equals("") || fecha.equals("")) {
 			JOptionPane.showMessageDialog(null, "Quedan campos sin rellenar.");		
 			return false;
@@ -297,8 +272,7 @@ public class AltaUsuario extends JInternalFrame {
 		
 		if (checkFormulario()) {
 			try {
-				@SuppressWarnings("deprecation")
-				Date fechaNac = new Date(Integer.parseInt(dia.getSelectedItem()),Integer.parseInt(mes.getSelectedItem()),Integer.parseInt(anio.getSelectedItem()));
+				Date fechaNac = dateChooserFechaNac.getDate();
 				if (controller.ingresarUsuario(nick, nombre, apellido, correo, fechaNac, imagen, datosCanal)) {
 					JOptionPane.showMessageDialog(this, "Se creó el usuario exitosamente.", "Alta Usuario", JOptionPane.INFORMATION_MESSAGE);
 					finCasoUso();
