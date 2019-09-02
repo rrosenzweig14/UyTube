@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import interfaces.IControlador;
 
@@ -47,8 +48,7 @@ public class AltaCategoria extends JInternalFrame {
 					//ctrl.altaCategoria(txtNombre.getText());
 					
 					if(ctrl.altaCategoria(txtNombre.getText())) {
-						lblInfo.setText("Categoria agregada!");
-						lblInfo.setVisible(true);
+						fin();
 					}
 					else {
 						lblInfo.setText("Categoria existente!");
@@ -76,8 +76,10 @@ public class AltaCategoria extends JInternalFrame {
 	}
 	
 	public void fin() {
-		setVisible(false);
+		JOptionPane.showMessageDialog(this, "Categoria agregada correctamente.", "Alta Categoria", JOptionPane.INFORMATION_MESSAGE);
+		ctrl.finCasoUso();
 		dispose();
+		setVisible(false);
 		ctrl.finCasoUso();		
 	}
 }

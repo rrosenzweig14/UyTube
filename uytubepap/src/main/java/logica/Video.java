@@ -154,7 +154,11 @@ public class Video {
     }
 //	
 	public DtVideo getDt() {
-		DtVideo dtv = new DtVideo(this.id,this.nombre,this.privado,null,this.descripcion,this.duracion,null,this.fechaPub,this.url);	
+		String s = null;
+		if(this.categoria != null) {
+			s = this.categoria.getNombre();
+		}
+		DtVideo dtv = new DtVideo(this.id,this.nombre,this.privado,null,this.descripcion,this.duracion,s,this.fechaPub,this.url);	
 		dtv.setComentarios(getElPutoTree()); 
 		return dtv;
 	}

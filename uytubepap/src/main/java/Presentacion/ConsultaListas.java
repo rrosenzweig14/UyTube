@@ -22,6 +22,7 @@ import java.awt.event.InputMethodEvent;
 import java.awt.event.InputMethodListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.beans.PropertyVetoException;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
 
@@ -47,17 +48,25 @@ public class ConsultaListas extends JInternalFrame {
 	private JComboBox cbUsuario;
 	private JComboBox cbLista;
 	private JComboBox cbVideos;
+	private ConsultaVideo consultaVideoInternalFrame;
+
 
 
 	/**
 	 * Create the frame.
 	 */
 	public ConsultaListas(IControlador ctrl) {
+		setResizable(true);
 		cr = ctrl;
-		setBounds(100, 100, 386, 303);
+		setBounds(100, 100, 695, 510);
 		setClosable(true);
 		setTitle("Consulta de Listas");
 		getContentPane().setLayout(null);
+		
+		consultaVideoInternalFrame = new ConsultaVideo(ctrl);
+		consultaVideoInternalFrame.setResizable(true);
+		consultaVideoInternalFrame.setBounds(0, 0, 679, 469);
+		getContentPane().add(consultaVideoInternalFrame);
 		
 		JLabel lblSeleccioneUsuario = new JLabel("Seleccione Usuario");
 		lblSeleccioneUsuario.setBounds(12, 24, 151, 15);
@@ -159,6 +168,21 @@ public class ConsultaListas extends JInternalFrame {
 		
 		JButton btnConsultarVideo = new JButton("Consultar Video");
 		btnConsultarVideo.setBounds(115, 234, 159, 25);
+		btnConsultarVideo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				consultaVideoInternalFrame.desdeLista((String) cbUsuario.getSelectedItem(),(String) cbVideos.getSelectedItem());
+				consultaVideoInternalFrame.setVisible(true);
+				try {
+					consultaVideoInternalFrame.setSelected(true);
+				} catch (PropertyVetoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		getContentPane().add(btnConsultarVideo);
 	}
 	
