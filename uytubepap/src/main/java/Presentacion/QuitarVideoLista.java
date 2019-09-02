@@ -42,7 +42,7 @@ public class QuitarVideoLista extends JInternalFrame {
 		ctrl = ctrl2;
 		setClosable(true);
 		setBounds(100, 100, 530, 239);
-		setTitle("Agregar Video a Lista de Reproduccion");
+		setTitle("Quitar Video de Lista de Reproduccion");
 		getContentPane().setLayout(null);
 		
 		lblUser1 = new JLabel("Usuario:");
