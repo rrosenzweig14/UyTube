@@ -277,7 +277,7 @@ public class Principal extends JFrame {
 					consultaCategoriaInternalFrame.setBounds(100, 100, 465, 488);
 					consultaCategoriaInternalFrame.fillCategories();
 					consultaCategoriaInternalFrame.setVisible(true);
-					frame.getContentPane().add(consultaCategoriaInternalFrame);
+					frame.getContentPane().add(consultaCategoriaInternalFrame);  
 					
 				}
 			});
@@ -362,14 +362,13 @@ public class Principal extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					modificarListaRepInternalFrame = new ModificarListaRep(ctrl);
-					modificarListaRepInternalFrame.setBounds(100, 100, 386, 303);
-						
+					modificarListaRepInternalFrame.setBounds(100, 100, 386, 303);						
 					modificarListaRepInternalFrame.nuevoCaso();
 					modificarListaRepInternalFrame.fillUsers();
 					modificarListaRepInternalFrame.fillCategories();
-					modificarListaRepInternalFrame.fillPrivacidad();
-					frame.getContentPane().add(modificarListaRepInternalFrame);	
+					modificarListaRepInternalFrame.fillPrivacidad();					
 					modificarListaRepInternalFrame.setVisible(true);
+					frame.getContentPane().add(modificarListaRepInternalFrame);	
 				}
 			});
 			mnModificaciones.add(mntmModificarLista);
@@ -398,9 +397,9 @@ public class Principal extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					comentarVideoInternalFrame = new ComentarVideo(ctrl);
 					comentarVideoInternalFrame.setBounds(100, 100, 530, 466);
-					comentarVideoInternalFrame.fillUsers();
-					frame.getContentPane().add(comentarVideoInternalFrame);	
+					comentarVideoInternalFrame.fillUsers();					
 					comentarVideoInternalFrame.setVisible(true);
+					frame.getContentPane().add(comentarVideoInternalFrame);	
 				}
 			});
 			mnAccionesVideo.add(mntmComentarUnVideo);
@@ -427,9 +426,9 @@ public class Principal extends JFrame {
 					quitarVideoListaInternalFrame = new QuitarVideoLista(ctrl);
 					quitarVideoListaInternalFrame.setClosable(true);
 					quitarVideoListaInternalFrame.setBounds(100, 100, 530, 239);					
-					comentarVideoInternalFrame.fillUsers();
-					frame.getContentPane().add(quitarVideoListaInternalFrame);
+					quitarVideoListaInternalFrame.fillUsers();					
 					quitarVideoListaInternalFrame.setVisible(true);
+					frame.getContentPane().add(quitarVideoListaInternalFrame);
 					
 				}
 			});
@@ -444,10 +443,10 @@ public class Principal extends JFrame {
 			mntmSeguirUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					seguirUsuarioInternalFrame = new SeguirUsuario(ctrl);
-					seguirUsuarioInternalFrame.setBounds(100, 100, 530, 430);
-					frame.getContentPane().add(seguirUsuarioInternalFrame);	
+					seguirUsuarioInternalFrame.setBounds(100, 100, 530, 430);					
 					seguirUsuarioInternalFrame.fillUsers();
 					seguirUsuarioInternalFrame.setVisible(true);
+					frame.getContentPane().add(seguirUsuarioInternalFrame);	
 				}
 			});
 			mnAccionesUsuario.add(mntmSeguirUsuario);
