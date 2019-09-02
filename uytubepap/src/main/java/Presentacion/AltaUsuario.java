@@ -272,8 +272,10 @@ public class AltaUsuario extends JInternalFrame {
 		
 		if (checkFormulario()) {
 			try {
-				Date fechaNac = dateChooserFechaNac.getDate();
-				if (controller.ingresarUsuario(nick, nombre, apellido, correo, fechaNac, imagen, datosCanal)) {
+
+				Date fechaNac = dateChooserFechaNac.getDate();				
+				if (controller.ingresarUsuario(nick, apellido, nombre, correo, fechaNac, imagen, datosCanal)) {
+
 					JOptionPane.showMessageDialog(this, "Se creó el usuario exitosamente.", "Alta Usuario", JOptionPane.INFORMATION_MESSAGE);
 					finCasoUso();
 					dispose();
