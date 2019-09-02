@@ -63,6 +63,7 @@ public class Principal extends JFrame {
 	private Image img;
 	private JLabel lblNewImage;
 
+	private IControlador ctrl = Fabrica.getIControlador();
 	// Internal frames por Caso de Uso
 	private AltaUsuario altaUsuarioInternalFrame;
 	private AltaCategoria altaCategoriaInternalFrame;
@@ -80,6 +81,8 @@ public class Principal extends JFrame {
 	private AgregarVideoLista agregagVideoListaInternalFrame;
 	private ModificarListaRep modificarListaRepInternalFrame;
 	private ModificarDatosUsuario modificarDatosUsuarioFrame;
+	private QuitarVideoLista quitarVideoListaInternalFrame;
+	private ModificarVideo modificarDatosVideoInternalFrame;
 
 
 	/**
@@ -103,7 +106,7 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		initialize();
-		IControlador ctrl = Fabrica.getIControlador();
+		//IControlador ctrl = Fabrica.getIControlador();
 		Conexion.open();
 		
 		
@@ -165,6 +168,7 @@ public class Principal extends JFrame {
 		comentarVideoInternalFrame.setBounds(100, 100, 530, 466);
 		frame.getContentPane().add(comentarVideoInternalFrame);	
 
+
 		consultaVideoInternalFrame = new ConsultaVideo(ctrl);
 		consultaVideoInternalFrame.setVisible(false);
 		consultaVideoInternalFrame.setBounds(100, 100, 850, 700);
@@ -183,8 +187,7 @@ public class Principal extends JFrame {
 		modificarListaRepInternalFrame = new ModificarListaRep(ctrl);
 		modificarListaRepInternalFrame.setVisible(false);
 		modificarListaRepInternalFrame.setBounds(100, 100, 386, 303);
-		frame.getContentPane().add(modificarListaRepInternalFrame);
-		
+		frame.getContentPane().add(modificarListaRepInternalFrame);		
 		modificarDatosUsuarioFrame = new ModificarDatosUsuario(ctrl);
 		modificarDatosUsuarioFrame.setVisible(false);
 		modificarDatosUsuarioFrame.setBounds(100, 100, 894, 698);
@@ -196,9 +199,13 @@ public class Principal extends JFrame {
 		ImageIcon img2=new ImageIcon(img);
 		lblNewImage.setIcon(img2);
 		lblNewImage.setVisible(true);
-		frame.getContentPane().add(lblNewImage);
-		
-		
+		frame.getContentPane().add(lblNewImage);		
+
+		modificarDatosVideoInternalFrame = new ModificarVideo(ctrl);
+		modificarDatosVideoInternalFrame.setVisible(false);
+		modificarDatosVideoInternalFrame.setBounds(100, 100, 850, 550);
+		frame.getContentPane().add(modificarDatosVideoInternalFrame);
+
 	}
 	/*
 	 * 
@@ -304,8 +311,7 @@ public class Principal extends JFrame {
 			mntmConsultaDeLista = new JMenuItem("Consulta de Lista");
 			mntmConsultaDeLista.setIcon(new ImageIcon("././img/Icons/clipboard-search-symbol.png"));
 			mntmConsultaDeLista.setFont(new Font("Dialog", Font.BOLD, 15));
-			mntmConsultaDeLista.addActionListener(new ActionListener() {
-				
+			mntmConsultaDeLista.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					consultaListasInternalFrame.fillUsers();
@@ -318,8 +324,7 @@ public class Principal extends JFrame {
 			mntmConsultaDeCategoria = new JMenuItem("Consulta de Categoria");
 			mntmConsultaDeCategoria.setIcon(new ImageIcon("././img/Icons/search_category.png"));
 			mntmConsultaDeCategoria.setFont(new Font("Dialog", Font.BOLD, 15));
-			mntmConsultaDeCategoria.addActionListener(new ActionListener() {
-				
+			mntmConsultaDeCategoria.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					consultaCategoriaInternalFrame.fillCategories();
@@ -375,13 +380,20 @@ public class Principal extends JFrame {
 			mntmModificarDatosVideo = new JMenuItem("Modificar Datos de Video");
 			mntmModificarDatosVideo.setIcon(new ImageIcon("././img/Icons/video.png"));
 			mntmModificarDatosVideo.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmModificarDatosVideo.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					modificarDatosVideoInternalFrame.fillUsers();
+					modificarDatosVideoInternalFrame.fillCategories();
+					modificarDatosVideoInternalFrame.setVisible(true);
+				}
+			});
 			mnModificaciones.add(mntmModificarDatosVideo);
 
 			mntmModificarLista = new JMenuItem("Modificar Lista de Reproduccion");
 			mntmModificarLista.setIcon(new ImageIcon("././img/Icons/icon.png"));
 			mntmModificarLista.setFont(new Font("Dialog", Font.BOLD, 15));
-			mntmModificarLista.addActionListener(new ActionListener() {
-				
+			mntmModificarLista.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					modificarListaRepInternalFrame.fillUsers();
@@ -423,8 +435,18 @@ public class Principal extends JFrame {
 			mntmQuitarVideoLista = new JMenuItem("Quitar Video de Lista");
 			mntmQuitarVideoLista.setIcon(new ImageIcon("././img/Icons/remove-video.png"));
 			mntmQuitarVideoLista.setFont(new Font("Dialog", Font.BOLD, 15));
-			mnAccionesVideo.add(mntmQuitarVideoLista);
-
+			mntmQuitarVideoLista.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					quitarVideoListaInternalFrame = new QuitarVideoLista(ctrl);
+					quitarVideoListaInternalFrame.setClosable(true);
+					quitarVideoListaInternalFrame.setBounds(100, 100, 530, 239);
+					quitarVideoListaInternalFrame.setVisible(true);
+					frame.getContentPane().add(quitarVideoListaInternalFrame);				
+					comentarVideoInternalFrame.fillUsers();
+				}
+			});
+			mnAccionesVideo.add(mntmQuitarVideoLista);			
+		
 			mnAccionesUsuario = new JMenu("Acciones Usuario");
 			menuBar.add(mnAccionesUsuario);
 
