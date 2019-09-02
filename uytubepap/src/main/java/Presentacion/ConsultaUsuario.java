@@ -436,10 +436,9 @@ public class ConsultaUsuario extends JInternalFrame {
 	public void fillVideoData(DtVideo video) {
 		textFieldNombreVideo.setVisible(true);
 		textAreaDescripcionVideo.setVisible(true);
-		textFieldFecha.setVisible(true);
+		textFieldFechaPub.setVisible(true);
 		textFieldURL.setVisible(true);
 		textFieldDuracionVideo.setVisible(true);
-		textFieldFechaPub.setVisible(true);
 		chckbxVideoPrivado.setVisible(true);
 		lblComentarios.setVisible(true);
 		lblDescripcionVideo.setVisible(true);
@@ -458,7 +457,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		textFieldNombreVideo.setText(video.getNombre());
 		textAreaDescripcionVideo.setText(video.getDescripcion());
 		textFieldDuracionVideo.setText(video.getDuracion().toString());
-		textFieldFecha.setText(video.getFechaPub().toString());
+		textFieldFechaPub.setText(video.getFechaPub().toString());
 		textFieldURL.setText(video.getUrl());
 		if (video.getComentarios() != null) {
 			treeComentarios = video.getComentarios();
@@ -483,7 +482,6 @@ public class ConsultaUsuario extends JInternalFrame {
 	public void cleanVideoData() {
 		textFieldNombreVideo.removeAll();
 		textFieldDescripcion.removeAll();
-		textFieldFecha.removeAll();
 		textFieldURL.removeAll();
 		if (treeComentarios != null) {
 			treeComentarios.removeAll();
@@ -492,7 +490,7 @@ public class ConsultaUsuario extends JInternalFrame {
 		chckbxVideoPrivado.removeAll();
 		textFieldNombreVideo.setVisible(false);
 		textAreaDescripcionVideo.setVisible(false);
-		textFieldFecha.setVisible(false);
+		textFieldFechaPub.setVisible(false);
 		textFieldURL.setVisible(false);
 		textFieldDuracionVideo.setVisible(false);
 		textFieldFechaPub.setVisible(false);

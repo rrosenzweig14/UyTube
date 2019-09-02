@@ -217,12 +217,7 @@ public class Principal extends JFrame {
 
 		frame = new JFrame();
 		frame.setTitle("UyTube");
-		frame.setBounds(100, 100, 800, 600);
-		
-		
-		
-		
-		
+		frame.setBounds(100, 100, 800, 600);		
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		{
@@ -370,6 +365,8 @@ public class Principal extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					modificarDatosUsuarioFrame.FillUsers();
+					modificarDatosUsuarioFrame.fillCategories();
+					modificarDatosUsuarioFrame.fillDiaMesAnio();
 					modificarDatosUsuarioFrame.setVisible(true);
 					
 				}
