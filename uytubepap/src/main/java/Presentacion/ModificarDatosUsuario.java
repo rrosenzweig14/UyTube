@@ -242,6 +242,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 						&& !comboBoxListas.getSelectedItem().toString().equals(" ")) {
 					fillDataLista(comboBoxListas.getSelectedItem().toString());
 					listaSeleccionada = true;
+					chckbxCambiarCategoriaLista.setVisible(true);
 				}
 
 			}
@@ -261,6 +262,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 						&& !comboBoxVideos.getSelectedItem().toString().equals(" ")) {
 					fillDataVideo(comboBoxVideos.getSelectedItem().toString());
 					videoSeleccionado = true;
+					chckbxCambiarCategoriaVideo.setVisible(true);
 				}
 			}
 		});
@@ -485,10 +487,14 @@ public class ModificarDatosUsuario extends JInternalFrame {
 					Date fechaPub = vidAModificar.getFechaPub();
 					controller.seleccionarVideo(vidAModificar.getNombre());
 					if (chckbxEditarFechaPub.isSelected())
-						fechaPub = dateChooserVideoNueva.getDate();					
-					if (!comboBoxCategoriaNuevaVideo.getSelectedItem().toString().equals("")
-							&& categoriaVideo != null && !categoriaVideo.equals(comboBoxCategoriaNuevaVideo.getSelectedItem().toString()))
-						categoriaVideo = comboBoxCategoriaNuevaVideo.getSelectedItem().toString();					
+						fechaPub = dateChooserVideoNueva.getDate();		
+					
+					if (chckbxCambiarCategoriaVideo.isSelected() && categoriaVideo == null && !comboBoxCategoriaNuevaVideo.getSelectedItem().toString().equals(" ")) {
+						categoriaVideo = comboBoxCategoriaNuevaVideo.getSelectedItem().toString();
+					}
+					else 
+						if (chckbxCambiarCategoriaVideo.isSelected() && categoriaVideo != null && !categoriaVideo.equals(" "))
+							categoriaVideo = null;									
 					
 					DtVideo video = new DtVideo(0, textFieldNombreVideo.getText(), chckbxPrivadoVideo.isSelected(),
 							canalAModificar.getNombre(), textAreaDescripcionVideo.getText(),
@@ -569,6 +575,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		textFieldCategoriaLista.removeAll();
 		textFieldNombreLista.removeAll();
 		chckbxPrivadoLista.setSelected(false);
+		chckbxCambiarCategoriaLista.setSelected(false);
+		chckbxCambiarCategoriaLista.setVisible(false);
 		lstAModificar = null;
 	}
 
@@ -579,6 +587,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		textFieldCategoriaVideo.removeAll();
 		vidAModificar = null;
 		chckbxEditarFechaPub.setSelected(false);
+		chckbxCambiarCategoriaVideo.setSelected(false);
+		chckbxCambiarCategoriaVideo.setVisible(false);
 	}
 
 	public void cleanData() {
