@@ -162,7 +162,7 @@ public class Principal extends JFrame {
 		
 		consultaListasInternalFrame = new ConsultaListas(ctrl);
 		consultaListasInternalFrame.setVisible(false);
-		consultaListasInternalFrame.setBounds(100, 100, 386, 303);
+		consultaListasInternalFrame.setBounds(0, 0, 679, 469);
 		frame.getContentPane().add(consultaListasInternalFrame);
 
 		DejarDeSeguirInternalFrame = new noSeguirUsuario(ctrl);

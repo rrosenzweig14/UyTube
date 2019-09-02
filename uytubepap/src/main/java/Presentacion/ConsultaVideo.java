@@ -306,4 +306,11 @@ public class ConsultaVideo extends JInternalFrame {
 		}
 		userLoaded = true;
 	}
+	
+	public void desdeLista(String usuario, String video) {
+		comboBoxUsuarios.addItem(usuario);
+		comboBoxVideosCanal.removeAllItems();
+		comboBoxVideosCanal.addItem(video);
+	}
+	
 }

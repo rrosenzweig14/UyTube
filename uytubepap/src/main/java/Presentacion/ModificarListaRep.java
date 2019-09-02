@@ -221,9 +221,9 @@ public class ModificarListaRep extends JInternalFrame {
 	}
 	
 		public void fin() {
-		setVisible(false);
 		JOptionPane.showMessageDialog(this, "Lista modificada", "Modificar Lista Reproduccion", JOptionPane.INFORMATION_MESSAGE);
 		cr.finCasoUso();
+		setVisible(false);
 		dispose();		
 }
 }
