@@ -1,5 +1,5 @@
 package Presentacion;
-
+//probando
 import javax.swing.JInternalFrame;
 import datatypes.DtCanal;
 import datatypes.DtUsuario;
