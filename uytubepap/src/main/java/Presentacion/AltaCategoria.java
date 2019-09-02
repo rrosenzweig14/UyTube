@@ -5,7 +5,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
-//import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import interfaces.IControlador;
 
@@ -44,17 +44,12 @@ public class AltaCategoria extends JInternalFrame {
 		{
 			JButton btnAceptar = new JButton("Aceptar");
 			btnAceptar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					//ctrl.altaCategoria(txtNombre.getText());
-					
+				public void actionPerformed(ActionEvent e) {					
 					if(ctrl.altaCategoria(txtNombre.getText())) {
-						lblInfo.setText("Categoria agregada!");
-						lblInfo.setVisible(true);
-						//fin();
+						fin(true);
 					}
 					else {
-						lblInfo.setText("Categoria existente!");
-						lblInfo.setVisible(true);
+						existe();
 					}
 				}
 			});
@@ -65,7 +60,7 @@ public class AltaCategoria extends JInternalFrame {
 			JButton btnCancelar = new JButton("Cancelar");
 			btnCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					fin();
+					fin(false);
 				}
 			});
 			btnCancelar.setBounds(199, 82, 117, 25);
@@ -76,11 +71,14 @@ public class AltaCategoria extends JInternalFrame {
 		
 
 	}
+	public void existe() {
+		JOptionPane.showMessageDialog(this, "La categoria ingresada ya existe!", "Alta Categoria", JOptionPane.INFORMATION_MESSAGE);
+	}
 	
-	public void fin() {
+	public void fin(Boolean f) {
+		if(f)
+		JOptionPane.showMessageDialog(this, "Categoria agregada correctamente.", "Alta Categoria", JOptionPane.INFORMATION_MESSAGE);
 		setVisible(false);
-		//JOptionPane.showMessageDialog(this, "Categoria agregada correctamente.", "Alta Categoria", JOptionPane.INFORMATION_MESSAGE);
-		//ctrl.finCasoUso();
 		dispose();
 		ctrl.finCasoUso();		
 	}
