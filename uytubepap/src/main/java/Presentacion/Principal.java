@@ -54,6 +54,7 @@ public class Principal extends JFrame {
 	private JMenuItem mntmSeguirUsuario;
 	private JMenuItem mntmDejarDeSeguir;
 
+	private IControlador ctrl = Fabrica.getIControlador();
 	// Internal frames por Caso de Uso
 	private AltaUsuario altaUsuarioInternalFrame;
 	private AltaCategoria altaCategoriaInternalFrame;
@@ -70,6 +71,7 @@ public class Principal extends JFrame {
 	private ConsultaCategoria consultaCategoriaInternalFrame;
 	private AgregarVideoLista agregagVideoListaInternalFrame;
 	private ModificarListaRep modificarListaRepInternalFrame;
+	private QuitarVideoLista quitarVideoListaInternalFrame;
 
 
 	/**
@@ -93,7 +95,7 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		initialize();
-		IControlador ctrl = Fabrica.getIControlador();
+		//IControlador ctrl = Fabrica.getIControlador();
 		Conexion.open();
 		
 		
@@ -273,8 +275,7 @@ public class Principal extends JFrame {
 			mntmConsultaDeLista = new JMenuItem("Consulta de Lista");
 			mntmConsultaDeLista.setIcon(new ImageIcon("././img/Icons/clipboard-search-symbol.png"));
 			mntmConsultaDeLista.setFont(new Font("Dialog", Font.BOLD, 15));
-			mntmConsultaDeLista.addActionListener(new ActionListener() {
-				
+			mntmConsultaDeLista.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					consultaListasInternalFrame.fillUsers();
@@ -287,8 +288,7 @@ public class Principal extends JFrame {
 			mntmConsultaDeCategoria = new JMenuItem("Consulta de Categoria");
 			mntmConsultaDeCategoria.setIcon(new ImageIcon("././img/Icons/search_category.png"));
 			mntmConsultaDeCategoria.setFont(new Font("Dialog", Font.BOLD, 15));
-			mntmConsultaDeCategoria.addActionListener(new ActionListener() {
-				
+			mntmConsultaDeCategoria.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					consultaCategoriaInternalFrame.fillCategories();
@@ -340,8 +340,7 @@ public class Principal extends JFrame {
 			mntmModificarLista = new JMenuItem("Modificar Lista de Reproduccion");
 			mntmModificarLista.setIcon(new ImageIcon("././img/Icons/icon.png"));
 			mntmModificarLista.setFont(new Font("Dialog", Font.BOLD, 15));
-			mntmModificarLista.addActionListener(new ActionListener() {
-				
+			mntmModificarLista.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					modificarListaRepInternalFrame.fillUsers();
@@ -384,8 +383,18 @@ public class Principal extends JFrame {
 			mntmQuitarVideoLista = new JMenuItem("Quitar Video de Lista");
 			mntmQuitarVideoLista.setIcon(new ImageIcon("././img/Icons/remove-video.png"));
 			mntmQuitarVideoLista.setFont(new Font("Dialog", Font.BOLD, 15));
-			mnAccionesVideo.add(mntmQuitarVideoLista);
-
+			mntmQuitarVideoLista.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					quitarVideoListaInternalFrame = new QuitarVideoLista(ctrl);
+					quitarVideoListaInternalFrame.setClosable(true);
+					quitarVideoListaInternalFrame.setBounds(100, 100, 530, 239);
+					quitarVideoListaInternalFrame.setVisible(true);
+					frame.getContentPane().add(quitarVideoListaInternalFrame);				
+					comentarVideoInternalFrame.fillUsers();
+				}
+			});
+			mnAccionesVideo.add(mntmQuitarVideoLista);			
+		
 			mnAccionesUsuario = new JMenu("Acciones Usuario");
 			menuBar.add(mnAccionesUsuario);
 
