@@ -178,6 +178,11 @@ public class Principal extends JFrame {
 		modificarListaRepInternalFrame.setVisible(false);
 		modificarListaRepInternalFrame.setBounds(100, 100, 386, 303);
 		frame.getContentPane().add(modificarListaRepInternalFrame);
+
+		modificarDatosVideoInternalFrame = new ModificarVideo(ctrl);
+		modificarDatosVideoInternalFrame.setVisible(false);
+		modificarDatosVideoInternalFrame.setBounds(100, 100, 850, 550);
+		frame.getContentPane().add(modificarDatosVideoInternalFrame);
 	}
 	/*
 	 * 
