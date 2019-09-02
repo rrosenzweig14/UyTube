@@ -2,10 +2,14 @@ package Presentacion;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import interfaces.Fabrica;
 import interfaces.IControlador;
 import logica.Conexion;
@@ -13,7 +17,9 @@ import logica.Conexion;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -53,6 +59,9 @@ public class Principal extends JFrame {
 	private JMenu mnAccionesUsuario;
 	private JMenuItem mntmSeguirUsuario;
 	private JMenuItem mntmDejarDeSeguir;
+	
+	private Image img;
+	private JLabel lblNewImage;
 
 	// Internal frames por Caso de Uso
 	private AltaUsuario altaUsuarioInternalFrame;
@@ -70,6 +79,7 @@ public class Principal extends JFrame {
 	private ConsultaCategoria consultaCategoriaInternalFrame;
 	private AgregarVideoLista agregagVideoListaInternalFrame;
 	private ModificarListaRep modificarListaRepInternalFrame;
+	private ModificarDatosUsuario modificarDatosUsuarioFrame;
 
 
 	/**
@@ -174,6 +184,21 @@ public class Principal extends JFrame {
 		modificarListaRepInternalFrame.setVisible(false);
 		modificarListaRepInternalFrame.setBounds(100, 100, 386, 303);
 		frame.getContentPane().add(modificarListaRepInternalFrame);
+		
+		modificarDatosUsuarioFrame = new ModificarDatosUsuario(ctrl);
+		modificarDatosUsuarioFrame.setVisible(false);
+		modificarDatosUsuarioFrame.setBounds(100, 100, 894, 698);
+		frame.getContentPane().add(modificarDatosUsuarioFrame);
+		
+		lblNewImage = new JLabel("");
+		lblNewImage.setBounds(400,400,800,400);		
+		img = new ImageIcon("././img//UyTube.png").getImage();
+		ImageIcon img2=new ImageIcon(img);
+		lblNewImage.setIcon(img2);
+		lblNewImage.setVisible(true);
+		frame.getContentPane().add(lblNewImage);
+		
+		
 	}
 	/*
 	 * 
@@ -186,6 +211,12 @@ public class Principal extends JFrame {
 		frame = new JFrame();
 		frame.setTitle("UyTube");
 		frame.setBounds(100, 100, 800, 600);
+		
+		
+		
+		
+		
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		{
 			menuBar = new JMenuBar();
@@ -330,6 +361,15 @@ public class Principal extends JFrame {
 			mntmModificarDatosUsuario = new JMenuItem("Modificar Datos de Usuario");
 			mntmModificarDatosUsuario.setIcon(new ImageIcon("././img/Icons/user.png"));
 			mntmModificarDatosUsuario.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmModificarDatosUsuario.addActionListener(new ActionListener() {				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					modificarDatosUsuarioFrame.FillUsers();
+					modificarDatosUsuarioFrame.setVisible(true);
+					
+				}
+			});
+			
 			mnModificaciones.add(mntmModificarDatosUsuario);
 
 			mntmModificarDatosVideo = new JMenuItem("Modificar Datos de Video");
@@ -345,8 +385,7 @@ public class Principal extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					modificarListaRepInternalFrame.fillUsers();
-					modificarListaRepInternalFrame.setVisible(true);
-					
+					modificarListaRepInternalFrame.setVisible(true);					
 				}
 			});
 			mnModificaciones.add(mntmModificarLista);
@@ -413,5 +452,4 @@ public class Principal extends JFrame {
 
 		}
 	}
-
 }
