@@ -187,7 +187,7 @@ public class ConsultaListas extends JInternalFrame {
 	
 	
 	public void fillUsers() {
-		cr.finCasoUso();
+		//cr.finCasoUso();
 		cbUsuario.addItem(" ");
 		ArrayList<String> users = cr.listarUsuarios();
 		for (String s : users) {
@@ -198,14 +198,14 @@ public class ConsultaListas extends JInternalFrame {
 	public void fillListas(String usuario) {
 		cbLista.addItem(" ");
 		DtUsuario us = cr.seleccionarUsuario(usuario);
-		ArrayList<DtLista> listas = cr.listarListasReproduccion(us);
+		ArrayList<DtLista> listas = (ArrayList<DtLista>) cr.listarListasParticulares(us);
 		for(DtLista dtl : listas)
 			cbLista.addItem(dtl.getNombre());
 	}
 	
 	public void fillVideos() {
 		if(" " != (String) cbLista.getSelectedItem() && cbLista.getSelectedItem() != null ) {
-			cr.seleccionarUsuario((String) cbUsuario.getSelectedItem());
+			//cr.seleccionarUsuario((String) cbUsuario.getSelectedItem());
 			DtLista lst = cr.seleccionarLista((String) cbLista.getSelectedItem());
 			ArrayList<DtVideo> videos = cr.videosEnLista(lst);
 			if(videos != null)
@@ -219,7 +219,7 @@ public class ConsultaListas extends JInternalFrame {
 	}
 	
 	public void cargarLista() {
-		cr.seleccionarUsuario((String) cbUsuario.getSelectedItem());
+		//cr.seleccionarUsuario((String) cbUsuario.getSelectedItem());
 		if(" " != (String) cbLista.getSelectedItem() && cbLista.getSelectedItem() != null ) {
 			System.out.println((String) cbLista.getSelectedItem());
 			DtLista lst = cr.seleccionarLista((String) cbLista.getSelectedItem());

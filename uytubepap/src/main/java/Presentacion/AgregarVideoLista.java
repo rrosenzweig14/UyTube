@@ -66,6 +66,7 @@ public class AgregarVideoLista extends JInternalFrame {
 		cmbUser1 = new Choice();
 		cmbUser1.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
+				cmbVideo.removeAll();
 				selectUser();
 			}
 		});
