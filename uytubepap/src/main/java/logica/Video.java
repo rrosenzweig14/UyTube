@@ -16,26 +16,26 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import datatypes.DtComentario;
 import datatypes.DtVideo;
 
-
 @Entity
 public class Video {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private String nombre;	
-	private Boolean privado;	
-	private String url;	
-	private Date fechaPub;	
-	private String descripcion;	
-	private Integer duracion;		
+	private String nombre;
+	private Boolean privado;
+	private String url;
+	private Date fechaPub;
+	private String descripcion;
+	private Integer duracion;
 	@ManyToOne
 	private Categoria categoria;
-	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	private List<Comentario> comentarios = new ArrayList<Comentario>();	
-	@OneToMany(mappedBy="idVideo",cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Comentario> comentarios = new ArrayList<Comentario>();
+	@OneToMany(mappedBy = "idVideo", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Usuario_Video> valoraciones;
 
-	public Video(String nombre,boolean privado, String url, Date fechaPub, String descripcion, Integer duracion, Categoria categoria) {
+	public Video(String nombre, boolean privado, String url, Date fechaPub, String descripcion, Integer duracion,
+			Categoria categoria) {
 		super();
 		this.nombre = nombre;
 		this.privado = privado;
@@ -45,15 +45,18 @@ public class Video {
 		this.duracion = duracion;
 		this.categoria = categoria;
 	}
-	public Video() {}
-	
+
+	public Video() {
+	}
 
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public Date getFechaPub() {
 		return fechaPub;
 	}
@@ -96,20 +99,20 @@ public class Video {
 
 	public List<Comentario> getComentarios() {
 		return comentarios;
-	}	
-	
+	}
+
 	public void setComentarios(List<Comentario> comentarios) {
 		this.comentarios = comentarios;
 	}
-	
+
 	public List<Usuario_Video> getValoraciones() {
 		return valoraciones;
 	}
-	
+
 	public void addValoraciones(Usuario_Video usrVideo) {
 		this.valoraciones.add(usrVideo);
 	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -117,86 +120,94 @@ public class Video {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public Boolean getPrivado() {
 		return privado;
 	}
+
 	public void setPrivado(Boolean privado) {
 		this.privado = privado;
 	}
-	
-	private DefaultMutableTreeNode getNodes(Comentario c) {		 
-        DefaultMutableTreeNode nodes = new DefaultMutableTreeNode(c.getDt());           
-        if(!(c.getRespuestas().isEmpty())) {
-            for(Comentario aux: c.getRespuestas()) {
-                DefaultMutableTreeNode node = aux.getNodes();
-                if(node != null) {
-                    nodes.add(node);
-                }
-            }
-        }
-        return nodes; 
-    } 
- 
-    public JTree getElPutoTree(){
-        if(this.comentarios.isEmpty()) {
-            return null;
-        }else {
-            DefaultMutableTreeNode root = new DefaultMutableTreeNode(this.nombre); //TreeRoot
-            for(Comentario c: this.comentarios) { 
-                DefaultMutableTreeNode node = getNodes(c);
-                if (node != null) {
-                    root.add(node);
-                }
-            }
-            return new JTree(root); 
-        }
-    }
+
+	private DefaultMutableTreeNode getNodes(Comentario c) {
+		DefaultMutableTreeNode nodes = new DefaultMutableTreeNode(c.getDt());
+		if (!(c.getRespuestas().isEmpty())) {
+			for (Comentario aux : c.getRespuestas()) {
+				DefaultMutableTreeNode node = aux.getNodes();
+				if (node != null) {
+					nodes.add(node);
+				}
+			}
+		}
+		return nodes;
+	}
+
+	public JTree getElPutoTree() {
+		if (this.comentarios.isEmpty()) {
+			return null;
+		} else {
+			DefaultMutableTreeNode root = new DefaultMutableTreeNode(this.nombre); // TreeRoot
+			for (Comentario c : this.comentarios) {
+				DefaultMutableTreeNode node = getNodes(c);
+				if (node != null) {
+					root.add(node);
+				}
+			}
+			return new JTree(root);
+		}
+	}
+
 //	
 	public DtVideo getDt() {
 		String s = null;
-		if(this.categoria != null) {
+		if (this.categoria != null) {
 			s = this.categoria.getNombre();
 		}
-		DtVideo dtv = new DtVideo(this.id,this.nombre,this.privado,null,this.descripcion,this.duracion,s,this.fechaPub,this.url);	
-		dtv.setComentarios(getElPutoTree()); 
-		
+		DtVideo dtv = new DtVideo(this.id, this.nombre, this.privado, null, this.descripcion, this.duracion, s,
+				this.fechaPub, this.url);
+		dtv.setComentarios(getElPutoTree());
+
 		List<Usuario_Video> valoraciones = this.valoraciones;
-		
-		for (Usuario_Video uv : valoraciones) {
-			if (uv.isLeGusta()) dtv.addValoracionPositiva(uv.getNombreUsuario().getNickname());
-			else dtv.addValoracionNegativa(uv.getNombreUsuario().getNickname());
+
+		if (this.valoraciones != null) {
+
+			for (Usuario_Video uv : valoraciones) {
+				if (uv.isLeGusta())
+					dtv.addValoracionPositiva(uv.getNombreUsuario().getNickname());
+				else
+					dtv.addValoracionNegativa(uv.getNombreUsuario().getNickname());
+			}
 		}
-		
+
 		return dtv;
 	}
-	
-	public Comentario ingresarComentario(DtComentario comentario,Usuario usr) {
-		Comentario comment = new Comentario(comentario.getTexto(),comentario.getFecha(),usr);		
+
+	public Comentario ingresarComentario(DtComentario comentario, Usuario usr) {
+		Comentario comment = new Comentario(comentario.getTexto(), comentario.getFecha(), usr);
 		this.comentarios.add(comment);
 		return comment;
-		
+
 	}
-	
+
 	public Comentario findComentario(int id) {
-        if(this.comentarios.isEmpty()) {
-            return null;
-        }else {
-            Comentario res = null; 
-            for (Comentario c : this.comentarios) {
-                if(c.getId() == id) {
-                    return c;
-                }else {
-                    res = c.findComentario(id);
-                    if(res != null) {
-                        return res;
-                    }
-                }
-            }
-            return null;
-        }
-    }
-	
+		if (this.comentarios.isEmpty()) {
+			return null;
+		} else {
+			Comentario res = null;
+			for (Comentario c : this.comentarios) {
+				if (c.getId() == id) {
+					return c;
+				} else {
+					res = c.findComentario(id);
+					if (res != null) {
+						return res;
+					}
+				}
+			}
+			return null;
+		}
+	}
+
 	public void cambiarDatos(DtVideo dtv, Categoria c) {
 		this.nombre = dtv.getNombre();
 		this.privado = dtv.getPrivado();
@@ -204,8 +215,7 @@ public class Video {
 		this.fechaPub = dtv.getFechaPub();
 		this.descripcion = dtv.getDescripcion();
 		this.duracion = dtv.getDuracion();
-		this.categoria = c;		
+		this.categoria = c;
 	}
 
 }
-

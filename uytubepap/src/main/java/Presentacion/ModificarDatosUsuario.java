@@ -112,6 +112,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	private JDateChooser dateChooserNueva;
 	private JDateChooser dateChooserVideoNueva;
 	private JDateChooser dateChooserVideoVieja;
+	private JCheckBox chckbxCambiarCategoriaVideo;
+	private JCheckBox chckbxCambiarCategoriaLista;
 
 	/**
 	 * Create the frame.
@@ -320,6 +322,10 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		comboBoxCategoriaListaNueva = new JComboBox();
 		comboBoxCategoriaListaNueva.setBounds(305, 204, 218, 20);
 		panelListas.add(comboBoxCategoriaListaNueva);
+		
+		chckbxCambiarCategoriaLista = new JCheckBox("Cambiar Categoria?");
+		chckbxCambiarCategoriaLista.setBounds(582, 154, 192, 23);
+		panelListas.add(chckbxCambiarCategoriaLista);
 
 		panelVideo = new JPanel();
 		tabbedPane.addTab("Videos", null, panelVideo, null);
@@ -402,6 +408,10 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		dateChooserVideoNueva = new JDateChooser();
 		dateChooserVideoNueva.setBounds(552, 62, 169, 20);
 		panelVideo.add(dateChooserVideoNueva);
+		
+		chckbxCambiarCategoriaVideo = new JCheckBox("Cambiar Categoria Video?");
+		chckbxCambiarCategoriaVideo.setBounds(437, 232, 199, 23);
+		panelVideo.add(chckbxCambiarCategoriaVideo);
 
 		btnSalir = new JButton("Cancelar");
 		btnSalir.addActionListener(new ActionListener() {
@@ -475,24 +485,26 @@ public class ModificarDatosUsuario extends JInternalFrame {
 					Date fechaPub = vidAModificar.getFechaPub();
 					controller.seleccionarVideo(vidAModificar.getNombre());
 					if (chckbxEditarFechaPub.isSelected())
-						fechaPub = dateChooserVideoNueva.getDate();
+						fechaPub = dateChooserVideoNueva.getDate();					
 					if (!comboBoxCategoriaNuevaVideo.getSelectedItem().toString().equals("")
 							&& categoriaVideo != null && !categoriaVideo.equals(comboBoxCategoriaNuevaVideo.getSelectedItem().toString()))
-						categoriaVideo = comboBoxCategoriaNuevaVideo.getSelectedItem().toString();
+						categoriaVideo = comboBoxCategoriaNuevaVideo.getSelectedItem().toString();					
+					
 					DtVideo video = new DtVideo(0, textFieldNombreVideo.getText(), chckbxPrivadoVideo.isSelected(),
 							canalAModificar.getNombre(), textAreaDescripcionVideo.getText(),
 							Integer.parseInt(textFieldDuracion.getText()), categoriaVideo, fechaPub,
 							textFieldURL.getText());
-
 					if (vidAModificar != video)
 						controller.editarVideo(video);
 				}
 
 				if (listaSeleccionada) {
 					String categoriaLista = lstAModificar.getCategoria();
-					if (!comboBoxCategoriaListaNueva.getSelectedItem().toString().equals("")
-							&& !categoriaLista.equals(comboBoxCategoriaListaNueva.getSelectedItem().toString()))
-						;
+					if (chckbxCambiarCategoriaLista.isSelected() && categoriaLista != null && comboBoxCategoriaListaNueva.getSelectedItem().toString().equals("")) categoriaLista = null;
+					else {
+						if (chckbxCambiarCategoriaLista.isSelected() && categoriaLista == null && !comboBoxCategoriaListaNueva.getSelectedItem().toString().equals(""))
+							categoriaLista = comboBoxCategoriaListaNueva.getSelectedItem().toString();
+					}					
 					DtLista listaNueva = new DtLista(0, textFieldNombreLista.getText(), chckbxPrivadoLista.isSelected(),
 							false, categoriaLista);
 					if (listaNueva != lstAModificar)

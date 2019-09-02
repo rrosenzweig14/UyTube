@@ -260,8 +260,7 @@ public class Principal extends JFrame {
 					consultaListasInternalFrame.setBounds(100, 100, 386, 303);					
 					consultaListasInternalFrame.fillUsers();
 					consultaListasInternalFrame.setVisible(true);
-					frame.getContentPane().add(consultaListasInternalFrame);
-					
+					frame.getContentPane().add(consultaListasInternalFrame);					
 				}
 			});
 			mnConsultas.add(mntmConsultaDeLista);
