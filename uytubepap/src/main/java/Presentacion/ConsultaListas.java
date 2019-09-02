@@ -48,8 +48,7 @@ public class ConsultaListas extends JInternalFrame {
 	private JComboBox cbUsuario;
 	private JComboBox cbLista;
 	private JComboBox cbVideos;
-	private ConsultaVideo consultaVideoInternalFrame;
-
+	//private ConsultaVideo consultaVideoInternalFrame;
 
 
 	/**
@@ -58,16 +57,16 @@ public class ConsultaListas extends JInternalFrame {
 	public ConsultaListas(IControlador ctrl) {
 		setResizable(true);
 		cr = ctrl;
-		setBounds(100, 100, 695, 510);
+		setBounds(100, 100, 386,303);
 		setClosable(true);
 		setTitle("Consulta de Listas");
 		getContentPane().setLayout(null);
 		
-		consultaVideoInternalFrame = new ConsultaVideo(ctrl);
+		/*consultaVideoInternalFrame = new ConsultaVideo(ctrl);
 		consultaVideoInternalFrame.setResizable(true);
 		consultaVideoInternalFrame.setBounds(0, 0, 679, 469);
 		getContentPane().add(consultaVideoInternalFrame);
-		
+		*/
 		JLabel lblSeleccioneUsuario = new JLabel("Seleccione Usuario");
 		lblSeleccioneUsuario.setBounds(12, 24, 151, 15);
 		getContentPane().add(lblSeleccioneUsuario);
