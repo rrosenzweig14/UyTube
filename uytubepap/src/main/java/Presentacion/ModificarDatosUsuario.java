@@ -499,6 +499,8 @@ public class ModificarDatosUsuario extends JInternalFrame {
 						controller.modificarListaParticular(lstAModificar, listaNueva);
 				}
 				JOptionPane.showMessageDialog(this, "Se realizaron las modificaciones exitosamente", "Modificar Datos Usuario", JOptionPane.INFORMATION_MESSAGE);
+				finCasoUso();
+				dispose();
 
 			}
 		} catch (Exception e) {
@@ -535,7 +537,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	}
 
 	public void fillDataVideo(String video) {
-		DtVideo vid = controller.consultarVideo(video);
+		DtVideo vid = controller.seleccionarVideo(video);
 		vidAModificar = vid;
 		textFieldNombreVideo.setText(vid.getNombre());
 		textFieldDuracion.setText(vid.getDuracion().toString());
@@ -564,6 +566,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		textFieldURL.removeAll();
 		textFieldCategoriaVideo.removeAll();
 		vidAModificar = null;
+		chckbxEditarFechaPub.setSelected(false);
 	}
 
 	public void cleanData() {
@@ -574,12 +577,13 @@ public class ModificarDatosUsuario extends JInternalFrame {
 		textFieldApellido.removeAll();
 		textFieldCorreo.removeAll();
 		chckbxPrivado.setSelected(false);
+		imgPath = null;
+		imagen = null;
 		textFieldNombreCanal.removeAll();
 		textAreaDescripcion.removeAll();
 		chckbxPrivado.setSelected(false);
 		usuarioAModificar = null;
 		canalAModificar = null;
-
 	}
 
 	@SuppressWarnings("deprecation")

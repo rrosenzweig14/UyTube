@@ -286,7 +286,8 @@ public class AltaUsuario extends JInternalFrame {
 			}
 			catch(Exception e) {
 				JOptionPane.showMessageDialog(this, "Error inesperado.");
-				
+				finCasoUso();
+				dispose();
 			}
 			
 		}

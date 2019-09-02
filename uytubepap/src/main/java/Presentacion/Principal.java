@@ -6,6 +6,9 @@ import java.awt.Image;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -78,7 +81,7 @@ public class Principal extends JFrame {
 	private ListarCategorias listarCategoriasExistentesInternalFrame;
 	private ComentarVideo comentarVideoInternalFrame;
 	private ConsultaCategoria consultaCategoriaInternalFrame;
-	private AgregarVideoLista agregagVideoListaInternalFrame;
+	private AgregarVideoLista agregarVideoListaInternalFrame;
 	private ModificarListaRep modificarListaRepInternalFrame;
 	private ModificarDatosUsuario modificarDatosUsuarioFrame;
 	private QuitarVideoLista quitarVideoListaInternalFrame;
@@ -106,114 +109,32 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
-		initialize();
-		//IControlador ctrl = Fabrica.getIControlador();
-		Conexion.open();
-		
-		
-		frame.getContentPane().setLayout(null);
-		// Aqui se inicializan las InternalJFrame de los Casos
-		
-		altaUsuarioInternalFrame = new AltaUsuario(ctrl);
-		altaUsuarioInternalFrame.setVisible(false);
-		altaUsuarioInternalFrame.setBounds(100, 100, 530, 430);
-		frame.getContentPane().add(altaUsuarioInternalFrame);	
-		
-		ValorarVideoInternalFrame = new ValorarVideo(ctrl);
-		ValorarVideoInternalFrame.setVisible(false);
-		ValorarVideoInternalFrame.setBounds(100, 100, 530, 430);
-		frame.getContentPane().add(ValorarVideoInternalFrame);
-		//valorarUnVideo
-		
-		
-		altaCategoriaInternalFrame = new AltaCategoria(ctrl);
-		altaCategoriaInternalFrame.setVisible(false);
-		altaCategoriaInternalFrame.setBounds(100, 100, 362, 150);
-		frame.getContentPane().add(altaCategoriaInternalFrame);
-		
-		seguirUsuarioInternalFrame = new SeguirUsuario(ctrl);
-		seguirUsuarioInternalFrame.setVisible(false);
-		seguirUsuarioInternalFrame.setBounds(100, 100, 530, 430);
-		frame.getContentPane().add(seguirUsuarioInternalFrame);	
-		
-		altaListaInternalFrame = new AltaLista(ctrl);
-		altaListaInternalFrame.setVisible(false);
-		altaListaInternalFrame.setBounds(100, 100, 700, 600);
-		frame.getContentPane().add(altaListaInternalFrame);
-		
-		consultaUsuarioInternalFrame = new ConsultaUsuario(ctrl);
-		consultaUsuarioInternalFrame.setVisible(false);
-		consultaUsuarioInternalFrame.setBounds(100, 100, 850, 700);
-		frame.getContentPane().add(consultaUsuarioInternalFrame);
-
-		altaVideoInternalFrame = new AltaVideo(ctrl);
-		altaVideoInternalFrame.setVisible(false);
-		altaVideoInternalFrame.setBounds(100, 100, 400, 315);
-		frame.getContentPane().add(altaVideoInternalFrame);
-
-		listarUsuariosExistentesInternalFrame = new ListarUsuarios(ctrl);
-		listarUsuariosExistentesInternalFrame.setVisible(false);
-		listarUsuariosExistentesInternalFrame.setBounds(100, 100, 530, 430);
-		frame.getContentPane().add(listarUsuariosExistentesInternalFrame);
-		
-		listarCategoriasExistentesInternalFrame = new ListarCategorias(ctrl);
-		listarCategoriasExistentesInternalFrame.setVisible(false);
-		listarCategoriasExistentesInternalFrame.setBounds(100, 100, 530, 430);
-		frame.getContentPane().add(listarCategoriasExistentesInternalFrame);
-		
-		consultaListasInternalFrame = new ConsultaListas(ctrl);
-		consultaListasInternalFrame.setVisible(false);
-		consultaListasInternalFrame.setBounds(100, 100, 386, 303);
-		frame.getContentPane().add(consultaListasInternalFrame);
-
-		DejarDeSeguirInternalFrame = new noSeguirUsuario(ctrl);
-		DejarDeSeguirInternalFrame.setVisible(false);
-		DejarDeSeguirInternalFrame.setBounds(100, 100, 530, 430);
-		frame.getContentPane().add(DejarDeSeguirInternalFrame);	
-
-		comentarVideoInternalFrame = new ComentarVideo(ctrl);
-		comentarVideoInternalFrame.setVisible(false);
-		comentarVideoInternalFrame.setBounds(100, 100, 530, 466);
-		frame.getContentPane().add(comentarVideoInternalFrame);	
-
-
-		consultaVideoInternalFrame = new ConsultaVideo(ctrl);
-		consultaVideoInternalFrame.setVisible(false);
-		consultaVideoInternalFrame.setBounds(100, 100, 850, 700);
-		frame.getContentPane().add(consultaVideoInternalFrame);
-		
-		consultaCategoriaInternalFrame = new ConsultaCategoria(ctrl);
-		consultaCategoriaInternalFrame.setVisible(false);
-		consultaCategoriaInternalFrame.setBounds(100, 100, 465, 488);
-		frame.getContentPane().add(consultaCategoriaInternalFrame);
-		
-		agregagVideoListaInternalFrame = new AgregarVideoLista(ctrl);
-		agregagVideoListaInternalFrame.setVisible(false);
-		agregagVideoListaInternalFrame.setBounds(100, 100, 530, 333);
-		frame.getContentPane().add(agregagVideoListaInternalFrame);
-
-		modificarListaRepInternalFrame = new ModificarListaRep(ctrl);
-		modificarListaRepInternalFrame.setVisible(false);
-		modificarListaRepInternalFrame.setBounds(100, 100, 386, 303);
-		frame.getContentPane().add(modificarListaRepInternalFrame);		
-		modificarDatosUsuarioFrame = new ModificarDatosUsuario(ctrl);
-		modificarDatosUsuarioFrame.setVisible(false);
-		modificarDatosUsuarioFrame.setBounds(100, 100, 894, 698);
-		frame.getContentPane().add(modificarDatosUsuarioFrame);
-		
 		lblNewImage = new JLabel("");
-		lblNewImage.setBounds(400,400,800,400);		
-		img = new ImageIcon("././img//UyTube.png").getImage();
-		ImageIcon img2=new ImageIcon(img);
-		lblNewImage.setIcon(img2);
-		lblNewImage.setVisible(true);
-		frame.getContentPane().add(lblNewImage);		
+		lblNewImage.setEnabled(false);
+		lblNewImage.setBounds(271,340,727,400);		
+		frame.setContentPane(lblNewImage);
 
-		modificarDatosVideoInternalFrame = new ModificarVideo(ctrl);
-		modificarDatosVideoInternalFrame.setVisible(false);
-		modificarDatosVideoInternalFrame.setBounds(100, 100, 850, 550);
-		frame.getContentPane().add(modificarDatosVideoInternalFrame);
-
+//		img = new ImageIcon("././img//UyTube.png").getImage();		
+		
+		BufferedImage img = null;
+		try {
+		    img = ImageIO.read(new File("././img//UyTube.png"));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		Image dimg = img.getScaledInstance(727, 400, Image.SCALE_SMOOTH);
+		ImageIcon imageIcon = new ImageIcon(dimg);
+		lblNewImage.setIcon(imageIcon);
+		
+//		ImageIcon img2=new ImageIcon(img);
+//		lblNewImage.setVisible(true);
+//		lblNewImage.setIcon(img2);
+		initialize();		
+		//frame.getContentPane().add(lblNewImage);	
+		//IControlador ctrl = Fabrica.getIControlador();
+		Conexion.open();		
+		frame.getContentPane().setLayout(null);
+		
 	}
 	/*
 	 * 
@@ -225,7 +146,7 @@ public class Principal extends JFrame {
 
 		frame = new JFrame();
 		frame.setTitle("UyTube");
-		frame.setBounds(100, 100, 800, 600);		
+		frame.setBounds(100, 100, 1024, 800);		
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		{
@@ -240,7 +161,10 @@ public class Principal extends JFrame {
 			mntmAltaUsuario.setFont(new Font("Dialog", Font.BOLD, 15));
 			mntmAltaUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					altaUsuarioInternalFrame = new AltaUsuario(ctrl);		
 					altaUsuarioInternalFrame.setVisible(true);
+					altaUsuarioInternalFrame.setBounds(100, 100, 530, 430);
+					frame.getContentPane().add(altaUsuarioInternalFrame);					
 				}
 			});
 			mnAltaMenu.add(mntmAltaUsuario);
@@ -252,7 +176,10 @@ public class Principal extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					altaCategoriaInternalFrame = new AltaCategoria(ctrl);
+					altaCategoriaInternalFrame.setBounds(100, 100, 362, 150);
 					altaCategoriaInternalFrame.setVisible(true);
+					frame.getContentPane().add(altaCategoriaInternalFrame);
 					
 				}
 			});
@@ -264,9 +191,12 @@ public class Principal extends JFrame {
 			mntmAltaVideo.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent a) {
+					altaVideoInternalFrame = new AltaVideo(ctrl);
+					altaVideoInternalFrame.setBounds(100, 100, 400, 315);					
 					altaVideoInternalFrame.fillCategories();
 					altaVideoInternalFrame.fillUsers();
 					altaVideoInternalFrame.setVisible(true);
+					frame.getContentPane().add(altaVideoInternalFrame);
 				}
 			});
 			mnAltaMenu.add(mntmAltaVideo);
@@ -277,9 +207,12 @@ public class Principal extends JFrame {
 			mntmAltaLista.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					altaListaInternalFrame = new AltaLista(ctrl);
+					altaListaInternalFrame.setBounds(100, 100, 700, 600);					
 					altaListaInternalFrame.fillCategories();
 					altaListaInternalFrame.fillUsers();
 					altaListaInternalFrame.setVisible(true);
+					frame.getContentPane().add(altaListaInternalFrame);
 				}
 			});
 			mnAltaMenu.add(mntmAltaLista);
@@ -293,8 +226,11 @@ public class Principal extends JFrame {
 			mntmConsultaUsuario.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					consultaUsuarioInternalFrame = new ConsultaUsuario(ctrl);
+					consultaUsuarioInternalFrame.setBounds(100, 100, 850, 700);					
 					consultaUsuarioInternalFrame.fillUsers();
 					consultaUsuarioInternalFrame.setVisible(true);
+					frame.getContentPane().add(consultaUsuarioInternalFrame);
 				}
 			});			
 			mnConsultas.add(mntmConsultaUsuario);
@@ -305,8 +241,12 @@ public class Principal extends JFrame {
 			mntmConsultaVideo.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					consultaVideoInternalFrame = new ConsultaVideo(ctrl);
+					consultaVideoInternalFrame.setBounds(100, 100, 850, 700);
 					consultaVideoInternalFrame.fillUsers();
 					consultaVideoInternalFrame.setVisible(true);
+					frame.getContentPane().add(consultaVideoInternalFrame);
+					
 				}
 			});	
 			mnConsultas.add(mntmConsultaVideo);
@@ -317,8 +257,11 @@ public class Principal extends JFrame {
 			mntmConsultaDeLista.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					consultaListasInternalFrame = new ConsultaListas(ctrl);
+					consultaListasInternalFrame.setBounds(100, 100, 386, 303);					
 					consultaListasInternalFrame.fillUsers();
 					consultaListasInternalFrame.setVisible(true);
+					frame.getContentPane().add(consultaListasInternalFrame);
 					
 				}
 			});
@@ -330,8 +273,13 @@ public class Principal extends JFrame {
 			mntmConsultaDeCategoria.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					consultaCategoriaInternalFrame = new ConsultaCategoria(ctrl);
+					consultaCategoriaInternalFrame.setVisible(false);
+					consultaCategoriaInternalFrame.setBounds(100, 100, 465, 488);
 					consultaCategoriaInternalFrame.fillCategories();
 					consultaCategoriaInternalFrame.setVisible(true);
+					frame.getContentPane().add(consultaCategoriaInternalFrame);
+					
 				}
 			});
 			mnConsultas.add(mntmConsultaDeCategoria);
@@ -345,8 +293,12 @@ public class Principal extends JFrame {
 			mntmListarUsuariosExistentes.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					listarUsuariosExistentesInternalFrame = new ListarUsuarios(ctrl);
+					listarUsuariosExistentesInternalFrame.setBounds(100, 100, 530, 430);					
 					listarUsuariosExistentesInternalFrame.addUsuarios();
 					listarUsuariosExistentesInternalFrame.setVisible(true);
+					frame.getContentPane().add(listarUsuariosExistentesInternalFrame);
+					
 				}
 			});
 			mnListados.add(mntmListarUsuariosExistentes);
@@ -357,8 +309,11 @@ public class Principal extends JFrame {
 			mntmListarCategoriasExistentes.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					listarCategoriasExistentesInternalFrame = new ListarCategorias(ctrl);
+					listarCategoriasExistentesInternalFrame.setBounds(100, 100, 530, 430);					
 					listarCategoriasExistentesInternalFrame.addCategorias();
 					listarCategoriasExistentesInternalFrame.setVisible(true);
+					frame.getContentPane().add(listarCategoriasExistentesInternalFrame);
 				}
 			});
 			mnListados.add(mntmListarCategoriasExistentes);
@@ -372,9 +327,13 @@ public class Principal extends JFrame {
 			mntmModificarDatosUsuario.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					modificarDatosUsuarioFrame = new ModificarDatosUsuario(ctrl);
+					modificarDatosUsuarioFrame.setVisible(false);
+					modificarDatosUsuarioFrame.setBounds(100, 100, 894, 698);					
 					modificarDatosUsuarioFrame.FillUsers();
 					modificarDatosUsuarioFrame.fillCategories();
 					modificarDatosUsuarioFrame.setVisible(true);
+					frame.getContentPane().add(modificarDatosUsuarioFrame);
 					
 				}
 			});
@@ -387,8 +346,11 @@ public class Principal extends JFrame {
 			mntmModificarDatosVideo.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					modificarDatosVideoInternalFrame = new ModificarVideo(ctrl);
+					modificarDatosVideoInternalFrame.setBounds(100, 100, 850, 550);					
 					modificarDatosVideoInternalFrame.fillUsers();
 					modificarDatosVideoInternalFrame.fillCategories();
+					frame.getContentPane().add(modificarDatosVideoInternalFrame);
 					modificarDatosVideoInternalFrame.setVisible(true);
 				}
 			});
@@ -400,11 +362,15 @@ public class Principal extends JFrame {
 			mntmModificarLista.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					modificarListaRepInternalFrame = new ModificarListaRep(ctrl);
+					modificarListaRepInternalFrame.setBounds(100, 100, 386, 303);
+						
 					modificarListaRepInternalFrame.nuevoCaso();
 					modificarListaRepInternalFrame.fillUsers();
 					modificarListaRepInternalFrame.fillCategories();
 					modificarListaRepInternalFrame.fillPrivacidad();
-					modificarListaRepInternalFrame.setVisible(true);					
+					frame.getContentPane().add(modificarListaRepInternalFrame);	
+					modificarListaRepInternalFrame.setVisible(true);
 				}
 			});
 			mnModificaciones.add(mntmModificarLista);
@@ -417,8 +383,11 @@ public class Principal extends JFrame {
 			mntmAgregarVideoLista.setFont(new Font("Dialog", Font.BOLD, 15));
 			mntmAgregarVideoLista.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					agregagVideoListaInternalFrame.fillUsers();
-					agregagVideoListaInternalFrame.setVisible(true);
+					agregarVideoListaInternalFrame = new AgregarVideoLista(ctrl);
+					agregarVideoListaInternalFrame.setBounds(100, 100, 530, 333);					
+					agregarVideoListaInternalFrame.fillUsers();
+					agregarVideoListaInternalFrame.setVisible(true);
+					frame.getContentPane().add(agregarVideoListaInternalFrame);
 				}
 			});
 			mnAccionesVideo.add(mntmAgregarVideoLista);
@@ -428,7 +397,10 @@ public class Principal extends JFrame {
 			mntmComentarUnVideo.setFont(new Font("Dialog", Font.BOLD, 15));	
 			mntmComentarUnVideo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					comentarVideoInternalFrame = new ComentarVideo(ctrl);
+					comentarVideoInternalFrame.setBounds(100, 100, 530, 466);
 					comentarVideoInternalFrame.fillUsers();
+					frame.getContentPane().add(comentarVideoInternalFrame);	
 					comentarVideoInternalFrame.setVisible(true);
 				}
 			});
@@ -438,6 +410,9 @@ public class Principal extends JFrame {
 			mntmValorarUnVideo.setIcon(new ImageIcon("././img/Icons/rateVideo.png"));
 			mntmValorarUnVideo.addActionListener(new ActionListener() {
 				   public void actionPerformed(ActionEvent arg0) {
+					ValorarVideoInternalFrame = new ValorarVideo(ctrl);
+					ValorarVideoInternalFrame.setBounds(100, 100, 627, 237);
+					frame.getContentPane().add(ValorarVideoInternalFrame);
 				    ValorarVideoInternalFrame.fillUsers();
 				    ValorarVideoInternalFrame.setVisible(true);
 				   }
@@ -452,10 +427,11 @@ public class Principal extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					quitarVideoListaInternalFrame = new QuitarVideoLista(ctrl);
 					quitarVideoListaInternalFrame.setClosable(true);
-					quitarVideoListaInternalFrame.setBounds(100, 100, 530, 239);
-					quitarVideoListaInternalFrame.setVisible(true);
-					frame.getContentPane().add(quitarVideoListaInternalFrame);				
+					quitarVideoListaInternalFrame.setBounds(100, 100, 530, 239);					
 					comentarVideoInternalFrame.fillUsers();
+					frame.getContentPane().add(quitarVideoListaInternalFrame);
+					quitarVideoListaInternalFrame.setVisible(true);
+					
 				}
 			});
 			mnAccionesVideo.add(mntmQuitarVideoLista);			
@@ -468,6 +444,9 @@ public class Principal extends JFrame {
 			mntmSeguirUsuario.setFont(new Font("Dialog", Font.BOLD, 15));	
 			mntmSeguirUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					seguirUsuarioInternalFrame = new SeguirUsuario(ctrl);
+					seguirUsuarioInternalFrame.setBounds(100, 100, 530, 430);
+					frame.getContentPane().add(seguirUsuarioInternalFrame);	
 					seguirUsuarioInternalFrame.fillUsers();
 					seguirUsuarioInternalFrame.setVisible(true);
 				}
@@ -479,7 +458,10 @@ public class Principal extends JFrame {
 			mntmDejarDeSeguir.setFont(new Font("Dialog", Font.BOLD, 15));
 			mntmDejarDeSeguir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					DejarDeSeguirInternalFrame = new noSeguirUsuario(ctrl);
+					DejarDeSeguirInternalFrame.setBounds(100, 100, 530, 430);
 					DejarDeSeguirInternalFrame.fillUsers();
+					frame.getContentPane().add(DejarDeSeguirInternalFrame);	
 					DejarDeSeguirInternalFrame.setVisible(true);
 				}
 			});
