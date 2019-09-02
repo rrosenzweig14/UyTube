@@ -60,6 +60,7 @@ public class ModificarVideo extends JInternalFrame {
 	private JLabel lblCategoria2;
 	private JComboBox<String> comboBoxCategoria2;
 	private Object cat;
+	private JLabel lblNewFields;
 	/**
 	 * Create the frame.
 	 */
@@ -257,6 +258,11 @@ public class ModificarVideo extends JInternalFrame {
 		comboBoxCategoria2.setBounds(576, 245, 220, 20);
 		getContentPane().add(comboBoxCategoria2);
 		
+		lblNewFields = new JLabel("Nuevos Campos");
+		lblNewFields.setVisible(false);
+		lblNewFields.setBounds(456, 47, 150, 14);
+		getContentPane().add(lblNewFields);
+		
 		btnModificar = new JButton("Modificar");
 		btnModificar.setBounds(340, 400, 120, 30);
 		btnModificar.addActionListener(new ActionListener() {
@@ -268,6 +274,7 @@ public class ModificarVideo extends JInternalFrame {
 	}
 
 	public void fillUsers() {
+		System.out.print("ENTROOOO");
 		comboBoxUsuarios.addItem(" ");
 		comboBoxUsuarios.removeAllItems();
 		comboBoxUsuarios.addItem(" ");
@@ -291,6 +298,7 @@ public class ModificarVideo extends JInternalFrame {
 		lblDuracion.setVisible(true);
 		lblCategoria.setVisible(true);
 		textFieldCategoria.setVisible(true);
+		lblNewFields.setVisible(true);
 		
 		textFieldNombreVideo2.setVisible(true);
 		textAreaDescripcionVideo2.setVisible(true);
@@ -330,6 +338,7 @@ public class ModificarVideo extends JInternalFrame {
 		lblDuracion.setVisible(false);
 		lblCategoria.setVisible(false);
 		textFieldCategoria.setVisible(false);
+		lblNewFields.setVisible(false);
 		
 		textFieldNombreVideo2.removeAll();
 		textFieldURL2.removeAll();
@@ -365,7 +374,7 @@ public class ModificarVideo extends JInternalFrame {
 		if (textAreaDescripcionVideo2.getText() != "") {
 			video.setDescripcion(textAreaDescripcionVideo2.getText());
 		}
-		if (textFieldDuracionVideo2.getText() != "") {
+		if (textFieldDuracionVideo2.getText() != ""){
 			video.setDuracion(Integer.getInteger(textFieldDuracionVideo2.getText()));
 		}
 		if (textFieldNombreVideo2.getText() != "") {
