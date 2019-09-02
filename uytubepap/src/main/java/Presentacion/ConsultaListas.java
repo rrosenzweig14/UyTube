@@ -22,6 +22,7 @@ import java.awt.event.InputMethodEvent;
 import java.awt.event.InputMethodListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.beans.PropertyVetoException;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
 
@@ -55,6 +56,7 @@ public class ConsultaListas extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public ConsultaListas(IControlador ctrl) {
+		setResizable(true);
 		cr = ctrl;
 		setBounds(100, 100, 695, 510);
 		setClosable(true);
@@ -62,6 +64,7 @@ public class ConsultaListas extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		consultaVideoInternalFrame = new ConsultaVideo(ctrl);
+		consultaVideoInternalFrame.setResizable(true);
 		consultaVideoInternalFrame.setBounds(0, 0, 679, 469);
 		getContentPane().add(consultaVideoInternalFrame);
 		
@@ -171,6 +174,12 @@ public class ConsultaListas extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				consultaVideoInternalFrame.desdeLista((String) cbUsuario.getSelectedItem(),(String) cbVideos.getSelectedItem());
 				consultaVideoInternalFrame.setVisible(true);
+				try {
+					consultaVideoInternalFrame.setSelected(true);
+				} catch (PropertyVetoException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 		});
