@@ -48,6 +48,8 @@ public class ConsultaVideo extends JInternalFrame {
 	private JComboBox<String> comboBoxLikes;
 	private JLabel lblDislikes;
 	private JComboBox<String> comboBoxDislikes;
+	private Boolean deLista = false;
+	private DtVideo dtv;
 	/**
 	 * Create the frame.
 	 */
@@ -62,6 +64,8 @@ public class ConsultaVideo extends JInternalFrame {
 		comboBoxUsuarios.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				cleanOutputData();
+				comboBoxLikes.removeAllItems();
+				comboBoxDislikes.removeAllItems();
 				if(comboBoxUsuarios.getSelectedIndex() > -1) {
 					if (comboBoxUsuarios.getSelectedItem().toString().equals(" ")) {
 
@@ -94,10 +98,18 @@ public class ConsultaVideo extends JInternalFrame {
 		comboBoxVideosCanal.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				cleanVideoData();
+				comboBoxLikes.removeAllItems();
+				comboBoxDislikes.removeAllItems();
 				if (userLoaded && comboBoxVideosCanal.getSelectedItem() != null
 						&& !comboBoxVideosCanal.getSelectedItem().toString().equals(" ")) {
-					DtVideo video = controller.seleccionarVideo(comboBoxVideosCanal.getSelectedItem().toString());
+					DtVideo video;
+					if(deLista)
+						video = dtv;
+					else
+						video = controller.seleccionarVideo(comboBoxVideosCanal.getSelectedItem().toString());
+					
 					fillVideoData(video);
+					deLista = false;
 				}
 			}
 		});
@@ -307,7 +319,9 @@ public class ConsultaVideo extends JInternalFrame {
 		userLoaded = true;
 	}
 	
-	public void desdeLista(String usuario, String video) {
+	public void desdeLista(String usuario, String video, DtVideo vid) {
+		dtv = vid;
+		deLista = true;
 		comboBoxUsuarios.addItem(usuario);
 		comboBoxVideosCanal.removeAllItems();
 		comboBoxVideosCanal.addItem(video);

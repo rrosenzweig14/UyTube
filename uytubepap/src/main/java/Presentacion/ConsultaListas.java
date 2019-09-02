@@ -49,6 +49,7 @@ public class ConsultaListas extends JInternalFrame {
 	private JComboBox cbLista;
 	private JComboBox cbVideos;
 	private ConsultaVideo consultaVideoInternalFrame;
+	private ArrayList<DtVideo> dtvs;
 
 
 	/**
@@ -171,7 +172,11 @@ public class ConsultaListas extends JInternalFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				consultaVideoInternalFrame.desdeLista((String) cbUsuario.getSelectedItem(),(String) cbVideos.getSelectedItem());
+				DtVideo video = null;
+				for(DtVideo dts : dtvs)
+					if(dts.getNombre().equals(cbVideos.getSelectedItem().toString()) )
+						video = dts;
+				consultaVideoInternalFrame.desdeLista((String) cbUsuario.getSelectedItem(),(String) cbVideos.getSelectedItem(),video);
 				consultaVideoInternalFrame.setVisible(true);
 				try {
 					consultaVideoInternalFrame.setSelected(true);
@@ -198,7 +203,8 @@ public class ConsultaListas extends JInternalFrame {
 	public void fillListas(String usuario) {
 		cbLista.addItem(" ");
 		DtUsuario us = cr.seleccionarUsuario(usuario);
-		ArrayList<DtLista> listas = (ArrayList<DtLista>) cr.listarListasParticulares(us);
+		cr.listarListasParticulares(us);
+		ArrayList<DtLista> listas = (ArrayList<DtLista>) cr.listarListasReproduccion(us);
 		for(DtLista dtl : listas)
 			cbLista.addItem(dtl.getNombre());
 	}
@@ -208,6 +214,7 @@ public class ConsultaListas extends JInternalFrame {
 			//cr.seleccionarUsuario((String) cbUsuario.getSelectedItem());
 			DtLista lst = cr.seleccionarLista((String) cbLista.getSelectedItem());
 			ArrayList<DtVideo> videos = cr.videosEnLista(lst);
+			dtvs = videos;
 			if(videos != null)
 			for(DtVideo dtv : videos) {
 				if(dtv != null) {
