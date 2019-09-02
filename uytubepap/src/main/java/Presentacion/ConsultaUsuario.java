@@ -85,6 +85,8 @@ public class ConsultaUsuario extends JInternalFrame {
 	private JLabel lblVideosEnLista;
 	private JComboBox comboBoxVideosEnLista;
 	private JButton btnSalir;
+	private JLabel lblCategoria;
+	private JTextField textFieldCategoria;
 
 	/**
 	 * Create the frame.
@@ -410,6 +412,15 @@ public class ConsultaUsuario extends JInternalFrame {
 		});
 		btnSalir.setBounds(710, 10, 89, 23);
 		getContentPane().add(btnSalir);
+		
+		lblCategoria = new JLabel("Categoria");
+		lblCategoria.setBounds(10, 625, 107, 14);
+		getContentPane().add(lblCategoria);
+		
+		textFieldCategoria = new JTextField();
+		textFieldCategoria.setBounds(133, 622, 221, 20);
+		getContentPane().add(textFieldCategoria);
+		textFieldCategoria.setColumns(10);
 
 	}
 
@@ -440,7 +451,10 @@ public class ConsultaUsuario extends JInternalFrame {
 		comboBoxLikes.setVisible(true);
 		lblDislikes.setVisible(true);
 		comboBoxDislikes.setVisible(true);
-
+		textFieldCategoria.setVisible(true);
+		lblCategoria.setVisible(true);
+		
+		if (video.getCategoria() != null) textFieldCategoria.setText(video.getCategoria());
 		textFieldNombreVideo.setText(video.getNombre());
 		textAreaDescripcionVideo.setText(video.getDescripcion());
 		textFieldDuracionVideo.setText(video.getDuracion().toString());
@@ -493,6 +507,8 @@ public class ConsultaUsuario extends JInternalFrame {
 		comboBoxLikes.setVisible(false);
 		lblDislikes.setVisible(false);
 		comboBoxDislikes.setVisible(false);
+		textFieldCategoria.setVisible(false);
+		lblCategoria.setVisible(false);
 
 	}
 
