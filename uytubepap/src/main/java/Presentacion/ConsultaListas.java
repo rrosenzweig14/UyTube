@@ -48,7 +48,7 @@ public class ConsultaListas extends JInternalFrame {
 	private JComboBox cbUsuario;
 	private JComboBox cbLista;
 	private JComboBox cbVideos;
-	//private ConsultaVideo consultaVideoInternalFrame;
+	private ConsultaVideo consultaVideoInternalFrame;
 
 
 	/**
@@ -62,11 +62,11 @@ public class ConsultaListas extends JInternalFrame {
 		setTitle("Consulta de Listas");
 		getContentPane().setLayout(null);
 		
-		/*consultaVideoInternalFrame = new ConsultaVideo(ctrl);
+		consultaVideoInternalFrame = new ConsultaVideo(ctrl);
 		consultaVideoInternalFrame.setResizable(true);
 		consultaVideoInternalFrame.setBounds(0, 0, 679, 469);
 		getContentPane().add(consultaVideoInternalFrame);
-		*/
+		
 		JLabel lblSeleccioneUsuario = new JLabel("Seleccione Usuario");
 		lblSeleccioneUsuario.setBounds(12, 24, 151, 15);
 		getContentPane().add(lblSeleccioneUsuario);
@@ -132,22 +132,22 @@ public class ConsultaListas extends JInternalFrame {
 		
 		nombre = new JTextField();
 		nombre.setBounds(209, 105, 114, 19);
-//		nombre.addInputMethodListener(new InputMethodListener() {
-//			
-//			@Override
-//			public void inputMethodTextChanged(InputMethodEvent event) {
-//				if(nombre.getSelectedText() != " ");
-//					fillVideos();
-//
-//				
-//			}
-//			
-//			@Override
-//			public void caretPositionChanged(InputMethodEvent event) {
-//				// TODO Auto-generated method stub
-//				
-//			}
-//		});
+		nombre.addInputMethodListener(new InputMethodListener() {
+			
+			@Override
+			public void inputMethodTextChanged(InputMethodEvent event) {
+				if(nombre.getSelectedText() != " ");
+					fillVideos();
+
+				
+			}
+			
+			@Override
+			public void caretPositionChanged(InputMethodEvent event) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		getContentPane().add(nombre);
 		nombre.setColumns(10);
 		
