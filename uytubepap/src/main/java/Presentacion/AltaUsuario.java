@@ -299,7 +299,7 @@ public class AltaUsuario extends JInternalFrame {
 			try {
 				@SuppressWarnings("deprecation")
 				Date fechaNac = new Date(Integer.parseInt(dia.getSelectedItem()),Integer.parseInt(mes.getSelectedItem()),Integer.parseInt(anio.getSelectedItem()));
-				if (controller.ingresarUsuario(nick, nombre, apellido, correo, fechaNac, imagen, datosCanal)) {
+				if (controller.ingresarUsuario(nick, correo, nombre, apellido, fechaNac, imagen, datosCanal)) {
 					JOptionPane.showMessageDialog(this, "Se creó el usuario exitosamente.", "Alta Usuario", JOptionPane.INFORMATION_MESSAGE);
 					finCasoUso();
 					dispose();
