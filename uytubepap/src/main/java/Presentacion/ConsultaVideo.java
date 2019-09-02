@@ -229,6 +229,7 @@ public class ConsultaVideo extends JInternalFrame {
 		}
 	}
 
+	
 	public void fillVideoData(DtVideo video) {
 		textFieldNombreVideo.setVisible(true);
 		textAreaDescripcionVideo.setVisible(true);
