@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.awt.event.ActionEvent;
@@ -478,24 +479,36 @@ public class ModificarDatosUsuario extends JInternalFrame {
 	public void modificarUsuario() {
 		try {
 			if (userLoaded) {
+				boolean error = false;
 				Date fechaNueva = usuarioAModificar.getFechaNac();
 				if (chckbxEditarFecha.isSelected()) {
-					fechaNueva = dateChooserNueva.getDate();
+					if (dateChooserNueva.getDate() != null) fechaNueva = dateChooserNueva.getDate();
+					else {
+						JOptionPane.showMessageDialog(null, "Por favor ingrese fecha de usuario correcta");
+						error = true;
+					}
 				}
 				DtUsuario usuarioNuevo = new DtUsuario(textFieldNick.getText(), textFieldCorreo.getText(),
 						textFieldNombre.getText(), textFieldApellido.getText(), fechaNueva, imgPath);
 
 				DtCanal canalNuevo = new DtCanal(textFieldNombreCanal.getText(), textAreaDescripcion.getText(),
 						textFieldNick.getText(), chckbxPrivado.isSelected());
-				if (usuarioNuevo != usuarioAModificar || canalNuevo != canalAModificar)
+				if (usuarioNuevo != usuarioAModificar || canalNuevo != canalAModificar && !error)
 					controller.modificarUsuarioCanal(usuarioNuevo, canalNuevo);
 
 				if (videoSeleccionado) {
 					String categoriaVideo = vidAModificar.getCategoria();
 					Date fechaPub = vidAModificar.getFechaPub();
 					controller.seleccionarVideo(vidAModificar.getNombre());
-					if (chckbxEditarFechaPub.isSelected())
-						fechaPub = dateChooserVideoNueva.getDate();		
+					if (chckbxEditarFechaPub.isSelected()) {
+						if (dateChooserVideoNueva != null) fechaPub = dateChooserVideoNueva.getDate();
+						else {
+							error = true;
+							JOptionPane.showMessageDialog(null, "Ingrese una fecha válida de video.");
+						}
+					}
+					
+								
 					
 					if (chckbxCambiarCategoriaVideo.isSelected() && categoriaVideo == null && !comboBoxCategoriaNuevaVideo.getSelectedItem().toString().equals(" ")) {
 						categoriaVideo = comboBoxCategoriaNuevaVideo.getSelectedItem().toString();
@@ -508,7 +521,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 							canalAModificar.getNombre(), textAreaDescripcionVideo.getText(),
 							Integer.parseInt(textFieldDuracion.getText()), categoriaVideo, fechaPub,
 							textFieldURL.getText());
-					if (vidAModificar != video)
+					if (vidAModificar != video && !error)
 						controller.editarVideo(video);
 				}
 
@@ -656,7 +669,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 			}
 		}
 
-		ArrayList<DtLista> listas = controller.listarListasReproduccion(usuario);
+		List<DtLista> listas = controller.listarListasParticulares(usuario);
 		comboBoxListas.addItem(" ");
 		if (listas != null) {
 			for (DtLista lst : listas) {

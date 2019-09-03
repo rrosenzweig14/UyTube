@@ -270,6 +270,7 @@ public class ConsultaUsuario extends JInternalFrame {
 					if (userLoaded && comboBoxListasCanal.getSelectedItem() != null
 							&& !comboBoxListasCanal.getSelectedItem().toString().equals("")) {
 						comboBoxVideosCanal.setEnabled(false);
+						comboBoxVideosEnLista.setEnabled(true);
 						comboBoxVideosEnLista.setVisible(true);
 						lblCategoria.setVisible(true);
 						textFieldCategoria.setVisible(true);
