@@ -83,8 +83,7 @@ public class ConsultaListas extends JInternalFrame {
 		
 		cbUsuario = new JComboBox();
 		cbUsuario.setBounds(182, 24, 166, 18);
-		cbUsuario.addItemListener(new ItemListener() {
-			
+		cbUsuario.addItemListener(new ItemListener() {			
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if(" " != (String) cbUsuario.getSelectedItem() && cbUsuario.getSelectedItem() != null) {
@@ -168,22 +167,23 @@ public class ConsultaListas extends JInternalFrame {
 		
 		JButton btnConsultarVideo = new JButton("Consultar Video");
 		btnConsultarVideo.setBounds(115, 234, 159, 25);
-		btnConsultarVideo.addActionListener(new ActionListener() {
-			
+		btnConsultarVideo.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				DtVideo video = null;
 				for(DtVideo dts : dtvs)
 					if(dts.getNombre().equals(cbVideos.getSelectedItem().toString()) )
 						video = dts;
-				consultaVideoInternalFrame.desdeLista((String) cbUsuario.getSelectedItem(),(String) cbVideos.getSelectedItem(),video);
-				consultaVideoInternalFrame.setVisible(true);
-				try {
-					consultaVideoInternalFrame.setSelected(true);
-				} catch (PropertyVetoException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}				
+				if(video != null) {
+					consultaVideoInternalFrame.desdeLista((String) cbUsuario.getSelectedItem(),(String) cbVideos.getSelectedItem(),video);
+					consultaVideoInternalFrame.setVisible(true);
+					try {
+						consultaVideoInternalFrame.setSelected(true);
+					} catch (PropertyVetoException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}	
+				}
 			}
 		});
 		getContentPane().add(btnConsultarVideo);
