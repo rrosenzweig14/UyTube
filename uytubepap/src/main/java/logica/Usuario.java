@@ -37,7 +37,7 @@ public class Usuario {
 		
 	//Metodos
 	
-	public Usuario(String nickname, String nombre, String apellido, String email, Date fechaNac, String img) {
+	public Usuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img) {
 		super();
 		this.nickname = nickname;
 		this.nombre = nombre;
