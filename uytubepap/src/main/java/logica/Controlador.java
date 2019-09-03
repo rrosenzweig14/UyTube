@@ -319,7 +319,7 @@ public class Controlador implements IControlador{
 		Map<DtUsuario, DtCanal> datos= new HashMap<DtUsuario, DtCanal>();
 		user1 = Handler.findUsuario(nick);
 		if(user1 != null) {
-			DtUsuario dtu = user1.getDtUsuario();
+			DtUsuario dtu = user1.getDt();
 			Canal aux = user1.getCanal();
 			if(aux != null) {
 				DtCanal dtc = aux.getDt();
