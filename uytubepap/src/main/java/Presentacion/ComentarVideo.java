@@ -303,7 +303,7 @@ public class ComentarVideo extends JInternalFrame {
 			ctrl.seleccionarComentario(comment);
 		}
 		Date fecha = new Date(Integer.parseInt(cmbDia.getSelectedItem()),Integer.parseInt(cmbMes.getSelectedItem()),Integer.parseInt(cmbAnho.getSelectedItem()));
-		DtComentario aux = new DtComentario(user1, txt, fecha);
+		DtComentario aux = new DtComentario(comentador, txt, fecha);
 		ctrl.ingresarComentario(aux);
 		JOptionPane.showMessageDialog(this, "Comentario realizado con exito!!!", "Comentar Video", JOptionPane.INFORMATION_MESSAGE);
 		fin();
