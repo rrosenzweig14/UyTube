@@ -4,12 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -27,7 +29,8 @@ public abstract class Lista {
 	private boolean privado;
 	@ManyToOne
 	private Categoria categoria;
-	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=false)
+	@ManyToMany(cascade=CascadeType.ALL)
+	@CollectionTable(name = "lista_video")
 	private Map<String,Video> videos = new HashMap<String,Video>();	
 
 	//Constructores	
