@@ -64,6 +64,7 @@ public class Principal extends JFrame {
 	private JMenuItem mntmDejarDeSeguir;
 	
 	private Image img;
+	private Image icon;
 	private JLabel lblNewImage;
 
 	private IControlador ctrl = Fabrica.getIControlador();
@@ -112,7 +113,8 @@ public class Principal extends JFrame {
 		lblNewImage = new JLabel("");
 		lblNewImage.setEnabled(false);
 		lblNewImage.setBounds(350,340,727,400);		
-		img = new ImageIcon("././img//UyTube.png").getImage();		
+		img = new ImageIcon("././img//UyTube.png").getImage();
+		icon = new ImageIcon("././img//logo.png").getImage();
 		
 		BufferedImage img = null;
 		try {
@@ -132,6 +134,7 @@ public class Principal extends JFrame {
 		//IControlador ctrl = Fabrica.getIControlador();
 		Conexion.open();		
 		frame.getContentPane().setLayout(null);
+		frame.setIconImage(icon);
 		frame.setContentPane(lblNewImage);
 
 	}
