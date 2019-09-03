@@ -242,7 +242,10 @@ public class ModificarDatosUsuario extends JInternalFrame {
 						&& !comboBoxListas.getSelectedItem().toString().equals(" ")) {
 					fillDataLista(comboBoxListas.getSelectedItem().toString());
 					listaSeleccionada = true;
+					tabbedPane.setEnabledAt(1, true);
 					chckbxCambiarCategoriaLista.setVisible(true);
+				}else {
+					tabbedPane.setEnabledAt(1, false);
 				}
 
 			}
@@ -262,7 +265,10 @@ public class ModificarDatosUsuario extends JInternalFrame {
 						&& !comboBoxVideos.getSelectedItem().toString().equals(" ")) {
 					fillDataVideo(comboBoxVideos.getSelectedItem().toString());
 					videoSeleccionado = true;
+					tabbedPane.setEnabledAt(2, true);
 					chckbxCambiarCategoriaVideo.setVisible(true);
+				}else {
+					tabbedPane.setEnabledAt(2, false);
 				}
 			}
 		});
@@ -291,6 +297,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 
 		panelListas = new JPanel();
 		tabbedPane.addTab("Listas", null, panelListas, null);
+		tabbedPane.setEnabledAt(1, false);
 		panelListas.setVisible(false);
 		panelListas.setLayout(null);
 
@@ -331,6 +338,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 
 		panelVideo = new JPanel();
 		tabbedPane.addTab("Videos", null, panelVideo, null);
+		tabbedPane.setEnabledAt(2, false);
 		panelVideo.setVisible(false);
 		panelVideo.setLayout(null);
 
