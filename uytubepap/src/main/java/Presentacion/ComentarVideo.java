@@ -299,9 +299,9 @@ public class ComentarVideo extends JInternalFrame {
 	}
 	private void comentar() {
 		ctrl.seleccionarUsuario(comentador);
-		if(comment != null) {
-			ctrl.seleccionarComentario(comment);
-		}
+//		if(comment != null) {
+//			ctrl.seleccionarComentario(comment);
+//		}
 		Date fecha = new Date(Integer.parseInt(cmbDia.getSelectedItem()),Integer.parseInt(cmbMes.getSelectedItem()),Integer.parseInt(cmbAnho.getSelectedItem()));
 		DtComentario aux = new DtComentario(comentador, txt, fecha);
 		ctrl.ingresarComentario(aux);

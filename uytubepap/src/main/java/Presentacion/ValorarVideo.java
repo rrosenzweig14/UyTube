@@ -119,16 +119,16 @@ public void ValoracionVideo(){
   if (rdbtnDislike.isSelected()) {
    cr.valorarVideo(cbUsuario2.getSelectedItem().toString(), false);
    JOptionPane.showMessageDialog(null, "Vídeo valorado.");
+   finCasoUso();
+   dispose();
   }
   if (rdbtnLike.isSelected()) {
    cr.valorarVideo(cbUsuario2.getSelectedItem().toString(), true);
    JOptionPane.showMessageDialog(null, "Vídeo valorado.");
+   finCasoUso();
+   dispose();
   }
-  else {
-   JOptionPane.showMessageDialog(null, "No se ha logrado valorar vídeo.");
-  }
-
- } catch (Exception EvalroarVideo) {
+ } catch (Exception e) {
   JOptionPane.showMessageDialog(null, "No se ha logrado valorar vídeo.");
  }
  finCasoUso();

@@ -297,6 +297,8 @@ public class ConsultaVideo extends JInternalFrame {
 		comboBoxLikes.setVisible(false);
 		lblDislikes.setVisible(false);
 		comboBoxDislikes.setVisible(false);
+		comboBoxLikes.removeAllItems();
+		comboBoxDislikes.removeAllItems();
 	}
 
 	public void finCasoUso() {

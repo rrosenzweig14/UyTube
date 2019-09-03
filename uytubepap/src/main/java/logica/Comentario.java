@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -25,7 +26,7 @@ public class Comentario {//TODO agregar la clave compuesta usuario fecha o quiz√
 	@ManyToOne
 	private Usuario autor;
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
-	private Set<Comentario> respuestas = new TreeSet<Comentario>();
+	private Set<Comentario> respuestas = new HashSet<Comentario>();
 
 	public Comentario() {
 		// TODO Auto-generated constructor stub
