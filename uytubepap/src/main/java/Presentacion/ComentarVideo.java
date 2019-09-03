@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 import interfaces.Fabrica;
 import interfaces.IControlador;
@@ -46,6 +47,7 @@ public class ComentarVideo extends JInternalFrame {
 	private JLabel lblFecha;
 	private JLabel lblComentario;
 	private JTree theMagicTree;
+	private JScrollPane scrollArea;
 	private JLabel lblUser2;
 	private Choice cmbUser2;
 	private JTextPane txtComment;
@@ -244,10 +246,13 @@ public class ComentarVideo extends JInternalFrame {
 					}
 				});
 				theMagicTree.setVisible(true);
-				theMagicTree.setBorder(new LineBorder(Color.DARK_GRAY, 1, true));
-				theMagicTree.setBounds(12, 114, 218, 272);
 				theMagicTree.setToggleClickCount(1);
-				getContentPane().add(theMagicTree);
+				scrollArea = new JScrollPane(theMagicTree);
+				scrollArea.setBorder(new LineBorder(Color.DARK_GRAY, 1, true));
+				scrollArea.setBounds(12, 114, 218, 272);  
+				scrollArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);  
+				scrollArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
+				getContentPane().add(scrollArea);
 			}
 			lblUser2.setVisible(true);
 			users = ctrl.listarUsuarios();

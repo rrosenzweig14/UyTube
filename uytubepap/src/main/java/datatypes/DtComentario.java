@@ -28,7 +28,9 @@ public class DtComentario {
 	
 	@Override
 	public String toString() {
-		return String.format(this.nick + ": " + this.texto + " " + this.fecha);
+		String aux = this.fecha.toString();
+		String date[]= aux.split(" ", 2);
+		return String.format(this.nick + ": " + this.texto + " " + date[0]);
 	}
 
 	
