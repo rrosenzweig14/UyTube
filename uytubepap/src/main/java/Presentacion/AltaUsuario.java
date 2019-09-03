@@ -243,15 +243,16 @@ public class AltaUsuario extends JInternalFrame {
 		String nombre = this.textFieldNombre.getText();
 		String apellido = this.textFieldApellido.getText();
 		String correo = this.textFieldCorreo.getText();
-		String fecha = dateChooserFechaNac.getDate().toString();
-		if (nick.equals("") || nombre.equals("")  || apellido.equals("") || correo.equals("") || fecha.equals("")) {
-			JOptionPane.showMessageDialog(null, "Quedan campos sin rellenar.");		
-			return false;
-		}
-		else return true;
-			
-		
-		
+		if(dateChooserFechaNac.getDate() != null) {
+			if (nick.equals("") || nombre.equals("")  || apellido.equals("") || correo.equals("")) {
+				JOptionPane.showMessageDialog(null, "Quedan campos sin rellenar.");		
+				return false;
+			}
+			else return true;
+		}else {
+			JOptionPane.showMessageDialog(null, "Falta llenar la fecha.");		
+			return false;			
+		}		
 	}
 	
 	public void registroUsuario() {

@@ -4,7 +4,7 @@ import java.awt.Choice;
 import java.awt.EventQueue;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 import javax.swing.JInternalFrame;
@@ -19,6 +19,8 @@ import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+
+import com.toedter.calendar.JDateChooser;
 
 import datatypes.DtComentario;
 import datatypes.DtVideo;
@@ -41,9 +43,10 @@ public class ComentarVideo extends JInternalFrame {
 	private Choice cmbUser1;
 	private JLabel lblVideo;
 	private Choice cmbVideo;
-	private Choice cmbDia;
-	private Choice cmbMes;
-	private Choice cmbAnho;
+	private JDateChooser dateChooser;
+	//private Choice cmbDia;
+	//private Choice cmbMes;
+	//private Choice cmbAnho;
 	private JLabel lblFecha;
 	private JLabel lblComentario;
 	private JTree theMagicTree;
@@ -127,26 +130,15 @@ public class ComentarVideo extends JInternalFrame {
 		cmbUser2.setBounds(317, 114, 193, 24);
 		getContentPane().add(cmbUser2);
 		
-		cmbDia = new Choice();
-		cmbDia.setVisible(false);
-		
 		lblFecha = new JLabel("Fecha:");
 		lblFecha.setVisible(false);
 		lblFecha.setBounds(236, 162, 69, 24);
 		getContentPane().add(lblFecha);
-		cmbDia.setBounds(317, 162, 43, 20);
-		getContentPane().add(cmbDia);
 		
-		cmbMes = new Choice();
-		cmbMes.setVisible(false);
-		cmbMes.setBounds(387, 162, 40, 20);
-		getContentPane().add(cmbMes);
-		
-		cmbAnho = new Choice();
-		cmbAnho.setVisible(false);
-		cmbAnho.setBounds(457, 162, 53, 20);
-		getContentPane().add(cmbAnho);
-		fillDiaMesAnio();
+		dateChooser = new JDateChooser();
+		dateChooser.setBounds(317, 162, 193, 20);
+		dateChooser.setVisible(false);
+		getContentPane().add(dateChooser);
 		
 		lblComentario = new JLabel("Comentario:");
 		lblComentario.setVisible(false);
@@ -199,19 +191,6 @@ public class ComentarVideo extends JInternalFrame {
 			cmbUser1.add(s);
 		}		
 	}
-	public void fillDiaMesAnio(){
-		for (Integer i = 1; i < 32; i++) {
-			cmbDia.add(i.toString());
-		}
-		
-		for (Integer i = 1; i < 13; i++) {
-			cmbMes.add(i.toString());
-		}
-		
-		for (Integer i = 1940; i < 2020; i++) {
-			cmbAnho.add(i.toString());
-		}
-	}
 	private void selectUser() {
 		ctrl.finCasoUso();   //por si cambia la eleccion.
 		user1 = cmbUser1.getSelectedItem();
@@ -262,9 +241,7 @@ public class ComentarVideo extends JInternalFrame {
 			}			
 			cmbUser2.setVisible(true);
 			lblFecha.setVisible(true);
-			cmbDia.setVisible(true);
-			cmbMes.setVisible(true);
-			cmbAnho.setVisible(true);
+			dateChooser.setVisible(true);
 			lblComentario.setVisible(true);
 			txtComment.setVisible(true);
 		}
@@ -307,11 +284,15 @@ public class ComentarVideo extends JInternalFrame {
 //		if(comment != null) {
 //			ctrl.seleccionarComentario(comment);
 //		}
-		Date fecha = new Date(Integer.parseInt(cmbDia.getSelectedItem()),Integer.parseInt(cmbMes.getSelectedItem()),Integer.parseInt(cmbAnho.getSelectedItem()));
-		DtComentario aux = new DtComentario(comentador, txt, fecha);
-		ctrl.ingresarComentario(aux);
-		JOptionPane.showMessageDialog(this, "Comentario realizado con exito!!!", "Comentar Video", JOptionPane.INFORMATION_MESSAGE);
-		fin();
+		Date fecha = dateChooser.getDate();
+		if(fecha != null) {
+			DtComentario aux = new DtComentario(comentador, txt, fecha);
+			ctrl.ingresarComentario(aux);
+			JOptionPane.showMessageDialog(this, "Comentario realizado con exito!!!", "Comentar Video", JOptionPane.INFORMATION_MESSAGE);
+			fin();
+		}else {
+			JOptionPane.showMessageDialog(this, "Falta llenar la fecha.", "Comentar Video", JOptionPane.INFORMATION_MESSAGE);			
+		}
 		
 	}
 	private void hide1() {
@@ -327,9 +308,7 @@ public class ComentarVideo extends JInternalFrame {
 		cmbUser2.removeAll();
 		cmbUser2.setVisible(false);
 		lblFecha.setVisible(false);
-		cmbDia.setVisible(false);
-		cmbMes.setVisible(false);
-		cmbAnho.setVisible(false);
+		dateChooser.setVisible(false);
 		lblComentario.setVisible(false);
 		txtComment.setText("");
 		txtComment.setVisible(false);
