@@ -177,6 +177,7 @@ public class ConsultaListas extends JInternalFrame {
 				if(video != null) {
 					consultaVideoInternalFrame.desdeLista((String) cbUsuario.getSelectedItem(),(String) cbVideos.getSelectedItem(),video);
 					consultaVideoInternalFrame.setVisible(true);
+					setBounds(100, 100, 855, 705);
 					try {
 						consultaVideoInternalFrame.setSelected(true);
 					} catch (PropertyVetoException e1) {
