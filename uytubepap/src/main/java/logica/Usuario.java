@@ -2,7 +2,10 @@ package logica;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,10 +29,10 @@ public class Usuario {
 	private Date fechaNac;	
 	private String img;	
 	@ManyToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="Usuarios_Relacion", joinColumns={@JoinColumn(name="nickname")}, inverseJoinColumns={@JoinColumn(name="seguidor_id")})
-	private List<Usuario> seguidores = new ArrayList<Usuario>();	
+    @JoinTable(name="seguimiento", joinColumns={@JoinColumn(name="seguido")}, inverseJoinColumns={@JoinColumn(name="seguidor")})
+	private Set<Usuario> seguidores = new HashSet<Usuario>();	
 	@ManyToMany(mappedBy="seguidores", cascade={CascadeType.ALL})
-	private List<Usuario> seguidos = new ArrayList<Usuario>();
+	private Set<Usuario> seguidos = new HashSet<Usuario>();
 	@OneToOne (mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private Canal canal;
 	@OneToMany(mappedBy="nombreUsuario",cascade=CascadeType.ALL,orphanRemoval=true)
@@ -45,8 +48,8 @@ public class Usuario {
 		this.email = email;
 		this.fechaNac = fechaNac;
 		this.img = img;		
-		this.seguidores = new ArrayList<Usuario>();
-		this.seguidos = new ArrayList<Usuario>();
+		this.seguidores = new HashSet<Usuario>();
+		this.seguidos = new HashSet<Usuario>();
 	}
 	
 	public void añadirSeguidor(Usuario user) {
@@ -119,19 +122,19 @@ public class Usuario {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Usuario> getSeguidores() {
+	public Set<Usuario> getSeguidores() {
 		return seguidores;
 	}
 
-	public void setSeguidores(List<Usuario> seguidores) {
+	public void setSeguidores(Set<Usuario> seguidores) {
 		this.seguidores = seguidores;
 	}
 
-	public List<Usuario> getSeguidos() {
+	public Set<Usuario> getSeguidos() {
 		return seguidos;
 	}
 
-	public void setSeguidos(List<Usuario> seguidos) {
+	public void setSeguidos(Set<Usuario> seguidos) {
 		this.seguidos = seguidos;
 	}
 	
