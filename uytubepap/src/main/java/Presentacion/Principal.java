@@ -1,5 +1,6 @@
 package Presentacion;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
@@ -12,6 +13,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 
 import interfaces.Fabrica;
 import interfaces.IControlador;
@@ -23,6 +25,9 @@ import javax.swing.JMenu;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
@@ -88,12 +93,16 @@ public class Principal extends JFrame {
 	private QuitarVideoLista quitarVideoListaInternalFrame;
 	private ModificarVideo modificarDatosVideoInternalFrame;
 	private ValorarVideo ValorarVideoInternalFrame;
+	private Template pruebaPanel;
+	private AddUser addUser;
+	private AddCategory addCategory;
 
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -110,12 +119,11 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		/*
 		lblNewImage = new JLabel("");
 		lblNewImage.setEnabled(false);
 		lblNewImage.setBounds(350,340,727,400);		
 		img = new ImageIcon("././img//UyTube.png").getImage();
-		icon = new ImageIcon("././img//logo.png").getImage();
-		
 		BufferedImage img = null;
 		try {
 		    img = ImageIO.read(new File("././img//UyTube.png"));
@@ -124,18 +132,16 @@ public class Principal extends JFrame {
 		}
 		Image dimg = img.getScaledInstance(727, 400, Image.SCALE_SMOOTH);
 		ImageIcon imageIcon = new ImageIcon(dimg);
-		lblNewImage.setIcon(imageIcon);
-		
+		lblNewImage.setIcon(imageIcon);		
 		ImageIcon img2=new ImageIcon(img);
 		lblNewImage.setVisible(true);
-		lblNewImage.setIcon(img2);
+		lblNewImage.setIcon(img2);*/
 		initialize();		
+		
 		//frame.getContentPane().add(lblNewImage);	
 		//IControlador ctrl = Fabrica.getIControlador();
+		//frame.setContentPane(lblNewImage);
 		Conexion.open();		
-		frame.getContentPane().setLayout(null);
-		frame.setIconImage(icon);
-		frame.setContentPane(lblNewImage);
 
 	}
 	/*
@@ -148,8 +154,11 @@ public class Principal extends JFrame {
 
 		frame = new JFrame();
 		frame.setTitle("UyTube");
-		frame.setBounds(100, 100, 1024, 800);		
-		
+		icon = new ImageIcon("././img//logo.png").getImage();
+		frame.setBounds(100, 100, 1280, 900);
+		frame.setResizable(false);
+		frame.getContentPane().setLayout(null);
+		frame.setIconImage(icon);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		{
 			menuBar = new JMenuBar();
@@ -157,16 +166,25 @@ public class Principal extends JFrame {
 
 			mnAltaMenu = new JMenu("Altas");
 			menuBar.add(mnAltaMenu);
+			
+		    //Color color = frame.getBackground();
+		    //pruebaPanel = new Template(color);
+		    //frame.getContentPane().add(pruebaPanel);
+			JLayeredPane lp = new JLayeredPane();
+			lp.setSize(1280, 850);
+			frame.getContentPane().add(lp);
 
 			mntmAltaUsuario = new JMenuItem("Alta Usuario");
 			mntmAltaUsuario.setIcon(new ImageIcon("././img/Icons/add-user-button.png"));
 			mntmAltaUsuario.setFont(new Font("Dialog", Font.BOLD, 15));
 			mntmAltaUsuario.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					altaUsuarioInternalFrame = new AltaUsuario(ctrl);		
-					altaUsuarioInternalFrame.setVisible(true);
-					altaUsuarioInternalFrame.setBounds(100, 100, 530, 430);
-					frame.getContentPane().add(altaUsuarioInternalFrame);					
+					//altaUsuarioInternalFrame = new AltaUsuario(ctrl);		
+					//altaUsuarioInternalFrame.setVisible(true);
+					//altaUsuarioInternalFrame.setBounds(100, 100, 530, 430);
+					//pruebaPanel.add(altaUsuarioInternalFrame);
+					addUser = new AddUser();
+					lp.add(addUser,2);
 				}
 			});
 			mnAltaMenu.add(mntmAltaUsuario);
@@ -178,10 +196,12 @@ public class Principal extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					altaCategoriaInternalFrame = new AltaCategoria(ctrl);
-					altaCategoriaInternalFrame.setBounds(100, 100, 362, 150);
-					altaCategoriaInternalFrame.setVisible(true);
-					frame.getContentPane().add(altaCategoriaInternalFrame);
+					//altaCategoriaInternalFrame = new AltaCategoria(ctrl);
+					//altaCategoriaInternalFrame.setBounds(100, 100, 362, 150);
+					//altaCategoriaInternalFrame.setVisible(true);
+					//frame.getContentPane().add(altaCategoriaInternalFrame);
+					addCategory = new AddCategory();
+					lp.add(addCategory,3);
 					
 				}
 			});
