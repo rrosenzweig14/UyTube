@@ -510,5 +510,25 @@ public class Controlador implements IControlador {
 
 		return res;
 	}
+	
+	/* Nueva función para version WEB */
+	
+	public Boolean login(String usuario, String password) {
+		Usuario usr = Handler.findUsuario(usuario);
+		Boolean res = false;
+		if (usr == null) {
+			usr = Handler.findUsuarioEM(usuario);
+			if (usr != null) {
+				if (usr.getPassword().equals(password)) {
+					res = true;
+				}
+			}
+		}
+		else {
+			if (usr.getPassword().equals(password))
+				res = true;
+		}
+		return res;		
+	}
 
 }

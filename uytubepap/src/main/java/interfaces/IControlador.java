@@ -81,5 +81,7 @@ public interface IControlador {
 	public Map<String, String> videosXCat(String categoria);
 	
 	public Map<String, String> listasXCat(String categoria);
+	
+	public Boolean login(String usuario, String password);
 
 }

@@ -19,7 +19,8 @@ import datatypes.DtUsuario;
 @Entity
 public class Usuario {	 
 	@Id
-	private String nickname;	
+	private String nickname;
+	private String password;
 	private String email;	
 	private String nombre;	
 	private String apellido;	
@@ -199,6 +200,14 @@ public class Usuario {
 		this.fechaNac = fechaNac;
 		this.img = img;		
 		this.canal = nombreCanal;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 }
