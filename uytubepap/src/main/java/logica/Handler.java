@@ -47,9 +47,9 @@ public class Handler {
 		return usuario;
 	}
 	
-	public static void addUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, DtCanal canal) {
+	public static void addUsuario(String nickname, String email,String password, String nombre, String apellido, Date fechaNac, String img, DtCanal canal) {
 		Conexion.beginTransaction();
-		Usuario usuario = new Usuario(nickname, email, nombre, apellido, fechaNac, img, canal);
+		Usuario usuario = new Usuario(nickname, email,password , nombre, apellido, fechaNac, img, canal);
 		Canal x = usuario.getCanal();
 		x.setUsuario(usuario);
 		Iterator<String> i = listasDefecto.iterator();

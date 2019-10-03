@@ -8,6 +8,7 @@ public class DtUsuario {
 	
 	private String nickname;	
 	private String email;	
+	private String password;
 	private String nombre;		
 	private String apellido;	
 	private Date fechaNac;		
@@ -18,9 +19,10 @@ public class DtUsuario {
 	
 	public DtUsuario() {}
 	
-	public DtUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img) {
+	public DtUsuario(String nickname, String email,String password, String nombre, String apellido, Date fechaNac, String img) {
 		this.nickname = nickname;
 		this.email = email;
+		this.setPassword(password);
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNac = fechaNac;
@@ -113,4 +115,12 @@ public class DtUsuario {
 		
 		return nickname.equals(user.nickname) && nombre.equals(user.nombre) && apellido.equals(user.apellido) && email.equals(user.email) && img.equals(user.img) && fechaNac == user.fechaNac;
     }
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

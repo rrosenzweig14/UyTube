@@ -432,7 +432,7 @@ public class Controlador implements IControlador {
 	}
 
 	@Override
-	public Boolean ingresarUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac,
+	public Boolean ingresarUsuario(String nickname, String email,String password, String nombre, String apellido, Date fechaNac,
 			String img, DtCanal canal) {
 		Boolean res = false;
 		Usuario aux = Handler.findUsuario(nickname);
@@ -441,7 +441,7 @@ public class Controlador implements IControlador {
 		else
 			this.existeEmail = false;
 		if (aux == null) {
-			Handler.addUsuario(nickname, email, nombre, apellido, fechaNac, img, canal);
+			Handler.addUsuario(nickname, email, password,nombre, apellido, fechaNac, img, canal);
 			res = true;
 		} else
 			this.existeEmail = true;

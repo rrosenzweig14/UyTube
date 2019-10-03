@@ -56,7 +56,7 @@ public interface IControlador {
 	
 	public Boolean altaCategoria(String nombre);
 	
-	public Boolean ingresarUsuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, DtCanal canal);
+	public Boolean ingresarUsuario(String nickname, String email,String password, String nombre, String apellido, Date fechaNac, String img, DtCanal canal);
 	
 	public void ingresarTipoLista(boolean defecto);	
 	

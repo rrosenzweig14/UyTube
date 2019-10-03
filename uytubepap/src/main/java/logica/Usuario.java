@@ -38,9 +38,10 @@ public class Usuario {
 		
 	//Metodos
 	
-	public Usuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img) {
+	public Usuario(String nickname, String email, String password, String nombre, String apellido, Date fechaNac, String img) {
 		super();
 		this.nickname = nickname;
+		this.password = password;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
@@ -155,11 +156,11 @@ public class Usuario {
 	}
 
 	public DtUsuario getDtUsuario() {
-		return new DtUsuario(this.nickname,this.email,this.nombre,this.apellido, this.fechaNac, this.getImg());
+		return new DtUsuario(this.nickname,this.email,this.password,this.nombre,this.apellido, this.fechaNac, this.getImg());
 	}
 	
     public DtUsuario getDt() {
-        DtUsuario aux =  new DtUsuario(this.nickname,this.email,this.nombre,this.apellido, this.fechaNac, this.getImg());
+        DtUsuario aux =  new DtUsuario(this.nickname,this.email,this.password,this.nombre,this.apellido, this.fechaNac, this.getImg());
         for(Usuario u: this.seguidos) {
              aux.addSeguido(u.getDtUsuario());
         }
@@ -179,9 +180,10 @@ public class Usuario {
 		return this.canal.agregarListaDefecto(nombreLista);
 	}
 	
-	public Usuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img, DtCanal datosCanal) {
+	public Usuario(String nickname, String email,String password,String nombre, String apellido, Date fechaNac, String img, DtCanal datosCanal) {
 		super();
 		this.nickname = nickname;
+		this.password = password;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
@@ -191,9 +193,10 @@ public class Usuario {
 		this.canal = new Canal(datosCanal);
 	}
 
-	public Usuario(String nickname, String email, String nombre, String apellido, Date fechaNac, String img,Canal nombreCanal) {
+	public Usuario(String nickname, String email,String password,String nombre, String apellido, Date fechaNac, String img,Canal nombreCanal) {
 		super();
 		this.nickname = nickname;
+		this.password = password;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;

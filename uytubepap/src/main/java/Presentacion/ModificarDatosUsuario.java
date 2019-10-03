@@ -488,7 +488,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 						error = true;
 					}
 				}
-				DtUsuario usuarioNuevo = new DtUsuario(textFieldNick.getText(), textFieldCorreo.getText(),
+				DtUsuario usuarioNuevo = new DtUsuario(textFieldNick.getText(), textFieldCorreo.getText(), "",
 						textFieldNombre.getText(), textFieldApellido.getText(), fechaNueva, imgPath);
 
 				DtCanal canalNuevo = new DtCanal(textFieldNombreCanal.getText(), textAreaDescripcion.getText(),
