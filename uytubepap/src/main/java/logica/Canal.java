@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -29,8 +30,10 @@ public class Canal {
 	private Map<String,Lista> listasReproduccion = new HashMap<String,Lista>();
 	@OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
 	private Map<String,Video> listaVideos = new HashMap<String,Video>();		
-	//@ManyToOne
+	@ManyToOne
+	private Categoria categoria;
 	private Boolean privado;
+	
 
 	public Canal() {
 		// TODO Auto-generated constructor stub
@@ -55,7 +58,15 @@ public class Canal {
 
 	public Usuario getUsuario() {
 		return usuario;
-	}	
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;

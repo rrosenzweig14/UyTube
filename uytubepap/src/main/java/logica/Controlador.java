@@ -530,5 +530,22 @@ public class Controlador implements IControlador {
 		}
 		return res;		
 	}
+	
+	//@Override
+	public HashMap<Integer,String> listarVideosPublicos() {
+		return Handler.listarVideosPublicos();
+	} 
+	//@Override
+	public HashMap<Integer,String> listarListasPublicas() {
+		return Handler.listarListasPublicas();
+	} 
+	//@Override
+	public HashMap<String,String> listarCanalesPublicos() {
+		return Handler.listarCanalesPublicos();
+	} 
+	//@Override
+	public HashMap<Integer,String> listarVideosPrivados(String nick) {
+		return Handler.listarVideosXXX(nick);
+	} 
 
 }

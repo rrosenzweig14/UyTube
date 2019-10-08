@@ -2,6 +2,7 @@ package interfaces;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -83,5 +84,13 @@ public interface IControlador {
 	public Map<String, String> listasXCat(String categoria);
 	
 	public Boolean login(String usuario, String password);
+	
+	public HashMap<Integer,String> listarVideosPublicos();
+	
+	public HashMap<Integer,String> listarListasPublicas();
+	
+	public HashMap<String,String> listarCanalesPublicos();
+	
+	public HashMap<Integer,String> listarVideosPrivados(String nick);
 
 }
