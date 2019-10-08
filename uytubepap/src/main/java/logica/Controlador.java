@@ -314,12 +314,6 @@ public class Controlador implements IControlador {
 	}
 
 	@Override
-	public Map<ArrayList<DtVideo>, ArrayList<DtLista>> listarXCat(String categoria) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Map<DtUsuario, DtCanal> listarDatosUsuario(String nick) {
 		Map<DtUsuario, DtCanal> datos = new HashMap<DtUsuario, DtCanal>();
 		user1 = Handler.findUsuario(nick);
@@ -488,6 +482,33 @@ public class Controlador implements IControlador {
 		}
 		return res;
 	}
+	
+	public Map<String, String> videosXCatPublicos(String categoria){
+		Map<String, String> res = new HashMap<String, String>();
+		ArrayList<String> us = Handler.listarUsuarios();
+		Canal c = new Canal();
+		Usuario usr = new Usuario();
+		Map<String, Video> vid;
+		String catnom;
+		for (String u : us) {
+			usr = Handler.findUsuario(u);
+			c = usr.getCanal();
+			vid = c.getListaVideos();
+			for (Video v : vid.values()) {
+				if (v != null) {
+					Categoria cat = v.getCategoria();
+					if (cat != null) {
+						catnom = (String) cat.getNombre();
+						if (catnom.equals(categoria) && !v.getPrivado()) {
+							res.put(v.getNombre(), usr.getNickname());
+						}
+					}
+				}
+			}
+		}
+		return res;
+	}
+	
 
 	public Map<String, String> listasXCat(String categoria) {
 		Map<String, String> res = new HashMap<String, String>();
@@ -505,6 +526,27 @@ public class Controlador implements IControlador {
 						if (l.getCategoria() != null && l.getCategoria().getNombre().equals(categoria))
 							res.put(l.getNombre(), usr.getNickname());
 
+				}
+		}
+
+		return res;
+	}
+	
+	public Map<String, String> listasXCatPublicas(String categoria){
+		Map<String, String> res = new HashMap<String, String>();
+		ArrayList<String> us = Handler.listarUsuarios();
+		Canal c = new Canal();
+		Usuario usr = new Usuario();
+		Map<String, Lista> lst;
+		for (String u : us) {
+			usr = Handler.findUsuario(u);
+			c = usr.getCanal();
+			lst = c.getListasReproduccion();
+			if (lst != null)
+				for (Lista l : lst.values()) {
+					if (l instanceof Particular)
+						if (l.getCategoria() != null && l.getCategoria().getNombre().equals(categoria) && !l.isPrivado())
+							res.put(l.getNombre(), usr.getNickname());
 				}
 		}
 
@@ -546,6 +588,5 @@ public class Controlador implements IControlador {
 	//@Override
 	public HashMap<Integer,String> listarVideosPrivados(String nick) {
 		return Handler.listarVideosXXX(nick);
-	} 
-
+	}
 }

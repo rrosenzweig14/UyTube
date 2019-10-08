@@ -51,8 +51,6 @@ public interface IControlador {
 	
 	public boolean crearLista(DtUsuario usuario, String nombre, boolean privada, String categoria);
 	
-	public Map<ArrayList<DtVideo>, ArrayList<DtLista>> listarXCat(String categoria);
-	
 	public Map<DtUsuario, DtCanal> listarDatosUsuario(String nick);
 	
 	public Boolean altaCategoria(String nombre);
@@ -92,5 +90,9 @@ public interface IControlador {
 	public HashMap<String,String> listarCanalesPublicos();
 	
 	public HashMap<Integer,String> listarVideosPrivados(String nick);
+	
+	public Map<String, String> listasXCatPublicas(String categoria);
+	
+	public Map<String, String> videosXCatPublicos(String categoria);
 
 }
