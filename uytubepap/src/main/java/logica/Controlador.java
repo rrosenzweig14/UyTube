@@ -547,5 +547,14 @@ public class Controlador implements IControlador {
 	public HashMap<Integer,String> listarVideosPrivados(String nick) {
 		return Handler.listarVideosXXX(nick);
 	} 
+	//@Override
+	public DtVideo findVideo(int id) {
+		Video v = Handler.findVideo(id);
+		if(v != null) {
+			return v.getDt();
+		}else {
+			return null;
+		}
+	} 
 
 }

@@ -92,5 +92,7 @@ public interface IControlador {
 	public HashMap<String,String> listarCanalesPublicos();
 	
 	public HashMap<Integer,String> listarVideosPrivados(String nick);
+	
+	public DtVideo findVideo(int id);
 
 }

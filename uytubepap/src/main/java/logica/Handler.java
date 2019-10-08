@@ -223,4 +223,12 @@ public class Handler {
 		return videos;		
 	}
 	
+	public static Video findVideo(int id) {
+		System.out.println("findVideo*****************************************************************************************************");
+		EntityManager em = Conexion.getEm();
+		Video v = em.find(Video.class, id);	//se fija en DB
+		return v;
+		
+	}
+	
 }
