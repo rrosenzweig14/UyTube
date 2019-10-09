@@ -161,7 +161,11 @@ public class Controlador implements IControlador {
 	@Override
 	public DtVideo seleccionarVideo(String nombreVideo) {
 		video = user1.getCanal().findVideo(nombreVideo);
-		return video.getDt();
+		if(video != null) {
+			return video.getDt();
+		}else {
+			return null;
+		}
 	}
 
 	@Override
