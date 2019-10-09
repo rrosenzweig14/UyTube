@@ -598,5 +598,11 @@ public class Controlador implements IControlador {
 			return null;
 		}
 	} 
+	
+	public DtLista findLista(int id) {
+		Lista l = Handler.findLista(id);
+		if (l != null) return l.getDt();
+		else return null;
+	}
 
 }

@@ -93,6 +93,8 @@ public interface IControlador {
 	
 	public DtVideo findVideo(int id);
 	
+	public DtLista findLista(int id); 
+	
 	public Map<String, String> listasXCatPublicas(String categoria);
 	
 	public Map<String, String> videosXCatPublicos(String categoria);
