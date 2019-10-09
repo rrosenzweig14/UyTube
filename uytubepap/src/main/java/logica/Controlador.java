@@ -500,7 +500,7 @@ public class Controlador implements IControlador {
 					if (cat != null) {
 						catnom = (String) cat.getNombre();
 						if (catnom.equals(categoria) && !v.getPrivado()) {
-							res.put(v.getNombre(), usr.getNickname());
+							res.put(v.getId() + ";" + v.getNombre(), usr.getNickname());
 						}
 					}
 				}
@@ -546,7 +546,7 @@ public class Controlador implements IControlador {
 				for (Lista l : lst.values()) {
 					if (l instanceof Particular)
 						if (l.getCategoria() != null && l.getCategoria().getNombre().equals(categoria) && !l.isPrivado())
-							res.put(l.getNombre(), usr.getNickname());
+							res.put(l.getId() + ";" + l.getNombre(), usr.getNickname());
 				}
 		}
 
