@@ -217,7 +217,9 @@ public class Handler {
 		if(usr != null) {
 			Canal c = usr.getCanal();
 			for(Video v: c.getListaVideos().values()) {
-				videos.put(v.getId(), v.getNombre());					
+				if(v.getPrivado()) {
+					videos.put(v.getId(), v.getNombre());
+				}
 			}
 		}
 		return videos;		
