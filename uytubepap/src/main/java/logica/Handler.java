@@ -17,11 +17,9 @@ public class Handler {
 	
 	public static Usuario findUsuario(String nick) {
 		Usuario user = usuarios.get(nick);  //se fija en el map
-		System.out.println("al entrar en findUSUARIO");
 		if(user == null) {
 			EntityManager em = Conexion.getEm();
 			user = em.find(Usuario.class, nick);	//se fija en DB
-			System.out.println("cuando user null findUsuario");
 			if (user != null) usuarios.put(nick, user);
 		}
 		return user;
@@ -223,12 +221,16 @@ public class Handler {
 		return videos;		
 	}
 	
-	public static Video findVideo(int id) {
-		System.out.println("findVideo*****************************************************************************************************");
+	public static Video findVideo(int id) {		
 		EntityManager em = Conexion.getEm();
-		Video v = em.find(Video.class, id);	//se fija en DB
-		return v;
-		
+		Video v = em.find(Video.class, id);
+		return v;		
+	}
+	
+	public static Lista findLista(int id) {
+		EntityManager em = Conexion.getEm();
+		Lista l = em.find(Lista.class, id);
+		return l;
 	}
 	
 }
