@@ -65,6 +65,16 @@ public class Controlador implements IControlador {
 		}
 		return res;
 	}
+	
+	public ArrayList<DtVideo> videosEnListaPublica(DtLista lst){
+		ArrayList<DtVideo> res = new ArrayList<DtVideo>();
+		Lista lista = Handler.findLista(lst.getId());
+		Map<String, Video> videos = lista.getVideos();
+		for (Video vid : videos.values()) {
+			res.add(vid.getDt());
+		}
+		return res;
+	};
 
 	@Override
 	public void seleccionarCategoria(String cat) {

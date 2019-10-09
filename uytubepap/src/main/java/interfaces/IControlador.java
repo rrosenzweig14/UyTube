@@ -98,5 +98,7 @@ public interface IControlador {
 	public Map<String, String> listasXCatPublicas(String categoria);
 	
 	public Map<String, String> videosXCatPublicos(String categoria);
+	
+	public ArrayList<DtVideo> videosEnListaPublica(DtLista lst);
 
 }
