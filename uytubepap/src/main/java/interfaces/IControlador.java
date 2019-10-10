@@ -104,5 +104,7 @@ public interface IControlador {
 	public boolean valorarVideoPublico(int id, String nick, boolean valor);
 	
 	public String findDuenioLista(int id);
+	
+	public String findDuenioVideo(int id);
 
 }
