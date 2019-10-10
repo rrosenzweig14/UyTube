@@ -607,7 +607,7 @@ public class Controlador implements IControlador {
 	public DtVideo findVideo(int id) {
 		Video v = Handler.findVideo(id);
 		if(v != null) {
-			return v.getDt();
+			return v.getDtFake();
 		}else {
 			return null;
 		}
@@ -618,6 +618,37 @@ public class Controlador implements IControlador {
 		if (l != null) return l.getDt();
 		else return null;
 	}
+	
+	public boolean valorarVideoPublico(int id, String nick, boolean valor) {
+		Video v = Handler.findVideo(id);
+		Usuario u = Handler.findUsuario(nick);
+		if(v != null && u != null) {
+			List<Usuario_Video> valoraciones = v.getValoraciones();
+			Iterator<Usuario_Video> it = valoraciones.iterator();
+			boolean encontrado = false;
+			Usuario_Video usrvid = null;
+			while (!encontrado && it.hasNext()) {
+				usrvid = it.next();
+				if (usrvid.getNombreUsuario().getNickname().equals(nick))
+					encontrado = true;
+			}
+			if (encontrado)
+				usrvid.setLeGusta(valor);
+			else {
+				usrvid = new Usuario_Video();
+				usrvid.setLeGusta(valor);
+				usrvid.setNombreVideo(v);
+				usrvid.setNombreUsuario(u);
+			}
+			Conexion.beginTransaction();
+			Conexion.persist(usrvid);
+			Conexion.commit();
+			return true;
+		}else {
+			return false;
+		}
+	} 
+	
 	
 	public String findDuenioVideo(int id) {
 		String res = null;

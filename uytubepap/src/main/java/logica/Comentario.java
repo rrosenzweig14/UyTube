@@ -1,7 +1,9 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -122,6 +124,15 @@ public class Comentario {//TODO agregar la clave compuesta usuario fecha o quiz√
 			}
 		}
 		return nodes;
+	}
+	
+	public void noMoreTrees(ArrayList<DtComentario> com, int nivel){
+		for(Comentario c: this.respuestas) {
+			DtComentario dtc = c.getDt();
+			dtc.setNivel(nivel);
+			com.add(dtc);
+			c.noMoreTrees(com,nivel+1);
+		}		
 	}
 
 }

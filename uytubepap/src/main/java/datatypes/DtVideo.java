@@ -3,6 +3,8 @@ package datatypes;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 
 import logica.Usuario;
 
@@ -16,7 +18,8 @@ public class DtVideo {
 	private String categoria;	
 	private Date fechaPub;	
 	private String url;
-	private JTree comentarios;	
+	private JTree comentarios;
+	private ArrayList<DtComentario> com = null;
 	private ArrayList<String> valoracionesPositivas;	
 	private ArrayList<String> valoracionesNegativas;
 	
@@ -133,6 +136,13 @@ public class DtVideo {
 		this.comentarios = comentarios;
 	}
 
+	public ArrayList<DtComentario> getCom() {
+		return com;
+	}
+	public void setCom(ArrayList<DtComentario> com) {
+		this.com = com;
+	}
+	
 	public void addValoracionPositiva(String nombre) {
 		this.valoracionesPositivas.add(nombre);
 	}

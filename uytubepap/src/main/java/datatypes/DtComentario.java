@@ -7,6 +7,7 @@ public class DtComentario {
 	private String nick;	
 	private String texto;	
 	private Date fecha;
+	private int nivel;
 
 	public DtComentario() {
 		super();
@@ -18,12 +19,14 @@ public class DtComentario {
 		this.nick = nick;
 		this.texto = texto;
 		this.fecha = fecha;
+		this.nivel = 0;
 	}
 	
 	public DtComentario(String nick, String texto, Date fecha) {
 		this.nick = nick;
 		this.texto = texto;
 		this.fecha = fecha;
+		this.nivel = 0;
 	}
 	
 	@Override
@@ -66,6 +69,14 @@ public class DtComentario {
 		this.fecha = fecha;
 	}
 	
+	public int getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(int nivel) {
+		this.nivel = nivel;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

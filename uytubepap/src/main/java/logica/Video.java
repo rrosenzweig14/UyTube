@@ -166,11 +166,8 @@ public class Video {
 		DtVideo dtv = new DtVideo(this.id, this.nombre, this.privado, null, this.descripcion, this.duracion, s,
 				this.fechaPub, this.url);
 		dtv.setComentarios(getElPutoTree());
-
 		List<Usuario_Video> valoraciones = this.valoraciones;
-
 		if (this.valoraciones != null) {
-
 			for (Usuario_Video uv : valoraciones) {
 				if (uv.isLeGusta())
 					dtv.addValoracionPositiva(uv.getNombreUsuario().getNickname());
@@ -217,5 +214,36 @@ public class Video {
 		this.duracion = dtv.getDuracion();
 		this.categoria = c;
 	}
+	
+	public ArrayList<DtComentario> theFakeTree(){
+		ArrayList<DtComentario> com = new ArrayList<DtComentario>();
+		for(Comentario c: this.comentarios) {
+			DtComentario dtc = c.getDt();
+			dtc.setNivel(0);
+			com.add(dtc);
+			c.noMoreTrees(com,1);			
+		}		
+		return com;
+	}
+	public DtVideo getDtFake() {
+		String s = null;
+		if (this.categoria != null) {
+			s = this.categoria.getNombre();
+		}
+		DtVideo dtv = new DtVideo(this.id, this.nombre, this.privado, null, this.descripcion, this.duracion, s,this.fechaPub, this.url);
+		dtv.setCom(theFakeTree());
+		List<Usuario_Video> valoraciones = this.valoraciones;
+		if (this.valoraciones != null) {
+			for (Usuario_Video uv : valoraciones) {
+				if (uv.isLeGusta()) {
+					dtv.addValoracionPositiva(uv.getNombreUsuario().getNickname());
+				}else {
+					dtv.addValoracionNegativa(uv.getNombreUsuario().getNickname());
+				}
+				System.out.println(uv.getNombreUsuario().getNickname()+"****************************************************************************");
+			}
+		}
 
+		return dtv;
+	}
 }

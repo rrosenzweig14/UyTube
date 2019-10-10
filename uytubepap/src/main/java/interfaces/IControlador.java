@@ -101,6 +101,8 @@ public interface IControlador {
 	
 	public ArrayList<DtVideo> videosEnListaPublica(DtLista lst);
 	
+	public boolean valorarVideoPublico(int id, String nick, boolean valor);
+	
 	public String findDuenioLista(int id);
 
 }
