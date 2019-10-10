@@ -100,5 +100,7 @@ public interface IControlador {
 	public Map<String, String> videosXCatPublicos(String categoria);
 	
 	public ArrayList<DtVideo> videosEnListaPublica(DtLista lst);
+	
+	public String findDuenioLista(int id);
 
 }

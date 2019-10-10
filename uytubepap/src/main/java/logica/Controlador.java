@@ -618,5 +618,43 @@ public class Controlador implements IControlador {
 		if (l != null) return l.getDt();
 		else return null;
 	}
+	
+	public String findDuenioVideo(int id) {
+		String res = null;
+		ArrayList<String> us = Handler.listarUsuarios();
+		Canal c = new Canal();
+		Usuario usr = new Usuario();
+		Map<String, Video> vid;
+		for (String u : us) {
+			usr = Handler.findUsuario(u);
+			c = usr.getCanal();
+			vid = c.getListaVideos();
+			for (Video v : vid.values()) {
+				if (v != null && v.getId() == id) {
+					return usr.getNickname();
+				}
+			}
+		}
+		return res;		
+	}
+	
+	public String findDuenioLista(int id) {
+		String res = null;
+		ArrayList<String> us = Handler.listarUsuarios();
+		Canal c = new Canal();
+		Usuario usr = new Usuario();
+		Map<String, Lista> lst;
+		for (String u : us) {
+			usr = Handler.findUsuario(u);
+			c = usr.getCanal();
+			lst = c.getListasReproduccion();
+			if (lst != null)
+				for (Lista l : lst.values()) {
+					if (l.getId() == id) return usr.getNickname();
+				}
+		}
+
+		return res;
+	}
 
 }
