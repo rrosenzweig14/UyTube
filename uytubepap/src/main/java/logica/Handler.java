@@ -183,10 +183,27 @@ public class Handler {
 		}
 		return videos;
 	}
+	
+	public static HashMap<Integer,String> buscarVideosPublicos(String dato){
+		@SuppressWarnings("rawtypes")
+		List aux = new ArrayList();	
+		aux = Conexion.createQuery("SELECT v FROM Video v WHERE v.privado = false AND (v.nombre = '"+ dato +"' OR "
+				+ "v.descripcion = '"+ dato +"')");	
+		HashMap<Integer,String> videos = new HashMap<Integer,String>();
+		if(aux != null) {
+			for(Object o: aux) {
+				Video v = (Video)o;
+				videos.put(v.getId(), v.getNombre());			
+			}
+		}
+		return videos;
+	}
+	
+	
 	public static HashMap<Integer,String> listarListasPublicas(){
 		@SuppressWarnings("rawtypes")
 		List aux = new ArrayList();	
-		aux = Conexion.createQuery("SELECT l FROM Lista l WHERE l.privado = false");	
+		aux = Conexion.createQuery("SELECT l FROM Lista l WHERE l.privado = false");
 		HashMap<Integer,String> listas = new HashMap<Integer,String>();
 		if(aux != null) {
 			for(Object o: aux) {
@@ -196,6 +213,21 @@ public class Handler {
 		}
 		return listas;
 	}
+	
+	public static HashMap<Integer,String> buscarListasPublicas(String dato){
+		@SuppressWarnings("rawtypes")
+		List aux = new ArrayList();	
+		aux = Conexion.createQuery("SELECT l FROM Lista l WHERE l.privado = false AND l.nombre = '" + dato + "'");	
+		HashMap<Integer,String> listas = new HashMap<Integer,String>();
+		if(aux != null) {
+			for(Object o: aux) {
+				Lista l = (Lista)o;
+				listas.put(l.getId(), l.getNombre());			
+			}
+		}
+		return listas;
+	}
+	
 	public static HashMap<String,String> listarCanalesPublicos(){
 		@SuppressWarnings("rawtypes")
 		List aux = new ArrayList();	
@@ -209,6 +241,22 @@ public class Handler {
 		}
 		return canales;
 	}
+	
+	public static HashMap<String,String> buscarCanalesPublicos(String dato){
+		@SuppressWarnings("rawtypes")
+		List aux = new ArrayList();	
+		aux = Conexion.createQuery("SELECT c FROM Canal c WHERE c.privado = false AND (c.nombre = '"+ dato +"' "
+				+ "OR c.descripcion = '"+ dato +"')" );	
+		HashMap<String,String> canales = new HashMap<String,String>();
+		if(aux != null) {
+			for(Object o: aux) {
+				Canal c = (Canal)o;
+				canales.put(c.getNickname(), c.getNombre());			
+			}
+		}
+		return canales;
+	}
+	
 	public static HashMap<Integer,String> listarVideosXXX(String nick){
 		Usuario usr = findUsuario(nick);	
 		HashMap<Integer,String> videos = new HashMap<Integer,String>();

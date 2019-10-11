@@ -14,6 +14,7 @@ import datatypes.DtComentario;
 import datatypes.DtLista;
 import datatypes.DtUsuario;
 import datatypes.DtVideo;
+import logica.Handler;
 
 public interface IControlador {
 	
@@ -88,6 +89,12 @@ public interface IControlador {
 	public HashMap<Integer,String> listarListasPublicas();
 	
 	public HashMap<String,String> listarCanalesPublicos();
+	
+	public HashMap<Integer,String> buscarVideosPublicos(String dato);
+
+	public HashMap<Integer,String> buscarListasPublicas(String dato);
+	 
+	public HashMap<String,String> buscarCanalesPublicos(String dato);
 	
 	public HashMap<Integer,String> listarVideosPrivados(String nick);
 	
