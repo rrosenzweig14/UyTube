@@ -90,7 +90,7 @@ public interface IControlador {
 	
 	public HashMap<String,String> listarCanalesPublicos();
 	
-	public HashMap<Integer,String> buscarVideosPublicos(String dato);
+	public ArrayList<DtVideo> buscarVideosPublicos(String dato);
 
 	public HashMap<Integer,String> buscarListasPublicas(String dato);
 	 

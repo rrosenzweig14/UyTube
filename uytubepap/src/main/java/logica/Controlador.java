@@ -601,7 +601,7 @@ public class Controlador implements IControlador {
 	} 
 	
 	//@Override
-	public HashMap<Integer,String> buscarVideosPublicos(String dato) {
+	public ArrayList<DtVideo> buscarVideosPublicos(String dato){
 		return Handler.buscarVideosPublicos(dato);
 	} 
 	//@Override

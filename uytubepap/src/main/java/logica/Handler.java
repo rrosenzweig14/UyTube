@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 
 import datatypes.DtCanal;
 import datatypes.DtUsuario;
+import datatypes.DtVideo;
 
 public class Handler {
 	private static HashMap<String,Usuario> usuarios = new HashMap<String,Usuario>();
@@ -184,16 +185,16 @@ public class Handler {
 		return videos;
 	}
 	
-	public static HashMap<Integer,String> buscarVideosPublicos(String dato){
+	public static ArrayList<DtVideo> buscarVideosPublicos(String dato){
 		@SuppressWarnings("rawtypes")
 		List aux = new ArrayList();	
-		aux = Conexion.createQuery("SELECT v FROM Video v WHERE v.privado = false AND (v.nombre = '"+ dato +"' OR "
-				+ "v.descripcion = '"+ dato +"')");	
-		HashMap<Integer,String> videos = new HashMap<Integer,String>();
+		aux = Conexion.createQuery("SELECT v FROM Video v WHERE v.privado = false AND (v.nombre LIKE '%"+ dato +"%' OR "
+				+ "v.descripcion LIKE '%"+ dato +"%')");	
+		ArrayList<DtVideo> videos = new ArrayList<DtVideo>();
 		if(aux != null) {
 			for(Object o: aux) {
 				Video v = (Video)o;
-				videos.put(v.getId(), v.getNombre());			
+				videos.add(v.getDt());			
 			}
 		}
 		return videos;
@@ -217,7 +218,7 @@ public class Handler {
 	public static HashMap<Integer,String> buscarListasPublicas(String dato){
 		@SuppressWarnings("rawtypes")
 		List aux = new ArrayList();	
-		aux = Conexion.createQuery("SELECT l FROM Lista l WHERE l.privado = false AND l.nombre = '" + dato + "'");	
+		aux = Conexion.createQuery("SELECT l FROM Lista l WHERE l.privado = false AND l.nombre LIKE '%" + dato + "%'");	
 		HashMap<Integer,String> listas = new HashMap<Integer,String>();
 		if(aux != null) {
 			for(Object o: aux) {
@@ -245,8 +246,8 @@ public class Handler {
 	public static HashMap<String,String> buscarCanalesPublicos(String dato){
 		@SuppressWarnings("rawtypes")
 		List aux = new ArrayList();	
-		aux = Conexion.createQuery("SELECT c FROM Canal c WHERE c.privado = false AND (c.nombre = '"+ dato +"' "
-				+ "OR c.descripcion = '"+ dato +"')" );	
+		aux = Conexion.createQuery("SELECT c FROM Canal c WHERE c.privado = false AND (c.nombre LIKE '%"+ dato +"%' "
+				+ "OR c.descripcion LIKE '%"+ dato +"%')" );	
 		HashMap<String,String> canales = new HashMap<String,String>();
 		if(aux != null) {
 			for(Object o: aux) {
