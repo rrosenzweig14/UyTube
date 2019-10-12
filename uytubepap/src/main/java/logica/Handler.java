@@ -8,6 +8,7 @@ import java.util.Iterator;
 import javax.persistence.EntityManager;
 
 import datatypes.DtCanal;
+import datatypes.DtLista;
 import datatypes.DtUsuario;
 import datatypes.DtVideo;
 
@@ -215,15 +216,15 @@ public class Handler {
 		return listas;
 	}
 	
-	public static HashMap<Integer,String> buscarListasPublicas(String dato){
+	public static ArrayList<DtLista> buscarListasPublicas(String dato){
 		@SuppressWarnings("rawtypes")
 		List aux = new ArrayList();	
 		aux = Conexion.createQuery("SELECT l FROM Lista l WHERE l.privado = false AND l.nombre LIKE '%" + dato + "%'");	
-		HashMap<Integer,String> listas = new HashMap<Integer,String>();
+		ArrayList<DtLista> listas = new ArrayList<DtLista>();
 		if(aux != null) {
 			for(Object o: aux) {
 				Lista l = (Lista)o;
-				listas.put(l.getId(), l.getNombre());			
+				listas.add(l.getDt());		
 			}
 		}
 		return listas;
@@ -243,16 +244,16 @@ public class Handler {
 		return canales;
 	}
 	
-	public static HashMap<String,String> buscarCanalesPublicos(String dato){
+	public static ArrayList<DtCanal> buscarCanalesPublicos(String dato){
 		@SuppressWarnings("rawtypes")
 		List aux = new ArrayList();	
 		aux = Conexion.createQuery("SELECT c FROM Canal c WHERE c.privado = false AND (c.nombre LIKE '%"+ dato +"%' "
 				+ "OR c.descripcion LIKE '%"+ dato +"%')" );	
-		HashMap<String,String> canales = new HashMap<String,String>();
+		ArrayList<DtCanal>  canales = new ArrayList<DtCanal>();
 		if(aux != null) {
 			for(Object o: aux) {
 				Canal c = (Canal)o;
-				canales.put(c.getNickname(), c.getNombre());			
+				canales.add(c.getDt());		
 			}
 		}
 		return canales;

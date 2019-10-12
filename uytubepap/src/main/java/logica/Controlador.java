@@ -605,11 +605,11 @@ public class Controlador implements IControlador {
 		return Handler.buscarVideosPublicos(dato);
 	} 
 	//@Override
-	public HashMap<Integer,String> buscarListasPublicas(String dato) {
+	public ArrayList<DtLista> buscarListasPublicas(String dato) {
 		return Handler.buscarListasPublicas(dato);
 	} 
 	//@Override
-	public HashMap<String,String> buscarCanalesPublicos(String dato) {
+	public ArrayList<DtCanal> buscarCanalesPublicos(String dato){
 		return Handler.buscarCanalesPublicos(dato);
 	} 
 	
