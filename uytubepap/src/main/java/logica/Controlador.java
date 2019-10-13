@@ -135,6 +135,7 @@ public class Controlador implements IControlador {
 		user1.setNombre(usr.getNombre());
 		user1.setFechaNac(usr.getFechaNac());
 		user1.setImg(usr.getImg());
+		user1.setPassword(usr.getPassword());
 		c.setNombre(canal.getNombre());
 		c.setDescripcion(canal.getDescripcion());
 		c.setPrivado(canal.isPrivado());
