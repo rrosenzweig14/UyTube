@@ -189,8 +189,8 @@ public class Handler {
 	public static ArrayList<DtVideo> buscarVideosPublicos(String dato){
 		@SuppressWarnings("rawtypes")
 		List aux = new ArrayList();	
-		aux = Conexion.createQuery("SELECT v FROM Video v WHERE v.privado = false AND (v.nombre LIKE '%"+ dato +"%' OR "
-				+ "v.descripcion LIKE '%"+ dato +"%')");	
+		aux = Conexion.createQuery("SELECT v FROM Video v WHERE v.privado = false AND (LOWER(v.nombre) LIKE LOWER('%"+ dato +"%') OR "
+				+ "LOWER(v.descripcion) LIKE LOWER('%"+ dato +"%'))");	
 		ArrayList<DtVideo> videos = new ArrayList<DtVideo>();
 		if(aux != null) {
 			for(Object o: aux) {
@@ -219,7 +219,7 @@ public class Handler {
 	public static ArrayList<DtLista> buscarListasPublicas(String dato){
 		@SuppressWarnings("rawtypes")
 		List aux = new ArrayList();	
-		aux = Conexion.createQuery("SELECT l FROM Lista l WHERE l.privado = false AND l.nombre LIKE '%" + dato + "%'");	
+		aux = Conexion.createQuery("SELECT l FROM Lista l WHERE l.privado = false AND LOWER(l.nombre) LIKE LOWER('%" + dato + "%')");	
 		ArrayList<DtLista> listas = new ArrayList<DtLista>();
 		if(aux != null) {
 			for(Object o: aux) {
@@ -247,8 +247,8 @@ public class Handler {
 	public static ArrayList<DtCanal> buscarCanalesPublicos(String dato){
 		@SuppressWarnings("rawtypes")
 		List aux = new ArrayList();	
-		aux = Conexion.createQuery("SELECT c FROM Canal c WHERE c.privado = false AND (c.nombre LIKE '%"+ dato +"%' "
-				+ "OR c.descripcion LIKE '%"+ dato +"%')" );	
+		aux = Conexion.createQuery("SELECT c FROM Canal c WHERE c.privado = false AND (LOWER(c.nombre) LIKE LOWER('%"+ dato +"%') "
+				+ "OR LOWER(c.descripcion) LIKE LOWER('%"+ dato +"%'))" );	
 		ArrayList<DtCanal>  canales = new ArrayList<DtCanal>();
 		if(aux != null) {
 			for(Object o: aux) {
