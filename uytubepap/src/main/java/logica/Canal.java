@@ -142,6 +142,7 @@ public class Canal {
 			mapl.put(l.getId(),l.getDt());
 		}
 		dtc.setListaVideos(mapv);
+		dtc.setListasReproduccion(mapl);
 		return dtc;
 	}
 	
