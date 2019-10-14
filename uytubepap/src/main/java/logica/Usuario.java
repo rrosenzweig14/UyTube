@@ -64,7 +64,7 @@ public class Usuario {
 		this.seguidos.add(user);
 	}
 	public void quitarSeguido(Usuario user) {
-		this.seguidos.add(user);
+		this.seguidos.remove(user);
 	}
 	
 	//getters - setters	

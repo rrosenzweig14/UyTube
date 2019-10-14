@@ -113,7 +113,7 @@ public class Controlador implements IControlador {
 			Conexion.beginTransaction();
 			// Con solo una operacion asignamos el seguidor y el seguido.
 			user2.quitarSeguidor(user1);
-
+			user1.quitarSeguido(user2);
 			Conexion.persist(user2);
 			Conexion.persist(user1);
 			Conexion.commit();
@@ -699,7 +699,6 @@ public class Controlador implements IControlador {
 					if (l.getId() == id) return usr.getNickname();
 				}
 		}
-
 		return res;
 	}
 
