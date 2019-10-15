@@ -32,7 +32,7 @@ public class Video {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Comentario> comentarios = new ArrayList<Comentario>();
 	@OneToMany(mappedBy = "idVideo", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Usuario_Video> valoraciones;
+	private List<Usuario_Video> valoraciones = new ArrayList<Usuario_Video>();
 
 	public Video(String nombre, boolean privado, String url, Date fechaPub, String descripcion, Integer duracion,
 			Categoria categoria) {

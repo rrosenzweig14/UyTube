@@ -34,7 +34,7 @@ public class Usuario {
 	@OneToOne (mappedBy="usuario",cascade=CascadeType.ALL,orphanRemoval=true)
 	private Canal canal;
 	@OneToMany(mappedBy="nombreUsuario",cascade=CascadeType.ALL,orphanRemoval=true)
-	private List<Usuario_Video> valoraciones;
+	private List<Usuario_Video> valoraciones = new ArrayList<Usuario_Video>();
 		
 	//Metodos
 	
@@ -211,6 +211,10 @@ public class Usuario {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void addValoraciones(Usuario_Video val) {
+		valoraciones.add(val);
 	}
 	
 }

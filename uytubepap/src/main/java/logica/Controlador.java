@@ -654,6 +654,8 @@ public class Controlador implements IControlador {
 				usrvid.setLeGusta(valor);
 				usrvid.setNombreVideo(v);
 				usrvid.setNombreUsuario(u);
+				u.addValoraciones(usrvid);
+				v.addValoraciones(usrvid);
 			}
 			Conexion.beginTransaction();
 			Conexion.persist(usrvid);
