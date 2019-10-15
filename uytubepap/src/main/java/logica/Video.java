@@ -44,6 +44,7 @@ public class Video {
 		this.descripcion = descripcion;
 		this.duracion = duracion;
 		this.categoria = categoria;
+		this.valoraciones = new ArrayList<>();
 	}
 
 	public Video() {
