@@ -24,6 +24,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import WS.WebServices;
+
 @SuppressWarnings("serial")
 public class Principal extends JFrame {
 
@@ -110,6 +112,9 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		WebServices ws = new WebServices();
+		ws.publicar();
+		
 		lblNewImage = new JLabel("");
 		lblNewImage.setEnabled(false);
 		lblNewImage.setBounds(350,340,727,400);		

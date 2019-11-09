@@ -5,9 +5,13 @@ import java.util.Date;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 
 import logica.Usuario;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class DtVideo {
 	private int id;
 	private String nombre;	
@@ -18,6 +22,7 @@ public class DtVideo {
 	private String categoria;	
 	private Date fechaPub;	
 	private String url;
+	@XmlTransient
 	private JTree comentarios;
 	private ArrayList<DtComentario> com = null;
 	private ArrayList<String> valoracionesPositivas;	

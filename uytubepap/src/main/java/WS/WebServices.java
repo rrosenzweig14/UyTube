@@ -35,7 +35,7 @@ public class WebServices {
 
     @WebMethod(exclude = true)
     public void publicar(){
-         endpoint = Endpoint.publish("http://localhost:9128/webservices", this);
+         endpoint = Endpoint.publish("http://localhost:9292/ws/uytube", this);
     }
     @WebMethod(exclude = true)
     public Endpoint getEndpoint() {
