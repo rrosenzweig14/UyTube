@@ -44,7 +44,13 @@ public class WebServices {
 
     @WebMethod
     public String[] listarVideos(){
-    	return (String[])(icon.listarVideos()).toArray();
+    	ArrayList<String> aux = icon.listarVideos();
+    	String[] r = new String[aux.size()];
+    	int i = 0;
+    	for(String s: aux) {
+    		r[i++] = s;
+    	}
+    	return r;
     }    
     @WebMethod
     public void valorarVideoPublico(String nick, boolean valor) {
@@ -172,7 +178,13 @@ public class WebServices {
     }
     @WebMethod
     public DtVideo[] videosEnLista(DtLista lst){
-    	return (DtVideo[])(icon.videosEnLista(lst)).toArray();
+    	ArrayList<DtVideo> aux = icon.videosEnLista(lst);
+    	DtVideo[] r = new DtVideo[aux.size()];
+    	int i = 0;
+    	for(DtVideo s: aux) {
+    		r[i++] = s;
+    	}
+    	return r;
     }
     @WebMethod
     public void quitarVideo(DtVideo video) {
@@ -180,11 +192,23 @@ public class WebServices {
     }
     @WebMethod
     public DtVideo[] videosEnListaPublica(DtLista lst){
-    	return (DtVideo[])(icon.videosEnListaPublica(lst)).toArray();    	
+    	ArrayList<DtVideo> aux = icon.videosEnListaPublica(lst);
+    	DtVideo[] r = new DtVideo[aux.size()];
+    	int i = 0;
+    	for(DtVideo s: aux) {
+    		r[i++] = s;
+    	}
+    	return r;	
     }
     @WebMethod
     public DtLista[] listarListasParticulares(DtUsuario user){
-    	return (DtLista[])(icon.listarListasParticulares(user)).toArray(); 
+    	List<DtLista> aux = icon.listarListasParticulares(user);
+    	DtLista[] r = new DtLista[aux.size()];
+    	int i = 0;
+    	for(DtLista s: aux) {
+    		r[i++] = s;
+    	}
+    	return r;	
     }
     @WebMethod
     public Object[] listarListasPublicas(){
@@ -207,17 +231,23 @@ public class WebServices {
     }
     @WebMethod
     public String[] listarCategorias(){
-    	return (String[])(icon.listarCategorias()).toArray();
+    	ArrayList<String> aux = icon.listarCategorias();
+    	String[] c = new String[aux.size()];
+    	int i = 0;
+    	for(String s: aux) {
+    		c[i++] = s;
+    	}
+    	return c;
     }
     @WebMethod
     public void seleccionarCategoria(String cat) {
     	icon.seleccionarCategoria(cat);
     }
     @WebMethod
-    public Object[] videosXCatPublicos(String categoria){
+    public String[] videosXCatPublicos(String categoria){
     	Map<String,String> aux = icon.videosXCatPublicos(categoria);
     	int i = 0;
-    	Object[] retorno = new Object[aux.size() * 2];
+    	String[] retorno = new String[aux.size() * 2];
     	for(String j: aux.keySet()) {
     		retorno[i++] = j;
     		retorno[i++] = aux.get(j);
@@ -225,10 +255,10 @@ public class WebServices {
     	return retorno; 
     }
     @WebMethod
-    public Object[] listasXCatPublicas(String categoria){
+    public String[] listasXCatPublicas(String categoria){
     	Map<String,String> aux = icon.listasXCatPublicas(categoria);
     	int i = 0;
-    	Object[] retorno = new Object[aux.size() * 2];
+    	String[] retorno = new String[aux.size() * 2];
     	for(String j: aux.keySet()) {
     		retorno[i++] = j;
     		retorno[i++] = aux.get(j);
@@ -237,16 +267,34 @@ public class WebServices {
     }
     @WebMethod
     public DtVideo[] buscarVideosPublicos(String dato){
-    	return (DtVideo[])(icon.buscarVideosPublicos(dato)).toArray();  
+    	ArrayList<DtVideo> aux = icon.buscarVideosPublicos(dato);
+    	DtVideo[] r = new DtVideo[aux.size()];
+    	int i = 0;
+    	for(DtVideo s: aux) {
+    		r[i++] = s;
+    	}
+    	return r;	
     	
     }
     @WebMethod
     public DtCanal[] buscarCanalesPublicos(String dato){
-    	return (DtCanal[])(icon.buscarCanalesPublicos(dato)).toArray();  
+    	ArrayList<DtCanal> aux = icon.buscarCanalesPublicos(dato);
+    	DtCanal[] r = new DtCanal[aux.size()];
+    	int i = 0;
+    	for(DtCanal s: aux) {
+    		r[i++] = s;
+    	}
+    	return r;
     }
     @WebMethod
     public DtLista[] buscarListasPublicas(String dato){
-    	return (DtLista[])(icon.buscarListasPublicas(dato)).toArray();      	
+    	List<DtLista> aux = icon.buscarListasPublicas(dato);
+    	DtLista[] r = new DtLista[aux.size()];
+    	int i = 0;
+    	for(DtLista s: aux) {
+    		r[i++] = s;
+    	}
+    	return r; 	
     }
     @WebMethod
     public void finCasoUso() {
