@@ -1,8 +1,5 @@
 package WS;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.jws.WebMethod;
-import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.ParameterStyle;
@@ -53,8 +49,8 @@ public class WebServices {
     	return r;
     }    
     @WebMethod
-    public void valorarVideoPublico(String nick, boolean valor) {
-    	icon.valorarVideo(nick, valor);    	
+    public boolean valorarVideoPublico(int id,String nick, boolean valor) {
+    	return icon.valorarVideoPublico(id,nick, valor);    	
     }
     @WebMethod
     public boolean agregarVideo(String video, DtLista lista) {
