@@ -1,0 +1,2576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://WS" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://WS" xmlns:intf="http://WS" xmlns:tns1="http://ws.xml.javax" xmlns:tns2="http://datatypes" xmlns:tns3="http://swing.javax" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://WS" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://ws.xml.javax"/>
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="http://datatypes"/>
+   <import namespace="http://swing.javax"/>
+   <element name="login">
+    <complexType>
+     <sequence>
+      <element name="usuario" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="loginResponse">
+    <complexType>
+     <sequence>
+      <element name="loginReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getEndpoint">
+    <complexType/>
+   </element>
+   <element name="getEndpointResponse">
+    <complexType>
+     <sequence>
+      <element name="getEndpointReturn" type="xsd:anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="agregarVideo">
+    <complexType>
+     <sequence>
+      <element name="video" type="xsd:string"/>
+      <element name="lista" type="tns2:DtLista"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="agregarVideoResponse">
+    <complexType>
+     <sequence>
+      <element name="agregarVideoReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="publicar">
+    <complexType/>
+   </element>
+   <element name="publicarResponse">
+    <complexType/>
+   </element>
+   <element name="findVideo">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="findVideoResponse">
+    <complexType>
+     <sequence>
+      <element name="findVideoReturn" type="tns2:DtVideo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_anyType">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+   <element name="ingresarVideo">
+    <complexType>
+     <sequence>
+      <element name="nombre" type="xsd:string"/>
+      <element name="duracion" type="xsd:int"/>
+      <element name="url" type="xsd:string"/>
+      <element name="descripcion" type="xsd:string"/>
+      <element name="fecha" type="xsd:dateTime"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="ingresarVideoResponse">
+    <complexType>
+     <sequence>
+      <element name="ingresarVideoReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="listarVideos">
+    <complexType/>
+   </element>
+   <element name="listarVideosResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="listarVideosReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="findLista">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="findListaResponse">
+    <complexType>
+     <sequence>
+      <element name="findListaReturn" type="tns2:DtLista"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="altaCategoria">
+    <complexType>
+     <sequence>
+      <element name="nombre" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="altaCategoriaResponse">
+    <complexType>
+     <sequence>
+      <element name="altaCategoriaReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="seleccionarLista">
+    <complexType>
+     <sequence>
+      <element name="lista" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="seleccionarListaResponse">
+    <complexType>
+     <sequence>
+      <element name="seleccionarListaReturn" type="tns2:DtLista"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="findDuenioVideo">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="findDuenioVideoResponse">
+    <complexType>
+     <sequence>
+      <element name="findDuenioVideoReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="seleccionarVideo">
+    <complexType>
+     <sequence>
+      <element name="video" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="seleccionarVideoResponse">
+    <complexType>
+     <sequence>
+      <element name="seleccionarVideoReturn" type="tns2:DtVideo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="seguirUsuario">
+    <complexType/>
+   </element>
+   <element name="seguirUsuarioResponse">
+    <complexType/>
+   </element>
+   <element name="findDuenioLista">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="findDuenioListaResponse">
+    <complexType>
+     <sequence>
+      <element name="findDuenioListaReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="videosEnLista">
+    <complexType>
+     <sequence>
+      <element name="lst" type="tns2:DtLista"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="videosEnListaResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="videosEnListaReturn" type="tns2:DtVideo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="dejarSeguir">
+    <complexType/>
+   </element>
+   <element name="dejarSeguirResponse">
+    <complexType/>
+   </element>
+   <element name="quitarVideo">
+    <complexType>
+     <sequence>
+      <element name="video" type="tns2:DtVideo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="quitarVideoResponse">
+    <complexType/>
+   </element>
+   <element name="ingresarUsuario">
+    <complexType>
+     <sequence>
+      <element name="nickname" type="xsd:string"/>
+      <element name="email" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+      <element name="nombre" type="xsd:string"/>
+      <element name="apellido" type="xsd:string"/>
+      <element name="fechaNac" type="xsd:dateTime"/>
+      <element name="img" type="xsd:string"/>
+      <element name="canal" type="tns2:DtCanal"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="ingresarUsuarioResponse">
+    <complexType>
+     <sequence>
+      <element name="ingresarUsuarioReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="crearLista">
+    <complexType>
+     <sequence>
+      <element name="usuario" type="tns2:DtUsuario"/>
+      <element name="nombre" type="xsd:string"/>
+      <element name="privada" type="xsd:boolean"/>
+      <element name="categoria" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="crearListaResponse">
+    <complexType>
+     <sequence>
+      <element name="crearListaReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="listarCategorias">
+    <complexType/>
+   </element>
+   <element name="listarCategoriasResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="listarCategoriasReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="finCasoUso">
+    <complexType/>
+   </element>
+   <element name="finCasoUsoResponse">
+    <complexType/>
+   </element>
+   <element name="editarVideo">
+    <complexType>
+     <sequence>
+      <element name="video" type="tns2:DtVideo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="editarVideoResponse">
+    <complexType/>
+   </element>
+   <element name="valorarVideoPublico">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+      <element name="nick" type="xsd:string"/>
+      <element name="valor" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="valorarVideoPublicoResponse">
+    <complexType>
+     <sequence>
+      <element name="valorarVideoPublicoReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="listarVideosPrivados">
+    <complexType>
+     <sequence>
+      <element name="nick" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="listarVideosPrivadosResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="listarVideosPrivadosReturn" type="xsd:anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modificarListaParticular">
+    <complexType>
+     <sequence>
+      <element name="listaSeleccionada" type="tns2:DtLista"/>
+      <element name="datosNuevos" type="tns2:DtLista"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modificarListaParticularResponse">
+    <complexType/>
+   </element>
+   <element name="listarVideosPublicos">
+    <complexType/>
+   </element>
+   <element name="listarVideosPublicosResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="listarVideosPublicosReturn" type="xsd:anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="seleccionarCategoria">
+    <complexType>
+     <sequence>
+      <element name="cat" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="seleccionarCategoriaResponse">
+    <complexType/>
+   </element>
+   <element name="videosXCatPublicos">
+    <complexType>
+     <sequence>
+      <element name="categoria" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="videosXCatPublicosResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="videosXCatPublicosReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="seleccionarUsuario">
+    <complexType>
+     <sequence>
+      <element name="usuario" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="seleccionarUsuarioResponse">
+    <complexType>
+     <sequence>
+      <element name="seleccionarUsuarioReturn" type="tns2:DtUsuario"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="videosEnListaPublica">
+    <complexType>
+     <sequence>
+      <element name="lst" type="tns2:DtLista"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="videosEnListaPublicaResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="videosEnListaPublicaReturn" type="tns2:DtVideo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="buscarVideosPublicos">
+    <complexType>
+     <sequence>
+      <element name="dato" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="buscarVideosPublicosResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="buscarVideosPublicosReturn" type="tns2:DtVideo"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modificarUsuarioCanal">
+    <complexType>
+     <sequence>
+      <element name="usr" type="tns2:DtUsuario"/>
+      <element name="canal" type="tns2:DtCanal"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="modificarUsuarioCanalResponse">
+    <complexType/>
+   </element>
+   <element name="ingresarComentario">
+    <complexType>
+     <sequence>
+      <element name="comment" type="tns2:DtComentario"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="ingresarComentarioResponse">
+    <complexType>
+     <sequence>
+      <element name="ingresarComentarioReturn" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="seleccionarComentario">
+    <complexType>
+     <sequence>
+      <element name="comment" type="tns2:DtComentario"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="seleccionarComentarioResponse">
+    <complexType/>
+   </element>
+   <element name="listarListasPublicas">
+    <complexType/>
+   </element>
+   <element name="listarListasPublicasResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="listarListasPublicasReturn" type="xsd:anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="listarDatosUsuario">
+    <complexType>
+     <sequence>
+      <element name="nick" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="listarDatosUsuarioResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="listarDatosUsuarioReturn" type="xsd:anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="listarCanalesPublicos">
+    <complexType/>
+   </element>
+   <element name="listarCanalesPublicosResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="listarCanalesPublicosReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="listasXCatPublicas">
+    <complexType>
+     <sequence>
+      <element name="categoria" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="listasXCatPublicasResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="listasXCatPublicasReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="buscarCanalesPublicos">
+    <complexType>
+     <sequence>
+      <element name="dato" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="buscarCanalesPublicosResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="buscarCanalesPublicosReturn" type="tns2:DtCanal"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="ingresarTipoLista">
+    <complexType>
+     <sequence>
+      <element name="defecto" type="xsd:boolean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="ingresarTipoListaResponse">
+    <complexType/>
+   </element>
+   <element name="listarListasParticulares">
+    <complexType>
+     <sequence>
+      <element name="user" type="tns2:DtUsuario"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="listarListasParticularesResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="listarListasParticularesReturn" type="tns2:DtLista"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="buscarListasPublicas">
+    <complexType>
+     <sequence>
+      <element name="dato" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="buscarListasPublicasResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="buscarListasPublicasReturn" type="tns2:DtLista"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://datatypes" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://ws.xml.javax"/>
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="http://swing.javax"/>
+   <import namespace="http://WS"/>
+   <complexType name="DtLista">
+    <sequence>
+     <element name="categoria" nillable="true" type="xsd:string"/>
+     <element name="defecto" type="xsd:boolean"/>
+     <element name="id" type="xsd:int"/>
+     <element name="nombre" nillable="true" type="xsd:string"/>
+     <element name="privado" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+   <complexType name="DtVideo">
+    <sequence>
+     <element name="canal" nillable="true" type="xsd:string"/>
+     <element name="categoria" nillable="true" type="xsd:string"/>
+     <element name="com" nillable="true" type="impl:ArrayOf_xsd_anyType"/>
+     <element name="comentarios" nillable="true" type="xsd:anyType"/>
+     <element name="descripcion" nillable="true" type="xsd:string"/>
+     <element name="duracion" nillable="true" type="xsd:int"/>
+     <element name="fechaPub" nillable="true" type="xsd:dateTime"/>
+     <element name="id" type="xsd:int"/>
+     <element name="nombre" nillable="true" type="xsd:string"/>
+     <element name="privado" nillable="true" type="xsd:boolean"/>
+     <element name="url" nillable="true" type="xsd:string"/>
+     <element name="valoracionesNegativas" nillable="true" type="impl:ArrayOf_xsd_anyType"/>
+     <element name="valoracionesPositivas" nillable="true" type="impl:ArrayOf_xsd_anyType"/>
+    </sequence>
+   </complexType>
+   <complexType name="DtCanal">
+    <sequence>
+     <element name="descripcion" nillable="true" type="xsd:string"/>
+     <element name="listaVideos" nillable="true" type="apachesoap:Map"/>
+     <element name="listasReproduccion" nillable="true" type="apachesoap:Map"/>
+     <element name="nick" nillable="true" type="xsd:string"/>
+     <element name="nombre" nillable="true" type="xsd:string"/>
+     <element name="privado" type="xsd:boolean"/>
+    </sequence>
+   </complexType>
+   <complexType name="DtUsuario">
+    <sequence>
+     <element name="apellido" nillable="true" type="xsd:string"/>
+     <element name="email" nillable="true" type="xsd:string"/>
+     <element name="fechaNac" nillable="true" type="xsd:dateTime"/>
+     <element name="img" nillable="true" type="xsd:string"/>
+     <element name="nickname" nillable="true" type="xsd:string"/>
+     <element name="nombre" nillable="true" type="xsd:string"/>
+     <element name="password" nillable="true" type="xsd:string"/>
+     <element name="seguidores" nillable="true" type="apachesoap:Map"/>
+     <element name="seguidos" nillable="true" type="apachesoap:Map"/>
+    </sequence>
+   </complexType>
+   <complexType name="DtComentario">
+    <sequence>
+     <element name="fecha" nillable="true" type="xsd:dateTime"/>
+     <element name="id" type="xsd:int"/>
+     <element name="nick" nillable="true" type="xsd:string"/>
+     <element name="nivel" type="xsd:int"/>
+     <element name="texto" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://xml.apache.org/xml-soap" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://ws.xml.javax"/>
+   <import namespace="http://datatypes"/>
+   <import namespace="http://swing.javax"/>
+   <import namespace="http://WS"/>
+   <complexType name="mapItem">
+    <sequence>
+     <element name="key" nillable="true" type="xsd:anyType"/>
+     <element name="value" nillable="true" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+   <complexType name="Map">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="apachesoap:mapItem"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getEndpointRequest">
+
+      <wsdl:part element="impl:getEndpoint" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="agregarVideoRequest">
+
+      <wsdl:part element="impl:agregarVideo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginRequest">
+
+      <wsdl:part element="impl:login" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="findDuenioVideoResponse">
+
+      <wsdl:part element="impl:findDuenioVideoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="seleccionarListaRequest">
+
+      <wsdl:part element="impl:seleccionarLista" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarDatosUsuarioResponse">
+
+      <wsdl:part element="impl:listarDatosUsuarioResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="seleccionarUsuarioResponse">
+
+      <wsdl:part element="impl:seleccionarUsuarioResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="ingresarTipoListaRequest">
+
+      <wsdl:part element="impl:ingresarTipoLista" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="buscarVideosPublicosResponse">
+
+      <wsdl:part element="impl:buscarVideosPublicosResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="ingresarComentarioRequest">
+
+      <wsdl:part element="impl:ingresarComentario" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarCanalesPublicosResponse">
+
+      <wsdl:part element="impl:listarCanalesPublicosResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="valorarVideoPublicoRequest">
+
+      <wsdl:part element="impl:valorarVideoPublico" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="videosXCatPublicosRequest">
+
+      <wsdl:part element="impl:videosXCatPublicos" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="seleccionarCategoriaRequest">
+
+      <wsdl:part element="impl:seleccionarCategoria" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="buscarVideosPublicosRequest">
+
+      <wsdl:part element="impl:buscarVideosPublicos" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getEndpointResponse">
+
+      <wsdl:part element="impl:getEndpointResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarListasPublicasRequest">
+
+      <wsdl:part element="impl:listarListasPublicas" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="findVideoResponse">
+
+      <wsdl:part element="impl:findVideoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarVideosPrivadosRequest">
+
+      <wsdl:part element="impl:listarVideosPrivados" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="seleccionarCategoriaResponse">
+
+      <wsdl:part element="impl:seleccionarCategoriaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="buscarListasPublicasRequest">
+
+      <wsdl:part element="impl:buscarListasPublicas" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarVideosResponse">
+
+      <wsdl:part element="impl:listarVideosResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="seleccionarVideoRequest">
+
+      <wsdl:part element="impl:seleccionarVideo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarVideosPrivadosResponse">
+
+      <wsdl:part element="impl:listarVideosPrivadosResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="buscarCanalesPublicosRequest">
+
+      <wsdl:part element="impl:buscarCanalesPublicos" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="ingresarVideoResponse">
+
+      <wsdl:part element="impl:ingresarVideoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="publicarResponse">
+
+      <wsdl:part element="impl:publicarResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="seleccionarComentarioRequest">
+
+      <wsdl:part element="impl:seleccionarComentario" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarDatosUsuarioRequest">
+
+      <wsdl:part element="impl:listarDatosUsuario" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarListasParticularesRequest">
+
+      <wsdl:part element="impl:listarListasParticulares" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="seleccionarVideoResponse">
+
+      <wsdl:part element="impl:seleccionarVideoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="crearListaRequest">
+
+      <wsdl:part element="impl:crearLista" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarCategoriasResponse">
+
+      <wsdl:part element="impl:listarCategoriasResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="seleccionarUsuarioRequest">
+
+      <wsdl:part element="impl:seleccionarUsuario" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="modificarListaParticularRequest">
+
+      <wsdl:part element="impl:modificarListaParticular" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarListasPublicasResponse">
+
+      <wsdl:part element="impl:listarListasPublicasResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="dejarSeguirResponse">
+
+      <wsdl:part element="impl:dejarSeguirResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="crearListaResponse">
+
+      <wsdl:part element="impl:crearListaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="buscarListasPublicasResponse">
+
+      <wsdl:part element="impl:buscarListasPublicasResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="seguirUsuarioRequest">
+
+      <wsdl:part element="impl:seguirUsuario" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarVideosPublicosResponse">
+
+      <wsdl:part element="impl:listarVideosPublicosResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="agregarVideoResponse">
+
+      <wsdl:part element="impl:agregarVideoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="dejarSeguirRequest">
+
+      <wsdl:part element="impl:dejarSeguir" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarListasParticularesResponse">
+
+      <wsdl:part element="impl:listarListasParticularesResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="ingresarVideoRequest">
+
+      <wsdl:part element="impl:ingresarVideo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="videosEnListaResponse">
+
+      <wsdl:part element="impl:videosEnListaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="loginResponse">
+
+      <wsdl:part element="impl:loginResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="ingresarComentarioResponse">
+
+      <wsdl:part element="impl:ingresarComentarioResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="seguirUsuarioResponse">
+
+      <wsdl:part element="impl:seguirUsuarioResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="editarVideoResponse">
+
+      <wsdl:part element="impl:editarVideoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="modificarUsuarioCanalRequest">
+
+      <wsdl:part element="impl:modificarUsuarioCanal" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="ingresarTipoListaResponse">
+
+      <wsdl:part element="impl:ingresarTipoListaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="publicarRequest">
+
+      <wsdl:part element="impl:publicar" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="finCasoUsoResponse">
+
+      <wsdl:part element="impl:finCasoUsoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="findDuenioListaResponse">
+
+      <wsdl:part element="impl:findDuenioListaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="altaCategoriaRequest">
+
+      <wsdl:part element="impl:altaCategoria" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="modificarListaParticularResponse">
+
+      <wsdl:part element="impl:modificarListaParticularResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="valorarVideoPublicoResponse">
+
+      <wsdl:part element="impl:valorarVideoPublicoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listasXCatPublicasRequest">
+
+      <wsdl:part element="impl:listasXCatPublicas" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="videosEnListaPublicaRequest">
+
+      <wsdl:part element="impl:videosEnListaPublica" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="ingresarUsuarioRequest">
+
+      <wsdl:part element="impl:ingresarUsuario" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="ingresarUsuarioResponse">
+
+      <wsdl:part element="impl:ingresarUsuarioResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="finCasoUsoRequest">
+
+      <wsdl:part element="impl:finCasoUso" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="findVideoRequest">
+
+      <wsdl:part element="impl:findVideo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="buscarCanalesPublicosResponse">
+
+      <wsdl:part element="impl:buscarCanalesPublicosResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarVideosPublicosRequest">
+
+      <wsdl:part element="impl:listarVideosPublicos" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="videosEnListaPublicaResponse">
+
+      <wsdl:part element="impl:videosEnListaPublicaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="modificarUsuarioCanalResponse">
+
+      <wsdl:part element="impl:modificarUsuarioCanalResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="quitarVideoResponse">
+
+      <wsdl:part element="impl:quitarVideoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="quitarVideoRequest">
+
+      <wsdl:part element="impl:quitarVideo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listasXCatPublicasResponse">
+
+      <wsdl:part element="impl:listasXCatPublicasResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="altaCategoriaResponse">
+
+      <wsdl:part element="impl:altaCategoriaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="videosEnListaRequest">
+
+      <wsdl:part element="impl:videosEnLista" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="seleccionarListaResponse">
+
+      <wsdl:part element="impl:seleccionarListaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="editarVideoRequest">
+
+      <wsdl:part element="impl:editarVideo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarCategoriasRequest">
+
+      <wsdl:part element="impl:listarCategorias" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="videosXCatPublicosResponse">
+
+      <wsdl:part element="impl:videosXCatPublicosResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarCanalesPublicosRequest">
+
+      <wsdl:part element="impl:listarCanalesPublicos" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="seleccionarComentarioResponse">
+
+      <wsdl:part element="impl:seleccionarComentarioResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="listarVideosRequest">
+
+      <wsdl:part element="impl:listarVideos" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="findListaRequest">
+
+      <wsdl:part element="impl:findLista" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="findListaResponse">
+
+      <wsdl:part element="impl:findListaResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="findDuenioListaRequest">
+
+      <wsdl:part element="impl:findDuenioLista" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="findDuenioVideoRequest">
+
+      <wsdl:part element="impl:findDuenioVideo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="WebServices">
+
+      <wsdl:operation name="login">
+
+         <wsdl:input message="impl:loginRequest" name="loginRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:loginResponse" name="loginResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getEndpoint">
+
+         <wsdl:input message="impl:getEndpointRequest" name="getEndpointRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getEndpointResponse" name="getEndpointResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="agregarVideo">
+
+         <wsdl:input message="impl:agregarVideoRequest" name="agregarVideoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:agregarVideoResponse" name="agregarVideoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="publicar">
+
+         <wsdl:input message="impl:publicarRequest" name="publicarRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:publicarResponse" name="publicarResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findVideo">
+
+         <wsdl:input message="impl:findVideoRequest" name="findVideoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:findVideoResponse" name="findVideoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ingresarVideo">
+
+         <wsdl:input message="impl:ingresarVideoRequest" name="ingresarVideoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:ingresarVideoResponse" name="ingresarVideoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarVideos">
+
+         <wsdl:input message="impl:listarVideosRequest" name="listarVideosRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:listarVideosResponse" name="listarVideosResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findLista">
+
+         <wsdl:input message="impl:findListaRequest" name="findListaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:findListaResponse" name="findListaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="altaCategoria">
+
+         <wsdl:input message="impl:altaCategoriaRequest" name="altaCategoriaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:altaCategoriaResponse" name="altaCategoriaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="seleccionarLista">
+
+         <wsdl:input message="impl:seleccionarListaRequest" name="seleccionarListaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:seleccionarListaResponse" name="seleccionarListaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findDuenioVideo">
+
+         <wsdl:input message="impl:findDuenioVideoRequest" name="findDuenioVideoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:findDuenioVideoResponse" name="findDuenioVideoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="seleccionarVideo">
+
+         <wsdl:input message="impl:seleccionarVideoRequest" name="seleccionarVideoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:seleccionarVideoResponse" name="seleccionarVideoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="seguirUsuario">
+
+         <wsdl:input message="impl:seguirUsuarioRequest" name="seguirUsuarioRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:seguirUsuarioResponse" name="seguirUsuarioResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findDuenioLista">
+
+         <wsdl:input message="impl:findDuenioListaRequest" name="findDuenioListaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:findDuenioListaResponse" name="findDuenioListaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="videosEnLista">
+
+         <wsdl:input message="impl:videosEnListaRequest" name="videosEnListaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:videosEnListaResponse" name="videosEnListaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="dejarSeguir">
+
+         <wsdl:input message="impl:dejarSeguirRequest" name="dejarSeguirRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:dejarSeguirResponse" name="dejarSeguirResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="quitarVideo">
+
+         <wsdl:input message="impl:quitarVideoRequest" name="quitarVideoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:quitarVideoResponse" name="quitarVideoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ingresarUsuario">
+
+         <wsdl:input message="impl:ingresarUsuarioRequest" name="ingresarUsuarioRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:ingresarUsuarioResponse" name="ingresarUsuarioResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="crearLista">
+
+         <wsdl:input message="impl:crearListaRequest" name="crearListaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:crearListaResponse" name="crearListaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarCategorias">
+
+         <wsdl:input message="impl:listarCategoriasRequest" name="listarCategoriasRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:listarCategoriasResponse" name="listarCategoriasResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="finCasoUso">
+
+         <wsdl:input message="impl:finCasoUsoRequest" name="finCasoUsoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:finCasoUsoResponse" name="finCasoUsoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="editarVideo">
+
+         <wsdl:input message="impl:editarVideoRequest" name="editarVideoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:editarVideoResponse" name="editarVideoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="valorarVideoPublico">
+
+         <wsdl:input message="impl:valorarVideoPublicoRequest" name="valorarVideoPublicoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:valorarVideoPublicoResponse" name="valorarVideoPublicoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarVideosPrivados">
+
+         <wsdl:input message="impl:listarVideosPrivadosRequest" name="listarVideosPrivadosRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:listarVideosPrivadosResponse" name="listarVideosPrivadosResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modificarListaParticular">
+
+         <wsdl:input message="impl:modificarListaParticularRequest" name="modificarListaParticularRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:modificarListaParticularResponse" name="modificarListaParticularResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarVideosPublicos">
+
+         <wsdl:input message="impl:listarVideosPublicosRequest" name="listarVideosPublicosRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:listarVideosPublicosResponse" name="listarVideosPublicosResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="seleccionarCategoria">
+
+         <wsdl:input message="impl:seleccionarCategoriaRequest" name="seleccionarCategoriaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:seleccionarCategoriaResponse" name="seleccionarCategoriaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="videosXCatPublicos">
+
+         <wsdl:input message="impl:videosXCatPublicosRequest" name="videosXCatPublicosRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:videosXCatPublicosResponse" name="videosXCatPublicosResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="seleccionarUsuario">
+
+         <wsdl:input message="impl:seleccionarUsuarioRequest" name="seleccionarUsuarioRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:seleccionarUsuarioResponse" name="seleccionarUsuarioResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="videosEnListaPublica">
+
+         <wsdl:input message="impl:videosEnListaPublicaRequest" name="videosEnListaPublicaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:videosEnListaPublicaResponse" name="videosEnListaPublicaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="buscarVideosPublicos">
+
+         <wsdl:input message="impl:buscarVideosPublicosRequest" name="buscarVideosPublicosRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:buscarVideosPublicosResponse" name="buscarVideosPublicosResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modificarUsuarioCanal">
+
+         <wsdl:input message="impl:modificarUsuarioCanalRequest" name="modificarUsuarioCanalRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:modificarUsuarioCanalResponse" name="modificarUsuarioCanalResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ingresarComentario">
+
+         <wsdl:input message="impl:ingresarComentarioRequest" name="ingresarComentarioRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:ingresarComentarioResponse" name="ingresarComentarioResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="seleccionarComentario">
+
+         <wsdl:input message="impl:seleccionarComentarioRequest" name="seleccionarComentarioRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:seleccionarComentarioResponse" name="seleccionarComentarioResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarListasPublicas">
+
+         <wsdl:input message="impl:listarListasPublicasRequest" name="listarListasPublicasRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:listarListasPublicasResponse" name="listarListasPublicasResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarDatosUsuario">
+
+         <wsdl:input message="impl:listarDatosUsuarioRequest" name="listarDatosUsuarioRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:listarDatosUsuarioResponse" name="listarDatosUsuarioResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarCanalesPublicos">
+
+         <wsdl:input message="impl:listarCanalesPublicosRequest" name="listarCanalesPublicosRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:listarCanalesPublicosResponse" name="listarCanalesPublicosResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listasXCatPublicas">
+
+         <wsdl:input message="impl:listasXCatPublicasRequest" name="listasXCatPublicasRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:listasXCatPublicasResponse" name="listasXCatPublicasResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="buscarCanalesPublicos">
+
+         <wsdl:input message="impl:buscarCanalesPublicosRequest" name="buscarCanalesPublicosRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:buscarCanalesPublicosResponse" name="buscarCanalesPublicosResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ingresarTipoLista">
+
+         <wsdl:input message="impl:ingresarTipoListaRequest" name="ingresarTipoListaRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:ingresarTipoListaResponse" name="ingresarTipoListaResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarListasParticulares">
+
+         <wsdl:input message="impl:listarListasParticularesRequest" name="listarListasParticularesRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:listarListasParticularesResponse" name="listarListasParticularesResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="buscarListasPublicas">
+
+         <wsdl:input message="impl:buscarListasPublicasRequest" name="buscarListasPublicasRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:buscarListasPublicasResponse" name="buscarListasPublicasResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="WebServicesSoapBinding" type="impl:WebServices">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="login">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="loginRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="loginResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getEndpoint">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getEndpointRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getEndpointResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="agregarVideo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="agregarVideoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="agregarVideoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="publicar">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="publicarRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="publicarResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findVideo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="findVideoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="findVideoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ingresarVideo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="ingresarVideoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="ingresarVideoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarVideos">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listarVideosRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listarVideosResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findLista">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="findListaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="findListaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="altaCategoria">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="altaCategoriaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="altaCategoriaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="seleccionarLista">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="seleccionarListaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="seleccionarListaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findDuenioVideo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="findDuenioVideoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="findDuenioVideoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="seleccionarVideo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="seleccionarVideoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="seleccionarVideoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="seguirUsuario">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="seguirUsuarioRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="seguirUsuarioResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="findDuenioLista">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="findDuenioListaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="findDuenioListaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="videosEnLista">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="videosEnListaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="videosEnListaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="dejarSeguir">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="dejarSeguirRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="dejarSeguirResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="quitarVideo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="quitarVideoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="quitarVideoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ingresarUsuario">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="ingresarUsuarioRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="ingresarUsuarioResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="crearLista">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="crearListaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="crearListaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarCategorias">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listarCategoriasRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listarCategoriasResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="finCasoUso">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="finCasoUsoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="finCasoUsoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="editarVideo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="editarVideoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="editarVideoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="valorarVideoPublico">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="valorarVideoPublicoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="valorarVideoPublicoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarVideosPrivados">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listarVideosPrivadosRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listarVideosPrivadosResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modificarListaParticular">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="modificarListaParticularRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="modificarListaParticularResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarVideosPublicos">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listarVideosPublicosRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listarVideosPublicosResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="seleccionarCategoria">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="seleccionarCategoriaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="seleccionarCategoriaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="videosXCatPublicos">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="videosXCatPublicosRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="videosXCatPublicosResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="seleccionarUsuario">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="seleccionarUsuarioRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="seleccionarUsuarioResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="videosEnListaPublica">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="videosEnListaPublicaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="videosEnListaPublicaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="buscarVideosPublicos">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="buscarVideosPublicosRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="buscarVideosPublicosResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="modificarUsuarioCanal">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="modificarUsuarioCanalRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="modificarUsuarioCanalResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ingresarComentario">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="ingresarComentarioRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="ingresarComentarioResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="seleccionarComentario">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="seleccionarComentarioRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="seleccionarComentarioResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarListasPublicas">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listarListasPublicasRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listarListasPublicasResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarDatosUsuario">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listarDatosUsuarioRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listarDatosUsuarioResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarCanalesPublicos">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listarCanalesPublicosRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listarCanalesPublicosResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listasXCatPublicas">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listasXCatPublicasRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listasXCatPublicasResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="buscarCanalesPublicos">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="buscarCanalesPublicosRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="buscarCanalesPublicosResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="ingresarTipoLista">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="ingresarTipoListaRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="ingresarTipoListaResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="listarListasParticulares">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="listarListasParticularesRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="listarListasParticularesResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="buscarListasPublicas">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="buscarListasPublicasRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="buscarListasPublicasResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="WebServicesService">
+
+      <wsdl:port binding="impl:WebServicesSoapBinding" name="WebServices">
+
+         <wsdlsoap:address location="http://localhost:8080/uytubepap/services/WebServices"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

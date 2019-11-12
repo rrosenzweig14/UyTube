@@ -31,7 +31,7 @@ public class WebServices {
 
     @WebMethod(exclude = true)
     public void publicar(){
-         endpoint = Endpoint.publish("http://localhost:9292/ws/uytube", this);
+         endpoint = Endpoint.publish("http://localhost:9293/ws/uytube", this);
     }
     @WebMethod(exclude = true)
     public Endpoint getEndpoint() {
@@ -49,7 +49,7 @@ public class WebServices {
     	return r;
     }    
     @WebMethod
-    public boolean valorarVideoPublico(int id,String nick, boolean valor) {
+    public Boolean valorarVideoPublico(Integer id,String nick, Boolean valor) {
     	return icon.valorarVideoPublico(id,nick, valor);    	
     }
     @WebMethod
