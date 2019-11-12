@@ -134,10 +134,10 @@ public class WebServices {
     	icon.modificarUsuarioCanal(usr, canal);
     }
     @WebMethod
-    public Object[] listarCanalesPublicos(){
+    public String[] listarCanalesPublicos(){
     	HashMap<String,String> aux = icon.listarCanalesPublicos();
     	int i = 0;
-    	Object[] retorno = new Object[aux.size() * 2];
+    	String[] retorno = new String[aux.size() * 2];
     	for(String j: aux.keySet()) {
     		retorno[i++] = j;
     		retorno[i++] = aux.get(j);
