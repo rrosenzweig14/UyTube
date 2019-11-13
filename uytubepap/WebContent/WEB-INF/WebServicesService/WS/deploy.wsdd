@@ -14,16 +14,70 @@
         <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:usuario" type="tns:string"/>
         <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
       </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="seleccionarUsuario" qname="operNS:seleccionarUsuario" returnQName="retNS:seleccionarUsuarioReturn" returnType="rtns:DtUsuario" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:usuario" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" name="modificarUsuarioCanal" qname="operNS:modificarUsuarioCanal" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:usr" type="tns:DtUsuario"/>
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:canal" type="tns:DtCanal"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarListasPublicas" qname="operNS:listarListasPublicas" returnQName="retNS:listarListasPublicasReturn" returnType="rtns:anyType" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarVideosPrivados" qname="operNS:listarVideosPrivados" returnQName="retNS:listarVideosPrivadosReturn" returnType="rtns:anyType" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nick" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" name="modificarListaParticular" qname="operNS:modificarListaParticular" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:listaSeleccionada" type="tns:DtLista"/>
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:datosNuevos" type="tns:DtLista"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarVideosPublicos" qname="operNS:listarVideosPublicos" returnQName="retNS:listarVideosPublicosReturn" returnType="rtns:anyType" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="valorarVideoPublico" qname="operNS:valorarVideoPublico" returnQName="retNS:valorarVideoPublicoReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nick" type="tns:string"/>
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:valor" type="tns:boolean"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarDatosUsuario" qname="operNS:listarDatosUsuario" returnQName="retNS:listarDatosUsuarioReturn" returnType="rtns:anyType" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nick" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" name="seleccionarComentario" qname="operNS:seleccionarComentario" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:comment" type="tns:DtComentario"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="ingresarComentario" qname="operNS:ingresarComentario" returnQName="retNS:ingresarComentarioReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:comment" type="tns:DtComentario"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarCanalesPublicos" qname="operNS:listarCanalesPublicos" returnQName="retNS:listarCanalesPublicosReturn" returnType="rtns:string" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://WS" name="ingresarTipoLista" qname="operNS:ingresarTipoLista" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:defecto" type="tns:boolean"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="videosEnListaPublica" qname="operNS:videosEnListaPublica" returnQName="retNS:videosEnListaPublicaReturn" returnType="rtns:DtVideo" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:lst" type="tns:DtLista"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="listarListasParticulares" qname="operNS:listarListasParticulares" returnQName="retNS:listarListasParticularesReturn" returnType="rtns:DtLista" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:user" type="tns:DtUsuario"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listasXCatPublicas" qname="operNS:listasXCatPublicas" returnQName="retNS:listasXCatPublicasReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:categoria" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="buscarListasPublicas" qname="operNS:buscarListasPublicas" returnQName="retNS:buscarListasPublicasReturn" returnType="rtns:DtLista" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dato" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" name="seleccionarCategoria" qname="operNS:seleccionarCategoria" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:cat" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="videosXCatPublicos" qname="operNS:videosXCatPublicos" returnQName="retNS:videosXCatPublicosReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:categoria" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="buscarCanalesPublicos" qname="operNS:buscarCanalesPublicos" returnQName="retNS:buscarCanalesPublicosReturn" returnType="rtns:DtCanal" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dato" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="buscarVideosPublicos" qname="operNS:buscarVideosPublicos" returnQName="retNS:buscarVideosPublicosReturn" returnType="rtns:DtVideo" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dato" type="tns:string"/>
+      </operation>
       <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getEndpoint" qname="operNS:getEndpoint" returnQName="retNS:getEndpointReturn" returnType="rtns:anyType" soapAction="">
       </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="agregarVideo" qname="operNS:agregarVideo" returnQName="retNS:agregarVideoReturn" returnType="rtns:boolean" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:video" type="tns:string"/>
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:lista" type="tns:DtLista"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" name="publicar" qname="operNS:publicar" soapAction="">
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="findVideo" qname="operNS:findVideo" returnQName="retNS:findVideoReturn" returnType="rtns:DtVideo" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarVideos" qname="operNS:listarVideos" returnQName="retNS:listarVideosReturn" returnType="rtns:string" soapAction="">
       </operation>
       <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="ingresarVideo" qname="operNS:ingresarVideo" returnQName="retNS:ingresarVideoReturn" returnType="rtns:boolean" soapAction="">
         <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nombre" type="tns:string"/>
@@ -32,35 +86,27 @@
         <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:descripcion" type="tns:string"/>
         <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:fecha" type="tns:dateTime"/>
       </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarVideos" qname="operNS:listarVideos" returnQName="retNS:listarVideosReturn" returnType="rtns:string" soapAction="">
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="findLista" qname="operNS:findLista" returnQName="retNS:findListaReturn" returnType="rtns:DtLista" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="altaCategoria" qname="operNS:altaCategoria" returnQName="retNS:altaCategoriaReturn" returnType="rtns:boolean" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nombre" type="tns:string"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="seleccionarLista" qname="operNS:seleccionarLista" returnQName="retNS:seleccionarListaReturn" returnType="rtns:DtLista" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:lista" type="tns:string"/>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="seleccionarVideo" qname="operNS:seleccionarVideo" returnQName="retNS:seleccionarVideoReturn" returnType="rtns:DtVideo" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:video" type="tns:string"/>
       </operation>
       <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="findDuenioVideo" qname="operNS:findDuenioVideo" returnQName="retNS:findDuenioVideoReturn" returnType="rtns:string" soapAction="">
         <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
       </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="seleccionarVideo" qname="operNS:seleccionarVideo" returnQName="retNS:seleccionarVideoReturn" returnType="rtns:DtVideo" soapAction="">
+      <operation xmlns:operNS="http://WS" name="publicar" qname="operNS:publicar" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="agregarVideo" qname="operNS:agregarVideo" returnQName="retNS:agregarVideoReturn" returnType="rtns:boolean" soapAction="">
         <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:video" type="tns:string"/>
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:lista" type="tns:DtLista"/>
       </operation>
-      <operation xmlns:operNS="http://WS" name="seguirUsuario" qname="operNS:seguirUsuario" soapAction="">
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarUsuarios" qname="operNS:listarUsuarios" returnQName="retNS:listarUsuariosReturn" returnType="rtns:string" soapAction="">
       </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="findDuenioLista" qname="operNS:findDuenioLista" returnQName="retNS:findDuenioListaReturn" returnType="rtns:string" soapAction="">
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="findVideo" qname="operNS:findVideo" returnQName="retNS:findVideoReturn" returnType="rtns:DtVideo" soapAction="">
         <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
       </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="videosEnLista" qname="operNS:videosEnLista" returnQName="retNS:videosEnListaReturn" returnType="rtns:DtVideo" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:lst" type="tns:DtLista"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" name="dejarSeguir" qname="operNS:dejarSeguir" soapAction="">
-      </operation>
-      <operation xmlns:operNS="http://WS" name="quitarVideo" qname="operNS:quitarVideo" soapAction="">
+      <operation xmlns:operNS="http://WS" name="editarVideo" qname="operNS:editarVideo" soapAction="">
         <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:video" type="tns:DtVideo"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" name="seguirUsuario" qname="operNS:seguirUsuario" soapAction="">
       </operation>
       <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="ingresarUsuario" qname="operNS:ingresarUsuario" returnQName="retNS:ingresarUsuarioReturn" returnType="rtns:boolean" soapAction="">
         <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nickname" type="tns:string"/>
@@ -72,88 +118,44 @@
         <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:img" type="tns:string"/>
         <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:canal" type="tns:DtCanal"/>
       </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="seleccionarLista" qname="operNS:seleccionarLista" returnQName="retNS:seleccionarListaReturn" returnType="rtns:DtLista" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:lista" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" name="dejarSeguir" qname="operNS:dejarSeguir" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="findLista" qname="operNS:findLista" returnQName="retNS:findListaReturn" returnType="rtns:DtLista" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="findDuenioLista" qname="operNS:findDuenioLista" returnQName="retNS:findDuenioListaReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="videosEnLista" qname="operNS:videosEnLista" returnQName="retNS:videosEnListaReturn" returnType="rtns:DtVideo" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:lst" type="tns:DtLista"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" name="quitarVideo" qname="operNS:quitarVideo" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:video" type="tns:DtVideo"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="altaCategoria" qname="operNS:altaCategoria" returnQName="retNS:altaCategoriaReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nombre" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarCategorias" qname="operNS:listarCategorias" returnQName="retNS:listarCategoriasReturn" returnType="rtns:string" soapAction="">
+      </operation>
       <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="crearLista" qname="operNS:crearLista" returnQName="retNS:crearListaReturn" returnType="rtns:boolean" soapAction="">
         <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:usuario" type="tns:DtUsuario"/>
         <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nombre" type="tns:string"/>
         <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:privada" type="tns:boolean"/>
         <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:categoria" type="tns:string"/>
       </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarCategorias" qname="operNS:listarCategorias" returnQName="retNS:listarCategoriasReturn" returnType="rtns:string" soapAction="">
-      </operation>
       <operation xmlns:operNS="http://WS" name="finCasoUso" qname="operNS:finCasoUso" soapAction="">
       </operation>
-      <operation xmlns:operNS="http://WS" name="editarVideo" qname="operNS:editarVideo" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:video" type="tns:DtVideo"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="valorarVideoPublico" qname="operNS:valorarVideoPublico" returnQName="retNS:valorarVideoPublicoReturn" returnType="rtns:boolean" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:id" type="tns:int"/>
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nick" type="tns:string"/>
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:valor" type="tns:boolean"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarVideosPrivados" qname="operNS:listarVideosPrivados" returnQName="retNS:listarVideosPrivadosReturn" returnType="rtns:anyType" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nick" type="tns:string"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" name="modificarListaParticular" qname="operNS:modificarListaParticular" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:listaSeleccionada" type="tns:DtLista"/>
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:datosNuevos" type="tns:DtLista"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarVideosPublicos" qname="operNS:listarVideosPublicos" returnQName="retNS:listarVideosPublicosReturn" returnType="rtns:anyType" soapAction="">
-      </operation>
-      <operation xmlns:operNS="http://WS" name="seleccionarCategoria" qname="operNS:seleccionarCategoria" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:cat" type="tns:string"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="videosXCatPublicos" qname="operNS:videosXCatPublicos" returnQName="retNS:videosXCatPublicosReturn" returnType="rtns:string" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:categoria" type="tns:string"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="seleccionarUsuario" qname="operNS:seleccionarUsuario" returnQName="retNS:seleccionarUsuarioReturn" returnType="rtns:DtUsuario" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:usuario" type="tns:string"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="videosEnListaPublica" qname="operNS:videosEnListaPublica" returnQName="retNS:videosEnListaPublicaReturn" returnType="rtns:DtVideo" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:lst" type="tns:DtLista"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="buscarVideosPublicos" qname="operNS:buscarVideosPublicos" returnQName="retNS:buscarVideosPublicosReturn" returnType="rtns:DtVideo" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dato" type="tns:string"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" name="modificarUsuarioCanal" qname="operNS:modificarUsuarioCanal" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:usr" type="tns:DtUsuario"/>
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:canal" type="tns:DtCanal"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="ingresarComentario" qname="operNS:ingresarComentario" returnQName="retNS:ingresarComentarioReturn" returnType="rtns:boolean" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:comment" type="tns:DtComentario"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" name="seleccionarComentario" qname="operNS:seleccionarComentario" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:comment" type="tns:DtComentario"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarListasPublicas" qname="operNS:listarListasPublicas" returnQName="retNS:listarListasPublicasReturn" returnType="rtns:anyType" soapAction="">
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarDatosUsuario" qname="operNS:listarDatosUsuario" returnQName="retNS:listarDatosUsuarioReturn" returnType="rtns:anyType" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:nick" type="tns:string"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listarCanalesPublicos" qname="operNS:listarCanalesPublicos" returnQName="retNS:listarCanalesPublicosReturn" returnType="rtns:string" soapAction="">
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="listasXCatPublicas" qname="operNS:listasXCatPublicas" returnQName="retNS:listasXCatPublicasReturn" returnType="rtns:string" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:categoria" type="tns:string"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="buscarCanalesPublicos" qname="operNS:buscarCanalesPublicos" returnQName="retNS:buscarCanalesPublicosReturn" returnType="rtns:DtCanal" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dato" type="tns:string"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" name="ingresarTipoLista" qname="operNS:ingresarTipoLista" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:defecto" type="tns:boolean"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="listarListasParticulares" qname="operNS:listarListasParticulares" returnQName="retNS:listarListasParticularesReturn" returnType="rtns:DtLista" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://datatypes" qname="pns:user" type="tns:DtUsuario"/>
-      </operation>
-      <operation xmlns:operNS="http://WS" xmlns:retNS="http://WS" xmlns:rtns="http://datatypes" name="buscarListasPublicas" qname="operNS:buscarListasPublicas" returnQName="retNS:buscarListasPublicasReturn" returnType="rtns:DtLista" soapAction="">
-        <parameter xmlns:pns="http://WS" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:dato" type="tns:string"/>
-      </operation>
-      <parameter name="allowedMethods" value="publicar modificarListaParticular seleccionarLista listarCategorias listarVideos finCasoUso buscarVideosPublicos listarVideosPrivados login agregarVideo valorarVideoPublico seleccionarUsuario seleccionarVideo videosXCatPublicos quitarVideo listarListasPublicas ingresarTipoLista findDuenioLista modificarUsuarioCanal listarListasParticulares findLista seleccionarCategoria findVideo dejarSeguir listarCanalesPublicos crearLista ingresarUsuario buscarCanalesPublicos ingresarVideo altaCategoria getEndpoint videosEnLista ingresarComentario findDuenioVideo seguirUsuario listarDatosUsuario buscarListasPublicas listasXCatPublicas editarVideo listarVideosPublicos seleccionarComentario videosEnListaPublica"/>
+      <parameter name="allowedMethods" value="publicar modificarListaParticular seleccionarLista listarCategorias buscarVideosPublicos listarVideos finCasoUso listarVideosPrivados login seleccionarUsuario valorarVideoPublico agregarVideo videosXCatPublicos seleccionarVideo listarListasPublicas ingresarTipoLista quitarVideo modificarUsuarioCanal findDuenioLista listarListasParticulares findLista listarUsuarios seleccionarCategoria findVideo dejarSeguir listarCanalesPublicos crearLista buscarCanalesPublicos ingresarUsuario ingresarVideo altaCategoria getEndpoint videosEnLista ingresarComentario listarDatosUsuario buscarListasPublicas findDuenioVideo seguirUsuario listasXCatPublicas editarVideo listarVideosPublicos seleccionarComentario videosEnListaPublica"/>
 
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;buscarListasPublicas" type="java:WS.BuscarListasPublicas" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;finCasoUso" type="java:WS.FinCasoUso" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;seleccionarCategoria" type="java:WS.SeleccionarCategoria" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
-      <typeMapping xmlns:ns="http://WS" qname="ns:&gt;altaCategoriaResponse" type="java:WS.AltaCategoriaResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;listarVideosPublicos" type="java:WS.ListarVideosPublicos" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <arrayMapping xmlns:ns="http://WS" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:&gt;listasXCatPublicasResponse" type="java:java.lang.String[]" innerType="cmp-ns:string" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://WS" qname="ns:&gt;altaCategoriaResponse" type="java:WS.AltaCategoriaResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;listasXCatPublicas" type="java:WS.ListasXCatPublicas" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;ingresarComentario" type="java:WS.IngresarComentario" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;modificarUsuarioCanalResponse" type="java:WS.ModificarUsuarioCanalResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
@@ -176,9 +178,10 @@
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;videosXCatPublicos" type="java:WS.VideosXCatPublicos" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <arrayMapping xmlns:ns="http://WS" xmlns:cmp-ns="http://datatypes" qname="ns:&gt;listarListasParticularesResponse" type="java:datatypes.DtLista[]" innerType="cmp-ns:DtLista" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;ingresarUsuarioResponse" type="java:WS.IngresarUsuarioResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://WS" qname="ns:&gt;listarUsuarios" type="java:WS.ListarUsuarios" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;getEndpointResponse" type="java:WS.GetEndpointResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
-      <typeMapping xmlns:ns="http://WS" qname="ns:&gt;getEndpoint" type="java:WS.GetEndpoint" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <arrayMapping xmlns:ns="http://WS" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:&gt;listarVideosPrivadosResponse" type="java:java.lang.Object[]" innerType="cmp-ns:anyType" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://WS" qname="ns:&gt;getEndpoint" type="java:WS.GetEndpoint" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <arrayMapping xmlns:ns="http://WS" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_anyType" type="java:java.lang.Object[]" innerType="cmp-ns:anyType" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;seleccionarUsuario" type="java:WS.SeleccionarUsuario" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://datatypes" qname="ns:DtLista" type="java:datatypes.DtLista" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
@@ -190,6 +193,7 @@
       <arrayMapping xmlns:ns="http://WS" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:&gt;listarCanalesPublicosResponse" type="java:java.lang.String[]" innerType="cmp-ns:string" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;findDuenioVideoResponse" type="java:WS.FindDuenioVideoResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <arrayMapping xmlns:ns="http://WS" xmlns:cmp-ns="http://datatypes" qname="ns:&gt;videosEnListaResponse" type="java:datatypes.DtVideo[]" innerType="cmp-ns:DtVideo" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://WS" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:&gt;listarUsuariosResponse" type="java:java.lang.String[]" innerType="cmp-ns:string" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;dejarSeguirResponse" type="java:WS.DejarSeguirResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;listarListasParticulares" type="java:WS.ListarListasParticulares" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <arrayMapping xmlns:ns="http://WS" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:&gt;listarVideosResponse" type="java:java.lang.String[]" innerType="cmp-ns:string" encodingStyle=""/>
@@ -219,13 +223,13 @@
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;ingresarVideo" type="java:WS.IngresarVideo" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;crearListaResponse" type="java:WS.CrearListaResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;videosEnLista" type="java:WS.VideosEnLista" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
-      <typeMapping xmlns:ns="http://WS" qname="ns:&gt;findListaResponse" type="java:WS.FindListaResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;ingresarTipoLista" type="java:WS.IngresarTipoLista" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://WS" qname="ns:&gt;findListaResponse" type="java:WS.FindListaResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;findVideo" type="java:WS.FindVideo" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;ingresarUsuario" type="java:WS.IngresarUsuario" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;altaCategoria" type="java:WS.AltaCategoria" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
-      <typeMapping xmlns:ns="http://WS" qname="ns:&gt;publicar" type="java:WS.Publicar" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;listarCanalesPublicos" type="java:WS.ListarCanalesPublicos" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://WS" qname="ns:&gt;publicar" type="java:WS.Publicar" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;seleccionarVideoResponse" type="java:WS.SeleccionarVideoResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;modificarListaParticularResponse" type="java:WS.ModificarListaParticularResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
       <typeMapping xmlns:ns="http://WS" qname="ns:&gt;editarVideo" type="java:WS.EditarVideo" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
