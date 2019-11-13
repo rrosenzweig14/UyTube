@@ -37,7 +37,16 @@ public class WebServices {
     public Endpoint getEndpoint() {
             return endpoint;
     }
-
+    @WebMethod
+    public String[] listarUsuarios(){
+    	ArrayList<String> aux = icon.listarUsuarios();
+    	String[] r = new String[aux.size()];
+    	int i = 0;
+    	for(String s: aux) {
+    		r[i++] = s;
+    	}
+    	return r;
+    }   
     @WebMethod
     public String[] listarVideos(){
     	ArrayList<String> aux = icon.listarVideos();
