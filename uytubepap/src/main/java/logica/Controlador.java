@@ -385,6 +385,7 @@ public class Controlador implements IControlador {
 	public DtVideo consultarVideo(String nombreVideo) {
 		DtVideo res = null;
 		if (lista == null) {
+			canal = user1.getCanal();
 			Video videoSelec = canal.getListaVideos().get(nombreVideo);
 			if (videoSelec != null)
 				res = videoSelec.getDt();
