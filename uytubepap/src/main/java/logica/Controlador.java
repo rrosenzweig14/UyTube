@@ -32,8 +32,9 @@ public class Controlador implements IControlador {
 
 	@Override
 	public void valorarVideo(String nick, boolean valor) {
-		user2 = Handler.findUsuario(nick);
-		List<Usuario_Video> valoraciones = video.getValoraciones();
+		Usuario u = Handler.findUsuario(nick);
+		Video v = Handler.findVideo(video.getId());
+		List<Usuario_Video> valoraciones = v.getValoraciones();
 		Iterator<Usuario_Video> it = valoraciones.iterator();
 		boolean encontrado = false;
 		Usuario_Video usrvid = null;
@@ -47,8 +48,10 @@ public class Controlador implements IControlador {
 		else {
 			usrvid = new Usuario_Video();
 			usrvid.setLeGusta(valor);
-			usrvid.setNombreVideo(video);
-			usrvid.setNombreUsuario(user2);
+			usrvid.setNombreVideo(v);
+			usrvid.setNombreUsuario(u);
+			u.addValoraciones(usrvid);
+			v.addValoraciones(usrvid);
 		}
 		Conexion.beginTransaction();
 		Conexion.persist(usrvid);
@@ -58,6 +61,7 @@ public class Controlador implements IControlador {
 	@Override
 	public ArrayList<DtVideo> videosEnLista(DtLista lst) {
 		ArrayList<DtVideo> res = new ArrayList<DtVideo>();
+//		Canal c = user1.getCanal();
 		lista = canal.getListasReproduccion().get(lst.getNombre());
 		Map<String, Video> videos = lista.getVideos();
 		for (Video video : videos.values()) {
