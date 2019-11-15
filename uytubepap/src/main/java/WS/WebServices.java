@@ -113,7 +113,7 @@ public class WebServices {
     }
     @WebMethod
     public Boolean ingresarUsuario(String nickname, String email,String password, String nombre, String apellido, Date fechaNac, String img, DtCanal canal) {
-    	return ingresarUsuario(nickname, email, password, nombre, apellido, fechaNac, img, canal);
+    	return icon.ingresarUsuario(nickname, email, password, nombre, apellido, fechaNac, img, canal);
     }
     @WebMethod
     public Object[] listarDatosUsuario(String nick){
@@ -163,7 +163,7 @@ public class WebServices {
     }
     @WebMethod
     public DtLista seleccionarLista(String lista) {
-    	return seleccionarLista(lista);
+    	return icon.seleccionarLista(lista);
     }
     @WebMethod
     public void ingresarTipoLista(boolean defecto) {
@@ -175,7 +175,7 @@ public class WebServices {
     }
     @WebMethod
     public DtLista findLista(int id) {
-    	return findLista(id);
+    	return icon.findLista(id);
     }
     @WebMethod
     public String findDuenioLista(int id) {
