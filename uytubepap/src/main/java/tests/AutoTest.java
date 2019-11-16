@@ -133,7 +133,7 @@ public class AutoTest {
 	
 	@Test
 	public void modificarUsuarioCanal() {
-		//cambiar un dato del dtcanal de rodrigo
+		CanalR.setNick('Rodrigo');
 	
 		Controlador.modificarUsuarioCanal(UserR, CanalR);
 		DtUsuario user2=Handler.findUsuario('Ro').getDtUsuario();
