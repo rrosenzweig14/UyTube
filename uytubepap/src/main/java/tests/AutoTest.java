@@ -92,8 +92,15 @@ public class AutoTest {
 	
 	@Test
 	public void listarUsuarios() {
-		//verificar que lo generado es igual a lo esperado
-		//VER HANDLER
+		ArrayList<String> listaEsperada = new ArrayList<String>();
+		resEsperado.add('Giu');
+		resEsperado.add('Ro');
+		
+		ArrayList<String> listaObtenida =Controlador.listarUsuarios();
+		
+		resObtenido=listaEsperada.equals(listaObtenida);
+		
+		assertEquals(true,resObtenido);
 	}
 	
 	@Test
