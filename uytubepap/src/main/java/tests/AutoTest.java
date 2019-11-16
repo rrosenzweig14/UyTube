@@ -151,9 +151,15 @@ public class AutoTest {
 	}
 	
 	@Test
-	public void buscarCanalesPublicos) {
-		//bsucar uno de los canales publicos
-		//verificar que devuelva ese canal
+	public void buscarCanalesPublicos() {
+		ArrayList<DtCanal> resEsperadoA = new ArrayList<DtCanal>();
+		resEsperadoA.add(CanalR);
+		
+		ArratList<DtCanal> resObtenidoA= Controlador.buscarCanalesPublicos('Ro');
+		
+		boolean resObtenido = resEsperadoA.equals(resObtenidoA);
+		
+		assertEquals(true,resObtenido);	
 	}
 	
 	@Test
