@@ -6,15 +6,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
 import datatypes.DtCanal;
 import datatypes.DtComentario;
 import datatypes.DtLista;
@@ -31,48 +27,57 @@ public class AssertTests {
 	DtCanal canal2;
 	DtVideo videoBase;
 	DtVideo basePub;
-	DtUsuario userG;
-	DtUsuario userR;
 	DtUsuario usuarioBase;
+	DtLista listaPrivada;
+	DtLista listaPublica;
 
 	@Before
 	public void inicializarTest() {
 		Date date = new Date();
-		//Un Par de Canales
+		// Un Par de Canales
 		canal1 = new DtCanal("U1canal", "desc", "user1", true);
 		canal2 = new DtCanal("U2canal", "desc", "user2", true);
-		//Un Par de Usuarios
-//		userG = new DtUsuario('Giu', 'gm@gmail.com', '123', 'Giu', 'Es', date, null);
-//		userR = new DtUsuario('Ro', 'rr@gmail.com', '123', 'Ro', 'Ros', date, null);
-		
+		// Un Par de Usuarios
+//		userG = new DtUsuario("Giu", "gm@gmail.com", "123", "Giu", "Es", date, null);
+//		userR = new DtUsuario("Ro", "rr@gmail.com", "123", "Ro", "Ros", date, null);
 		// Crear Usuario
-		ctrl.ingresarUsuario("user1", "user1@gmail.com", "123", "user1", "1", date, "img", canal1);
-		ctrl.ingresarUsuario("user2", "user2@gmail.com", "123", "user2", "2", date, "img", canal2);
+		if (ctrl.seleccionarUsuario("user1") == null) {
+			ctrl.ingresarUsuario("user1", "user1@gmail.com", "123", "user1", "1", date, "img", canal1);
+		}
+		if (ctrl.seleccionarUsuario("user2") == null) {
+			ctrl.ingresarUsuario("user2", "user2@gmail.com", "123", "user2", "2", date, "img", canal2);
+		}
 		usuarioBase = ctrl.seleccionarUsuario("user1");
 		// Crear Categoria
 		ctrl.altaCategoria("cat1");
 		ctrl.altaCategoria("cat2");
 		// Crear Video Privado
-		ctrl.seleccionarCategoria("cat1");
-		ctrl.seleccionarUsuario("user1");
-		Date fecha = new Date();
-		ctrl.ingresarVideo("base", 123, "url", "desc", fecha);
-		ctrl.seleccionarUsuario("user1");
+		if (ctrl.seleccionarVideo("base") == null) {
+			ctrl.seleccionarCategoria("cat1");
+			ctrl.seleccionarUsuario("user1");
+			Date fecha = new Date();
+			ctrl.ingresarVideo("base", 123, "url", "desc", fecha);
+			ctrl.seleccionarUsuario("user1");
+		}
 		videoBase = ctrl.seleccionarVideo("base");
 		// Crear Video Publico
-		ctrl.seleccionarCategoria("cat1");
-		ctrl.seleccionarUsuario("user1");
-		Date fecha2 = new Date();
-		ctrl.ingresarVideo("basePub", 123, "url", "desc", fecha2);
-		ctrl.seleccionarUsuario("user1");
-		basePub = ctrl.seleccionarVideo("basePub");
-		basePub = new DtVideo(videoBase.getId(), "basePub", false, canal1.getNombre(), videoBase.getDescripcion(),
-				videoBase.getDuracion(), videoBase.getCategoria(), videoBase.getFechaPub(), videoBase.getUrl());
-		ctrl.editarVideo(basePub);
+		if (ctrl.seleccionarVideo("basePub") == null) {
+			ctrl.seleccionarCategoria("cat1");
+			ctrl.seleccionarUsuario("user1");
+			Date fecha2 = new Date();
+			ctrl.ingresarVideo("basePub", 123, "url", "desc", fecha2);
+			ctrl.seleccionarUsuario("user1");
+			DtVideo basePubAux = new DtVideo(videoBase.getId(), "basePub", false, canal1.getNombre(), videoBase.getDescripcion(),
+					videoBase.getDuracion(), videoBase.getCategoria(), videoBase.getFechaPub(), videoBase.getUrl(), 0, date);
+			basePub = ctrl.seleccionarVideo("basePub");
+			ctrl.editarVideo(basePubAux);
+		}
 		basePub = ctrl.seleccionarVideo("basePub");
 		// Lista Base
 		ctrl.crearLista(usuarioBase, "listaPrivada", true, "cat1");
 		ctrl.crearLista(usuarioBase, "listaPublica", true, "cat1");
+		listaPrivada = ctrl.seleccionarLista("listaPrivada");
+		listaPublica = ctrl.seleccionarLista("listaPublica");
 
 		ctrl.login("user2", "123");
 		ctrl.finCasoUso();
@@ -131,7 +136,7 @@ public class AssertTests {
 		ArrayList<DtVideo> videos = ctrl.videosEnListaPublica(lista);
 		ArrayList<DtVideo> esperados = new ArrayList<DtVideo>();
 		esperados.add(videoBase);
-		//FIXME Considera videos agregados en otros test
+		// FIXME Considera videos agregados en otros test
 		assertEquals(videos, esperados);
 	}
 
@@ -191,10 +196,10 @@ public class AssertTests {
 		Date newDate = new Date();
 		// Nuevo Dt Con Datos Nuevos
 		DtVideo cambioFallo = new DtVideo(90, "base2", !v2.getPrivado(), canal1.getNombre(), "nuevaDesc",
-				v2.getDuracion() + 1, "catNew", newDate, "nuevoUrl");
+				v2.getDuracion() + 1, "catNew", newDate, "nuevoUrl",0,newDate);
 		// FIXME no logro hacer que falle
 		DtVideo cambio = new DtVideo(90, "nuevoNombre", !v2.getPrivado(), canal2.getNombre(), "nuevaDesc",
-				v2.getDuracion() + 1, "catNew", newDate, "nuevoUrl");
+				v2.getDuracion() + 1, "catNew", newDate, "nuevoUrl", 0, newDate);
 		// Fallo el cambio
 		ctrl.editarVideo(cambioFallo);
 		// Hago el cambio
@@ -248,7 +253,7 @@ public class AssertTests {
 		HashMap<Integer, String> vs = ctrl.listarVideosPublicos();
 		Map<Integer, String> esperados = new HashMap<Integer, String>();
 		esperados.put(basePub.getId(), basePub.getNombre());
-		//FIXME Considera videos agregados en otros test
+		// FIXME Considera videos agregados en otros test
 		assertEquals(vs, esperados);
 	}
 
@@ -257,7 +262,7 @@ public class AssertTests {
 		ArrayList<DtVideo> videos = ctrl.buscarVideosPublicos(basePub.getNombre());
 		ArrayList<DtVideo> esperados = new ArrayList<DtVideo>();
 		esperados.add(basePub);
-		//FIXME Considera videos agregados en otros test
+		// FIXME Considera videos agregados en otros test
 		assertEquals(videos, esperados);
 	}
 
@@ -266,7 +271,7 @@ public class AssertTests {
 		HashMap<Integer, String> vs = ctrl.listarVideosPrivados("user1");
 		HashMap<Integer, String> esperados = new HashMap<Integer, String>();
 		esperados.put(1, "base");
-		//FIXME Considera videos agregados en otros test
+		// FIXME Considera videos agregados en otros test
 		assertEquals(vs, esperados);
 	}
 
@@ -340,7 +345,7 @@ public class AssertTests {
 		Map<String, String> videos = ctrl.videosXCat("cat1");
 		Map<String, String> esperados = new HashMap<String, String>();
 		esperados.put("base", "user1");
-		//FIXME Considera videos agregados en otros test
+		// FIXME Considera videos agregados en otros test
 		assertEquals(videos, esperados);
 	}
 
@@ -390,6 +395,217 @@ public class AssertTests {
 //		ctrl.seleccionarVideo("base");
 //		JTree comentarios = ctrl.mostrarComentarios();
 //		JTree esperados = new JTree();
+	}
+
+	// TESTS DE GEMA
+
+	@Test
+	public void seguirUsuario() {
+		DtUsuario user1 = ctrl.seleccionarUsuario("user1");
+		ctrl.seleccionarUsuario("user2");
+		ctrl.seguirUsuario();
+		DtUsuario user2 = ctrl.seleccionarUsuario("user2");
+		HashMap<String, DtUsuario> seguidores = user2.getSeguidores();
+		Map<String, DtUsuario> esperados = new HashMap<String, DtUsuario>();
+		esperados.put("user1", user1); 
+		assertEquals(esperados, seguidores);
+	}
+
+	@Test
+	public void dejarSeguir() {
+		//Primero Seguimos un Usuario
+		ctrl.seleccionarUsuario("user1");
+		ctrl.seleccionarUsuario("user2");
+		ctrl.seguirUsuario();
+		ctrl.finCasoUso();
+		ctrl.seleccionarUsuario("user1");
+		ctrl.seleccionarUsuario("user2");
+		ctrl.dejarSeguir();
+		DtUsuario user2 = ctrl.seleccionarUsuario("user2");
+		HashMap<String, DtUsuario> seguidores = user2.getSeguidores();
+		Map<String, DtUsuario> esperados = new HashMap<String, DtUsuario>();
+		assertEquals(seguidores, esperados);
+	}
+
+	@Test
+	public void seleccionarUsuario() {
+		// FIXME ver como funciona no veo el sentido
+		//Fallo
+		ctrl.seleccionarUsuario("fallo");
+		//Acierto
+		DtUsuario user1 = ctrl.seleccionarUsuario("user1");
+		assertEquals(user1,usuarioBase);
+	}
+
+	@Test
+	public void listarUsuarios() {
+		ArrayList<String> listaEsperada = new ArrayList<String>();
+		listaEsperada.add("user1");
+		listaEsperada.add("user2");
+		ArrayList<String> listaObtenida = ctrl.listarUsuarios();
+		assertEquals(listaObtenida, listaEsperada);
+	}
+
+	@Test
+	public void listarDatosUsuario() {
+		Map<DtUsuario, DtCanal> datos1 = new HashMap<DtUsuario, DtCanal>();
+		datos1.put(usuarioBase, canal1);
+		Map<DtUsuario, DtCanal> datos = ctrl.listarDatosUsuario(usuarioBase.getNombre());
+		//FIXME Agarra uno de los tantos user1
+		assertEquals(datos1, datos);
+	}
+
+	@Test
+	public void ingresarUsuario() {
+//		boolean resObtenido;
+//		Date fecha = new Date();
+//		resObtenido = ctrl.ingresarUsuario("Prueba", "pr@gmail.com", "456", "Pru", "eba", fecha, null, null);
+//		resObtenido = resObtenido && ctrl.ingresarUsuario("Giu", "gm@gmail.com", "123", "Giu", "Es", fecha, null, null);
+//		assertEquals(true, resObtenido);
+	}
+
+	@Test
+	public void modificarUsuarioCanal() {
+//		CanalR.setNick("Rodrigo");
+//		ctrl.modificarUsuarioCanal(userR, CanalR);
+		DtUsuario user2 = ctrl.seleccionarUsuario("Ro");
+		// FIXME ver como conseguir un DtCanal
+//		DtCanal cnl2= user2.get
+//		boolean resObtenido = cnl2.equals(CanalR) && UserR.equals(user2);
+//		assertEquals(true,resObtenido);	
+	}
+
+	@Test
+	public void listarCanalesPublicos() {
+		// generar al menos dos canales publicos
+		// veriificar que devuelva esos canales
+	}
+
+	@Test
+	public void buscarCanalesPublicos() {
+		ArrayList<DtCanal> resEsperadoA = new ArrayList<DtCanal>();
+//		resEsperadoA.add(CanalR);
+		ArrayList<DtCanal> resObtenidoA = ctrl.buscarCanalesPublicos("Ro");
+		assertEquals(resEsperadoA, resObtenidoA);
+	}
+
+	@Test
+	public void crearLista() {
+		// Â¿this.defecto? | usr.agregarListaDefecto(nombre)
+		// Â¿this.defecto? | else
+		// else | lst != null (con categoria)
+		// else | else
+	}
+
+	@Test
+	public void seleccionarLista() {
+		// crear DtLista con datos de una lista existente
+		ctrl.seleccionarUsuario("user1");
+		DtLista listaO = ctrl.seleccionarLista("listaPublica");
+		assertEquals(listaPublica, listaO);
+	}
+
+	@Test
+	public void ingresarTipoLista() {
+		// FIXME ver como tiene que funcionar
+		ctrl.ingresarTipoLista(true);
+//		boolean resObtenido=ctrl.defecto;
+//		assertEquals(true,resObtenido);
+	}
+
+	@Test
+	public void listarListasReproduccion() {
+		// crear al menos dos listas de reproduccion (necesito 2 publicas y 2 privadas,
+		// asÃ­ que ya estarÃ­an)
+		// Verificar que devuelva el arraylist que se espera
+	}
+
+	@Test
+	public void listarListasParticulares() {
+		//// Crear al menos dos listas de produccion particualares
+		// verificar que devuelva la lista correspondiente
+	}
+
+	@Test
+	public void modificarListaParticular() {
+		DtLista ListaS = listaPublica;
+		ListaS.setCategoria("Musical");
+		ctrl.modificarListaParticular(listaPublica, ListaS);
+		DtLista res = ctrl.seleccionarLista("listaPublica");
+		assertEquals(res, ListaS);
+	}
+
+	@Test
+	public void listasXCat() {
+		// verificar que devuelva el mapa esperado
+	}
+
+	@Test
+	public void listasXCatPulicas() {
+		// verificar que devuelva el mapa esperado
+	}
+
+	@Test
+	public void listarListasPublicas() {
+		// crear al menos dos listas publicas
+		// verificar que la devuelve
+	}
+
+	@Test
+	public void buscarListasPublicas() {
+		ArrayList<DtLista> obtenida = ctrl.buscarListasPublicas("listaPublica");
+		ArrayList<DtLista> esperada = new ArrayList<DtLista>();
+		esperada.add(listaPublica);
+		assertEquals(esperada, obtenida);
+	}
+
+	@Test
+	public void findLista() {
+		// lista que existe
+		// y lista que no existe
 
 	}
+
+	@Test
+	public void findDuenioLista() {
+		// revisar que devuelva el string esperado
+	}
+
+	@Test
+	public void finCasoUso() {
+		// FIXME Ver como hacer que funcione
+//		ctrl.finCasoUso();
+//		boolean resObtenido = Controlador.user1.equals(Contorlador.user2);
+//		resObtenido= resObtenido && (ctrl.video==null);
+//		resObtenido= resObtenido && (ctrl.comentarioSeleccionado==null);
+//		resObtenido= resObtenido && (ctrl.lista==null);
+//		resObtenido= resObtenido && (ctrl.canal==null);
+//		resObtenido= resObtenido && (ctrl.categoria1==null);
+//		assertEquals(true,resObtenido);	
+	}
+
+	@Test
+	public void login() {
+		// FIXME Revisar el checkeo
+		Boolean resObtenido = ctrl.login("gm@gmail", "123");
+		resObtenido = resObtenido && ctrl.login("Giu", "123");
+		assertEquals(true, resObtenido);
+	}
+
+//MÃ©todo que se ejecuta despues de cada test unitario
+	@After
+	public void finalizar() {
+		// borrar usuario
+		// borrar usuario 2
+		// borrar videos para usuario 1
+		// borrar videos para usuario 2
+		// borrar comentario
+		// borrar subcomentario
+	}
+
+//MÃ©todo despues de todos los tests
+//	@AfterClass
+//	public void despuesDeTodo() {
+//		
+//	}
 }
