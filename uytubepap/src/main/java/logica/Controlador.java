@@ -61,7 +61,10 @@ public class Controlador implements IControlador {
 	@Override
 	public ArrayList<DtVideo> videosEnLista(DtLista lst) {
 		ArrayList<DtVideo> res = new ArrayList<DtVideo>();
-//		Canal c = user1.getCanal();
+		if (canal == null) {
+			//TODO Agregado para el test, ver si rompe todo
+			canal = user1.getCanal();
+		}
 		lista = canal.getListasReproduccion().get(lst.getNombre());
 		Map<String, Video> videos = lista.getVideos();
 		for (Video video : videos.values()) {
@@ -191,7 +194,11 @@ public class Controlador implements IControlador {
 		} else {
 			user2 = aux;
 		}
-		return aux.getDt();
+		if (aux != null) {
+			return aux.getDt();
+		}else {
+			return null;
+		}
 	}
 
 	@Override
