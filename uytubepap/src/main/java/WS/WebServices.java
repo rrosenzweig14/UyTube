@@ -305,4 +305,8 @@ public class WebServices {
     public void finCasoUso() {
     	icon.finCasoUso();
     }
+    @WebMethod
+    public boolean bajaUsuario(String nick) {
+    	return icon.bajaUsuario(nick);
+    }
 }
