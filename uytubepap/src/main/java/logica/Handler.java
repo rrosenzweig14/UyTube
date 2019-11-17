@@ -25,9 +25,20 @@ public class Handler {
 			if (user != null) usuarios.put(nick, user);
 		}
 		return user;
-}
+	}
 	
-  	
+  	public static boolean bajaUsuario(String nick) {
+		EntityManager em = Conexion.getEm();
+		Usuario us = findUsuario(nick);
+		boolean res = false;
+		if(us != null) {
+			em.remove(us);
+			res = true;			
+		}
+		return res;
+	
+  	}
+	
 	public static Usuario findUsuarioEM(String email) {
 		Usuario usuario = null;	
 		for (Usuario user : usuarios.values()){		

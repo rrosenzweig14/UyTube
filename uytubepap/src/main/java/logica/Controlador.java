@@ -29,6 +29,11 @@ public class Controlador implements IControlador {
 	private Lista lista;
 	private Canal canal;
 	private Categoria categoria1;
+	
+	@Override
+	public boolean bajaUsuario(String nick) {
+		return Handler.bajaUsuario(nick);
+	}
 
 	@Override
 	public void valorarVideo(String nick, boolean valor) {

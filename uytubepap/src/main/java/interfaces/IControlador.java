@@ -18,6 +18,8 @@ import logica.Handler;
 
 public interface IControlador {
 	
+	public boolean bajaUsuario(String nick);
+	
 	public void valorarVideo(String nick, boolean valor);
 	
 	public ArrayList<DtVideo> videosEnLista(DtLista lst);
