@@ -76,7 +76,7 @@ public interface IControlador {
 	
 	public void modificarListaParticular(DtLista listaSeleccionada,DtLista datosNuevos);
 	
-	public Boolean existeEmail();
+	//public Boolean existeEmail();
 	
 	public Map<String, String> videosXCat(String categoria);
 	
