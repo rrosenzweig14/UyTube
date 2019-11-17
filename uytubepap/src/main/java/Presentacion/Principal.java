@@ -136,12 +136,12 @@ public class Principal extends JFrame {
 		lblNewImage.setIcon(img2);
 		initialize();		
 		//frame.getContentPane().add(lblNewImage);	
-		//IControlador ctrl = Fabrica.getIControlador();
+		IControlador ctrl = Fabrica.getIControlador();
 		Conexion.open();		
 		frame.getContentPane().setLayout(null);
 		frame.setIconImage(icon);
 		frame.setContentPane(lblNewImage);
-
+		ctrl.crearListaHistorial();
 	}
 	/*
 	 * 
@@ -471,6 +471,8 @@ public class Principal extends JFrame {
 				}
 			});
 			mnAccionesUsuario.add(mntmDejarDeSeguir);
+			
+			
 
 		}
 	}

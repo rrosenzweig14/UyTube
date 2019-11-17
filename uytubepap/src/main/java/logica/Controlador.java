@@ -708,5 +708,11 @@ public class Controlador implements IControlador {
 		}
 		return res;
 	}
+	
+	public void crearListaHistorial() {
+		this.ingresarTipoLista(true);
+		this.crearLista(null, "Historial", true, null);
+		this.finCasoUso();
+	}
 
 }

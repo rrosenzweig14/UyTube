@@ -113,5 +113,7 @@ public interface IControlador {
 	public String findDuenioLista(int id);
 	
 	public String findDuenioVideo(int id);
+	
+	public void crearListaHistorial();
 
 }
