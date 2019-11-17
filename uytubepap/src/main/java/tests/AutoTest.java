@@ -246,14 +246,6 @@ public class AutoTest {
 	}
 	
 	@Test
-	public void existeEmail() {
-		//cual es la gracia del existeEmail??
-		//hay dos opciones, verificar que sea true luego de ingresarUsuario pero ya existe el correo
-		// o verificar que sea false depues del finCasoUso.
-		//assertEquals(true,resObtenido);
-	}
-	
-	@Test
 	public void login() {
 		Boolean resObtenido=Controlador.login('gm@gmail', '123');
 		resObtenido=resObtenido && Controlador.login('Giu', "123');
