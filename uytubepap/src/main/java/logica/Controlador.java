@@ -20,7 +20,7 @@ import interfaces.IControlador;
 
 public class Controlador implements IControlador {
 
-	private Boolean existeEmail;
+	//private Boolean existeEmail;
 	private Usuario user1;
 	private Usuario user2;
 	private boolean defecto;
@@ -452,13 +452,13 @@ public class Controlador implements IControlador {
 		Usuario aux = Handler.findUsuario(nickname);
 		if (aux == null)
 			aux = Handler.findUsuarioEM(email);
-		else
-			this.existeEmail = false;
+		//else
+		//	this.existeEmail = false;
 		if (aux == null) {
 			Handler.addUsuario(nickname, email, password,nombre, apellido, fechaNac, img, canal);
 			res = true;
-		} else
-			this.existeEmail = true;
+		} //else
+		//	this.existeEmail = true;
 		return res;
 	}
 
@@ -470,12 +470,12 @@ public class Controlador implements IControlador {
 		lista = null;
 		canal = null;
 		categoria1 = null;
-		existeEmail = false;
+		//existeEmail = false;
 	}
 
-	public Boolean existeEmail() {
+	/*public Boolean existeEmail() {
 		return this.existeEmail;
-	}
+	}*/
 
 	public Map<String, String> videosXCat(String categoria) {
 		Map<String, String> res = new HashMap<String, String>();
