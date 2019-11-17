@@ -6,13 +6,14 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
-
-import javax.swing.JTree;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import datatypes.DtCanal;
 import datatypes.DtComentario;
@@ -20,8 +21,6 @@ import datatypes.DtLista;
 import datatypes.DtUsuario;
 import datatypes.DtVideo;
 import logica.Categoria;
-import logica.Controlador;
-import logica.Video;
 import interfaces.Fabrica;
 import interfaces.IControlador;
 
@@ -32,13 +31,20 @@ public class AssertTests {
 	DtCanal canal2;
 	DtVideo videoBase;
 	DtVideo basePub;
+	DtUsuario userG;
+	DtUsuario userR;
 	DtUsuario usuarioBase;
 
 	@Before
 	public void inicializarTest() {
 		Date date = new Date();
+		//Un Par de Canales
 		canal1 = new DtCanal("U1canal", "desc", "user1", true);
 		canal2 = new DtCanal("U2canal", "desc", "user2", true);
+		//Un Par de Usuarios
+//		userG = new DtUsuario('Giu', 'gm@gmail.com', '123', 'Giu', 'Es', date, null);
+//		userR = new DtUsuario('Ro', 'rr@gmail.com', '123', 'Ro', 'Ros', date, null);
+		
 		// Crear Usuario
 		ctrl.ingresarUsuario("user1", "user1@gmail.com", "123", "user1", "1", date, "img", canal1);
 		ctrl.ingresarUsuario("user2", "user2@gmail.com", "123", "user2", "2", date, "img", canal2);
@@ -53,7 +59,7 @@ public class AssertTests {
 		ctrl.ingresarVideo("base", 123, "url", "desc", fecha);
 		ctrl.seleccionarUsuario("user1");
 		videoBase = ctrl.seleccionarVideo("base");
-		//Crear Video Publico
+		// Crear Video Publico
 		ctrl.seleccionarCategoria("cat1");
 		ctrl.seleccionarUsuario("user1");
 		Date fecha2 = new Date();
@@ -74,9 +80,8 @@ public class AssertTests {
 
 	@After
 	public void cleanAll() {
-		
 	}
-	
+
 	// TESTS DE VIDEO
 	@Test
 	public void ingresarVideo() {
@@ -118,7 +123,16 @@ public class AssertTests {
 
 	@Test
 	public void videosEnListaPublica() {
-
+		ctrl.seleccionarUsuario("user1");
+		ctrl.seleccionarUsuario("user1");
+		DtLista lista = ctrl.seleccionarLista("listaPublica");
+		ctrl.agregarVideo("base", lista);
+		ctrl.seleccionarUsuario("user1");
+		ArrayList<DtVideo> videos = ctrl.videosEnListaPublica(lista);
+		ArrayList<DtVideo> esperados = new ArrayList<DtVideo>();
+		esperados.add(videoBase);
+		//FIXME Considera videos agregados en otros test
+		assertEquals(videos, esperados);
 	}
 
 	@Test
@@ -209,23 +223,23 @@ public class AssertTests {
 
 	@Test
 	public void consultarVideo() {
-		//CASO DE USO CON LISTA
+		// CASO DE USO CON LISTA
 		// Seleccionar Dueño de Video
 		ctrl.seleccionarUsuario("user1");
 		// Seleccionar Dueño de Lista
 		ctrl.seleccionarUsuario("user1");
 		DtLista l = ctrl.seleccionarLista("listaPublica");
 		ctrl.agregarVideo(basePub.getNombre(), l);
-		ctrl.finCasoUso();		
+		ctrl.finCasoUso();
 		ctrl.seleccionarUsuario("user1");
 		ctrl.seleccionarLista("listaPublica");
 		ctrl.consultarVideo(basePub.getNombre());
 		ctrl.finCasoUso();
-		
-		//CASO DE USO SIN LISTA
+
+		// CASO DE USO SIN LISTA
 		ctrl.seleccionarUsuario("user1");
 		DtVideo res = ctrl.consultarVideo("base");
-		
+
 		assertEquals(videoBase, res);
 	}
 
@@ -234,7 +248,8 @@ public class AssertTests {
 		HashMap<Integer, String> vs = ctrl.listarVideosPublicos();
 		Map<Integer, String> esperados = new HashMap<Integer, String>();
 		esperados.put(basePub.getId(), basePub.getNombre());
-		assertEquals(vs, esperados);	
+		//FIXME Considera videos agregados en otros test
+		assertEquals(vs, esperados);
 	}
 
 	@Test
@@ -242,6 +257,7 @@ public class AssertTests {
 		ArrayList<DtVideo> videos = ctrl.buscarVideosPublicos(basePub.getNombre());
 		ArrayList<DtVideo> esperados = new ArrayList<DtVideo>();
 		esperados.add(basePub);
+		//FIXME Considera videos agregados en otros test
 		assertEquals(videos, esperados);
 	}
 
@@ -250,14 +266,15 @@ public class AssertTests {
 		HashMap<Integer, String> vs = ctrl.listarVideosPrivados("user1");
 		HashMap<Integer, String> esperados = new HashMap<Integer, String>();
 		esperados.put(1, "base");
+		//FIXME Considera videos agregados en otros test
 		assertEquals(vs, esperados);
 	}
 
 	@Test
 	public void findVideo() {
-		//Caso fallido
+		// Caso fallido
 		ctrl.findVideo(9235);
-		//Caso acertado
+		// Caso acertado
 		DtVideo v = ctrl.findVideo(videoBase.getId());
 		assertEquals(v, videoBase);
 	}
@@ -283,9 +300,9 @@ public class AssertTests {
 
 	@Test
 	public void findDuenioVideo() {
-		//Caso Fallido
+		// Caso Fallido
 		ctrl.findDuenioVideo(123123);
-		//Caso Fructifero
+		// Caso Fructifero
 		String duenio = ctrl.findDuenioVideo(videoBase.getId());
 		assertEquals(duenio, "user1");
 	}
@@ -321,37 +338,38 @@ public class AssertTests {
 	@Test
 	public void videosXCat() {
 		Map<String, String> videos = ctrl.videosXCat("cat1");
-		Map<String, String> esperados = new HashMap<String, String>();	
+		Map<String, String> esperados = new HashMap<String, String>();
 		esperados.put("base", "user1");
+		//FIXME Considera videos agregados en otros test
 		assertEquals(videos, esperados);
 	}
 
 	@Test
 	public void videosXCatPublicos() {
 		Map<String, String> videos = ctrl.videosXCatPublicos(basePub.getCategoria());
-		Map<String, String> esperados = new HashMap<String, String>();	
+		Map<String, String> esperados = new HashMap<String, String>();
 		esperados.put(basePub.getId() + ";" + basePub.getNombre(), "user1");
 		assertEquals(videos, esperados);
 	}
 
 	@Test
 	public void seleccionarComentario() {
-		//CHECK ingresarComentario
+		// CHECK ingresarComentario
 	}
 
 	@Test
 	public void ingresarComentario() {
-		//ESTE TEST INCLUYE EL TESTEO DE SELECCIONAR COMETARIO
+		// ESTE TEST INCLUYE EL TESTEO DE SELECCIONAR COMETARIO
 		Date fecha = new Date();
-		//Caso Comentario Sin Nick
+		// Caso Comentario Sin Nick
 		DtComentario aux0 = new DtComentario("noexiste", "comentario", fecha);
 		ctrl.ingresarComentario(aux0);
-		//Caso Ingresar E Ingresar A Comentario Seleccionado
+		// Caso Ingresar E Ingresar A Comentario Seleccionado
 		DtComentario aux = new DtComentario(usuarioBase.getNombre(), "comentario", fecha);
 		ctrl.seleccionarUsuario("user1");
 		ctrl.seleccionarVideo("base");
 		ctrl.ingresarComentario(aux);
-		//Ingresar A Seleccionado
+		// Ingresar A Seleccionado
 		DtComentario subAux = new DtComentario(usuarioBase.getNombre(), "subcomentario", fecha);
 		ctrl.seleccionarUsuario("user1");
 		ctrl.seleccionarVideo("base");
@@ -361,8 +379,8 @@ public class AssertTests {
 
 	@Test
 	public void mostrarComentarios() {
-		//TODO Falta ver como checkear el JTree
-		//Se agregar un comentario para mostrar
+		// TODO Falta ver como checkear el JTree
+		// Se agregar un comentario para mostrar
 //		Date fecha = new Date();
 //		DtComentario aux = new DtComentario(usuarioBase.getNombre(), "comentario", fecha);
 //		ctrl.seleccionarUsuario("user1");
@@ -372,7 +390,6 @@ public class AssertTests {
 //		ctrl.seleccionarVideo("base");
 //		JTree comentarios = ctrl.mostrarComentarios();
 //		JTree esperados = new JTree();
-		
 
 	}
 }
