@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,7 +87,15 @@ public abstract class Lista {
 	}
 	
 	public void addVideo(Video video) {
-		this.videos.put(video.getNombre(), video);
+		if (!this.videos.containsKey(video.getNombre())) {
+			this.videos.put(video.getNombre(), video);
+			video.setCantidadConsultas(1);
+			video.setFechaUltimaConsulta(new Date());
+		}
+		else {
+			video.setCantidadConsultas(video.getCantidadConsultas() + 1);
+			video.setFechaUltimaConsulta(new Date());
+		}
 	}
 	public DtLista getDt() {
 		DtLista dtl;

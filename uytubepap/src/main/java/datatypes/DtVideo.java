@@ -21,6 +21,8 @@ public class DtVideo {
 	private Integer duracion;	
 	private String categoria;	
 	private Date fechaPub;	
+	private Date fechaUltimaConsulta;
+	private Integer cantidadConsultas;
 	private String url;
 	@XmlTransient
 	private JTree comentarios;
@@ -32,7 +34,7 @@ public class DtVideo {
 		super();
 	}
 	public DtVideo(int id,String nombre, Boolean privado, String canal, String descripcion, Integer duracion, String categoria,
-			Date fechaPub, String url) {
+			Date fechaPub, String url, Integer cantidadConsultas, Date fechaUltima) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -43,6 +45,8 @@ public class DtVideo {
 		this.categoria = categoria;
 		this.fechaPub = fechaPub;
 		this.url = url;
+		this.cantidadConsultas = cantidadConsultas;
+		this.fechaUltimaConsulta = fechaUltima;
 		this.valoracionesPositivas = new ArrayList<String>();
 		this.valoracionesNegativas = new ArrayList<String>();
 	}
@@ -166,6 +170,18 @@ public class DtVideo {
 		DtVideo video = (DtVideo) o;
 		
 		return nombre.equals(video.nombre) && descripcion.equals(video.descripcion) && duracion == video.duracion && categoria.equals(video.categoria) && url.equals(video.url) && fechaPub == video.fechaPub;
+	}
+	public Date getFechaUltimaConsulta() {
+		return fechaUltimaConsulta;
+	}
+	public void setFechaUltimaConsulta(Date fechaUltimaConsulta) {
+		this.fechaUltimaConsulta = fechaUltimaConsulta;
+	}
+	public Integer getCantidadConsultas() {
+		return cantidadConsultas;
+	}
+	public void setCantidadConsultas(Integer cantidadConsultas) {
+		this.cantidadConsultas = cantidadConsultas;
 	}
 
 }

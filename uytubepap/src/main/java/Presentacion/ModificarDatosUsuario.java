@@ -520,7 +520,7 @@ public class ModificarDatosUsuario extends JInternalFrame {
 					DtVideo video = new DtVideo(0, textFieldNombreVideo.getText(), chckbxPrivadoVideo.isSelected(),
 							canalAModificar.getNombre(), textAreaDescripcionVideo.getText(),
 							Integer.parseInt(textFieldDuracion.getText()), categoriaVideo, fechaPub,
-							textFieldURL.getText());
+							textFieldURL.getText(), 0, null);
 					if (vidAModificar != video && !error)
 						controller.editarVideo(video);
 				}

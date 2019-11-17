@@ -26,6 +26,8 @@ public class Video {
 	private String url;
 	private Date fechaPub;
 	private String descripcion;
+	private Date fechaUltimaConsulta;
+	private Integer cantidadConsultas = 0;
 	private Integer duracion;
 	@ManyToOne
 	private Categoria categoria;
@@ -165,7 +167,7 @@ public class Video {
 			s = this.categoria.getNombre();
 		}
 		DtVideo dtv = new DtVideo(this.id, this.nombre, this.privado, null, this.descripcion, this.duracion, s,
-				this.fechaPub, this.url);
+				this.fechaPub, this.url,this.cantidadConsultas, this.fechaUltimaConsulta);
 		dtv.setComentarios(getElPutoTree());
 		List<Usuario_Video> valoraciones = this.valoraciones;
 		if (this.valoraciones != null) {
@@ -231,7 +233,7 @@ public class Video {
 		if (this.categoria != null) {
 			s = this.categoria.getNombre();
 		}
-		DtVideo dtv = new DtVideo(this.id, this.nombre, this.privado, null, this.descripcion, this.duracion, s,this.fechaPub, this.url);
+		DtVideo dtv = new DtVideo(this.id, this.nombre, this.privado, null, this.descripcion, this.duracion, s,this.fechaPub, this.url, this.cantidadConsultas, this.fechaUltimaConsulta);
 		dtv.setCom(theFakeTree());
 		List<Usuario_Video> valoraciones = this.valoraciones;
 		if (this.valoraciones != null) {
@@ -246,5 +248,21 @@ public class Video {
 		}
 
 		return dtv;
+	}
+
+	public Date getFechaUltimaConsulta() {
+		return fechaUltimaConsulta;
+	}
+
+	public void setFechaUltimaConsulta(Date ultimaFechaConsulta) {
+		this.fechaUltimaConsulta = ultimaFechaConsulta;
+	}
+
+	public Integer getCantidadConsultas() {
+		return cantidadConsultas;
+	}
+
+	public void setCantidadConsultas(Integer cantidadConsultas) {
+		this.cantidadConsultas = cantidadConsultas;
 	}
 }
