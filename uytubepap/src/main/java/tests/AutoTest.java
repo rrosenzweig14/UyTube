@@ -242,7 +242,14 @@ public class AutoTest {
 	
 	@Test
 	public void finCasoUso() {
-		//Â¿revisar que queden vacios los atributos del controlador?
+		Controlador.finCasoUso();
+		boolean resObtenido = Constrolador.user1.equals(Contorlador.user2);
+		resObtenido= resObtenido && (Controlador.video==null);
+		resObtenido= resObtenido && (Controlador.comentarioSeleccionado==null);
+		resObtenido= resObtenido && (Controlador.lista==null);
+		resObtenido= resObtenido && (Controlador.canal==null);
+		resObtenido= resObtenido && (Controlador.categoria1==null)
+		assertEquals(true,resObtenido);	
 	}
 	
 	@Test
