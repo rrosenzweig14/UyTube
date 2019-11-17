@@ -202,8 +202,12 @@ public class AutoTest {
 	
 	@Test
 	public void modificarListaParticular() {
-		//cambiar una categoria
-		//verificar que sea lo esperado
+		DtLista ListaS=ListaR;
+		ListaS.setCategoria('Musical');
+		Controlador.modificarListaParticular(ListaR, ListaS);
+		boolean resObtenido findLista().equals(ListasS);
+		
+		assertEquals(true,resObtenido);	
 	}
 	
 	@Test
