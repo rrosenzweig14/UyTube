@@ -228,8 +228,15 @@ public class AutoTest {
 	
 	@Test
 	public void buscarListasPublicas() {
-		//buscar una de las listas publicas
-		//verificar que devuelve esa lista publica
+		public void buscarListasPublicas() {
+		ArrayList<DtLista> resObtenidoA Controlador.buscarListasPublicas('Lista Ro');
+		ArrayList<DtLista> resEsperadoA = new ArrayList<DtLista>();
+		resEsperadoA.add(ListaR);
+		
+		boolean resObtenido= resObtenidoA.equals(resEsperadoA);
+
+		assertEquals(true,resObtenido);	
+	}
 	}
 	
 	@Test
