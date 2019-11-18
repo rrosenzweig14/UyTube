@@ -437,6 +437,9 @@ public class Controlador implements IControlador {
 		Categoria catVieja = null;
 		Categoria catNueva = null;
 		Conexion.beginTransaction();
+		if (canal == null) {
+			canal = user1.getCanal();
+		}
 		lista = canal.getListasReproduccion().get(listaSeleccionada.getNombre());
 		canal.getListasReproduccion().remove(lista.getNombre());
 
