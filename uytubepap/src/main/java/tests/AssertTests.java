@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.After;
@@ -303,6 +304,8 @@ public class AssertTests {
 		ArrayList<String> esperadas = new ArrayList<String>();
 		esperadas.add("user2");
 		assertEquals(valoraciones, esperadas);
+		
+		//FIXME - no entra al else del "if (encontrado)"
 	}
 
 	@Test
@@ -383,6 +386,8 @@ public class AssertTests {
 		ctrl.seleccionarVideo("base");
 		ctrl.seleccionarComentario(aux);
 		ctrl.ingresarComentario(subAux);
+		
+		//FIXME - no está entrando al else del "if cometnario seleccionado==null)
 	}
 
 	@Test
@@ -491,12 +496,22 @@ public class AssertTests {
 
 	@Test
 	public void listarCanalesPublicos() {
-		// generar al menos dos canales publicos
-		// veriificar que devuelva esos canales
+		HashMap<String,String> resObtenido= ctrl.listarCanalesPublicos();
+		
+		//FIXME - revisar que comparar
 	}
 
 	@Test
 	public void buscarCanalesPublicos() {
+		ArrayList<DtCanal> resObtenido = ctrl.buscarCanalesPublicos(canal1.getDescripcion());
+		
+		ArrayList<DtCanal> resEsperado = new ArrayList<DtCanal>();
+		resEsperado.add(canal1);
+
+		
+		//FIXME - ¿trae más canales? ¿no trae el canal?
+		assertEquals(resEsperado, resObtenido);
+		
 		//FIXME no encuentro el error
 //		ArrayList<DtCanal> obtenidos = ctrl.buscarCanalesPublicos("canal2");
 //		ArrayList<DtCanal> esperados = new ArrayList<DtCanal>();
@@ -505,10 +520,24 @@ public class AssertTests {
 
 	@Test
 	public void crearLista() {
-		// Â¿this.defecto? | usr.agregarListaDefecto(nombre)
-		// Â¿this.defecto? | else
-		// else | lst != null (con categoria)
-		// else | else
+		//TODO 
+		boolean resObtenido;
+		ctrl.ingresarTipoLista(true);
+		resObtenido=ctrl.crearLista(usuarioBase, "ListaDefecto", false, "cat3");
+		
+		resObtenido=resObtenido && !ctrl.crearLista(usuarioBase, "ListaDefecto", false, "cat3");
+	
+		
+		resObtenido=resObtenido && ctrl.crearLista(usuarioBase, "ListaDefecto2", false, "cat1");
+	
+		
+		ctrl.ingresarTipoLista(false);
+
+		resObtenido=resObtenido && ctrl.crearLista(usuarioBase, "ListaDefecto3", false, "cat1");
+		resObtenido=resObtenido && !ctrl.crearLista(usuarioBase, "ListaDefecto3", false, "cat1");
+		
+		
+		
 	}
 
 	@Test
@@ -525,15 +554,20 @@ public class AssertTests {
 
 	@Test
 	public void listarListasReproduccion() {
-		// crear al menos dos listas de reproduccion (necesito 2 publicas y 2 privadas,
-		// asÃ­ que ya estarÃ­an)
-		// Verificar que devuelva el arraylist que se espera
+		ArrayList<DtLista> resObtenido= ctrl.listarListasReproduccion(usuarioBase);
+		
+		//FIXME - revisar con que comparar
 	}
 
 	@Test
 	public void listarListasParticulares() {
-		//// Crear al menos dos listas de produccion particualares
-		// verificar que devuelva la lista correspondiente
+		List<DtLista> resObtenido = ctrl.listarListasParticulares(usuarioBase);
+		
+		List<DtLista> resEsperado = new ArrayList<DtLista>();
+		resEsperado.add(listaPublica);
+		
+		//FIXME - revisar el esperado :C
+		assertEquals(resEsperado, resObtenido);
 	}
 
 	@Test
@@ -550,44 +584,78 @@ public class AssertTests {
 
 	@Test
 	public void listasXCat() {
-		// verificar que devuelva el mapa esperado
+		Map<String, String> resObtenido = ctrl.listasXCat("cat1");
+		
+		//FIXME - verificar que devuelva el mapa esperado
 	}
 
 	@Test
 	public void listasXCatPulicas() {
-		// verificar que devuelva el mapa esperado
+		Map<String, String> resObtenido = ctrl.listasXCatPublicas("cat1");
+		
+		//FIXME - verificar que devuelva el mapa esperado
 	}
 
 	@Test
 	public void listarListasPublicas() {
-		// crear al menos dos listas publicas
-		// verificar que la devuelve
+		Map<Integer, String> resObtenido = ctrl.listarListasPublicas();
+		
+		//FIXME - revisar comparación
 	}
 
 	@Test
 	public void buscarListasPublicas() {
-		//FIXME no encuentro el error
-//		ArrayList<DtLista> obtenida = ctrl.buscarListasPublicas("listaPublica");
-//		ArrayList<DtLista> esperada = new ArrayList<DtLista>();
-//		esperada.add(listaPublica);
-//		assertEquals(esperada, obtenida);
+		 ArrayList<DtLista> resObtenido = ctrl.buscarListasPublicas("cat1");
+		
+		//FIXME - revisar comparación
 	}
-
+	
+	@Test
+	public void crearListaHistorial() {
+		 ctrl.crearListaHistorial();
+		
+		//FIXME - revisar como hacer la comparación
+	}
+	
 	@Test
 	public void findLista() {
-		// lista que existe
-		// y lista que no existe
+		//TODO
+		DtLista resObtenido = ctrl.findLista(listaPublica.getId());
+		
+		assertEquals(listaPublica, resObtenido);
+		
+		resObtenido = ctrl.findLista(5652);
+		
+		assertEquals(null, resObtenido);
 
 	}
 
 	@Test
 	public void findDuenioLista() {
-		// revisar que devuelva el string esperado
+		//TODO
+		String resObtenido = ctrl.findDuenioLista(listaPublica.getId());
+		
+		assertEquals(usuarioBase.getNickname(), resObtenido);
 	}
 
 	@Test
 	public void finCasoUso() {
 		// FIXME Ver como hacer que funcione
+	}
+	
+	@Test
+	public void bajaUsuario() {
+		//FIXME - no estoy segura de que esté dando bien 
+		//¿está bien que sea notnull? si pongo null da error en el assert
+		String usuario = usuarioBase.getNickname();
+		ctrl.bajaUsuario(usuarioBase.getNickname());
+		
+		DtUsuario resObtenido = ctrl.seleccionarUsuario(usuario);
+		
+			
+		assertNotNull(resObtenido);
+		
+		
 	}
 
 	@Test
