@@ -217,4 +217,10 @@ public class Usuario {
 		valoraciones.add(val);
 	}
 	
+	public UsuarioEliminado crearEliminado() {
+		String[] videos = (String[]) this.canal.getListaVideos().keySet().toArray();
+		String[] listas = (String[]) this.canal.getListasReproduccion().keySet().toArray();
+		return new UsuarioEliminado(this.nickname,this.email,this.nombre,this.apellido,this.fechaNac,new Date(), this.img, this.canal.getNombre(), videos, listas);
+	}
+	
 }

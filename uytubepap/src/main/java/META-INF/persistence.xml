@@ -10,6 +10,7 @@
 		<class>logica.Usuario</class>
 		<class>logica.Usuario_Video</class>
 		<class>logica.Video</class>
+		<class>logica.UsuarioEliminado</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/UYTUBE"/>
 			<property name="javax.persistence.jdbc.user" value="usuario"/>
