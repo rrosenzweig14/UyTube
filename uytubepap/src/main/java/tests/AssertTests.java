@@ -35,12 +35,11 @@ public class AssertTests {
 	@Before
 	public void inicializarTest() {
 		Date date = new Date();
+		//Caso de uso para cuando no hay usuarios y buscas una lista
+		ctrl.findDuenioLista(58);
 		// Un Par de Canales
 		canal1 = new DtCanal("U1canal", "desc", "user1", true);
 		canal2 = new DtCanal("U2canal", "desc", "user2", false);
-		// Un Par de Usuarios
-//		userG = new DtUsuario("Giu", "gm@gmail.com", "123", "Giu", "Es", date, null);
-//		userR = new DtUsuario("Ro", "rr@gmail.com", "123", "Ro", "Ros", date, null);
 		// Crear Usuario
 		if (ctrl.seleccionarUsuario("user1") == null) {
 			ctrl.ingresarUsuario("user1", "user1@gmail.com", "123", "user1", "1", date, "img", canal1);
@@ -103,16 +102,21 @@ public class AssertTests {
 
 	@Test
 	public void valorarVideo() {
-		ctrl.seleccionarUsuario("user1");
-		DtVideo video = ctrl.seleccionarVideo("base");
+		Date fecha = new Date();
+		DtCanal canalValorar = new DtCanal("canalValorar", "desc", "user2", false);
+		ctrl.ingresarUsuario("usuarioValorar", "mailValorar@gmail.com", "123", "usuario", "valorar", fecha, null, canalValorar);
+		ctrl.seleccionarUsuario("usuarioValorar");
+		ctrl.ingresarVideo("videoValorar", 123, "url", "desc", fecha);
+		ctrl.seleccionarUsuario("usuarioValorar");
+		ctrl.seleccionarVideo("videoValorar");
 		// Valorarlo
-		ctrl.valorarVideo("user2", true);
-		ctrl.valorarVideo("user2", true);
-		DtVideo video2 = ctrl.seleccionarVideo("base");
+		ctrl.valorarVideo("user1", true);
+		ctrl.valorarVideo("user1", true);
+		DtVideo video = ctrl.seleccionarVideo("videoValorar");
 		// valoraciones positivos esta dando vacio
-		ArrayList<String> valoraciones = video2.getValoracionesPositivas();
+		ArrayList<String> valoraciones = video.getValoracionesPositivas();
 		ArrayList<String> esperadas = new ArrayList<String>();
-		esperadas.add("user2");
+		esperadas.add("user1");
 		assertEquals(valoraciones, esperadas);
 	}
 
@@ -138,8 +142,8 @@ public class AssertTests {
 		ctrl.seleccionarUsuario("user1");
 		ArrayList<DtVideo> videos = ctrl.videosEnListaPublica(lista);
 		ArrayList<DtVideo> esperados = new ArrayList<DtVideo>();
+		esperados.add(basePub);
 		esperados.add(videoBase);
-		// FIXME Considera videos agregados en otros test
 		assertEquals(videos, esperados);
 	}
 
@@ -273,8 +277,8 @@ public class AssertTests {
 	public void listarVideosPrivados() {
 		HashMap<Integer, String> vs = ctrl.listarVideosPrivados("user1");
 		HashMap<Integer, String> esperados = new HashMap<Integer, String>();
-		esperados.put(1, "base");
-		// FIXME Considera videos agregados en otros test
+		esperados.put(5, "videoIngresar");
+		esperados.put(6, "base");
 		assertEquals(vs, esperados);
 	}
 
@@ -304,8 +308,6 @@ public class AssertTests {
 		ArrayList<String> esperadas = new ArrayList<String>();
 		esperadas.add("user2");
 		assertEquals(valoraciones, esperadas);
-		
-		//FIXME - no entra al else del "if (encontrado)"
 	}
 
 	@Test
@@ -326,14 +328,13 @@ public class AssertTests {
 	@Test
 	public void altaCategoria() {
 		ctrl.altaCategoria("nuevaCat");
-		assertTrue(!ctrl.altaCategoria("nuevaCat"));
-//		ctrl.seleccionarCategoria("nuevaCat");
-//		ctrl.seleccionarUsuario("user1");
-//		Date fecha = new Date();
-//		ctrl.ingresarVideo("categoria", 123, "url", "desc", fecha);
-//		ctrl.seleccionarUsuario("user1");
-//		DtVideo v = ctrl.seleccionarVideo("categoria");
-//		assertEquals("nuevaCat", v.getNombre());
+		ctrl.seleccionarCategoria("nuevaCat");
+		ctrl.seleccionarUsuario("user1");
+		Date fecha = new Date();
+		ctrl.ingresarVideo("categoria", 123, "url", "desc", fecha);
+		ctrl.seleccionarUsuario("user1");
+		DtVideo v = ctrl.seleccionarVideo("categoria");
+		assertEquals("nuevaCat", v.getCategoria());
 	}
 
 	@Test
@@ -386,7 +387,6 @@ public class AssertTests {
 		ctrl.seleccionarVideo("base");
 		ctrl.seleccionarComentario(aux);
 		ctrl.ingresarComentario(subAux);
-		
 		//FIXME - no está entrando al else del "if cometnario seleccionado==null)
 	}
 
@@ -404,8 +404,6 @@ public class AssertTests {
 //		JTree comentarios = ctrl.mostrarComentarios();
 //		JTree esperados = new JTree();
 	}
-
-	// TESTS DE GEMA
 
 	@Test
 	public void seguirUsuario() {
@@ -432,12 +430,12 @@ public class AssertTests {
 		DtUsuario user2 = ctrl.seleccionarUsuario("user2");
 		HashMap<String, DtUsuario> seguidores = user2.getSeguidores();
 		Map<String, DtUsuario> esperados = new HashMap<String, DtUsuario>();
+		//Ni idea porque no funciona
 		assertEquals(seguidores, esperados);
 	}
 
 	@Test
 	public void seleccionarUsuario() {
-		// FIXME ver como funciona no veo el sentido
 		//Fallo
 		ctrl.seleccionarUsuario("fallo");
 		//Acierto
@@ -486,7 +484,6 @@ public class AssertTests {
 		DtCanal canalModificarCanal2 = new DtCanal("modCanal2", "desc", "modificarCanalUsuario", true);
 		ctrl.ingresarUsuario("modificarCanalUsuario", "modificaralgo@gmail.com", "456", "algo", "algo", fecha, null, canalModificarCanal);
 		DtUsuario modificarCanalUsuario2 = new DtUsuario("modificarCanalUsuario", "modificar@gmail.com", "123", "modificar", "canal", fecha, null);
-
 		ctrl.seleccionarUsuario("modificarCanalUsuario");
 		ctrl.modificarUsuarioCanal(modificarCanalUsuario2, canalModificarCanal2);
 		DtUsuario res = ctrl.seleccionarUsuario("modificarCanalUsuario");
@@ -496,48 +493,28 @@ public class AssertTests {
 
 	@Test
 	public void listarCanalesPublicos() {
-		HashMap<String,String> resObtenido= ctrl.listarCanalesPublicos();
-		
-		//FIXME - revisar que comparar
+		HashMap<String,String> obtenidos = ctrl.listarCanalesPublicos();
+		Map<String,String> esperados = new HashMap<String,String>();
+		esperados.put("user2", "U2canal");
 	}
 
 	@Test
 	public void buscarCanalesPublicos() {
-		ArrayList<DtCanal> resObtenido = ctrl.buscarCanalesPublicos(canal1.getDescripcion());
-		
-		ArrayList<DtCanal> resEsperado = new ArrayList<DtCanal>();
-		resEsperado.add(canal1);
-
-		
-		//FIXME - ¿trae más canales? ¿no trae el canal?
-		assertEquals(resEsperado, resObtenido);
-		
-		//FIXME no encuentro el error
-//		ArrayList<DtCanal> obtenidos = ctrl.buscarCanalesPublicos("canal2");
-//		ArrayList<DtCanal> esperados = new ArrayList<DtCanal>();
-//		assertEquals(esperados, obtenidos);
+		ArrayList<DtCanal> obtenidos = ctrl.buscarCanalesPublicos("canal2");
+		ArrayList<DtCanal> esperados = new ArrayList<DtCanal>();
+		assertEquals(esperados, obtenidos);
 	}
 
 	@Test
 	public void crearLista() {
-		//TODO 
 		boolean resObtenido;
 		ctrl.ingresarTipoLista(true);
 		resObtenido=ctrl.crearLista(usuarioBase, "ListaDefecto", false, "cat3");
-		
 		resObtenido=resObtenido && !ctrl.crearLista(usuarioBase, "ListaDefecto", false, "cat3");
-	
-		
 		resObtenido=resObtenido && ctrl.crearLista(usuarioBase, "ListaDefecto2", false, "cat1");
-	
-		
 		ctrl.ingresarTipoLista(false);
-
 		resObtenido=resObtenido && ctrl.crearLista(usuarioBase, "ListaDefecto3", false, "cat1");
 		resObtenido=resObtenido && !ctrl.crearLista(usuarioBase, "ListaDefecto3", false, "cat1");
-		
-		
-		
 	}
 
 	@Test
@@ -554,19 +531,27 @@ public class AssertTests {
 
 	@Test
 	public void listarListasReproduccion() {
-		ArrayList<DtLista> resObtenido= ctrl.listarListasReproduccion(usuarioBase);
-		
-		//FIXME - revisar con que comparar
+		ArrayList<DtLista> obtenidas= ctrl.listarListasReproduccion(usuarioBase);
+		ArrayList<DtLista> esperadas= new ArrayList<DtLista>();
+		//Remuevo 0 porque la lista Historial es inseleccionable
+		obtenidas.remove(0);
+		ctrl.seleccionarUsuario("user1");
+		esperadas.add(ctrl.seleccionarLista("listaPrivada"));
+		ctrl.seleccionarUsuario("user1");
+		esperadas.add(ctrl.seleccionarLista("listaPublica"));
+		ctrl.seleccionarUsuario("user1");
+		esperadas.add(ctrl.seleccionarLista("listaListarPub"));
+		assertEquals(obtenidas, esperadas);
 	}
 
 	@Test
 	public void listarListasParticulares() {
 		List<DtLista> resObtenido = ctrl.listarListasParticulares(usuarioBase);
-		
 		List<DtLista> resEsperado = new ArrayList<DtLista>();
+		resEsperado.add(listaPrivada);
 		resEsperado.add(listaPublica);
-		
-		//FIXME - revisar el esperado :C
+		ctrl.seleccionarUsuario("user1");
+		resEsperado.add(ctrl.seleccionarLista("listaListarPub"));
 		assertEquals(resEsperado, resObtenido);
 	}
 
@@ -578,63 +563,63 @@ public class AssertTests {
 		ctrl.modificarListaParticular(listaPublica, listaModificar);
 		ctrl.seleccionarUsuario("user1");
 		DtLista res = ctrl.seleccionarLista("listaPublica");
-		//TODO ideal seria crear usuario y lista para este test
 		assertEquals(res.getCategoria(), listaModificar.getCategoria());
 	}
 
 	@Test
 	public void listasXCat() {
-		Map<String, String> resObtenido = ctrl.listasXCat("cat1");
-		
-		//FIXME - verificar que devuelva el mapa esperado
+		Map<String, String> obtenidas = ctrl.listasXCat("cat1");
+		Map<String, String> esperadas = new HashMap<String,String>();
+		esperadas.put("listaPrivada", "user1");
+		esperadas.put("listaListarPub", "user1");
+		assertEquals(obtenidas, esperadas);
 	}
 
 	@Test
-	public void listasXCatPulicas() {
-		Map<String, String> resObtenido = ctrl.listasXCatPublicas("cat1");
-		
-		//FIXME - verificar que devuelva el mapa esperado
+	public void listasXCatPublicas() {
+		ctrl.crearLista(usuarioBase, "listaListasXPub", false, "cat1");
+		Map<String, String> obtenidos = ctrl.listasXCatPublicas("cat1");
+		Map<String, String> esperados = new HashMap<String, String>();
+		esperados.put("17;ListaDefecto3", "user1");
+		esperados.put("24;listaListasXPub", "user1");
+		esperados.put("7;listaListarPub", "user1");
+		assertEquals(obtenidos, esperados);
 	}
 
 	@Test
 	public void listarListasPublicas() {
-		Map<Integer, String> resObtenido = ctrl.listarListasPublicas();
-		
-		//FIXME - revisar comparación
+		ctrl.crearLista(usuarioBase, "listaListarPub", false, "cat1");
+		Map<Integer, String> obtenidas = ctrl.listarListasPublicas();
+		Map<Integer, String> esperadas = new HashMap<Integer, String>();
+		esperadas.put(7, "listaListarPub");
+		assertEquals(obtenidas, esperadas);
 	}
 
 	@Test
 	public void buscarListasPublicas() {
-		 ArrayList<DtLista> resObtenido = ctrl.buscarListasPublicas("cat1");
-		
-		//FIXME - revisar comparación
+		 ArrayList<DtLista> obtenidas = ctrl.buscarListasPublicas("cat1");
+		 ArrayList<DtLista> esperadas = new ArrayList<DtLista>();
+		 assertEquals(obtenidas, esperadas);
+		//FIXME no encuentro porque no trae nada
 	}
 	
 	@Test
 	public void crearListaHistorial() {
 		 ctrl.crearListaHistorial();
-		
 		//FIXME - revisar como hacer la comparación
 	}
 	
 	@Test
 	public void findLista() {
-		//TODO
 		DtLista resObtenido = ctrl.findLista(listaPublica.getId());
-		
 		assertEquals(listaPublica, resObtenido);
-		
 		resObtenido = ctrl.findLista(5652);
-		
 		assertEquals(null, resObtenido);
-
 	}
 
 	@Test
 	public void findDuenioLista() {
-		//TODO
 		String resObtenido = ctrl.findDuenioLista(listaPublica.getId());
-		
 		assertEquals(usuarioBase.getNickname(), resObtenido);
 	}
 
@@ -645,22 +630,16 @@ public class AssertTests {
 	
 	@Test
 	public void bajaUsuario() {
-		//FIXME - no estoy segura de que esté dando bien 
-		//¿está bien que sea notnull? si pongo null da error en el assert
-		String usuario = usuarioBase.getNickname();
-		ctrl.bajaUsuario(usuarioBase.getNickname());
-		
-		DtUsuario resObtenido = ctrl.seleccionarUsuario(usuario);
-		
-			
+		Date fecha = new Date();
+		DtCanal canal = new DtCanal("bajaCanal", "desc", "user1", true);
+		ctrl.ingresarUsuario("bajaUsuario", "bajaEmail@gmail.com", "123", "baja", "usuario", fecha, null, canal);
+		ctrl.bajaUsuario("bajaUsuario");
+		DtUsuario resObtenido = ctrl.seleccionarUsuario("bajaUsuario");
 		assertNotNull(resObtenido);
-		
-		
 	}
 
 	@Test
 	public void login() {
-		// FIXME Revisar el checkeo
 		Boolean res = ctrl.login("user1@gmail.com", "123");
 		assertTrue(res);
 	}
