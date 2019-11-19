@@ -33,16 +33,21 @@ public class Handler {
 		EntityTransaction et = em.getTransaction();
 		et.begin();
 		Usuario us = em.find(Usuario.class, nick);
+		UsuarioEliminado ue = us.crearEliminado();
 		boolean res = false;
 		System.out.println(nick+"@@@@@@@@@@@@@@@@@@@@@@@@@");
 		if(us != null) {
 			System.out.println(nick+"USER NOT NULL@@@@@@@@@@@@@@@@@@@@@@@@@");
 			em.flush();
 			em.remove(us);
-			et.commit();
 			usuarios.remove(nick,us);
+			us= null;
 			res = true;			
 		}
+		et.commit();
+		Conexion.beginTransaction();
+		Conexion.persist(ue);
+		Conexion.commit();
 		return res;
 	
   	}
@@ -302,6 +307,25 @@ public class Handler {
 		EntityManager em = Conexion.getEm();
 		Lista l = em.find(Lista.class, id);
 		return l;
+	}
+	
+
+	public static ArrayList<String> listarEliminados(){
+		@SuppressWarnings("rawtypes")
+		List users = new ArrayList();		
+		users = Conexion.createQuery("SELECT u.nickname FROM UsuarioEliminado u");
+		ArrayList<String> names = new ArrayList<String>();
+		for(Object name: users) {
+			names.add((String)name);
+		}
+		return names;
+	}
+	
+	public static UsuarioEliminado findEliminado(String nick) {
+		UsuarioEliminado user;
+		EntityManager em = Conexion.getEm();
+		user = em.find(UsuarioEliminado.class, nick);	//se fija en DB
+		return user;
 	}
 	
 }

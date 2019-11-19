@@ -15,6 +15,7 @@ import datatypes.DtCanal;
 import datatypes.DtComentario;
 import datatypes.DtLista;
 import datatypes.DtUsuario;
+import datatypes.DtUsuarioEliminado;
 import datatypes.DtVideo;
 import interfaces.IControlador;
 
@@ -728,6 +729,17 @@ public class Controlador implements IControlador {
 		this.ingresarTipoLista(true);
 		this.crearLista(null, "Historial", true, null);
 		this.finCasoUso();
+	}
+	
+	
+	public ArrayList<String> listarEliminados(){
+		return Handler.listarEliminados();
+	}
+	
+	public DtUsuarioEliminado findEliminado(String nick) {
+		UsuarioEliminado user = Handler.findEliminado(nick);
+		if(user != null) {return user.getDt();}
+		else {return null;}
 	}
 
 }

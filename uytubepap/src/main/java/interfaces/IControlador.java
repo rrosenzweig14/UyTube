@@ -13,6 +13,7 @@ import datatypes.DtCanal;
 import datatypes.DtComentario;
 import datatypes.DtLista;
 import datatypes.DtUsuario;
+import datatypes.DtUsuarioEliminado;
 import datatypes.DtVideo;
 import logica.Handler;
 
@@ -117,5 +118,9 @@ public interface IControlador {
 	public String findDuenioVideo(int id);
 	
 	public void crearListaHistorial();
+	
+	public ArrayList<String> listarEliminados();
+	
+	public DtUsuarioEliminado findEliminado(String nick);
 
 }

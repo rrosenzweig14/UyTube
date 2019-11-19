@@ -45,6 +45,7 @@ public class Principal extends JFrame {
 	private JMenuItem mntmConsultaVideo;
 	private JMenuItem mntmConsultaDeLista;
 	private JMenuItem mntmConsultaDeCategoria;
+	private JMenuItem mntmConsultaUsuarioEliminado;
 
 	private JMenu mnListados;
 	private JMenuItem mntmListarUsuariosExistentes;
@@ -90,6 +91,7 @@ public class Principal extends JFrame {
 	private QuitarVideoLista quitarVideoListaInternalFrame;
 	private ModificarVideo modificarDatosVideoInternalFrame;
 	private ValorarVideo ValorarVideoInternalFrame;
+	private UsuariosEliminados usuariosEliminadosInternalFrame;
 
 
 	/**
@@ -289,6 +291,21 @@ public class Principal extends JFrame {
 				}
 			});
 			mnConsultas.add(mntmConsultaDeCategoria);
+
+			mntmConsultaUsuarioEliminado = new JMenuItem("Usuarios Eliminados");
+			mntmConsultaUsuarioEliminado.setIcon(new ImageIcon("././img/Icons/search.png"));
+			mntmConsultaUsuarioEliminado.setFont(new Font("Dialog", Font.BOLD, 15));
+			mntmConsultaUsuarioEliminado.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					usuariosEliminadosInternalFrame = new UsuariosEliminados(ctrl);
+					usuariosEliminadosInternalFrame.setBounds(100, 100, 796, 329);				
+					usuariosEliminadosInternalFrame.fillUsers();
+					usuariosEliminadosInternalFrame.setVisible(true);
+					frame.getContentPane().add(usuariosEliminadosInternalFrame);
+				}
+			});			
+			mnConsultas.add(mntmConsultaUsuarioEliminado);
 
 			mnListados = new JMenu("Listados");
 			menuBar.add(mnListados);
