@@ -218,8 +218,19 @@ public class Usuario {
 	}
 	
 	public UsuarioEliminado crearEliminado() {
-		String[] videos = (String[]) this.canal.getListaVideos().keySet().toArray();
-		String[] listas = (String[]) this.canal.getListasReproduccion().keySet().toArray();
+		Object[] videosObj = (Object[]) this.canal.getListaVideos().keySet().toArray();
+		Object[] listasObj = (Object[]) this.canal.getListasReproduccion().keySet().toArray();
+		
+		Integer largo = videosObj.length;
+		String[] videos = new String[largo];
+		for(Integer i = 0; i < largo;i++) 
+			videos[i] = videosObj[i].toString();
+		
+		largo = listasObj.length;
+		String[] listas = new String[largo];
+		for(Integer i = 0; i < largo;i++)
+			listas[i] = listasObj[i].toString();
+		
 		return new UsuarioEliminado(this.nickname,this.email,this.nombre,this.apellido,this.fechaNac,new Date(), this.img, this.canal.getNombre(), videos, listas);
 	}
 	
