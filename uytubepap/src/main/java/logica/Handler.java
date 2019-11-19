@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Iterator;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import datatypes.DtCanal;
 import datatypes.DtLista;
@@ -29,10 +30,17 @@ public class Handler {
 	
   	public static boolean bajaUsuario(String nick) {
 		EntityManager em = Conexion.getEm();
-		Usuario us = findUsuario(nick);
+		EntityTransaction et = em.getTransaction();
+		et.begin();
+		Usuario us = em.find(Usuario.class, nick);
 		boolean res = false;
+		System.out.println(nick+"@@@@@@@@@@@@@@@@@@@@@@@@@");
 		if(us != null) {
+			System.out.println(nick+"USER NOT NULL@@@@@@@@@@@@@@@@@@@@@@@@@");
+			em.flush();
 			em.remove(us);
+			et.commit();
+			usuarios.remove(nick,us);
 			res = true;			
 		}
 		return res;
@@ -47,7 +55,7 @@ public class Handler {
 			}
 		}
 		if(usuario == null) {
-			String query = "SELECT u FROM Usuario u WHERE u.email = '" + email + "'";
+			String query = "SELECT u FROM Usuario u WHERE baja <> null and u.email = '" + email + "'";
 			//Conexion.open();
 			try {
 				usuario = (Usuario) Conexion.getEm().createQuery(query).getResultList().get(0);

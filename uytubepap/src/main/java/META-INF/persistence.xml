@@ -10,11 +10,10 @@
 		<class>logica.Usuario</class>
 		<class>logica.Usuario_Video</class>
 		<class>logica.Video</class>
-		<class>logica.UsuarioEliminado</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/UYTUBE"/>
-			<property name="javax.persistence.jdbc.user" value="usuario"/>
-			<property name="javax.persistence.jdbc.password" value="contraseña"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Uytube"/>
+			<property name="javax.persistence.jdbc.user" value="postgres"/>
+			<property name="javax.persistence.jdbc.password" value="lapass"/>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
