@@ -29,27 +29,26 @@ public class Handler {
 	}
 	
   	public static boolean bajaUsuario(String nick) {
-		EntityManager em = Conexion.getEm();
-		EntityTransaction et = em.getTransaction();
-		et.begin();
-		Usuario us = em.find(Usuario.class, nick);
-		UsuarioEliminado ue = us.crearEliminado();
-		boolean res = false;
 		System.out.println(nick+"@@@@@@@@@@@@@@@@@@@@@@@@@");
+		boolean res = false;
+		EntityManager em = Conexion.getEm();
+		Usuario us = em.find(Usuario.class, nick);
 		if(us != null) {
-			System.out.println(nick+"USER NOT NULL@@@@@@@@@@@@@@@@@@@@@@@@@");
-			em.flush();
-			em.remove(us);
 			usuarios.remove(nick,us);
+			UsuarioEliminado ue = us.crearEliminado();			
+			EntityTransaction et = em.getTransaction();
+			et.begin();
+			us = em.find(Usuario.class, nick);
+			em.remove(us);
+			em.flush();
+			et.commit();
 			us= null;
-			res = true;			
+			res = true;	
+			Conexion.beginTransaction();
+			Conexion.persist(ue);
+			Conexion.commit();
 		}
-		et.commit();
-		Conexion.beginTransaction();
-		Conexion.persist(ue);
-		Conexion.commit();
-		return res;
-	
+		return res;	
   	}
 	
 	public static Usuario findUsuarioEM(String email) {
